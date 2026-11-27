@@ -1387,6 +1387,28 @@ test('Trust streaming page works its example, a third beneficiary and refuses en
   await expect(form.locator('output')).toContainText('cannot exceed the trust’s income');
 });
 
+// The return opens on a taxable employer's 4 benefits; a rebatable employer gets the s 65J rebate, contributions above the
+// gross taxable value are refused, and the quarter's varied instalment is 3 quarters of the estimate less earlier instalments.
+test('FBT return page works its example, the rebate, refuses inconsistent amounts and varies an instalment offline', async ({ page, context }) => {
+  await page.goto('/tools/business-calculators/fbt-return/');
+  const form = page.locator('#fbt-return form');
+  await waitForCalculator(form);
+  await context.setOffline(true);
+  await form.getByRole('button', { name: 'Calculate', exact: true }).click();
+  await expect(form.locator('output .result-row--principal')).toHaveText('Item 19, amount of tax payable: $18,735.61.');
+  await form.locator('[name="kind"]').selectOption('rebatable');
+  await form.getByRole('button', { name: 'Calculate', exact: true }).click();
+  await expect(form.locator('output .result-row--principal')).toHaveText('Item 19, amount of tax payable: $9,929.87.');
+  await expect(form.locator('output')).toContainText('$8,805.74');
+  await form.locator('[name="b1-contribution"]').fill('20000');
+  await form.getByRole('button', { name: 'Calculate', exact: true }).click();
+  await expect(form.locator('output')).toContainText('exceed the gross taxable value');
+  const instalment = page.locator('#fbt-instalment form');
+  await waitForCalculator(instalment);
+  await instalment.getByRole('button', { name: 'Calculate', exact: true }).click();
+  await expect(instalment.locator('output .result-row--principal')).toHaveText('Label 6A, FBT instalment: $1,000.00.');
+});
+
 test('ATO penalties and interest page works GIC by quarter, a failure to lodge penalty and refuses remission offline', async ({ page, context }) => {
   await page.goto('/tools/business-calculators/ato-penalties-interest/');
   const form = page.locator('#ato-penalties-interest form');
@@ -1916,7 +1938,7 @@ const CALCULATORS = ['gst', 'business-use', 'margin', 'break-even', 'hourly', 'f
   'div7a-schedule', 'division-296', 'payroll-tax', 'psi-determination', 'cgt-concessions',
   'franking-account', 'company-tax', 'salary-dividend', 'foreign-surcharge', 'business-days', 'sgc-payday', 'cgt', 'long-service-leave', 'unused-leave', 'borrowing-expenses',
   'workers-compensation', 'fuel-tax-credits', 'luxury-car-tax', 'super-benefit-tax', 'lease', 'gst-margin-scheme', 'wine-equalisation-tax', 'asic-fees', 'depreciation-pools', 'ato-penalties-interest', 'rental-property', 'rd-tax-offset', 'casual-overtime', 'contractor-employee',
-  'gst-adjustments', 'deferred-tax', 'sole-trader-company', 'payday-cashflow', 'tax-invoice', 'trust-streaming'];
+  'gst-adjustments', 'deferred-tax', 'sole-trader-company', 'payday-cashflow', 'tax-invoice', 'trust-streaming', 'fbt-return'];
 
 test.describe('before any script runs', () => {
   test.use({ javaScriptEnabled: false });

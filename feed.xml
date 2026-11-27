@@ -8,6 +8,13 @@
   <updated>2026-11-27T00:00:00Z</updated>
   <author><name>Ryan Duguid</name></author>
   <entry>
+    <title>A new business calculator, the FBT return, composes an employer’s FBT return…</title>
+    <link href="https://duguid.com.au/changelog/#entry-1c18d5bee04cd822" />
+    <id>https://duguid.com.au/changelog/#entry-1c18d5bee04cd822</id>
+    <updated>2026-11-27T00:00:00Z</updated>
+    <summary>A new business calculator, the FBT return, composes an employer’s FBT return from its benefits’ taxable values: the type 1 and type 2 gross-up at items 14 to 16, item 23, each employee’s reportable fringe benefits amount, a rebatable employer’s rebate under section 65J, the $30,000 and $17,000 caps of section 57A employers with the $5,000 entertainment cap, items 20 to 22 and a quarter’s FBT instalment, checked against the australian-accounting fbt-return and fbt-instalment commands on 775 cases.</summary>
+  </entry>
+  <entry>
     <title>The depreciation register distinguishes assets with the same name, shows the…</title>
     <link href="https://duguid.com.au/changelog/#entry-812e9c722d31e872" />
     <id>https://duguid.com.au/changelog/#entry-812e9c722d31e872</id>

@@ -8,6 +8,7 @@
 
 import { gstAdjustmentsTool } from './webmcp-gst-adjustments.mjs';
 import { soleTraderCompanyTool } from './webmcp-sole-trader-company.mjs';
+import { fbtInstalmentTool, fbtReturnTool } from './webmcp-fbt-return.mjs';
 
 /** @typedef {import('./webmcp-tools.mjs').ToolKit} ToolKit */
 /** @typedef {typeof import('./business-calculators.mjs')} BusinessCalculators */
@@ -204,7 +205,8 @@ export function trustStreamingTool(kit, trustStreaming, rows) {
  * @param {ToolKit} kit
  * @param {Pick<BusinessCalculators, 'rdTaxOffset' | 'RD_YEARS' | 'gstAdjustment' | 'percentFraction'
  *   | 'GST_WORKSHEETS' | 'GST_ADJUSTMENT_YEARS' | 'deferredTax' | 'DEFERRED_TAX_YEARS' | 'soleTraderCompany'
- *   | 'SOLE_TRADER_COMPANY_YEARS' | 'trustStreaming' | 'TRUST_STREAMING_ROWS'>} calculate
+ *   | 'SOLE_TRADER_COMPANY_YEARS' | 'trustStreaming' | 'TRUST_STREAMING_ROWS'
+ *   | 'fbtReturn' | 'ITEM_23' | 'FBT_EMPLOYER_KINDS' | 'fbtInstalment' | 'FBT_REASONS'>} calculate
  */
 export function businessCohortETools(kit, calculate) {
   return {
@@ -213,5 +215,7 @@ export function businessCohortETools(kit, calculate) {
     'deferred-tax': deferredTaxTool(kit, calculate.deferredTax, calculate.DEFERRED_TAX_YEARS),
     'sole-trader-company': soleTraderCompanyTool(kit, calculate.soleTraderCompany, calculate.SOLE_TRADER_COMPANY_YEARS),
     'trust-streaming': trustStreamingTool(kit, calculate.trustStreaming, calculate.TRUST_STREAMING_ROWS),
+    'fbt-return': fbtReturnTool(kit, calculate.fbtReturn, calculate.ITEM_23, calculate.FBT_EMPLOYER_KINDS),
+    'fbt-instalment': fbtInstalmentTool(kit, calculate.fbtInstalment, calculate.FBT_REASONS),
   };
 }

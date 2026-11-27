@@ -578,7 +578,8 @@ const fuelTaxCreditsTool = (fuelTaxCredits) => tool({
  *   | 'deferredTax' | 'DEFERRED_TAX_YEARS' | 'soleTraderCompany' | 'SOLE_TRADER_COMPANY_YEARS' | 'casualOvertime'
  *   | 'contractorEmployee' | 'CONTRACTOR_YEARS' | 'paydayCashflow' | 'taxInvoice' | 'TREATMENTS' | 'MAX_LINES'
  *   | 'trustStreaming' | 'TRUST_STREAMING_ROWS' | 'businessCapitalExpenditure' | 'BLACKHOLE_YEARS'
- *   | 'companyTaxStatement'>} calculate */
+ *   | 'companyTaxStatement' | 'fbtReturn' | 'ITEM_23' | 'FBT_EMPLOYER_KINDS'
+ *   | 'fbtInstalment' | 'FBT_REASONS'>} calculate */
 export function calculatorTools(calculate) {
   return {
     gst: gstTool(calculate.gst),

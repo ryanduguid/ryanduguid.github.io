@@ -71,6 +71,8 @@ const cgt = { ...business, file: 'assets/cgt.mjs' };
 const lsl = { ...business, file: 'assets/long-service-leave.mjs' };
 const salaryDividend = { ...business, file: 'assets/salary-dividend.mjs' };
 const soleTraderCompanyEngine = { ...business, file: 'assets/sole-trader-company.mjs' };
+const fbtReturnEngine = { ...business, file: 'assets/fbt-return.mjs' };
+const fbtInstalmentEngine = { ...business, file: 'assets/fbt-instalment.mjs' };
 const leaseEngine = { ...business, file: 'assets/lease.mjs' };
 const ftc = { ...business, file: 'assets/fuel-tax-credits.mjs' };
 const pools = { ...business, file: 'assets/depreciation-pools.mjs' };
@@ -873,6 +875,22 @@ const MUTATIONS = [
   { ...soleTraderCompanyEngine, name: 'sole trader against company lets the dividend exceed the profit after tax', find: 'if (takenOut - salary > afterTax) {', replace: 'if (takenOut - salary > taxable) {' },
   { ...soleTraderCompanyEngine, name: 'sole trader against company always applies the small business offset', find: 'offset: s.offset, studyLoan', replace: 'offset: true, studyLoan' },
   { ...soleTraderCompanyEngine, name: 'sole trader against company leaves out the super tax', find: 'const total = companyTaxed + salaryTax + topUp + superTax;', replace: 'const total = companyTaxed + salaryTax + topUp;' },
+  { ...fbtReturnEngine, name: 'FBT type 1 gross-up rate off by one in its divisor', find: 'const ONE = [57000n, 27401n];', replace: 'const ONE = [57000n, 27400n];' },
+  { ...fbtReturnEngine, name: 'FBT type 2 gross-up taken at 1 / 0.52', find: 'const TWO = [100n, 53n];', replace: 'const TWO = [100n, 52n];' },
+  { ...fbtReturnEngine, name: 'FBT payable at 45%', find: 'const item16 = round((item14a + item14b) * 47n, 100n);', replace: 'const item16 = round((item14a + item14b) * 45n, 100n);' },
+  { ...fbtReturnEngine, name: 'FBT item 14A not rounded to the dollar', find: 'const item14a = grossDollars(typeOneValue, ONE);', replace: 'const item14a = grossCents(typeOneValue, ONE);' },
+  { ...fbtReturnEngine, name: 'FBT rebate at 50%', find: 'round((item16 - item17) * 47n * rebatable, 100n * employer)', replace: 'round((item16 - item17) * 50n * rebatable, 100n * employer)' },
+  { ...fbtReturnEngine, name: 'FBT rebate not apportioned by rebatable days', find: 'round((item16 - item17) * 47n * rebatable, 100n * employer)', replace: 'round((item16 - item17) * 47n, 100n)' },
+  { ...fbtReturnEngine, name: 'FBT item 17 leaves out the amount over the cap', find: 'const item17 = round(caps.total * 47n, 100n);', replace: 'const item17 = 0n;' },
+  { ...fbtReturnEngine, name: 'FBT s 57A item 14C not rounded to the dollar', find: 'const item14c = round(caps.total, 100n) * 100n;', replace: 'const item14c = caps.total;' },
+  { ...fbtReturnEngine, name: 'FBT $5,000 entertainment cap ignored', find: 'if (over > 0n) over = max0(over - (packaged < ENTERTAINMENT_CAP ? packaged : ENTERTAINMENT_CAP));', replace: '' },
+  { ...fbtReturnEngine, name: 'FBT cap counts car parking and meal entertainment', find: 'const disregarded = (b) => b.excluded && (b.label === \'23N\' || b.label === \'23P\' || b.entertainment === \'not_salary_packaged\');', replace: 'const disregarded = (b) => false;' },
+  { ...fbtReturnEngine, name: 'FBT reportable amount from $1,000', find: 'const THRESHOLD = 200000n;', replace: 'const THRESHOLD = 100000n;' },
+  { ...fbtReturnEngine, name: 'FBT reportable amount counts excluded benefits', find: 'const individual = sum(own.filter((b) => !b.excluded).map((b) => b.reportable));', replace: 'const individual = sum(own.map((b) => b.reportable));' },
+  { ...fbtReturnEngine, name: 'FBT item 22 credit not given', find: 'if (item19 < instalments) labels[22] = fbtMoney(instalments - item19);', replace: '' },
+  { ...fbtInstalmentEngine, name: 'FBT instalment share truncated', find: 'const share = (2n * estimate * FRACTIONS[quarter - 1] + 4n) / 8n;', replace: 'const share = (2n * estimate * FRACTIONS[quarter - 1]) / 8n;' },
+  { ...fbtInstalmentEngine, name: 'FBT instalment earlier credits not netted', find: 'const formula = share - (paid - credits);', replace: 'const formula = share - paid;' },
+  { ...fbtInstalmentEngine, name: 'FBT instalment excess not credited at 6B', find: 'const credit = formula < 0n ? -formula : 0n;', replace: 'const credit = 0n;' },
 
   { ...surcharges, name: 'the FIRB lower fee applies at $75,000', find: 'value < 75000 ?', replace: 'value <= 75000 ?' },
   { ...surcharges, name: 'an exact million pays the next FIRB step', find: 'Math.floor((value - 1) / f.constant)', replace: 'Math.floor(value / f.constant)' },
@@ -1432,6 +1450,7 @@ const SHARED = [
   'rates/maximum-contribution-base', 'rates/car-limit', 'tools/payday-super', 'llms.txt',
   '.well-known/llms.txt', '_layouts/calculator.html', 'scripts/fbt-engine-differential.json',
   'scripts/fbt-property-expense-engine-differential.json',
+  'scripts/fbt-return-engine-differential.json',
   'scripts/lump-sum-arrears-engine-differential.json',
   'scripts/income-tests-engine-differential.json',
   'scripts/income-tax-offsets-engine-differential.json',
