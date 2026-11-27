@@ -8,7 +8,7 @@
 // malformed or incomplete and must not be retried unchanged. Scope
 // refusals (the 400 class) live in calculate.mjs.
 
-import { MoneyError, parseMoney } from './money.mjs';
+import { parseMoney } from './money.mjs';
 
 export const BRANCHES = Object.freeze(['base_rate', 'annual_salary', 'casual']);
 // The engine's own frequency vocabulary, unchanged.
@@ -55,10 +55,8 @@ function requireMoney(object, key, field) {
   try {
     return parseMoney(object[key], `${field}.${key}`);
   } catch (issue) {
-    if (issue instanceof MoneyError) {
-      throw new ValidationError(issue.field, issue.code, issue.message);
-    }
-    throw issue;
+    // parseMoney refuses only with a MoneyError.
+    throw new ValidationError(issue.field, issue.code, issue.message);
   }
 }
 

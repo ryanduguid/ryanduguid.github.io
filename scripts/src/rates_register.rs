@@ -116,10 +116,7 @@ fn py_sorted(mut values: Vec<Json>) -> Result<Vec<Json>> {
         _ => None,
     };
     if values.iter().all(|v| matches!(v, Json::Str(_))) {
-        values.sort_by(|a, b| match (a, b) {
-            (Json::Str(a), Json::Str(b)) => a.cmp(b),
-            _ => Ordering::Equal,
-        });
+        values.sort_by(|a, b| a.as_str().cmp(&b.as_str()));
         return Ok(values);
     }
     if values.iter().all(|v| number(v).is_some()) {
@@ -910,5 +907,173 @@ mod tests {
         );
         assert!(py_sorted(vec![s("a"), Json::Int(1.into())]).is_err());
         assert!(py_sorted(vec![Json::Null]).is_ok());
+    }
+}
+
+#[cfg(test)]
+mod row_tests {
+    use super::*;
+
+    fn row(changes: &str) -> Json {
+        let mut text = String::from(
+            r#"{"row_id": "2023-07-01", "period_start": "2023-07-01", "period_end": null, "value": "2.7", "status": "superseded", "review": "automated-retrieval", "primary_source": {"title": "Regulations", "url": "https://www.legislation.gov.au/F2018L00217/latest/text", "publisher": "Federal Register of Legislation"}, "verified_at": "2026-09-18", "verified_by": "automated retrieval""#,
+        );
+        if !changes.is_empty() {
+            text.push_str(", ");
+            text.push_str(changes);
+        }
+        text.push('}');
+        pyjson::loads(&text).unwrap()
+    }
+
+    fn row_failures(changes: &str) -> Vec<String> {
+        let mut failures = Vec::new();
+        let today = Date::new(2026, 11, 27).unwrap();
+        check_row(&row(changes), "levy", today, &mut failures).unwrap();
+        failures
+    }
+
+    #[test]
+    fn a_row_id_that_is_not_a_slug_is_named() {
+        assert!(
+            row_failures(r#""row_id": "Not A Slug""#)
+                .contains(&"levy/Not A Slug: row_id is not a slug".to_owned())
+        );
+    }
+
+    fn row_error(changes: &str) -> String {
+        let mut failures = Vec::new();
+        let today = Date::new(2026, 11, 27).unwrap();
+        check_row(&row(changes), "levy", today, &mut failures).unwrap_err()
+    }
+
+    #[test]
+    fn a_source_url_python_cannot_split_stops_the_check() {
+        let primary =
+            r#""primary_source": {"title": "T", "url": "https://[::1/x", "publisher": "P"}"#;
+        assert_eq!(row_error(primary), "ValueError: Invalid IPv6 URL");
+        assert_eq!(
+            row_error(r#""cross_checks": ["https://[::1/x"]"#),
+            "ValueError: Invalid IPv6 URL"
+        );
+    }
+
+    #[test]
+    fn an_empty_userinfo_carries_no_credentials() {
+        let empty = r#""primary_source": {"title": "T", "url": "https://@www.legislation.gov.au/F2018L00217/latest/text", "publisher": "P"}"#;
+        assert_eq!(row_failures(empty), row_failures(""));
+    }
+
+    #[test]
+    fn a_check_date_is_not_compared_with_a_period_start_that_is_not_a_date() {
+        let failures = row_failures(r#""period_start": "2023-7-1", "verified_at": "2020-01-01""#);
+        assert_eq!(
+            failures,
+            ["levy/2023-07-01.period_start: '2023-7-1' is not a YYYY-MM-DD date".to_owned()]
+        );
+    }
+
+    #[test]
+    fn a_verified_row_with_an_unreadable_check_date_is_named_once() {
+        let failures = row_failures(r#""verified_at": "18 September 2026""#);
+        assert_eq!(
+            failures,
+            [
+                "levy/2023-07-01.verified_at: '18 September 2026' is not a YYYY-MM-DD date"
+                    .to_owned()
+            ]
+        );
+    }
+
+    /// The order failures of a series of live rows starting on each date, with or without ids;
+    /// superseded rows are not ordered.
+    fn order_failures(starts: &[&str], ids: bool) -> Vec<String> {
+        let rows: Vec<String> = starts
+            .iter()
+            .map(|start| {
+                let json = row(&format!(
+                    r#""period_start": "{start}", "status": "current""#
+                ));
+                let id = if ids {
+                    format!(r#""row_id": "{start}", "#)
+                } else {
+                    String::new()
+                };
+                pyjson::dumps(&json, pyjson::Dump::default()).replacen(
+                    r#""row_id": "2023-07-01", "#,
+                    &id,
+                    1,
+                )
+            })
+            .collect();
+        let dir = tempfile::tempdir().unwrap();
+        let path = dir.path().join("levy.json");
+        std::fs::write(
+            &path,
+            format!(r#"{{"series_id": "levy", "rows": [{}]}}"#, rows.join(", ")),
+        )
+        .unwrap();
+        let mut failures = Vec::new();
+        check_series(&path, &mut failures, Date::new(2026, 11, 27).unwrap()).unwrap();
+        failures.retain(|f| f.contains("not ordered"));
+        failures
+    }
+
+    #[test]
+    fn rows_out_of_order_are_named_only_when_their_ids_differ() {
+        let late_first = ["2024-07-01", "2023-07-01"];
+        assert_eq!(
+            order_failures(&late_first, true),
+            ["levy: rows are not ordered by period_start".to_owned()]
+        );
+        // Python compares the row_id lists; rows without ids give equal lists of None.
+        assert!(order_failures(&late_first, false).is_empty());
+        assert!(order_failures(&["2023-07-01", "2024-07-01"], true).is_empty());
+    }
+
+    #[test]
+    fn a_numeric_value_must_be_written_as_a_decimal_string() {
+        assert!(
+            row_failures(r#""value": 2.7"#)
+                .contains(&"levy/2023-07-01: value must be a decimal string, not 2.7".to_owned())
+        );
+    }
+
+    #[test]
+    fn a_series_that_cannot_be_read_is_reported_unreadable() {
+        let dir = tempfile::tempdir().unwrap();
+        let mut failures = Vec::new();
+        let today = Date::new(2026, 11, 27).unwrap();
+        check_series(&dir.path().join("missing.json"), &mut failures, today).unwrap();
+        assert_eq!(failures.len(), 1);
+        assert!(
+            failures[0]
+                .starts_with("missing.json: unreadable ([Errno 2] No such file or directory: "),
+            "{failures:?}"
+        );
+    }
+
+    #[test]
+    fn sums_skip_blank_lines_report_malformed_ones_and_keep_a_names_last_digest() {
+        let dir = tempfile::tempdir().unwrap();
+        std::fs::write(dir.path().join("a.txt"), "x\n").unwrap();
+        let right = crate::sha256(b"x\n");
+        let wrong = "0".repeat(64);
+        std::fs::write(
+            dir.path().join("SHA256SUMS"),
+            format!("\n{wrong}  a.txt\n{right}  a.txt\nnot a digest\n"),
+        )
+        .unwrap();
+        let mut failures = Vec::new();
+        check_sums(dir.path(), &mut failures).unwrap();
+        assert_eq!(
+            failures,
+            vec!["SHA256SUMS: malformed line 'not a digest'".to_owned()]
+        );
+    }
+
+    #[test]
+    fn only_an_object_has_keys() {
+        assert!(keys(&Json::Array(vec![])).is_empty());
     }
 }

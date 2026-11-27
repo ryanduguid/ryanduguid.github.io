@@ -65,6 +65,38 @@ fn unparseable_javascript_is_refused() {
 }
 
 #[test]
+fn a_parse_that_stops_early_is_refused_not_minified_to_nothing() {
+    // Oxc stops on each of these before the end of the source, and every such stop
+    // carries an error diagnostic, which is what `javascript` refuses on.
+    let mut fatal = 0;
+    for source in [
+        "function (",
+        "let x = \"open",
+        "if (a) {",
+        "/* open",
+        "class {",
+        "`${",
+    ] {
+        for module in [true, false] {
+            let allocator = oxc_allocator::Allocator::default();
+            let source_type = if module {
+                oxc_span::SourceType::mjs()
+            } else {
+                oxc_span::SourceType::unambiguous()
+            };
+            let parsed = oxc_parser::Parser::new(&allocator, source, source_type).parse();
+            if parsed.fatal_error {
+                fatal += 1;
+                assert!(parsed.diagnostics.errors().next().is_some(), "{source:?}");
+            }
+            let refused = javascript(source, module).expect_err(source);
+            assert!(!refused.is_empty(), "{source:?}");
+        }
+    }
+    assert!(fatal > 0, "no source stopped the parser");
+}
+
+#[test]
 fn a_stylesheet_shrinks_and_keeps_its_attribution() {
     let source = format!(
         "{HEADER_CSS}\n/* Layout notes. */\n.card {{\n  color: #ffffff;\n  margin: 0px 0px 0px 0px;\n}}\n"
@@ -453,4 +485,34 @@ fn run_takes_at_most_one_directory() {
     assert!(run(dir.path(), &args).unwrap_err().starts_with("usage:"));
     fs::create_dir(dir.path().join("_site")).unwrap();
     assert_eq!(run(dir.path(), &[]).unwrap(), 0);
+}
+
+#[test]
+fn a_page_without_a_head_keeps_its_markup_and_run_takes_a_directory() {
+    let dir = tempfile::tempdir().unwrap();
+    let assets = dir.path().join("assets");
+    fs::create_dir(&assets).unwrap();
+    for name in ["tokens", "site"] {
+        fs::write(assets.join(format!("{name}.css")), "").unwrap();
+    }
+    fs::write(dir.path().join("fragment.html"), "<p>Fragment</p>").unwrap();
+    let args = vec![dir.path().to_string_lossy().into_owned()];
+    assert_eq!(run(std::path::Path::new("unused"), &args).unwrap(), 0);
+    assert_eq!(
+        fs::read_to_string(dir.path().join("fragment.html")).unwrap(),
+        "<p>Fragment</p>"
+    );
+}
+
+#[cfg(unix)]
+#[test]
+fn a_generated_file_that_cannot_be_created_names_its_path() {
+    use std::os::unix::fs::PermissionsExt;
+    let dir = tempfile::tempdir().unwrap();
+    fs::write(dir.path().join("index.html"), "<main><h1>Site</h1></main>").unwrap();
+    fs::write(dir.path().join("index.txt"), "public text").unwrap();
+    fs::set_permissions(dir.path(), fs::Permissions::from_mode(0o555)).unwrap();
+    let error = minify_tree(dir.path()).unwrap_err();
+    fs::set_permissions(dir.path(), fs::Permissions::from_mode(0o755)).unwrap();
+    assert!(error.contains("index."), "{error}");
 }

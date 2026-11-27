@@ -268,7 +268,9 @@ pub fn repr_bytes(b: &[u8]) -> String {
 /// as CPython's dtoa mode 0 gives them. Among equally short candidates dtoa takes the one
 /// nearest the exact value, ties to even; Rust's shortest form rounds such a tie up
 /// (720084694934744.25 prints as ...744.3, Python as ...744.2), so the correctly rounded
-/// candidate of the same length is preferred whenever it round-trips.
+/// candidate of the same length is preferred whenever it round-trips. That candidate never
+/// ends in 0: Rust's `{:e}` gives the fewest digits that round-trip, so a candidate of the
+/// same length whose trailing 0 could be dropped would be a shorter round trip.
 pub fn shortest_digits(a: f64) -> (String, i64) {
     let split = |text: &str| {
         let (mantissa, exponent) = text.split_once('e').expect("scientific notation");
@@ -281,11 +283,7 @@ pub fn shortest_digits(a: f64) -> (String, i64) {
     }
     let nearest = format!("{a:.*e}", digits.len() - 1);
     if nearest.parse::<f64>() == Ok(a) {
-        let (near_digits, near_decpt) = split(&nearest);
-        let trimmed = near_digits.trim_end_matches('0');
-        if trimmed.len() == digits.len() {
-            return (trimmed.to_owned(), near_decpt);
-        }
+        return split(&nearest);
     }
     (digits, decpt)
 }
@@ -757,12 +755,14 @@ impl PyPath {
         out
     }
 
+    #[cfg(windows)]
     pub fn is_absolute(&self) -> bool {
-        if cfg!(windows) {
-            self.anchor.len() > 2 || self.anchor.starts_with("\\\\")
-        } else {
-            !self.anchor.is_empty()
-        }
+        self.anchor.len() > 2 || self.anchor.starts_with("\\\\")
+    }
+
+    #[cfg(not(windows))]
+    pub fn is_absolute(&self) -> bool {
+        !self.anchor.is_empty()
     }
 }
 
@@ -776,14 +776,18 @@ impl std::fmt::Display for PyPath {
 pub fn resolve(path: &Path) -> PathBuf {
     let absolute = std::path::absolute(path).unwrap_or_else(|_| path.to_path_buf());
     let resolved = std::fs::canonicalize(&absolute).unwrap_or(absolute);
-    let text = resolved.to_string_lossy();
-    if let Some(rest) = text.strip_prefix(r"\\?\UNC\") {
-        PathBuf::from(format!(r"\\{rest}"))
-    } else if let Some(rest) = text.strip_prefix(r"\\?\") {
-        PathBuf::from(rest)
-    } else {
-        resolved
+    // Only Windows' canonical paths carry the verbatim prefix.
+    #[cfg(windows)]
+    {
+        let text = resolved.to_string_lossy();
+        if let Some(rest) = text.strip_prefix(r"\\?\UNC\") {
+            return PathBuf::from(format!(r"\\{rest}"));
+        }
+        if let Some(rest) = text.strip_prefix(r"\\?\") {
+            return PathBuf::from(rest);
+        }
     }
+    resolved
 }
 
 /// A `datetime.date`.
@@ -853,13 +857,11 @@ impl Date {
         if !(1..=MAX_DATE.ordinal()).contains(&ordinal) {
             return None;
         }
-        // Estimate the year, then correct it.
+        // Estimate the year, then correct it. The estimate divides by the mean year,
+        // so it is never past the true year; the round-trip test checks every ordinal.
         let mut year = ((ordinal - 1) * 400 / 146_097 + 1) as i32;
         while days_before_year(year + 1) < ordinal {
             year += 1;
-        }
-        while days_before_year(year) >= ordinal {
-            year -= 1;
         }
         let mut rest = ordinal - days_before_year(year);
         let mut month = 1;
@@ -1074,5 +1076,146 @@ mod tests {
         );
         assert_eq!(PyPath::new("./a//b/.").display(), format!("a{SEP}b"));
         assert_eq!(PyPath::new("").display(), ".");
+    }
+}
+
+#[cfg(test)]
+mod edge_tests {
+    use super::*;
+
+    #[test]
+    fn an_ignorecase_literal_escapes_punctuation_and_folds_letters() {
+        let pattern = regex::Regex::new(&format!("^{}$", ignorecase_literal("a.b"))).unwrap();
+        assert!(pattern.is_match("A.b"));
+        assert!(!pattern.is_match("AxB"));
+    }
+
+    #[test]
+    fn a_prefix_longer_than_the_text_is_the_whole_text() {
+        assert_eq!(prefix_chars("ab", 5), "ab");
+    }
+
+    #[test]
+    fn repr_writes_an_unprintable_astral_character_as_a_long_escape() {
+        assert_eq!(repr_str("\u{f0000}"), "'\\U000f0000'");
+    }
+
+    #[test]
+    fn int_refuses_non_ascii_letters_long_literals_and_too_many_digits() {
+        assert_eq!(
+            parse_int("1\u{e9}", 10),
+            Err("invalid literal for int() with base 10: '1\u{e9}'".into())
+        );
+        let long = "x".repeat(250);
+        assert_eq!(
+            parse_int(&long, 10),
+            Err(format!(
+                "invalid literal for int() with base 10: '{}'",
+                "x".repeat(200)
+            ))
+        );
+        assert_eq!(
+            parse_int(&"1".repeat(INT_MAX_STR_DIGITS + 1), 10),
+            Err(int_digits_error(INT_MAX_STR_DIGITS + 1))
+        );
+    }
+
+    #[test]
+    fn float_reads_a_plus_sign_and_a_bare_fraction_and_refuses_an_empty_exponent() {
+        assert_eq!(parse_float("+1.5"), Ok(1.5));
+        assert_eq!(parse_float("-.5"), Ok(-0.5));
+        assert_eq!(
+            parse_float("1e"),
+            Err("could not convert string to float: '1e'".into())
+        );
+    }
+
+    #[test]
+    fn an_os_error_without_an_os_code_prints_as_itself() {
+        let error = io::Error::other("disk on fire");
+        assert_eq!(oserror_str(&error, "f", OsStyle::Native), "disk on fire");
+        assert_eq!(strip_os_suffix("plain message"), "plain message");
+    }
+
+    #[cfg(not(windows))]
+    #[test]
+    fn posix_keeps_a_double_slash_anchor_and_an_absolute_join_replaces_the_path() {
+        let path = PyPath::new("//srv/a");
+        assert_eq!(path.display(), "//srv/a");
+        assert_eq!(format!("{path}"), "//srv/a");
+        assert!(path.is_absolute());
+        assert_eq!(PyPath::new("a/b").join("/etc").display(), "/etc");
+    }
+
+    #[test]
+    fn every_ordinal_round_trips_through_its_date() {
+        for ordinal in 1..=MAX_DATE.ordinal() {
+            assert_eq!(
+                Date::from_ordinal(ordinal).map(|d| d.ordinal()),
+                Some(ordinal)
+            );
+        }
+    }
+
+    #[test]
+    fn iso_dates_refuse_mixed_separators_year_zero_and_out_of_range_weeks() {
+        for text in [
+            "2026-W01x1",
+            "2026-01x01",
+            "0000-W01-1",
+            "2026-W54",
+            "2026-W01-8",
+        ] {
+            assert_eq!(Date::fromisoformat(text), None, "{text}");
+        }
+    }
+
+    #[test]
+    fn a_power_of_two_tie_keeps_the_shortest_digits_that_round_trip() {
+        // 2**-24 is 5.9604644775390625e-08 exactly; the even 16-digit neighbour
+        // ...062 lies below it, past the half gap to the next lower double.
+        assert_eq!(
+            shortest_digits(2f64.powi(-24)),
+            ("5960464477539063".into(), -7)
+        );
+        assert_eq!(float_repr(2f64.powi(-24)), "5.960464477539063e-08");
+    }
+
+    #[test]
+    fn shortest_digits_round_trip_with_no_trailing_zero_and_no_more_digits_than_rust() {
+        // Values whose correctly rounded candidate carries to a new power of ten (9.5,
+        // 99.5, 0.95) and a spread of doubles from bit patterns.
+        let mut values = vec![
+            9.5,
+            99.5,
+            0.95,
+            0.1,
+            1e23,
+            5e-324,
+            f64::MAX,
+            720_084_694_934_744.3,
+        ];
+        let mut bits = 0x3ff0_0000_0000_0001_u64;
+        for _ in 0..20_000 {
+            bits = bits
+                .wrapping_mul(6364136223846793005)
+                .wrapping_add(1442695040888963407);
+            let value = f64::from_bits(bits >> 1);
+            if value.is_finite() {
+                values.push(value);
+            }
+        }
+        for a in values {
+            let (digits, decpt) = shortest_digits(a);
+            let rust = format!("{a:e}");
+            let rust_len = rust.split('e').next().unwrap().replace('.', "").len();
+            assert_eq!(digits.len(), rust_len, "{a:e}");
+            assert!(
+                digits.len() == 1 || !digits.ends_with('0'),
+                "{a:e}: {digits}"
+            );
+            let back: f64 = format!("0.{digits}e{decpt}").parse().unwrap();
+            assert_eq!(back, a, "{a:e}");
+        }
     }
 }

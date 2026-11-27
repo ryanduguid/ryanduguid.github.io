@@ -46,8 +46,10 @@ pub mod pyval;
 pub mod rates_json;
 pub mod rates_register;
 pub mod release_record;
+pub mod release_refresh;
 pub mod review_generated;
 pub mod schema_vocab;
+pub mod search_console;
 pub mod seo_core;
 pub mod serve_site;
 pub mod site_contracts;
@@ -58,13 +60,18 @@ pub mod visibility;
 use std::io::{self, Write};
 use std::path::{Path, PathBuf};
 
-/// Python's text streams translate LF to CRLF on Windows, unlike Rust's.
-pub fn print_text(text: &str, stderr: bool) -> io::Result<()> {
-    let text = if cfg!(windows) {
+/// Text as Python's text-mode streams and `Path.write_text` write it: LF becomes
+/// CRLF on Windows, unlike Rust's.
+pub fn platform_text(text: &str) -> String {
+    if cfg!(windows) {
         text.replace('\n', "\r\n")
     } else {
         text.to_owned()
-    };
+    }
+}
+
+pub fn print_text(text: &str, stderr: bool) -> io::Result<()> {
+    let text = platform_text(text);
     if stderr {
         io::stderr().lock().write_all(text.as_bytes())
     } else {
@@ -160,6 +167,23 @@ pub fn suffix(path: &Path) -> String {
 mod tests {
     use super::iso_day;
     use jiff::civil::date;
+
+    // The Windows behaviour of the path and text helpers, measured by the Windows
+    // coverage run; the Linux suites cover the other side.
+    #[cfg(windows)]
+    #[test]
+    fn windows_writes_crlf_and_matches_paths_without_case() {
+        use super::{glob_suffix, platform_text, sort_paths};
+        use std::path::PathBuf;
+        assert_eq!(platform_text("a\nb\n"), "a\r\nb\r\n");
+        assert!(glob_suffix("PAGE.HTML", ".html"));
+        assert!(!glob_suffix("page.htm", ".html"));
+        // A suffix length that falls inside a multibyte character is no match.
+        assert!(!glob_suffix("aé", "x"));
+        let mut paths = vec![PathBuf::from("a/Z"), PathBuf::from("a/b")];
+        sort_paths(&mut paths);
+        assert_eq!(paths, [PathBuf::from("a/b"), PathBuf::from("a/Z")]);
+    }
 
     #[test]
     fn iso_day_reads_only_yyyy_mm_dd() {

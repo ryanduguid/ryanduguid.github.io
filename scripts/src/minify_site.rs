@@ -60,12 +60,13 @@ pub fn javascript(source: &str, module: bool) -> Result<String, String> {
         SourceType::unambiguous()
     };
     let parsed = Parser::new(&allocator, source, source_type).parse();
+    // Oxc's `Parser::parse` adds an error diagnostic on each path that sets `fatal_error`
+    // (the fatal error itself, the lexer's errors, the overlong source or the Flow error),
+    // so this check also refuses a parse that stopped early and left an empty program.
     if let Some(error) = parsed.diagnostics.errors().next() {
         return Err(error.to_string());
     }
-    if parsed.fatal_error {
-        return Err("the parser stopped before the end".into());
-    }
+    debug_assert!(!parsed.fatal_error, "a fatal parse carries an error");
     let mut program = parsed.program;
     // Functions and classes keep their `name` property, which script can read.
     let options = MinifierOptions {
@@ -477,4 +478,26 @@ pub fn run(root: &Path, args: &[String]) -> Result<u8, String> {
     )
     .map_err(|e| e.to_string())?;
     Ok(0)
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn an_escaped_parenthesis_stays_inside_an_unquoted_url() {
+        assert_eq!(
+            css(r"a { background: url(a\)b.png) }"),
+            Ok(r"a{background:url(a\)b.png)}".into())
+        );
+        assert!(css(r"a{background:url(a\").is_err());
+    }
+
+    #[test]
+    fn a_hex_escape_ended_by_cr_lf_keeps_both_characters() {
+        assert_eq!(
+            css(".x\\41\r\nb{color:red}"),
+            Ok(".x\\41\r\nb{color:red}".into())
+        );
+    }
 }
