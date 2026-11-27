@@ -29,6 +29,13 @@
     <summary>Reference tables now carry names for screen readers. Calculator fields and reference pages have more space between headings, instructions and tables. The depreciation register identifies the industry or asset group on links that share a name. Each indexed page also has a Markdown edition at index.md.</summary>
   </entry>
   <entry>
+    <title>The take-home pay calculator can now also work the amount to withhold from one…</title>
+    <link href="https://duguid.com.au/changelog/#entry-aa417d25b880d517" />
+    <id>https://duguid.com.au/changelog/#entry-aa417d25b880d517</id>
+    <updated>2026-11-26T00:00:00Z</updated>
+    <summary>The take-home pay calculator can now also work the amount to withhold from one payment under another withholding schedule for 2024-25 to 2026-27: the tax table for daily and casual workers, Schedule 2 (horticulture and shearing), 3 (performers), 4 (return to work payments), 6 (annuities), 9 (seniors and pensioners), 10 (voluntary agreements), 14 (an extra amount the payee asked for), 15 (working holiday makers) and the no ABN rule. Each is a port of its australian-accounting command and agrees with it on every call the command’s tests make; the page’s WebMCP tool takes the same inputs.</summary>
+  </entry>
+  <entry>
     <title>A new business calculator, sole trader against company, puts one business…</title>
     <link href="https://duguid.com.au/changelog/#entry-9b7d427272928c88" />
     <id>https://duguid.com.au/changelog/#entry-9b7d427272928c88</id>
@@ -69,6 +76,13 @@
     <id>https://duguid.com.au/changelog/#entry-4e806f300e78a4e8</id>
     <updated>2026-11-26T00:00:00Z</updated>
     <summary>A new business calculator, trust streaming, shares a resident discretionary trust’s net income between up to 4 beneficiaries by present entitlement under Division 6, streams a capital gain and franked distributions to the beneficiaries specifically entitled to them under Subdivisions 115-C and 207-B with Division 6E, and works the trustee’s 45% tax under section 99A on income no beneficiary is presently entitled to, tested against the ATO’s worked examples.</summary>
+  </entry>
+  <entry>
+    <title>Added Do I need to lodge a tax return?: whether you must lodge for 2020-21 to…</title>
+    <link href="https://duguid.com.au/changelog/#entry-b8c8cbd68b895410" />
+    <id>https://duguid.com.au/changelog/#entry-b8c8cbd68b895410</id>
+    <updated>2026-11-26T00:00:00Z</updated>
+    <summary>Added Do I need to lodge a tax return?: whether you must lodge for 2020-21 to 2025-26 under that year’s lodgment instrument, from the $18,200 threshold, the part-year, under 18, dividend and study loan amounts and the conditions you tick, then the working holiday maker, listed payment and seniors exceptions, with the 31 October due date.</summary>
   </entry>
   <entry>
     <title>The tool pages, changelog, release record and machine indexes name the releases…</title>
