@@ -86,7 +86,9 @@ export function cgtParcelsResult(value, aud) {
     throw error;
   }
   const a = new Map(Object.entries(r.amounts));
-  const money = (/** @type {string} */ key) => aud(amount(a.get(key) ?? '0'));
+  /** Every amount named here is in the command's result. @param {string} key */
+  const got = (key) => /** @type {string} */ (a.get(key));
+  const money = (/** @type {string} */ key) => aud(amount(got(key)));
   /** @type {[string, string][]} */
   const rows = r.matches.map((m) => [`Sale ${m.disposal} of ${m.units} ${m.security} from parcel ${m.parcel} (bought ${m.acquired})`,
     `${m.counted ? '' : `Sold in ${m.income_year}, outside the year: `}proceeds ${aud(amount(m.capital_proceeds))}, cost base `
@@ -97,9 +99,9 @@ export function cgtParcelsResult(value, aud) {
   rows.push([none ? 'CGT discount: none for a company' : `CGT discount of ${r.rates.discount_denominator === '3' ? '33 1/3' : '50'}%`,
     money('discount')]);
   const principal = rows.push(['Net capital gain', money('net_capital_gain')]) - 1;
-  rows.push(['Net capital gain (label A), whole dollars', wholeAud(a.get('net_capital_gain') ?? '0')]);
-  if (a.get('net_capital_losses_carried_forward') !== '0.00') {
-    rows.push(['Net capital losses carried forward (label V), whole dollars', wholeAud(a.get('net_capital_losses_carried_forward') ?? '0')]);
+  rows.push(['Net capital gain (label A), whole dollars', wholeAud(got('net_capital_gain'))]);
+  if (got('net_capital_losses_carried_forward') !== '0.00') {
+    rows.push(['Net capital losses carried forward (label V), whole dollars', wholeAud(got('net_capital_losses_carried_forward'))]);
   }
   for (const h of r.holdings) rows.push([`Still held: parcel ${h.parcel}, ${h.units} ${h.security}`, `cost base ${aud(amount(h.cost_base))}`]);
   const inputs = `${input.parcels.length} parcel${input.parcels.length === 1 ? '' : 's'} and ${input.disposals.length} sale`

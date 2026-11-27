@@ -92,8 +92,8 @@ function incomeYear(day) {
   return `${y}-${String((y + 1) % 100).padStart(2, '0')}`;
 }
 
-/** Cents as the command prints them. @param {bigint} c */
-const centsText = (c) => `${c < 0n ? '-' : ''}${(c < 0n ? -c : c) / 100n}.${String((c < 0n ? -c : c) % 100n).padStart(2, '0')}`;
+/** Cents, never negative here, as the command prints them. @param {bigint} c */
+const centsText = (c) => `${c / 100n}.${String(c % 100n).padStart(2, '0')}`;
 /** Units (scaled 1e6) with the places the command keeps. @param {{ v: bigint, places: number }} u */
 function unitsText(u) {
   const whole = u.v / UNIT;
@@ -379,12 +379,8 @@ function matchDisposals(s, parcels, disposals) {
 
 /** @param {bigint} a @param {bigint} b */
 const min = (a, b) => (b < a ? b : a);
-/** A rational (numerator over d) as cents, half up; negative values round away from zero at the half.
- * @param {bigint} n @param {bigint} d */
-function rounded(n, d) {
-  const q = (2n * (n < 0n ? -n : n) + d) / (2n * d);
-  return n < 0n ? -q : q;
-}
+/** A rational (numerator over d, never negative here) as cents, half up. @param {bigint} n @param {bigint} d */
+const rounded = (n, d) => (2n * n + d) / (2n * d);
 
 /** The steps' amounts (s 102-5(1) steps 1 to 3 and 5). @param {Piece[]} pieces @param {bigint[]} others
  * @param {bigint[]} fraction */

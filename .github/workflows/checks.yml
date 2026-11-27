@@ -356,8 +356,8 @@ jobs:
             exit 1
           fi
       # The calculator engines' Node suites, as check_site runs them, plus
-      # super-lump-sum-options, which only mutation-check runs. Page modules that
-      # only the browser tests load are not measured here.
+      # super-lump-sum-options and cgt-parcels, which only mutation-check runs. Page
+      # modules that only the browser tests load are not measured here.
       - name: Calculator engine tests with line coverage
         shell: bash
         run: >-
@@ -369,7 +369,7 @@ jobs:
           scripts/first-home-grant.test.mjs scripts/individual-tax.test.mjs
           scripts/field-errors.test.mjs scripts/webmcp-tools.test.mjs
           scripts/rate-tables.test.mjs scripts/depreciation-rates.test.mjs
-          scripts/super-lump-sum-options.test.mjs
+          scripts/super-lump-sum-options.test.mjs scripts/cgt-parcels.test.mjs
       - name: Keep the coverage reports for the Codecov upload
         uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
         with:

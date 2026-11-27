@@ -120,3 +120,82 @@ test('refusals keep the command\'s words, and the page names its own lines and i
   fields.set('entity', 'complying_superannuation_entity');
   assert.equal(cgtParcelsResult((name) => fields.get(name) ?? '', String).rows.find(([label]) => label.startsWith('CGT discount'))[0], 'CGT discount of 33 1/3%');
 });
+
+// Each input's code from the australian-accounting release build (main 7f3c3eb), 27 November 2026.
+test('the command reads each input as australian-accounting does, refusing what it refuses', () => {
+  const without = (o, key) => Object.fromEntries(Object.entries(o).filter(([k]) => k !== key));
+  const one = { parcels: [parcel('A', '2020-01-01', '10', '100')], disposals: [sale('2026-01-10', '10', '200')] };
+  const ok = { ...base, ...one };
+  const withParcel = (over) => ({ ...ok, parcels: [{ ...one.parcels[0], ...over }] });
+  const selected = (picks) => ({ ...ok, identification: 'selected', disposals: [{ ...one.disposals[0], parcels: picks }] });
+  const inputs = [
+    null, [], { ...ok, colour: 'red' }, without(ok, 'year'), { ...ok, other_capital_gains: '1'.repeat(9000) },
+    { ...ok, other_capital_gains: 'NaN' }, { ...ok, other_capital_gains: '-1' }, { ...ok, scope_confirmed: false },
+    { ...ok, entity: 'partnership' }, { ...ok, identification: 'average' }, { ...ok, parcels: 'A' }, { ...ok, parcels: [1] },
+    { ...ok, disposals: [] }, withParcel({ parcel: 5 }), withParcel({ acquired: 20200101 }), withParcel({ acquired: '2020-1-01' }),
+    withParcel({ acquired: '2020-02-30' }), withParcel({ acquired: '1899-12-31' }), withParcel({ units: '0' }), withParcel({ units: 5 }),
+    withParcel({ units: '1.5.0' }), withParcel({ units: '.5' }), withParcel({ units: '5.' }), withParcel({ title_costs: '1.234' }),
+    { ...ok, parcels: [without(one.parcels[0], 'acquisition_cost')] }, { ...ok, parcels: [one.parcels[0], one.parcels[0]] },
+    withParcel({ acquired: '2026-07-01' }), { ...ok, disposals: [sale('2026-07-01', '10', '200')] },
+    selected('A'), selected([]), selected([1]), selected([{ parcel: 'A', units: '5' }, { parcel: 'A', units: '5' }]),
+    selected([{ parcel: 'B', units: '10' }]), selected([{ parcel: 'A', units: '11' }]), selected([{ parcel: 'A', units: '9' }]),
+    selected([{ parcel: 'A', units: '10' }]),
+    { ...selected([{ parcel: 'A', units: '10' }]), parcels: [{ ...one.parcels[0], security: 'XYZ' }] },
+    { ...selected([{ parcel: 'A', units: '10' }]), parcels: [{ ...one.parcels[0], acquired: '2026-02-01' }] },
+    { ...ok, parcels: [{ ...one.parcels[0], security: 'XYZ' }, parcel('B', '2026-02-01', '10', '1')] },
+    { ...ok, other_capital_gains: ' 2.5 ' }, { ...ok, other_capital_gains: '+2.5' }, { ...ok, other_capital_gains: '-0' },
+    { ...ok, other_capital_gains: 'Infinity' }, { ...ok, other_capital_gains: '1e2' },
+  ];
+  const want = [
+    'input.not_object', 'input.not_object', 'input.field_unknown', 'input.missing_field',
+    'input.decimal_too_long', 'input.amount_invalid', 'input.amount_invalid', 'scope.not_confirmed',
+    'cgt_parcels.entity_invalid', 'cgt_parcels.identification_invalid', 'cgt_parcels.list_invalid', 'cgt_parcels.list_invalid',
+    'cgt_parcels.list_invalid', 'cgt_parcels.fact_invalid', 'cgt_parcels.fact_invalid', 'cgt_parcels.fact_invalid',
+    'cgt_parcels.fact_invalid', 'cgt_parcels.fact_invalid', 'cgt_parcels.fact_invalid', 'cgt_parcels.fact_invalid',
+    'cgt_parcels.fact_invalid', 'cgt_parcels.fact_invalid', 'cgt_parcels.fact_invalid', 'cgt_parcels.fact_invalid',
+    'cgt_parcels.fact_missing', 'cgt_parcels.fact_conflict', 'cgt_parcels.fact_conflict', 'cgt_parcels.fact_conflict',
+    'cgt_parcels.fact_invalid', 'cgt_parcels.fact_invalid', 'cgt_parcels.fact_invalid', 'cgt_parcels.fact_conflict',
+    'cgt_parcels.fact_conflict', 'cgt_parcels.units_not_held', 'cgt_parcels.fact_conflict', 'computed',
+    'cgt_parcels.fact_conflict', 'cgt_parcels.fact_conflict', 'cgt_parcels.units_not_held', 'computed',
+    'input.decimal_unreadable', 'computed', 'input.amount_invalid', 'input.decimal_unreadable',
+  ];
+  assert.equal(inputs.length, want.length);
+  inputs.forEach((input, i) => assert.equal(code(() => cgtParcels(input)), want[i], JSON.stringify(input)?.slice(0, 120)));
+});
+
+test('the 12 months from 28 February 2024 end on 28 February 2025, so the discount starts on 1 March', () => {
+  const run = (date) => cgtParcels({ ...base, parcels: [parcel('A', '2024-02-28', '10', '100')], disposals: [sale(date, '10', '200')] }).matches[0];
+  assert.equal(run('2025-03-01').discount.startsWith('discount'), true);
+  assert.equal(run('2025-02-28').discount.startsWith('not'), true);
+  assert.deepEqual([run('2025-03-01').counted, run('2025-03-01').income_year], [false, '2024-25']);
+});
+
+test('the page shows losses, sales outside the year, the optional costs and what it refuses', () => {
+  assert.deepEqual(parcelLines('A ABC 2020-08-03 1000 5200 19.95 5 6 7')[0], { parcel: 'A', security: 'ABC', acquired: '2020-08-03', units: '1000',
+    acquisition_cost: '5200', incidental_costs: '19.95', ownership_costs: '5', capital_expenditure: '6', title_costs: '7' });
+  assert.equal(Object.hasOwn(parcelLines('A ABC 2020-08-03 1000 5200 19.95 5 6')[0], 'title_costs'), false);
+  assert.throws(() => parcelLines('A ABC 2020-08-03 1000 5200 19.95 5 6 7 8'), /Parcel line 1/);
+  assert.throws(() => saleLines('ABC 2026-02-02 10 100 0', true), /each parcel sold as name:units, separated/);
+  assert.throws(() => saleLines('ABC 2026-02-02 10 100', false), /Sale line 1/);
+  assert.throws(() => saleLines('ABC 2026-02-02 10 100 0 :4', true), /such as A:100/);
+  const fields = new Map([['entity', 'individual'], ['identification', 'selected'], ['year', '2025-26'], ['prior-losses', '700'],
+    ['parcel-lines', 'A ABC 2020-08-03 10 1000 0\nB ABC 2025-01-15 10 100 0'],
+    ['sale-lines', 'ABC 2025-06-30 5 50 0 A:5\nABC 2026-01-10 5 300 0 B:5\nABC 2026-01-11 5 100 0 A:5']]);
+  const value = (/** @type {string} */ name) => fields.get(name) ?? '';
+  const r = cgtParcelsResult(value, String);
+  assert.deepEqual(r.rows.slice(0, 3).map(([, shown]) => shown), ['Sold in 2024-25, outside the year: proceeds 50, cost base 500, loss 450',
+    'proceeds 300, cost base 50, gain 250, no discount', 'proceeds 100, cost base 500, loss 400']);
+  assert.deepEqual(r.rows.find(([label]) => label.startsWith('Net capital losses carried')), ['Net capital losses carried forward (label V), whole dollars', '$850']);
+  assert.equal(r.inputs, '2 parcels and 3 sales, matched as selected, for 2025-26');
+  fields.set('identification', 'first_in_first_out').set('sale-lines', 'ABC 2026-01-10 1 300 0').set('parcel-lines', 'B ABC 2025-12-15 10 100 0');
+  const short = cgtParcelsResult(value, String);
+  assert.equal(short.inputs, '1 parcel and 1 sale, matched first in, first out, for 2025-26');
+  assert.equal(short.rows[0][1], 'proceeds 300, cost base 10, gain 290, no discount');
+  fields.set('year', '2027-28');
+  assert.throws(() => cgtParcelsResult(value, String), { code: 'period.unsupported' });
+});
+
+test('a fact refusal naming an input the form has no words for keeps its name', () => {
+  assert.equal(inPageWords('disposal 1: parcels must be a non-empty list of objects, each with parcel and units.'),
+    'Sale line 1: parcels must be a non-empty list of objects, each with parcel and units.');
+});
