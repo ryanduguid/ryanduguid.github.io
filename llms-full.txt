@@ -582,7 +582,7 @@ Install commands are under Adopt. The package, release, compatibility and licenc
 - ATO benchmarks, trust distributions and company tax: ato-benchmark-compare repository, releases and Apache License 2.0 (v0.2.2); Solomon’s Sword repository, releases and GNU Affero General Public License v3.0 or later (v1.0.0); The Exchequer Tally repository, releases and GNU Affero General Public License v3.0 or later (v1.0.0).
 - Agent skills and construction WIP: Australian Accounting Skills, releases and Apache License 2.0 (v0.8.1); Hardhat Ledger, releases and Apache License 2.0 (v0.8.1); TheWIPTally repository and Apache License 2.0 (v0.2.0).
 - Xero export and Workpaper Review Gate: xero-trial-balance-export repository, releases, release and compatibility record and MIT License (v0.1.15); Workpaper Review Gate repository, release record and GNU Affero General Public License v3.0 or later (v1.1.0).
-- Coal LSL calculator: site repository and Ryan Duguid Public Attribution Licence 1.0 (0bd409d).
+- Coal LSL calculator: site repository and Apache License 2.0 (be0f154).
 
 ## Sources and review dates
 
@@ -716,7 +716,7 @@ I publish evaluations of fixed releases on the Evaluations page. I use feedback 
 - release record: https://github.com/ryanduguid/accounting-review-pipeline/blob/main/packages/review-ready-gate/RELEASE_NOTES.md
 - GNU Affero General Public License v3.0 or later (v1.1.0): https://github.com/ryanduguid/accounting-review-pipeline/blob/review-ready-gate/v1.1.0/packages/review-ready-gate/LICENSE
 - site repository: https://github.com/ryanduguid/ryanduguid.github.io
-- Ryan Duguid Public Attribution Licence 1.0 (0bd409d): https://github.com/ryanduguid/ryanduguid.github.io/blob/0bd409dff58b08fca414d3aab027193c9385e501/LICENSE
+- Apache License 2.0 (be0f154): https://github.com/ryanduguid/ryanduguid.github.io/blob/be0f1542a47049ea0c833879eec1c48c2950bc5e/LICENSE
 - Income Tax Assessment Act 1997: https://www.legislation.gov.au/C2004A05138/latest/text
 - Regulator material: https://www.ato.gov.au/
 - accounting standards (AASB portal archived 16 October 2026): https://web.archive.org/web/20261016153419/https://standards.aasb.gov.au/
@@ -3853,7 +3853,7 @@ Source: https://duguid.com.au/tools/coal-lsl-levy/
 
 The coal mining long service leave (Coal LSL) levy is 2.7% of monthly eligible wages. Section 3B has separate base rate, annual salary and casual branches. The base rate branch uses the greater of Formula A and Formula B.
 
-Source assets/levy.mjs at revision 0bd409d in the ryanduguid.github.io repository. Licence at this revision: Ryan Duguid Public Attribution Licence 1.0. Published 24 August 2026. Last reviewed 23 November 2026.
+Source assets/levy.mjs at revision be0f154 in the ryanduguid.github.io repository. Licence at this revision: Apache License 2.0. Published 24 August 2026. Last reviewed 23 November 2026.
 
 The current website code uses the Apache License 2.0.
 
@@ -4004,9 +4004,9 @@ Eligible wages vary each month. Do not set a fixed or automatic levy payment fro
 
 ## Links
 
-- 0bd409d: https://github.com/ryanduguid/ryanduguid.github.io/commit/0bd409dff58b08fca414d3aab027193c9385e501
+- be0f154: https://github.com/ryanduguid/ryanduguid.github.io/commit/be0f1542a47049ea0c833879eec1c48c2950bc5e
 - ryanduguid.github.io: https://github.com/ryanduguid/ryanduguid.github.io/tree/main/assets
-- Ryan Duguid Public Attribution Licence 1.0: https://github.com/ryanduguid/ryanduguid.github.io/blob/0bd409dff58b08fca414d3aab027193c9385e501/LICENSE
+- Apache License 2.0: https://github.com/ryanduguid/ryanduguid.github.io/blob/be0f1542a47049ea0c833879eec1c48c2950bc5e/LICENSE
 - Apache License 2.0: https://github.com/ryanduguid/ryanduguid.github.io/blob/main/LICENSE
 - Lodgeit’s listing: https://lodgeit.org/coal-lsl.html
 - service/coal-lsl-levy: https://github.com/ryanduguid/ryanduguid.github.io/tree/main/service/coal-lsl-levy
@@ -14777,7 +14777,7 @@ A stay from 1 January 2024 to 31 July 2024 counted in 2024-25: only 1 to 31 July
 
 One of the eighteen individual tax calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
-Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
+Planning estimate. Confirm residency and the dates you count separately.
 
 ## Links
 
@@ -17445,7 +17445,7 @@ To reproduce the additional sensitivity rows, run the same command with --delay-
 
 ## Provenance and verification
 
-- Source. OzFPA at commit 386c7ff. That captured commit identifies the example and its assumptions. The current GitHub release is OzFPA v0.8.0. PyPI still serves au-fpa-pack 0.7.0.
+- Source. OzFPA at commit 386c7ff. That captured commit identifies the example and its assumptions. The current GitHub release is OzFPA v0.8.1.
 - Distributed workbook. SHA-256 b150de6281fccb6dcb1d221c034b047eb610ad4064972c5d9ac9fca8916b8463, 23,506 bytes. Its model and all 6 input files match the captured source after normalising line endings.
 - Formula check. A fresh check on 11 September 2026 passed all 21 monthly workbook lines against the Python model, and the repository’s offline suite passed.
 - Native Excel record. The file distributed here is the exact workbook from the original native check, dated 11 September 2026, which exercised 116 cells and 13 chart values per case at 0, 45 and 100-day delays, plus invalid input bounds, formula errors and save-and-reopen behaviour. That record covers this artefact and that scenario control only.
@@ -17505,7 +17505,7 @@ Cite as Duguid, R. (2026). Lumbridge Services fictional cash flow case [Data set
 - Jeff Brines / Guiderail’s openfpa: https://github.com/JeffBrines/openfpa
 - uv: https://docs.astral.sh/uv/
 - Read the source and assumptions at the captured commit: https://github.com/ryanduguid/OzFPA/tree/386c7ff31f7989b86445ef37d83a912fcb02bb47/examples/lumbridge-services
-- OzFPA v0.8.0: https://github.com/ryanduguid/OzFPA/releases/tag/v0.8.0
+- OzFPA v0.8.1: https://github.com/ryanduguid/OzFPA/releases/tag/v0.8.1
 - Payday Super timing: https://duguid.com.au/tools/payday-super/
 - Ozzit: Excel LAMBDA functions for Australian modelling: https://duguid.com.au/tools/ozzit/
 - Browser cash flow and planning calculators: https://duguid.com.au/tools/business-calculators/

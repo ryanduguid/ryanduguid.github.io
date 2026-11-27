@@ -280,6 +280,7 @@ fn check_site_system_host_helpers() {
         "scripts/__pycache__",
         "_data",
         "_includes",
+        "_layouts",
         ".agents",
         "docs",
         "assets",
