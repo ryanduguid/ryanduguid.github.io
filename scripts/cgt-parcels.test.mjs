@@ -13,7 +13,7 @@ import { cgtParcels } from '../assets/cgt-parcels.mjs';
 import { cgtParcelsResult, parcelLines, saleLines } from '../assets/cgt-parcels-page.mjs';
 
 const fixture = createRequire(import.meta.url)('./cgt-parcels-engine-differential.json');
-const page = readFileSync('_includes/calculators/cgt-parcels.html', 'utf8');
+const page = readFileSync('_includes/cgt-parcels.html', 'utf8');
 const sources = readFileSync('_includes/calculators/cgt.html', 'utf8');
 const pick = (r) => ({ amounts: r.amounts, rates: r.rates, matches: r.matches, holdings: r.holdings });
 const code = (run) => {
