@@ -85,7 +85,8 @@ export function exactDecimal(numerator, denominator, { minScale = 2, maxScale = 
   if (remainder !== 0n) {
     throw new RangeError('exactDecimal: fraction does not terminate within the allowed scale');
   }
-  while (digits.length > minScale && digits.endsWith('0')) digits = digits.slice(0, -1);
+  // The loop stops at the digit that leaves no remainder, which is never 0, so the
+  // digits carry no trailing zero to remove: only padding to minScale is left.
   digits = digits.padEnd(minScale, '0');
   return digits ? `${whole}.${digits}` : String(whole);
 }

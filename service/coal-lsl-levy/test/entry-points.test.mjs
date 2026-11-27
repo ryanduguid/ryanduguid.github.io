@@ -50,7 +50,12 @@ test('the Worker entry keys its limiter on the Cloudflare client address and ref
     assert.equal(refused.status, 429);
     assert.equal(refused.headers.get('retry-after'), '60');
     await (await fetch(`${base}/healthz`)).text();
-    assert.deepEqual(keys, ['192.0.2.1', '192.0.2.9', '127.0.0.1']);
+    // A socket that has already closed reports no address.
+    server.prependOnceListener('request', (request) => {
+      Object.defineProperty(request.socket, 'remoteAddress', { value: undefined });
+    });
+    await (await fetch(`${base}/healthz`)).text();
+    assert.deepEqual(keys, ['192.0.2.1', '192.0.2.9', '127.0.0.1', 'unknown']);
   } finally {
     server.closeAllConnections();
     await new Promise((resolve) => server.close(resolve));

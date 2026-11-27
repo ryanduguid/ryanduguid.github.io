@@ -3,9 +3,12 @@
 // routes and faults past the calculator’s own refusals, and an upload abandoned part-way.
 import { test } from 'node:test';
 import { connect } from 'node:net';
+import { IncomingMessage } from 'node:http';
 import assert from 'node:assert/strict';
 
-import { listen } from '../src/server.mjs';
+import { clientKey, listen, resolvePath } from '../src/server.mjs';
+import { atMostPattern } from '../src/openapi.mjs';
+import { codeRevision } from '../deploy/revision.mjs';
 import { loadRegister } from '../src/load-register.mjs';
 import { createRegister } from '../src/register.mjs';
 import { validateRequest } from '../src/schema.mjs';
@@ -140,4 +143,103 @@ test('an upload the client abandons part-way is logged as a 500, not calculated'
     assert.equal(record.path, CALCULATE);
     assert.equal(record.status, 500);
   } finally { await close(); }
+});
+
+test('a target URL cannot parse is logged as unparsed and answered 500', async () => {
+  let logged;
+  const line = new Promise((resolve) => { logged = resolve; });
+  const { app, close } = await serve({ log: (text) => logged(JSON.parse(text)) });
+  try {
+    const received = await new Promise((resolve) => {
+      let text = '';
+      const socket = connect(app.server.address().port, '127.0.0.1');
+      socket.on('data', (chunk) => { text += chunk; if (text.includes('\r\n\r\n')) { socket.destroy(); resolve(text); } });
+      socket.write('GET // HTTP/1.1\r\nHost: 127.0.0.1\r\n\r\n');
+    });
+    assert.match(received, /^HTTP\/1\.1 500 /);
+    const record = await line;
+    assert.deepEqual([record.path, record.status], ['(unparsed)', 500]);
+  } finally { await close(); }
+});
+
+test('a calculation without a Content-Type is refused with 415', async () => {
+  const { call, close } = await serve();
+  try {
+    const response = await call(CALCULATE, { method: 'POST', body: new Blob([JSON.stringify(request())]) });
+    assert.equal(response.status, 415);
+    assert.equal((await response.json()).error, 'unsupported_media_type');
+  } finally { await close(); }
+});
+
+// Node stops a paused request's data events; a runtime whose pause() does not still has to
+// answer one 413 and ignore the rest of the upload.
+test('an oversized upload whose data keeps coming after the refusal gets one 413', { timeout: 10000 }, async () => {
+  const { pause } = IncomingMessage.prototype;
+  IncomingMessage.prototype.pause = function ignored() { return this; };
+  const { app, close } = await serve({ maxBodyBytes: 1000 });
+  try {
+    const chunk = `${(600).toString(16)}\r\n${'x'.repeat(600)}\r\n`;
+    const received = await new Promise((resolve) => {
+      let text = '';
+      const socket = connect(app.server.address().port, '127.0.0.1');
+      socket.on('data', (part) => { text += part; });
+      socket.on('error', () => {});
+      socket.on('close', () => resolve(text));
+      socket.write(`POST ${CALCULATE} HTTP/1.1\r\nHost: 127.0.0.1\r\nContent-Type: application/json\r\n`
+        + `Transfer-Encoding: chunked\r\n\r\n${chunk.repeat(4)}0\r\n\r\n`);
+    });
+    assert.equal(received.match(/^HTTP\/1\.1 /gm).length, 1, received);
+    assert.match(received, /^HTTP\/1\.1 413 /);
+    assert.match(received, /"max_body_bytes":1000/);
+  } finally {
+    IncomingMessage.prototype.pause = pause;
+    await close();
+  }
+});
+
+test('the client key falls back to "unknown" without a socket address', () => {
+  assert.equal(clientKey({ headers: {}, socket: {} }), 'unknown');
+});
+
+test('request targets resolve to the routed path, keeping a segment that cannot be decoded', () => {
+  assert.deepEqual(resolvePath(undefined), { pathname: '/', segments: [''] });
+  assert.deepEqual(resolvePath('/v1/a%20b/%E0%A4%A'), { pathname: '/v1/a b/%E0%A4%A', segments: ['v1', 'a b', '%E0%A4%A'] });
+});
+
+test('rate rows verified in the same month serve each month their checks vouch for', () => {
+  const rows = register([
+    rateRow({ row_id: 'first', period_start: '2024-01-01', period_end: '2024-01-31', verified_at: '2024-03-01' }),
+    rateRow({ row_id: 'second', period_start: '2024-02-01', period_end: null, verified_at: '2024-03-20' }),
+  ]);
+  assert.deepEqual(rows.supportedMonths(), ['2024-01', '2024-02']);
+  assert.equal(rows.rateFor('2024-02').row_id, 'second');
+});
+
+// Every amount up to twice the ceiling, in each form parseMoney accepts, matches exactly when it
+// is at or below the ceiling.
+test('the amount pattern admits exactly the amounts at or below its ceiling', () => {
+  const fractions = ['', ...Array.from({ length: 10 }, (_, d) => `.${d}`),
+    ...Array.from({ length: 100 }, (_, c) => `.${String(c).padStart(2, '0')}`)];
+  const cents = (amount) => {
+    const [dollars, fraction = ''] = amount.split('.');
+    return Number(dollars) * 100 + Number(fraction.padEnd(2, '0'));
+  };
+  for (const ceiling of ['9', '5.50', '19.99', '10.00', '100.05', '230.4']) {
+    const pattern = new RegExp(atMostPattern(ceiling));
+    const limit = cents(ceiling);
+    for (let dollars = 0; dollars * 100 <= 2 * limit + 100; dollars += 1) {
+      for (const fraction of fractions) {
+        const amount = `${dollars}${fraction}`;
+        assert.equal(pattern.test(amount), cents(amount) <= limit, `${amount} against ${ceiling}`);
+      }
+    }
+    assert.equal(pattern.test(`0${ceiling}`), false, 'a leading zero is not an amount');
+  }
+});
+
+test('the manifest revision is HEAD, marked dirty by local changes, and null without Git', () => {
+  const git = (changes) => (...args) => (args[0] === 'status' ? changes : 'abc123');
+  assert.equal(codeRevision(git('')), 'abc123');
+  assert.equal(codeRevision(git(' M assets/levy.mjs')), 'abc123-dirty');
+  assert.equal(codeRevision(() => { throw new Error('not a git repository'); }), null);
 });
