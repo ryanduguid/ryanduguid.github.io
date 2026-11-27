@@ -891,6 +891,14 @@ fn cli_reads_negative_number_tokens_as_values_as_argparse_does() {
         (&days, "-.5", 2, "argument --days: invalid int value: '-.5'"),
         (&days, "-1x", 2, "argument --days: invalid int value: '-1x'"),
         (&days, "-.", 2, "argument --days: expected one argument"),
+        // `\d` and `int()` take any Unicode decimal digit: U+0661 is Arabic-Indic one.
+        (&days, "-\u{661}", 1, "days must be an integer from 1 to 90"),
+        (
+            &dimensions,
+            "-\u{661}",
+            1,
+            "unknown Search Console dimension: -\u{661}",
+        ),
     ];
     for (prefix, last, code, message) in cases {
         let args = [*prefix, &[*last]].concat();

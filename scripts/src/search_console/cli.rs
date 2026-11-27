@@ -74,12 +74,13 @@ struct CliOptions {
     positionals: Vec<String>,
 }
 
-/// argparse's negative-number test, `re.match(r'-\.?\d', arg)`: such a token is a
-/// value, not an option, as no option here looks like a negative number.
+/// argparse's negative-number test, `re.match(r'-\.?\d', arg)`, whose `\d` takes any
+/// Unicode decimal digit: such a token is a value, not an option, as no option here
+/// looks like a negative number.
 fn is_negative_number(arg: &str) -> bool {
     arg.strip_prefix('-').is_some_and(|rest| {
         let rest = rest.strip_prefix('.').unwrap_or(rest);
-        rest.starts_with(|c: char| c.is_ascii_digit())
+        rest.starts_with(py::is_decimal)
     })
 }
 
