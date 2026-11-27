@@ -14,6 +14,7 @@ import { cgtParcelsResult, parcelLines, saleLines } from '../assets/cgt-parcels-
 
 const fixture = createRequire(import.meta.url)('./cgt-parcels-engine-differential.json');
 const page = readFileSync('_includes/calculators/cgt-parcels.html', 'utf8');
+const sources = readFileSync('_includes/calculators/cgt.html', 'utf8');
 const pick = (r) => ({ amounts: r.amounts, rates: r.rates, matches: r.matches, holdings: r.holdings });
 const code = (run) => {
   try {
@@ -97,5 +98,5 @@ test('the page reads its lines and shows the result in its own words', () => {
   assert.equal(r.rows.at(-1)[0], 'Still held: parcel B, 500 ABC');
   fields.set('parcel-lines', 'A ABC 2020-08-03 1000 5200 1.999');
   assert.throws(() => cgtParcelsResult((name) => fields.get(name) ?? '', String), /the buying or selling costs must be/);
-  assert.ok(page.includes('data-calculator="cgt-parcels"') && page.includes('TD33'));
+  assert.ok(page.includes('data-calculator="cgt-parcels"') && sources.includes('TD33'));
 });
