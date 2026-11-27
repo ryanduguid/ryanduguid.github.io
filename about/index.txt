@@ -2,11 +2,11 @@
 
 Source: https://duguid.com.au/about/
 
-> Ryan Duguid, Senior Accountant in Newcastle, NSW. Provisional CA ANZ Member, SAP S/4HANA and Xero L3 certified. Creator of Ozzit and 77 AU calculators.
+> Ryan Duguid, Senior Accountant in Newcastle, NSW. Provisional CA ANZ Member, SAP S/4HANA and Xero L3 certified. Creator of Ozzit and 80 AU calculators.
 
 # About Ryan Duguid
 
-I’m Ryan Duguid, a senior accountant in Newcastle, NSW, Australia. I build open source Australian computational accounting tools, including 77 browser calculators, 12 maintained rate tables, 7,430 depreciation effective lives, Ozzit (165 Excel LAMBDA functions) and Aus Accounting MCP, with primary sources visible.
+I’m Ryan Duguid, a senior accountant in Newcastle, NSW, Australia. I build open source Australian computational accounting tools, including 80 browser calculators, 12 maintained rate tables, 7,430 depreciation effective lives, Ozzit (165 Excel LAMBDA functions) and Aus Accounting MCP, with primary sources visible.
 
 I hold a Bachelor of Commerce (Accounting) from the University of Newcastle, am a Provisional CA ANZ Member, am SAP S/4HANA certified in Financial Accounting (FI) and Management Accounting (CO), and am a Xero Certified Specialist, Level 3. My LinkedIn profile is linkedin.com/in/ryan-duguid.
 
@@ -20,7 +20,7 @@ Last reviewed 24 November 2026.
 
 Name | Ryan Duguid
 Based in | Newcastle, NSW, Australia
-Flagship projects | 77 Australian tax and business calculators, 7,430 ATO depreciation effective lives, Ozzit (165 Excel LAMBDA functions), Aus Accounting MCP, Workpaper Review Gate and Monthly Close Controls
+Flagship projects | 80 Australian tax and business calculators, 7,430 ATO depreciation effective lives, Ozzit (165 Excel LAMBDA functions), Aus Accounting MCP, Workpaper Review Gate and Monthly Close Controls
 Field | Accounting, Australian taxation, payroll and statutory compliance
 Professional body | I am a Provisional CA ANZ Member.
 
@@ -96,7 +96,7 @@ I write and maintain this site in my own time and on my own equipment.
 - linkedin.com/in/ryan-duguid: https://www.linkedin.com/in/ryan-duguid
 - Contact page: https://duguid.com.au/contact/
 - See my accounting work samples: https://duguid.com.au/about/#work-samples
-- 77 Australian tax and business calculators: https://duguid.com.au/tools/business-calculators/
+- 80 Australian tax and business calculators: https://duguid.com.au/tools/business-calculators/
 - 7,430 ATO depreciation effective lives: https://duguid.com.au/tools/depreciation-rates/
 - Ozzit: https://duguid.com.au/tools/ozzit/
 - Aus Accounting MCP: https://duguid.com.au/tools/australian-tax-ai-agents/

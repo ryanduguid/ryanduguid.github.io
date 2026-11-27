@@ -790,6 +790,16 @@ Object.assign(INPUTS, { deferredTax: (x) => calculations.deferredTaxInputsText(x
 Object.assign(ENGINE_LABELS, { deferredTax: { deferredTaxLiability: 'deferred tax liability', deferredTaxAsset: 'deferred tax asset',
   deferredTaxExpense: 'deferred tax expense', currentTax: 'current tax', incomeTaxExpense: 'income tax expense' } });
 
+// The casual and overtime pay page's rows (its tests are with the page's other tests below).
+Object.assign(INPUTS, { casualOvertime: (x) => calculations.casualOvertimeInputsText(x,
+  (value) => value.toLocaleString('en-AU', { style: 'currency', currency: 'AUD' })) });
+Object.assign(ENGINE_LABELS, { casualOvertime: { grossPay: 'gross pay', ote: 'ordinary time earnings', superGuarantee: 'super guarantee' } });
+// The contractor against employee page's rows (its tests are with the page's other tests below).
+Object.assign(INPUTS, { contractorEmployee: (x) => calculations.contractorInputsText(x,
+  (value) => value.toLocaleString('en-AU', { style: 'currency', currency: 'AUD' })) });
+Object.assign(ENGINE_LABELS, { contractorEmployee: { employeeCost: 'employee cost', contractorSuperGuarantee: 'section 12(3) super guarantee',
+  contractorCost: 'contractor cost', costDifference: 'difference', employeeTakeHome: 'employee take-home', contractorTakeHome: 'contractor take-home' } });
+
 for (const [page, { function: name, peer, rows }] of Object.entries(shownCases)) {
   if (peer) {
     test(`${page} official comparison states what this calculator returns`, () => {
@@ -1248,8 +1258,11 @@ Object.assign(FORM_CALLS, { wineEqualisationTax: (f) => [calculations.wetFormInp
 Object.assign(FORM_CALLS, { rentalProperty: (f) => [calculations.rentalFormInput((name) => f[name] ?? '')] });
 
 Object.assign(FORM_CALLS, { fbtReturnTotals: (f) => [calculations.fbtFormInput((name) => f[name] ?? '')] });
+Object.assign(FORM_CALLS, { casualOvertime: (f) => [calculations.casualOvertimeFormInput((name) => f[name] ?? '')] });
 
 Object.assign(FORM_CALLS, { rdTaxOffset: (f) => [calculations.rdFormInput((name) => f[name] ?? '')] });
+
+Object.assign(FORM_CALLS, { contractorEmployee: (f) => [calculations.contractorFormInput((name) => f[name] ?? '')] });
 
 Object.assign(FORM_CALLS, { gstAdjustment: (f) => {
   const { worksheet, input } = calculations.gstFormInput((name) => f[name] ?? '');
@@ -7361,4 +7374,143 @@ test('FBT return page reads its forms and writes items 14A to 19, reportable amo
   assert.ok(result.rows.some(([label, value]) => label === 'A: reportable fringe benefits amount' && value === '$18867.00'));
   const instalment = calculations.fbtInstalmentResult((name) => fields[name] ?? '', shown);
   assert.deepEqual(instalment.rows[instalment.principal], ['Label 6A, FBT instalment', '$1000.00']);
+});
+// The casual and overtime pay page: its example and sources, then the rules it applies. Hand-worked figures; the rules
+// are SGAA s 6(1) and s 17A(2) (Compilation No. 78), SGR 2009/2 paras 22, 27, 35, 41 and 42 and draft LCR 2026/D1
+// paras 63 and 64, read 26 November 2026.
+const coHtml = readFileSync(new URL('../_includes/calculators/casual-overtime.html', import.meta.url), 'utf8');
+const coAud = (value) => value.toLocaleString('en-AU', { style: 'currency', currency: 'AUD' });
+const coBase = { payday: '2026-07-10', base_rate: '30.00', casual_loading: '0', ordinary_hours: '0', lines: [], leave_hours: '0',
+  leave_loading: '0', leave_loading_overtime: false };
+const co = (more) => calculations.casualOvertime({ ...coBase, ...more });
+const coRefusal = (more) => {
+  try {
+    co(more);
+  } catch (error) {
+    return error.message;
+  }
+  return 'computed';
+};
+
+test('the casual and overtime pay page opens on its first case, names the Fair Work tools and dates its sources', () => {
+  const example = coHtml.match(/\{% include calculator-example\.html inputs="([^"]*)" rows="([^"]*)" principal="(\d+)"(?: note="([^"]*)")? %\}/);
+  const fields = formDefaults(coHtml);
+  const result = calculations.casualOvertimeResult((name) => fields[name] ?? '', coAud);
+  assert.deepEqual([result.inputs, result.rows.map((row) => row.join('|')).join(';'), String(result.principal), result.note], example.slice(1));
+  for (const cited of ['https://calculate.fairwork.gov.au/', 'https://www.fairwork.gov.au/pay-and-wages/minimum-wages/pay-guides',
+    'C2004A04402', 'SGR/SGR20092/NAT/ATO/00001', 'LCR2026D1', '(last updated 2 September 2026)', 'applies no award', 'VID204of2025',
+    // Review round 1: no hour counted twice, and only a loading wholly for lost overtime is left out.
+    'leaving out hours on the lines below', 'not also counted above', 'The whole loading is paid for overtime']) {
+    assert.ok(coHtml.includes(cited), cited);
+  }
+});
+
+test('casual and overtime pay counts the casual loading and ordinary-hour penalties as ordinary time earnings, not overtime', () => {
+  const r = co({ casual_loading: '25', ordinary_hours: '10', lines: [{ hours: '2', percent: '200', overtime: false }, { hours: '2', percent: '200', overtime: true }] });
+  assert.deepEqual([r.ordinaryPay, r.casualLoading, r.penaltyPay, r.overtimePay, r.grossPay, r.ote, r.notOte, r.superGuarantee],
+    [300, 75, 120, 120, 615, 495, 120, 59.4]);
+  assert.equal(co({ ordinary_hours: '1', lines: [{ hours: '1', percent: '150', overtime: true }] }).superGuarantee, 3.6);
+});
+
+test('casual and overtime pay switches to qualifying earnings on 1 July 2026 and refuses paydays outside its 2 years', () => {
+  assert.deepEqual(['2025-07-01', '2026-06-30', '2026-07-01', '2027-06-30'].map((payday) => co({ payday, ordinary_hours: '1' }).rules),
+    ['quarterly', 'quarterly', 'payday', 'payday']);
+  for (const payday of ['2025-06-30', '2027-07-01', '2026-02-30', '10/07/2026']) assert.match(coRefusal({ payday }), /1 July 2025 to 30 June 2027/, payday);
+});
+
+test('casual and overtime pay refuses ordinary time earnings above the maximum contribution base, one cent over', () => {
+  assert.equal(co({ payday: '2026-06-30', base_rate: '625.00', ordinary_hours: '100' }).ote, 62500);
+  assert.match(coRefusal({ payday: '2026-06-30', base_rate: '625.01', ordinary_hours: '100' }), /quarterly maximum contribution base of \$62,500/);
+  assert.match(coRefusal({ payday: '2026-07-01', base_rate: '2708.31', ordinary_hours: '100' }), /annual maximum contribution base of \$270,830/);
+  // One cent over: 7 lines at $1 an hour make $62,500.00, and $0.01 of ordinary pay tips it.
+  const tipped = [...Array(6).fill({ hours: '1000', percent: '1000', overtime: false }), { hours: '250', percent: '1000', overtime: false }];
+  assert.equal(co({ payday: '2026-06-30', base_rate: '1.00', lines: tipped }).ote, 62500);
+  assert.match(coRefusal({ payday: '2026-06-30', base_rate: '1.00', ordinary_hours: '0.01', lines: tipped }), /quarterly maximum/);
+  // Overtime does not count towards the base.
+  assert.equal(co({ payday: '2026-06-30', base_rate: '625.00', ordinary_hours: '100', lines: [{ hours: '10', percent: '150', overtime: true }] }).overtimePay, 9375);
+});
+
+test('casual and overtime pay refuses unreadable rates, hours and lines', () => {
+  for (const [more, message] of [[{ base_rate: '0' }, /base hourly rate/], [{ base_rate: '10000.01' }, /base hourly rate/],
+    [{ base_rate: '30.001' }, /base hourly rate/], [{ casual_loading: '100.01' }, /casual loading/], [{ ordinary_hours: '-1' }, /ordinary hours/],
+    [{ ordinary_hours: '1000.01' }, /ordinary hours/], [{ lines: [{ hours: '0', percent: '150', overtime: true }] }, /hours on line 1/],
+    [{ lines: [{ hours: '1', percent: '0', overtime: true }] }, /percentage of the base rate on line 1/],
+    [{ lines: [{ hours: '1', percent: '150' }] }, /line 1 is overtime/], [{ lines: Array(9).fill({ hours: '1', percent: '100', overtime: false }) }, /at most 8/],
+    [{ leave_loading_overtime: 'no' }, /leave loading/], [{ casual_loading: '25', leave_hours: '1' }, /not both/]]) {
+    assert.match(coRefusal(more), message, JSON.stringify(more));
+  }
+  assert.equal(coRefusal({ ordinary_hours: '1000', lines: Array(8).fill({ hours: '1000', percent: '1000', overtime: true }) }), 'computed');
+});
+
+// The contractor against employee page: its example, the section 12(3) elements, hand-worked figures and the refusals.
+// SGAA 1992 ss 10A(1)(d) and 12(3) (Compilation No. 78, 1 July 2026) and TR 2023/4 Appendix 2, paragraphs 93 to 111, read 26 November 2026.
+const ceHtml = readFileSync(new URL('../_includes/calculators/contractor-employee.html', import.meta.url), 'utf8');
+const ceAud = (value) => value.toLocaleString('en-AU', { style: 'currency', currency: 'AUD' });
+const ceBase = calculations.contractorFormInput((name) => formDefaults(ceHtml)[name] ?? '');
+const ce = (more) => calculations.contractorEmployee({ ...ceBase, ...more });
+
+test('the contractor against employee page shows its engine’s example and dates its sources', () => {
+  const example = ceHtml.match(/\{% include calculator-example\.html inputs="([^"]*)" rows="([^"]*)" principal="(\d+)"(?: note="([^"]*)")? %\}/);
+  const fields = formDefaults(ceHtml);
+  const result = calculations.contractorEmployeeResult((name) => fields[name] ?? '', ceAud);
+  assert.deepEqual([result.inputs, result.rows.map((row) => row.join('|')).join(';'), String(result.principal), result.note], example.slice(1));
+  assert.equal(result.rows[result.principal][0], 'Cost to the business: employee less contractor');
+  for (const cited of ['C2004A04402', 'TXR/TR20234', 'Compilation No. 78, 1 July 2026', 'C2009A00028', 'Compilation No. 73, 7 July 2026',
+    'both read 26 November 2026', 'does not decide whether the person is an employee']) {
+    assert.ok(ceHtml.includes(cited), cited);
+  }
+  assert.doesNotMatch(ceHtml, /not (?:endorsed|affiliated)/);
+});
+
+test('contractor against employee works the default by hand', () => {
+  const r = ce({});
+  // 38 hours for 48 weeks; employee: 12% of $100,000, 5.45% of $112,000 and 1.5% of $100,000.
+  assert.equal(r.hoursWorked, 1824);
+  assert.deepEqual([r.employeeSuperGuarantee, r.employeePayrollTax, r.employeeWorkersCompensation, r.employeeCost], [12000, 6104, 1500, 119604]);
+  // Contractor: 1,824 hours at $70, GST a tenth and claimed back, 12% of the fee under s 12(3).
+  assert.deepEqual([r.fee, r.gst, r.gstCost, r.contractorSuperGuarantee, r.contractorCost], [127680, 12768, 0, 15321.6, 143001.6]);
+  // 2026-27 resident: on $99,000 after the $1,000 standard deduction, $4,020 + 30% over $45,000 + 2% levy = $22,200;
+  // the contractor's $125,680 profit takes no standard deduction: $4,020 + $24,204 + $2,513.60.
+  assert.deepEqual([r.employeeTax, r.employeeTakeHome, r.contractorTax, r.contractorTakeHome], [22200, 77800, 30737.6, 94942.4]);
+  assert.equal(r.employeeCostPerHour, 65.57);
+});
+
+test('contractor against employee applies section 12(3) only when all 4 elements hold', () => {
+  for (const more of [{ individual: false }, { delegate: true }, { result: true }, { nonLabour: '63840' }]) {
+    const r = ce(more);
+    assert.equal(r.section12, false, JSON.stringify(more));
+    assert.equal(r.contractorSuperGuarantee, 0);
+  }
+  // A cent over half the fee is labour: 12% of $63,840.01.
+  const over = ce({ nonLabour: '63839.99' });
+  assert.deepEqual([over.section12, over.contractorSuperGuarantee], [true, 7660.8]);
+  // The share rounds to 50%, so the note states the exact comparison instead.
+  assert.match(calculations.contractorEmployeeResult((name) => ({ ...formDefaults(ceHtml), 'non-labour': '63839.99' })[name] ?? '', ceAud).note,
+    /labour is more than half the fee/);
+  assert.match(calculations.contractorEmployeeResult((name) => ({ ...formDefaults(ceHtml), 'non-labour': '63840' })[name] ?? '', ceAud).note,
+    /labour is not more than half the fee\. If labour is still the main thing the contract is for, section 12\(3\) may apply/);
+  assert.match(calculations.contractorEmployeeResult((name) => ({ ...formDefaults(ceHtml), delegate: 'yes' })[name] ?? '', ceAud).note,
+    /^On these answers the section 12\(3\) screen indicates no super guarantee: the contract gives a right to delegate, subcontract or assign the work\. The super guarantee is still owed if the person is an employee in the ordinary meaning$/);
+});
+
+test('contractor against employee caps the super guarantee and loading at the stated rules', () => {
+  // The 2026-27 maximum contributions base: 12% of $270,830 = $32,499.60 on both sides.
+  const high = ce({ salary: '300000', rate: '200' });
+  assert.deepEqual([high.employeeSuperGuarantee, high.contractorSuperGuarantee], [32499.6, 32499.6]);
+  // 17.5% on 4 weeks of $100,000: $1,346.15; super on it only when it is ordinary time earnings.
+  assert.deepEqual([ce({ loading: '17.5' }).loading, ce({ loading: '17.5' }).employeeSuperGuarantee], [1346.15, 12161.54]);
+  assert.equal(ce({ loading: '17.5', loadingQualifying: false }).employeeSuperGuarantee, 12000);
+  // GST the business cannot claim joins its cost; an unregistered contractor over $75,000 is told to register.
+  assert.equal(ce({ credits: false }).contractorCost, 127680 + 12768 + 15321.6);
+  assert.equal(ce({ gst: false }).gstThresholdReached, true);
+  assert.equal(ce({ gst: false, rate: '40' }).gstThresholdReached, false);
+});
+
+test('contractor against employee refuses what it does not work', () => {
+  assert.throws(() => ce({ year: '2020-21' }), /2021-22 to 2026-27/);
+  assert.throws(() => ce({ annualLeave: '50', otherLeave: '2' }), /fewer than 52 weeks/);
+  assert.throws(() => ce({ nonLabour: '200000' }), /non-labour part/);
+  assert.throws(() => ce({ ownSuper: '20000' }), /concessional contributions cap of \$32,500/);
+  assert.throws(() => ce({ delegate: 'no' }), /right to delegate/);
+  assert.throws(() => ce({ hours: '0' }), /hours worked/);
 });

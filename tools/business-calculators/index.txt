@@ -6,11 +6,11 @@ Source: https://duguid.com.au/tools/business-calculators/
 
 # Business calculators
 
-Fifty-nine free calculators that run in your browser with the formula, assumptions and primary source beside the inputs. No sign-up; inputs stay on your device.
+Sixty free calculators that run in your browser with the formula, assumptions and primary source beside the inputs. No sign-up; inputs stay on your device.
 
-Published 11 September 2026. Last checked 27 November 2026, the newest of the calculators’ source checks.
+Published 11 September 2026. Last checked 26 November 2026, the newest of the calculators’ source checks.
 
-Search 59 calculators
+Search 60 calculators
 
 ## Pricing, planning and loans
 
@@ -30,20 +30,16 @@ Search 59 calculators
 - Depreciation pools and capital works calculator A low-value pool at 18.75% and 37.5%, a general small business pool at 15% and 30% with the low pool value write-off, or a capital works deduction at 2.5% or 4%, for 2020-21 to 2026-27.
 - Rental property calculator One owner’s rental income and deductions for a year: expenses by days let, interest on a mixed-use loan, capital works and second-hand assets, the net rent and its effect on tax.
 
-## Fringe benefits tax
+## Division 7A, FBT, professional firms and GIC
 
+- Division 7A loan calculator Minimum yearly repayment, interest and principal on one amalgamated loan.
 - FBT car calculator Taxable value and FBT on one car for the FBT year ending 31 March 2027, by the statutory formula or operating cost method.
 - FBT car parking calculator Whether car parking fringe benefits arise against the $11.48 threshold, and their taxable value by any of the 5 methods, for the FBT year ending 31 March 2027.
 - FBT expense payment calculator Taxable value of an expense payment fringe benefit, external with the otherwise deductible rule or in-house by the in-house rules, for the FBT year ending 31 March 2027.
 - FBT loan calculator Taxable value of a loan fringe benefit at the 8.27% statutory interest rate, with the otherwise deductible rule, for the FBT year ending 31 March 2027.
 - Meal entertainment calculator Taxable value of meal entertainment fringe benefits by the 50/50 split or 12-week register method, for the FBT year ending 31 March 2027.
-- FBT return calculator One employer’s FBT return from its benefits’ taxable values: the gross-up at items 14 to 16, item 23, reportable fringe benefits amounts, the rebate or caps of a not-for-profit employer, and a quarter’s FBT instalment.
 - FBT property calculator Taxable value of a property fringe benefit by the in-house or external rules, with the otherwise deductible rule and the $1,000 in-house reduction, for the FBT year ending 31 March 2027.
 - Vehicle classifier Whether a vehicle is a car, and what follows for the car limit, the GST credit, luxury car tax, FBT and records.
-
-## Division 7A, professional firms and GIC
-
-- Division 7A loan calculator Minimum yearly repayment, interest and principal on one amalgamated loan.
 - PCG 2021/4 risk scorer The ATO’s risk zone for a professional firm profit allocation, after both gateways.
 - PCG 2021/4 allocation Each recipient’s tax on a professional firm’s profit, the effective tax rate and the ATO’s risk zone.
 - GIC payment plan calculator What a tax debt costs by equal instalments, against paying it now, with GIC compounding daily.
@@ -69,6 +65,8 @@ Search 59 calculators
 ## Staff, payroll and termination
 
 - Staff cost calculator Annual and monthly cost of a staff member from wages, the supplied super amount and other annual costs.
+- Casual and overtime pay calculator Gross pay from the base rate, casual loading and penalty and overtime rates you enter, and the super guarantee on ordinary time earnings.
+- Contractor against employee calculator The cost to a business and the take-home pay of the same person engaged as an employee or as a contractor, and when section 12(3) still makes the super guarantee payable.
 - 13-week cash forecast Weekly closing cash from opening cash, receipts and payments, with one delayed receipt and a funding gap against a buffer. Save, load and export as CSV.
 - SGC and Payday Super calculator When a Payday Super contribution is due, how many days late it was, and one employee’s super guarantee charge, each step cited.
 - Long service leave calculator One employee’s long service leave under each state and territory’s Act: the leave to take now, or the weeks payable when employment ends for a given reason and their value, each step cited.
@@ -95,7 +93,7 @@ Search 59 calculators
 - Business days calculator Business days between 2 dates, or the date a number of business days on or back, with each state’s public holidays for 2026 and 2027.
 - ASIC fees calculator ASIC’s 2026-27 fees and late fee tiers.
 
-See also 17 individual tax calculators, depreciation rates and effective lives, 2026-27 BAS due dates and 100 accounting questions.
+See also 18 individual tax calculators, depreciation rates and effective lives, 2026-27 BAS due dates and 100 accounting questions.
 
 Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up, and percentages to two decimal places, with exact halves rounded away from zero; loan estimates allow for calculation precision.
 
@@ -116,15 +114,14 @@ Planning estimates in AUD. Confirm tax treatment, liability amounts and dates se
 - Borrowing expenses calculator: https://duguid.com.au/tools/business-calculators/borrowing-expenses/
 - Depreciation pools and capital works calculator: https://duguid.com.au/tools/business-calculators/depreciation-pools/
 - Rental property calculator: https://duguid.com.au/tools/business-calculators/rental-property/
+- Division 7A loan calculator: https://duguid.com.au/tools/business-calculators/div7a/
 - FBT car calculator: https://duguid.com.au/tools/business-calculators/fbt-car/
 - FBT car parking calculator: https://duguid.com.au/tools/business-calculators/fbt-car-parking/
 - FBT expense payment calculator: https://duguid.com.au/tools/business-calculators/fbt-expense-payment/
 - FBT loan calculator: https://duguid.com.au/tools/business-calculators/fbt-loan/
 - Meal entertainment calculator: https://duguid.com.au/tools/business-calculators/fbt-meal-entertainment/
-- FBT return calculator: https://duguid.com.au/tools/business-calculators/fbt-return/
 - FBT property calculator: https://duguid.com.au/tools/business-calculators/fbt-property/
 - Vehicle classifier: https://duguid.com.au/tools/business-calculators/vehicle-class/
-- Division 7A loan calculator: https://duguid.com.au/tools/business-calculators/div7a/
 - PCG 2021/4 risk scorer: https://duguid.com.au/tools/business-calculators/pcg-2021-4/
 - PCG 2021/4 allocation: https://duguid.com.au/tools/business-calculators/pcg-2021-4-allocation/
 - GIC payment plan calculator: https://duguid.com.au/tools/business-calculators/gic-payment-plan/
@@ -141,6 +138,8 @@ Planning estimates in AUD. Confirm tax treatment, liability amounts and dates se
 - Capital gains tax calculator: https://duguid.com.au/tools/business-calculators/cgt/
 - Small business CGT concessions checker: https://duguid.com.au/tools/business-calculators/cgt-concessions/
 - Staff cost calculator: https://duguid.com.au/tools/business-calculators/staff/
+- Casual and overtime pay calculator: https://duguid.com.au/tools/business-calculators/casual-overtime/
+- Contractor against employee calculator: https://duguid.com.au/tools/business-calculators/contractor-employee/
 - 13-week cash forecast: https://duguid.com.au/tools/business-calculators/cash/
 - SGC and Payday Super calculator: https://duguid.com.au/tools/business-calculators/sgc-payday/
 - Long service leave calculator: https://duguid.com.au/tools/business-calculators/long-service-leave/
@@ -160,7 +159,7 @@ Planning estimates in AUD. Confirm tax treatment, liability amounts and dates se
 - Wine equalisation tax calculator: https://duguid.com.au/tools/business-calculators/wine-equalisation-tax/
 - Business days calculator: https://duguid.com.au/tools/business-calculators/business-days/
 - ASIC fees calculator: https://duguid.com.au/tools/business-calculators/asic-fees/
-- 17 individual tax calculators: https://duguid.com.au/tools/individual-tax/
+- 18 individual tax calculators: https://duguid.com.au/tools/individual-tax/
 - depreciation rates and effective lives: https://duguid.com.au/tools/depreciation-rates/
 - 2026-27 BAS due dates: https://duguid.com.au/tools/bas-due-dates/
 - 100 accounting questions: https://duguid.com.au/tools/accounting-questions/

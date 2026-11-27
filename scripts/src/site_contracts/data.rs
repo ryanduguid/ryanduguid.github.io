@@ -734,7 +734,7 @@ pub const HOMEPAGE_ROUTES: [(&str, &[&str]); 3] = [
     ("Review my work", &["/about/", "/evidence/"]),
 ];
 pub const HOMEPAGE_ANCHORS: [&str; 2] = ["adopt", "verify"];
-pub const ABOUT_OPENING: &str = "I\u{2019}m Ryan Duguid, a senior accountant in Newcastle, NSW, Australia. I build open source Australian computational accounting tools, including 77 browser calculators, 12 maintained rate tables, 7,430 depreciation effective lives, Ozzit (165 Excel LAMBDA functions) and Aus Accounting MCP, with primary sources visible.";
+pub const ABOUT_OPENING: &str = "I\u{2019}m Ryan Duguid, a senior accountant in Newcastle, NSW, Australia. I build open source Australian computational accounting tools, including 81 browser calculators, 12 maintained rate tables, 7,430 depreciation effective lives, Ozzit (165 Excel LAMBDA functions) and Aus Accounting MCP, with primary sources visible.";
 pub const EVIDENCE_HEADING: &str = "Evidence behind the tools";
 pub const EVIDENCE_OPENING: &str = "Check the records behind the tools: identity records, releases, primary source reviews, repository controls and tests you can reproduce. These records support limited software claims.";
 pub const HOMEPAGE_REQUIRED_TEXT: [&str; 3] = [
@@ -743,7 +743,7 @@ pub const HOMEPAGE_REQUIRED_TEXT: [&str; 3] = [
     "Try each tool with fictional data first",
 ];
 pub const HOMEPAGE_TITLE: &str = "Ryan Duguid: Tools for Australian accountants";
-pub const HOMEPAGE_DESCRIPTION: &str = "Ryan Duguid\u{2019}s 77 free Australian tax and business calculators, 12 maintained rate tables, 7,430 depreciation effective lives, Ozzit and open source tools.";
+pub const HOMEPAGE_DESCRIPTION: &str = "Ryan Duguid\u{2019}s 81 free Australian tax and business calculators, 12 maintained rate tables, 7,430 depreciation effective lives, Ozzit and open source tools.";
 pub const HOMEPAGE_REQUIRED_HREFS: [&str; 4] = [
     "/evidence/",
     "/examples/profit-vs-cash-flow/",

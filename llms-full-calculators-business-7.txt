@@ -64,7 +64,7 @@ A company new this year franks at 25% whatever its own year | Turnover $60,000,0
 Partly franked: 50% of the maximum, rounded down to the cent | Turnover $104,000.00, passive income $4,000.00 of $104,000.00, taxable income $104,000.00; last year turnover $104,000.00, passive income $4,000.00 of $104,000.00; dividend $1,000.01 franked 50%, marginal rate 32% | Tax rate 25%, tax $26,000.00, franking rate 25%, maximum franking credit $333.33, franking credit $166.66, tax left to pay $206.67
 Passive income above assessable income is refused | Turnover $100,000.00, passive income $100,000.01 of $100,000.00, taxable income $100,000.00; last year turnover $104,000.00, passive income $4,000.00 of $104,000.00; dividend $0.00 franked 100%, marginal rate 30% | Refused: base rate entity passive income cannot be more than assessable income
 
-One of the fifty-eight business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the sixty business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 ## Related
 
@@ -77,7 +77,7 @@ Planning estimates in AUD. Confirm tax treatment, liability amounts and dates se
 ## Links
 
 - company tax and franking worksheets: https://duguid.com.au/tools/company-tax-franking/
-- fifty-eight business calculators: https://duguid.com.au/tools/business-calculators/
+- sixty business calculators: https://duguid.com.au/tools/business-calculators/
 - Franking account calculator: https://duguid.com.au/tools/business-calculators/franking-account/
 - Salary against dividends calculator: https://duguid.com.au/tools/business-calculators/salary-dividend/
 - Division 7A loan calculator: https://duguid.com.au/tools/business-calculators/div7a/
@@ -153,13 +153,13 @@ Exempt entity control under $20 million turnover: non-refundable | 2024-25; noti
 The ATO’s feedstock example: a clawback leaving $13,000 is refused | 2024-25; notional deductions $22,000.00, aggregated turnover $10,000,000.00, a base rate entity, total expenses $0.00; feedstock revenue $9,000.00 and expenditure $10,000.00, a base rate entity in the present year | Refused: with a clawback amount, the notional deductions or the adjusted total is under $20,000: section 355-100(2) then limits the adjusted offset to research service provider and CRC expenditure, but neither section 355-450 nor the ATO says how the clawback reduces that expenditure, and the ATO’s feedstock example applies the full rate below $20,000; this calculator does not choose between them
 2020-21 is refused: the earlier rates and clawback rules | 2020-21; notional deductions $100,000.00, aggregated turnover $10,000,000.00, a base rate entity, total expenses $0.00 | Refused: choose an income year from 2021-22 to 2026-27. Income years starting before 1 July 2021 used the earlier R&D offset rates, cap and clawback rules, replaced by Act No. 92 of 2020 (Sch 4 item 14, Sch 5 item 56(3)); this calculator does not hold them
 
-One of the fifty-eight business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the sixty business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
 
 ## Links
 
-- fifty-eight business calculators: https://duguid.com.au/tools/business-calculators/
+- sixty business calculators: https://duguid.com.au/tools/business-calculators/
 
 ---
 
@@ -267,13 +267,13 @@ A base rate entity in 2021-22: the opening balance remeasured from 30% to 25%, a
 The same company not a base rate entity: the year’s 30% is not the closing 25%, refused | 2021-22, not a base rate entity, rates 25% (opening 30%); Equipment (asset) $150,000.00 on $100,000.00, opening $200,000.00 on $100,000.00; profit $50,000.00, taxable income $100,000.00 | Refused: the expected rate changed while the year’s rate is not the closing rate: opening balances that reversed in the year did so at the year’s rate and only the rest is remeasured, which needs a reversal schedule this worksheet does not take
 Deferred tax arising in a business combination is refused | 2025-26, not a base rate entity, rates 30% (opening 30%); Plant (asset) $70,000.00 on $50,000.00, opening $80,000.00 on $65,000.00; Leave provision (liability) $12,000.00 on $0.00, opening $10,000.00 on $0.00; Prepayment (asset) $3,000.00 on $0.00, opening $2,000.00 on $0.00; profit $100,000.00, taxable income $100,000.00, non-deductible $4,000.00, a business combination | Refused: deferred tax arising in a business combination follows AASB 112 paras 19 and 66 to 68 and AASB 3, which this worksheet does not apply
 
-One of the fifty-eight business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the sixty business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
 
 ## Links
 
-- fifty-eight business calculators: https://duguid.com.au/tools/business-calculators/
+- sixty business calculators: https://duguid.com.au/tools/business-calculators/
 
 ---
 
@@ -331,7 +331,7 @@ Under the tax-free threshold all dividends keep the most, as the credit is refun
 A company at 30% in 2021-22, with the low and middle income tax offset | 2021-22, profit $41,000.00, 30% company, salary $20,000.00, other income $0.00 | Super guarantee $2,000.00, company tax $5,700.00, dividend $13,300.00, franking credit $5,700.00, owner’s refund $2,418.00, super tax $300.00, cash kept $35,718.00, super kept $1,700.00, kept in all $37,418.00, all salary keeps $37,467.19, all dividends keep $37,348.00, best salary $35,000.00, best keeps $37,470.50
 A salary whose super guarantee the profit cannot pay is refused | 2026-27, profit $100,000.00, 25% company, salary $95,000.00, other income $0.00 | Refused: enter a salary of no more than $89,285.71: the profit also pays its super guarantee
 
-One of the fifty-eight business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the sixty business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 ## Related
 
@@ -348,7 +348,7 @@ Planning estimates in AUD. Confirm tax treatment, liability amounts and dates se
 - Division 7A calculator: https://duguid.com.au/tools/business-calculators/div7a/
 - PSI rules checker: https://duguid.com.au/tools/business-calculators/psi-determination/
 - payroll tax: https://duguid.com.au/tools/business-calculators/payroll-tax/
-- fifty-eight business calculators: https://duguid.com.au/tools/business-calculators/
+- sixty business calculators: https://duguid.com.au/tools/business-calculators/
 - Individual income tax rates: https://duguid.com.au/rates/individual-income-tax/
 - Super guarantee rate history: https://duguid.com.au/rates/super-guarantee/
 
@@ -405,7 +405,7 @@ Salary at the 2026-27 super guarantee base, with Division 293 tax | 2026-27, pro
 A salary whose super guarantee the profit cannot pay is refused | 2026-27, profit $100,000.00, taken out $95,000.00, salary $95,000.00, 25% company, with the offset | Refused: enter a salary of no more than $89,285.71: the profit also pays its super guarantee
 Taking out more than the salary and the profit after company tax is refused | 2025-26, profit $80,000.00, taken out $80,000.00, salary $0.00, 30% company, with the offset | Refused: enter an amount taken out of no more than $56,000.00: the salary and the profit left after company tax
 
-One of the fifty-eight business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the sixty business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 ## Related
 
@@ -420,7 +420,7 @@ Planning estimates in AUD. Confirm tax treatment, liability amounts and dates se
 - company tax and franking calculator: https://duguid.com.au/tools/business-calculators/company-tax/
 - PSI rules checker: https://duguid.com.au/tools/business-calculators/psi-determination/
 - Division 7A calculator: https://duguid.com.au/tools/business-calculators/div7a/
-- fifty-eight business calculators: https://duguid.com.au/tools/business-calculators/
+- sixty business calculators: https://duguid.com.au/tools/business-calculators/
 - Sole trader tax set-aside calculator: https://duguid.com.au/tools/individual-tax/sole-trader/
 - Salary against dividends calculator: https://duguid.com.au/tools/business-calculators/salary-dividend/
 
@@ -517,7 +517,7 @@ FIRB Guidance Note 10, example 3: the fee is 3 times for an established dwelling
 Under $75,000 the lower fee applies | Residential land without an established dwelling, consideration $74,999.00 | Fee $4,600.00
 Above $40 million the fee stops at its maximum | Residential land without an established dwelling, consideration $40,000,001.00 | Fee $1,245,500.00
 
-One of the fifty-eight business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the sixty business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 ## Related
 
@@ -533,7 +533,7 @@ Planning estimates in AUD. Confirm tax treatment, liability amounts and dates se
 - section 14: https://www.legislation.gov.au/F2015L01854/2025-11-01/2025-11-01/text/original/epub/OEBPS/document_1/document_1.html
 - transfer duty calculator: https://duguid.com.au/tools/business-calculators/transfer-duty/
 - land tax calculator: https://duguid.com.au/tools/business-calculators/land-tax/
-- fifty-eight business calculators: https://duguid.com.au/tools/business-calculators/
+- sixty business calculators: https://duguid.com.au/tools/business-calculators/
 
 ---
 
@@ -631,7 +631,7 @@ ASIC code A53 | Annual review fee, special purpose company that is not a proprie
 ASIC code BZA or BZC | Register or renew a business name for 1 year | Fee $47.00, ASIC code BZA or BZC
 ASIC code BZB or BZD | Register or renew a business name for 3 years | Fee $108.00, ASIC code BZB or BZD
 
-One of the fifty-eight business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the sixty business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 ## Related
 
@@ -643,7 +643,7 @@ Planning estimates in AUD. Confirm tax treatment, liability amounts and dates se
 
 ## Links
 
-- fifty-eight business calculators: https://duguid.com.au/tools/business-calculators/
+- sixty business calculators: https://duguid.com.au/tools/business-calculators/
 - Starting a business questions: https://duguid.com.au/tools/accounting-questions/business-setup/
 - Companies and trusts questions: https://duguid.com.au/tools/accounting-questions/company-compliance/
 - Company tax and franking calculator: https://duguid.com.au/tools/business-calculators/company-tax/
@@ -704,7 +704,7 @@ An end before the start is refused | New South Wales, Wednesday 18 November 2026
 Victoria skips the Grand Final holiday | Victoria, Thursday 30 September 2027 to Friday 1 October 2027 | 0 business days
 Counting past 31 December 2027 is refused | New South Wales, 20 business days after Monday 20 December 2027 | Refused: this page has public holidays from 1 January 2026 to 31 December 2027 for New South Wales; choose dates in that range
 
-One of the fifty-eight business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the sixty business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 ## Related
 
@@ -717,7 +717,7 @@ Planning estimates in AUD. Confirm tax treatment, liability amounts and dates se
 ## Links
 
 - SGC and Payday Super calculator: https://duguid.com.au/tools/business-calculators/sgc-payday/
-- fifty-eight business calculators: https://duguid.com.au/tools/business-calculators/
+- sixty business calculators: https://duguid.com.au/tools/business-calculators/
 - Payday Super business days: https://duguid.com.au/tools/payday-super/business-days/
 - Objection deadline checker: https://duguid.com.au/tools/business-calculators/objection-deadline/
 - 2026-27 BAS due dates: https://duguid.com.au/tools/bas-due-dates/
