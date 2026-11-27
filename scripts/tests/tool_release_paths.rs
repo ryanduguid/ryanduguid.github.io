@@ -193,14 +193,6 @@ fn allow_list_admits_only_rewrites_of_generated_files() {
 #[test]
 fn tracked_files_the_globs_match_are_declared_generated() {
     let root = repository();
-    let declared = std::fs::read_to_string(root.join(".github/review-generated.json")).unwrap();
-    let declared: serde_json::Value = serde_json::from_str(&declared).unwrap();
-    let paths: Vec<&str> = declared["paths"]
-        .as_array()
-        .unwrap()
-        .iter()
-        .map(|p| p.as_str().unwrap())
-        .collect();
     let tracked = git(
         &root,
         &[
@@ -212,7 +204,6 @@ fn tracked_files_the_globs_match_are_declared_generated() {
         ],
     );
     assert!(!tracked.is_empty());
-    for file in tracked.lines() {
-        assert!(paths.contains(&file), "{file} is not declared generated");
-    }
+    let undeclared = site_tools::review_generated::undeclared(&root, tracked.lines()).unwrap();
+    assert!(undeclared.is_empty(), "{undeclared:#?}");
 }
