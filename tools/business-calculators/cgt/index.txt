@@ -66,6 +66,24 @@ The calculator gives an estimate for one sale, and no advice. It does not cover:
 
 Confirm the figure with the ATO or a registered tax agent before relying on it.
 
+## Shares or units bought in parcels
+
+This form is for shares or units bought at different times and sold in the 2025-26 or 2026-27 income year. It matches each sale to its parcels, first in, first out or as you select, and works each capital gain or loss and the net capital gain.
+
+Parcels and sales in one income year
+
+Who made the sales An individual A trust A complying super fund A company Which parcels each sale takes The earliest bought first The parcels I select Income year of the sales2025-26 2026-27
+
+One parcel a line: a name, the code, the purchase contract date, the units, the purchase cost and the buying costs, then optionally the costs of owning, capital improvements and title costs, separated by spaces, such as A ABC 2020-08-03 1000 5200 19.95. One sale a line: the code, the sale contract date, the units, the proceeds and the selling costs, then, for parcels you select, each as name:units, such as ABC 2026-02-02 1500 13500 29.95.
+
+Parcels boughtA ABC 2020-08-03 1000 5200 19.95 B ABC 2025-09-15 1000 8000 19.95 SalesABC 2026-02-02 1500 13500 29.95 Other discount capital gains this year (AUD) Other capital gains this year, not discount gains (AUD) Other capital losses this year (AUD) Net capital losses from earlier years (AUD)
+
+Calculate
+
+## What the share parcels form does not cover
+
+The form leaves out parcels bought at or before 21 September 1999. It also leaves out returns of capital, demergers, scrip for scrip and other cost base adjustments, roll-overs, the small business concessions, crypto assets, trading stock and sales from 1 July 2027. Confirm the figure with the ATO or a registered tax agent before relying on it.
+
 ## Boundary cases
 
 Each row is a test: scripts/business-calculators.test.mjs runs this calculator on these fictional inputs and fails if the result differs from the one shown.
