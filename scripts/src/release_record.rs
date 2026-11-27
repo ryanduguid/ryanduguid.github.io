@@ -101,9 +101,33 @@ pub trait Live {
 /// The network, through ureq.
 pub struct Network;
 
+/// The Authorization header for `url`. Unauthenticated GitHub API calls share 60 an
+/// hour per runner address, so CI passes its token; it goes only to api.github.com.
+pub fn authorization(token: Option<&str>, url: &str) -> Option<String> {
+    token
+        .filter(|t| !t.is_empty() && url.starts_with("https://api.github.com/"))
+        .map(|t| format!("Bearer {t}"))
+}
+
 fn get(url: &str, accept_json: bool) -> std::result::Result<Vec<u8>, LiveError> {
+    let token = std::env::var("GH_TOKEN").ok();
+    get_with(
+        url,
+        accept_json,
+        authorization(token.as_deref(), url),
+        TIMEOUT,
+    )
+}
+
+/// One GET as urlopen makes it, with its Authorization header and time limit given.
+pub fn get_with(
+    url: &str,
+    accept_json: bool,
+    authorization: Option<String>,
+    timeout: Duration,
+) -> std::result::Result<Vec<u8>, LiveError> {
     let agent: ureq::Agent = ureq::Agent::config_builder()
-        .timeout_global(Some(TIMEOUT))
+        .timeout_global(Some(timeout))
         .user_agent(USER_AGENT)
         .build()
         .into();
@@ -111,12 +135,8 @@ fn get(url: &str, accept_json: bool) -> std::result::Result<Vec<u8>, LiveError> 
     if accept_json {
         request = request.header("Accept", "application/json");
     }
-    // Unauthenticated GitHub API calls share 60 an hour per runner address, so CI
-    // passes its token; it goes only to api.github.com.
-    if let Some(token) = std::env::var("GH_TOKEN").ok().filter(|t| !t.is_empty())
-        && url.starts_with("https://api.github.com/")
-    {
-        request = request.header("Authorization", format!("Bearer {token}"));
+    if let Some(value) = authorization {
+        request = request.header("Authorization", value);
     }
     match request.call() {
         Ok(mut response) => response
