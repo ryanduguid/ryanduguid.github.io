@@ -7,7 +7,7 @@ import * as calculate from '../assets/business-calculators.mjs';
 import { readFileSync, readdirSync } from 'node:fs';
 import {
   calculatorTools, depreciationTools, fhssTools, governmentSuperTools, individualTaxTools, levyTools, ozzitTools,
-  pensionMinimumTools, residencyDaysTools, transferBalanceTools, workExpensesTools,
+  pensionMinimumTools, residencyDaysTools, transferBalanceTools, workExpensesTools, helpIndexationTools,
 } from '../assets/webmcp-tools.mjs';
 import { engines as individualEngines } from '../assets/individual-tax-results.mjs';
 import { fhss } from '../assets/fhss-result.mjs';
@@ -15,6 +15,7 @@ import { workExpenses, workExpensesYears } from '../assets/work-expenses-result.
 import { governmentSuperAmounts, governmentSuperYears } from '../assets/government-super-result.mjs';
 import { PENSION_MINIMUM_YEARS, pensionMinimum } from '../assets/pension-minimum.mjs';
 import { MAX_PERIODS, RESIDENCY_YEARS, residencyDays } from '../assets/residency-days.mjs';
+import { HELP_INDEXATION_YEARS, MAX_ENTRIES, helpIndexation } from '../assets/help-indexation.mjs';
 import { ATO_TABLE_5, CHARGE_YEARS, RELEASE_YEARS, excessContributions } from '../assets/excess-contributions.mjs';
 import { TBA_KINDS, TBA_YEARS, dayOf, label, transferBalance, yearOf } from '../assets/transfer-balance.mjs';
 import * as depreciation from '../assets/depreciation-rates.mjs';
@@ -465,6 +466,7 @@ const individual = {
   ...pensionMinimumTools({ pensionMinimum, PENSION_MINIMUM_YEARS }),
   ...transferBalanceTools({ ATO_TABLE_5, CHARGE_YEARS, RELEASE_YEARS, TBA_KINDS, TBA_YEARS, dayOf, excessContributions, label, transferBalance, yearOf }),
   ...residencyDaysTools({ MAX_PERIODS, RESIDENCY_YEARS, residencyDays }),
+  ...helpIndexationTools({ HELP_INDEXATION_YEARS, MAX_ENTRIES, helpIndexation }),
 };
 
 test('each individual tax tool is keyed by the form that registers it and is read-only', () => {
@@ -474,7 +476,7 @@ test('each individual tax tool is keyed by the form that registers it and is rea
     'calculate_concessional_catch_up', 'calculate_bonus_withholding', 'calculate_salary_packaging',
     'calculate_novated_lease', 'calculate_fhss_release', 'calculate_work_expenses',
     'calculate_government_super_amounts', 'calculate_pension_minimum', 'calculate_transfer_balance',
-    'calculate_residency_days']);
+    'calculate_residency_days', 'calculate_help_indexation']);
   for (const [key, t] of Object.entries(individual)) {
     const form = readFileSync(new URL(`../_includes/calculators/${key}.html`, import.meta.url), 'utf8');
     assert.ok(form.includes(`<form class="calculator-split" data-calculator="${key}">`), key);
@@ -1699,7 +1701,7 @@ test('every calculator include in _includes/calculators has a registered WebMCP 
     .sort();
   const registered = [...Object.keys(tools), ...Object.keys(individual)].sort();
   assert.deepEqual(registered, slugs);
-  assert.equal(registered.length + 2, 80);
+  assert.equal(registered.length + 2, 81);
 });
 
 test('business days tool returns the page worked example, matches holiday JSON and refuses mismatched or invalid inputs', async () => {
@@ -2141,6 +2143,22 @@ test('pension minimum tool covers full years, pro-rating, 1 June nil and leap ye
   await assert.rejects(tool.execute({ incomeYear: '2026-27', accountBalance: '600000', age: 151 }), /age must be a whole number from 0 to 150/);
   await assert.rejects(tool.execute({ incomeYear: '2026-27', accountBalance: '600000', age: 67, scopeConfirmed: false }), /Confirm the facts/);
   await assert.rejects(tool.execute({ incomeYear: '2026-27', accountBalance: '600000', age: 67, extra: 1 }), /extra is not an input of this tool/);
+});
+
+test('HELP indexation tool returns the page example, the 2025 reduction and the timing of a repayment, and refuses what the command refuses', async () => {
+  const tool = individual['help-indexation'];
+  const page = await tool.execute({ incomeYear: '2025-26', previousAccumulatedDebt: '30000' });
+  assert.deepEqual([page.amounts.accumulated_debt, page.rates.indexation_factor, page.indexationDate, page.source],
+    ['30840.00', '1.028', '2026-06-01', 'https://duguid.com.au/tools/individual-tax/help-indexation/']);
+  const cut = await tool.execute({ incomeYear: '2024-25', previousAccumulatedDebt: '30000', proposedRepayment: '1000',
+    currentDebts: [{ incurred: '2024-08-31', amount: '1000' }], voluntaryRepayments: [{ date: '2025-05-01', amount: '500' }] });
+  assert.deepEqual([cut.amounts.reduction, cut.amounts.accumulated_debt, cut.rates.reduction_rate], ['5900.00', '25155.00', '0.20']);
+  await assert.rejects(tool.execute({ incomeYear: '2025-26', previousAccumulatedDebt: '1', voluntaryRepayments: [{ date: '2026-06-01', amount: '1' }] }),
+    { code: 'help_indexation.date_outside_period' });
+  await assert.rejects(tool.execute({ incomeYear: '2025-26', previousAccumulatedDebt: '1', scopeConfirmed: false }), { code: 'scope.not_confirmed' });
+  await assert.rejects(tool.execute({ incomeYear: '2026-27', previousAccumulatedDebt: '1' }), /incomeYear does not match/);
+  await assert.rejects(tool.execute({ incomeYear: '2025-26', previousAccumulatedDebt: '1.001' }), /previousAccumulatedDebt does not match/);
+  await assert.rejects(tool.execute({ incomeYear: '2025-26', previousAccumulatedDebt: '1', locationPreferred: true }), /locationPreferred is not an input/);
 });
 
 test('residency day count tool counts broken periods, leap years and the exception, and decides no residency', async () => {

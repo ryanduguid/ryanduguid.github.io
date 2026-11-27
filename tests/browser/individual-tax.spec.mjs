@@ -11,7 +11,7 @@ const CALCULATORS = { 'income-tax': '$510.00', 'take-home-pay': '$60,212.00', 's
   'salary-packaging': '$5,291.50', 'novated-lease': '$6,047.48',
   'super-projection': '$539,266.80', fhss: '$14,350.00', 'work-expenses': '$590.00',
   'government-super': '$500.00', 'transfer-balance': '$26.80', 'pension-minimum': '$30,000.00',
-  'residency-days': 'Met' };
+  'residency-days': 'Met', 'help-indexation': '$30,840.00' };
 
 test.describe('before any script runs', () => {
   test.use({ javaScriptEnabled: false });
@@ -564,6 +564,8 @@ for (const [id, name, input, expected] of [
   ['residency-days', 'calculate_residency_days', { incomeYear: '2025-26', usualPlaceOfAbodeOutsideAustralia: false,
     intendsToTakeUpResidence: false, periods: [{ arrival: '2025-07-01', departure: '2025-09-30' },
       { arrival: '2025-11-15', departure: '2026-03-31' }] }, { daysInAustralia: 229, test183Met: true }],
+  ['help-indexation', 'calculate_help_indexation', { incomeYear: '2025-26', previousAccumulatedDebt: '30000' },
+    { indexationDate: '2026-06-01' }],
 ]) {
   test(`${id} registers ${name} where the browser offers modelContext`, async ({ page }) => {
     await page.addInitScript(() => {
