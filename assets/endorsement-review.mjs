@@ -143,12 +143,12 @@ function answersOf(answers, questions) {
 export function endorsementReview(worksheet, answers) {
   const sheet = sheetOf(worksheet);
   const given = answersOf(answers, sheet.questions);
-  const failed = sheet.questions.filter((_, i) => !given[i]);
+  const failed = sheet.questions.filter((_, i) => !given.at(i));
   let status = 'continues';
   if (failed.some((q) => q.outcome === NOT_ENTITLED)) status = NOT_ENTITLED;
   else if (failed.length) status = ACTION_NEEDED;
   /** @type {Finding[]} */
-  const findings = sheet.questions.map((q, i) => (given[i] ? { question: q.key, provision: q.provision, answer: true }
+  const findings = sheet.questions.map((q, i) => (given.at(i) ? { question: q.key, provision: q.provision, answer: true }
     : { question: q.key, provision: q.provision, answer: false, outcome: q.outcome, action: q.action }));
   return { worksheet: sheet.form, status, findings, notAsked: [...sheet.notAsked],
     record: 'Have the Board, Committee or Trustee approve the completed worksheet and keep it with the entity’s records; do not send it to the ATO.' };
@@ -167,7 +167,8 @@ export function endorsementFormInput(value) {
 /** How the page writes the input. @param {Worksheet} worksheet @param {Record<string, boolean>} answers */
 export function endorsementInputsText(worksheet, answers) {
   const sheet = sheetOf(worksheet);
-  const no = sheet.questions.filter(({ key }) => answers[key] === false)
+  const given = new Map(Object.entries(answers));
+  const no = sheet.questions.filter(({ key }) => given.get(key) === false)
     .map(({ key }) => ENDORSEMENT_QUESTIONS.get(key)?.[1]);
   return `${sheet.title}; ${sheet.questions.length} questions, no to ${no.length ? no.join(', ') : 'none'}`;
 }
