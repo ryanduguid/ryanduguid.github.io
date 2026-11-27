@@ -233,6 +233,10 @@ pub fn datetime_fromisoformat(text: &str) -> Option<IsoDateTime> {
     // The separator may be any one character.
     let rest = text.get(location..).unwrap_or("");
     let time = rest.char_indices().nth(1).map_or("", |(i, _)| &rest[i..]);
+    // A separator must be followed by a time, as Python refuses "2026-11-24T".
+    if time.is_empty() && !rest.is_empty() {
+        return None;
+    }
     let mut micros: i128 = 0;
     let mut offset = None;
     if !time.is_empty() {

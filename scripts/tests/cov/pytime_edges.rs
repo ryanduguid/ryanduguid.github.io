@@ -41,6 +41,11 @@ fn refuses_what_python_refuses() {
         "2026-11-24T123456x",
         // A week date's day must be a digit.
         "2026-W01-x",
+        // A separator with no time after it.
+        "2026-11-24T",
+        "2026-11-24 ",
+        "2026-W011",
+        "2026-11-24\u{e9}",
         // 24:00 on a day the month does not have.
         "2026-02-30T24:00",
     ] {
