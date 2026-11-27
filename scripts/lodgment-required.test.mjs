@@ -116,7 +116,7 @@ test('the form sends each optional group and residency the command takes, and wo
     working_holiday_maker: { other_assessable_income: true, taxable_income_excluding_remainders: '1000' } });
   for (const [name, words] of [['under-18-income', 'your income other than from work'], ['study-loan-income', 'your income for the study loan test'],
     ['whm-taxable', 'your taxable income without super or ETP remainders'], ['sapto-rebate', 'your rebate income']]) {
-    assert.throws(() => lodgmentRequiredResult(...form({ ...groups, sapto: 'yes', [name]: ' ' })), new RegExp(`^Error: Enter ${words}\\.$`));
+    assert.throws(() => lodgmentRequiredResult(...form({ ...groups, sapto: 'yes', [name]: ' ' })), { message: `Enter ${words}.` });
   }
   for (const typed of ['abc', '1.001']) {
     assert.throws(() => lodgmentRequiredResult(...form({ ...FORM, 'taxable-income': typed })), /^Error: Enter each amount in dollars and cents/);
