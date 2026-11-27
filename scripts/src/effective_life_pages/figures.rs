@@ -77,7 +77,7 @@ mod tests {
     use super::*;
 
     #[test]
-    fn date_spells_iso_dates_and_returns_other_text_unchanged() {
+    fn an_iso_date_is_written_out_and_other_text_is_kept() {
         assert_eq!(date("2008-07-01"), "1 July 2008");
         assert_eq!(date("2008-07"), "2008-07");
         assert_eq!(date("2008-13-01"), "2008-13-01");

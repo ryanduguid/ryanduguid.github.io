@@ -869,3 +869,54 @@ fn a_locked_replacement_preserves_current_bytes_before_git_fallback() {
     assert!(text.contains("<<<<<<<") && text.contains("=======") && text.contains(">>>>>>>"));
     assert!(text.contains("Ours.") && text.contains("Theirs."));
 }
+
+#[test]
+fn a_binary_file_git_cannot_merge_is_an_error() {
+    let dir = tempfile::tempdir().unwrap();
+    let paths: Vec<String> = ["base", "current", "incoming"]
+        .iter()
+        .zip(["a\0b\n", "a\0c\n", "a\0d\n"])
+        .map(|(name, text)| {
+            let path = dir.path().join(name);
+            std::fs::write(&path, text).unwrap();
+            path.to_string_lossy().into_owned()
+        })
+        .collect();
+    let error = site_tools::merge_driver::run(&paths).unwrap_err();
+    assert!(
+        error.starts_with("merge_driver: git merge-file failed: ") && error.contains("binary"),
+        "{error}"
+    );
+}
+
+#[test]
+fn baseline_sections_removed_added_twice_or_not_objects() {
+    // A section both sides removed stays removed.
+    let merged = merge_baseline(r#"{"a": {"x": 1}}"#, "{}\n", "{}\n").unwrap();
+    assert_eq!(merged, "{}\n");
+    // A section both sides added merges their keys, the current value winning.
+    let merged = merge_baseline(
+        "{}\n",
+        r#"{"a": {"x": 1, "y": 1}}"#,
+        r#"{"a": {"x": 2, "z": 3}}"#,
+    )
+    .unwrap();
+    assert_eq!(
+        merged,
+        "{\n  \"a\": {\n    \"x\": 1,\n    \"y\": 1,\n    \"z\": 3\n  }\n}\n"
+    );
+    // A value that is not a section is left to a person.
+    assert_eq!(merge_baseline("{}\n", r#"{"a": 1}"#, r#"{"a": 2}"#), None);
+}
+
+#[test]
+fn a_feed_entry_with_an_extra_element_stays_a_conflict() {
+    let current = entry_rotated("aaaaaaaaaaaaaaaa", "2026-10-20");
+    // The title line still looks like one, but the entry gains a sibling element.
+    let incoming = entry_rotated("bbbbbbbbbbbbbbbb", "2026-10-21").replacen(
+        "<title>bbbbbbbbbbbbbbbb</title>",
+        "<title>b</title><extra>x</extra><title>b</title>",
+        1,
+    );
+    assert_eq!(resolve(&lines(&current), &[], &lines(&incoming)), None);
+}

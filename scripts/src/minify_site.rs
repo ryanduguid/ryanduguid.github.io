@@ -478,3 +478,25 @@ pub fn run(root: &Path, args: &[String]) -> Result<u8, String> {
     .map_err(|e| e.to_string())?;
     Ok(0)
 }
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn an_escaped_parenthesis_stays_inside_an_unquoted_url() {
+        assert_eq!(
+            css(r"a { background: url(a\)b.png) }"),
+            Ok(r"a{background:url(a\)b.png)}".into())
+        );
+        assert!(css(r"a{background:url(a\").is_err());
+    }
+
+    #[test]
+    fn a_hex_escape_ended_by_cr_lf_keeps_both_characters() {
+        assert_eq!(
+            css(".x\\41\r\nb{color:red}"),
+            Ok(".x\\41\r\nb{color:red}".into())
+        );
+    }
+}
