@@ -763,11 +763,12 @@ fn offline_mode_still_checks_local_links_without_external_requests() {
 
 #[test]
 fn a_source_refusing_the_runner_is_reported_not_failed() {
-    // Any HTTP 403 from a .gov.au host, listed or not, and LinkedIn's 999: the answer
-    // says nothing of the page.
+    // Any HTTP 403 from a .gov.au host, listed or not, or developer.xero.com, and
+    // LinkedIn's 999: the answer says nothing of the page.
     for (href, code) in [
         ("https://www.ato.gov.au/a-page-never-checked-before", 403),
         ("https://www.sro.tas.gov.au/land-tax", 403),
+        ("https://developer.xero.com/pricing", 403),
         ("https://www.linkedin.com/in/ryan-duguid", 999),
     ] {
         let harness = Harness::new(vec![http(code)]);
@@ -798,6 +799,9 @@ fn a_missing_or_moved_page_still_fails_beside_refusals() {
         // A 403 outside .gov.au can be a missing file: cloud storage answers 403 for one.
         ("https://example-bucket.s3.amazonaws.com/missing.pdf", 403),
         ("https://notgov.au/page", 403),
+        // Only Xero's developer site: its other hosts' 403s still fail.
+        ("https://central.xero.com/s/article", 403),
+        ("https://developer.xero.com/withdrawn", 404),
         // An own repository's identity check stays strict.
         ("https://github.com/ryanduguid/Ozzit", 403),
         ("https://www.example.com/profile", 999),
