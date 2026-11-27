@@ -44,7 +44,7 @@ function scale(value, foreign) {
   if (value('ws-tfn') === 'no') return { scale: 4, foreign_resident: foreign };
   if (foreign) return { scale: 3 };
   if (value('ws-threshold') === 'no') return { scale: 1 };
-  return { scale: { none: 2, full: 5, half: 6 }[value('ws-exemption')] ?? 2 };
+  return { scale: { none: 2, full: 5, half: 6 }[value('ws-exemption')] };
 }
 /** The yearly tax offsets claimed, when any. @param {(name: string) => string} value */
 const offsets = (value) => (Number(value('ws-offsets')) > 0 ? { tax_offsets: value('ws-offsets') } : {});
@@ -96,10 +96,10 @@ export function scheduleResult(value, aud) {
   try {
     const r = withholdingSchedule(chosen.command, scheduleInput(key, value));
     const rows = Object.entries(r.amounts).map(([id, amount]) => [id === 'withholding' ? `${chosen.name}: amount to withhold`
-      : pick(LABELS, id) ?? id, aud(Number(amount))]);
+      : pick(LABELS, id), aud(Number(amount))]);
     const rates = Object.entries(r.rates).map(([k, v]) => `${k} ${v}`).join(', ');
     return { rows, inputs, note: `${chosen.name} (${chosen.command}): ${r.withholding_basis ?? rates}` };
   } catch (error) {
-    return { rows: [], inputs, note: `${chosen.name} is not worked: ${error instanceof Error ? error.message : String(error)}` };
+    return { rows: [], inputs, note: `${chosen.name} is not worked: ${/** @type {Error} */ (error).message}` };
   }
 }

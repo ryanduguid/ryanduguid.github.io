@@ -1102,6 +1102,9 @@ test('objection deadline tool returns the page worked example, checks amended as
     /firstNoticeDate applies only/);
   await assert.rejects(tool.execute({ decision: 'ruling', noticeDate: '2026-11-18' }), /decision does not match/);
   await assert.rejects(tool.execute({ decision: 'other', noticeDate: '2026-11-18', state: 'NSW' }), /state is not an input of this tool/);
+  // An FBT assessment takes no review period: paragraph 14ZW(1)(aaa) gives 4 years after the notice.
+  const fbt = await tool.execute({ decision: 'fbt', noticeDate: '2026-11-18' });
+  assert.deepEqual([fbt.rule, fbt.periodEnds, fbt.lastDay], ['paragraph 14ZW(1)(aaa)', '2030-11-18', '2030-11-18']);
 });
 
 test('budget variance tool returns the page worked example, supports negative values and refuses invalid or unknown inputs', async () => {
@@ -2363,4 +2366,20 @@ test('lodgment tool applies the threshold, the exceptions and the due date, and 
   await assert.rejects(tool.execute({ ...base, taxableIncome: '1', conditions: ['lottery'] }), /conditions does not match/);
   await assert.rejects(tool.execute({ ...base, taxableIncome: '1', scopeConfirmed: false }), /Establish all stated scope conditions/);
   await assert.rejects(tool.execute({ ...base, taxableIncome: '1', resides: true }), /resides is not an input of this tool/);
+  // The australian-accounting 1.4.0 release: a non-resident with income taxable in Australia lodges under paragraph 6(3)(b), and
+  // in 2022-23 a minor's $500 of other income requires a return under Table A item (9).
+  const none = await tool.execute({ ...base, residency: 'none', taxableAustralianIncome: true, taxableIncome: '1000' });
+  assert.deepEqual(none.requiredBy, ['paragraph 6(3)(b)']);
+  const minor = await tool.execute({ ...base, incomeYear: '2022-23', taxableIncome: '1000', under18IncomeExcludingWork: '500' });
+  assert.deepEqual(minor.requiredBy, ['Table A item (9)']);
+  // Each optional group reaches the command in its own shape.
+  const groups = await tool.execute({ ...base, taxableIncome: '1000', studyLoanIncome: '70000',
+    workingHolidayMaker: { otherAssessableIncome: true, taxableIncomeExcludingRemainders: '1000' }, sapto: { rebateIncome: '40000', category: 'single' } });
+  const direct = lodgmentRequired({ residency: { status: 'whole_year' }, taxable_income: '1000', dividends_and_franking_credits: '0', under_18: null,
+    triggers: [], study_loan: { income: '70000' }, working_holiday_maker: { other_assessable_income: true, taxable_income_excluding_remainders: '1000' },
+    listed_payment: null, sapto: { rebate_income: '40000', category: 'single' }, child_support_parent: false, year: '2025-26', scope_confirmed: true });
+  assert.deepEqual(groups.steps, direct.steps);
+  // The working holiday maker and SAPTO groups each add their exception's step, paragraph 7(1)(f) and subsection 7(3).
+  assert.deepEqual(groups.steps.slice(2).map((s) => s.step.split(':')[0]), ['Paragraph 7(1)(f)', 'Subsection 7(3)']);
+  assert.match(groups.steps[3].finding, /^rebate income \$40000 against less than \$34919: does not apply$/);
 });

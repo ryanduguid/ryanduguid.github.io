@@ -127,3 +127,102 @@ test('the take-home pay WebMCP tool works another schedule beside the year', asy
   await assert.rejects(tool.execute({ ...input, otherSchedule: { command: 'no-abn-withholding', abn: true } }), /abn is not an input of this tool/);
   await assert.rejects(tool.execute({ ...input, otherSchedule: { command: 'no-abn-withholding', payment: '100' } }), /gst_included is required/);
 });
+
+const refusal = (/** @type {string} */ command, /** @type {object} */ call) => {
+  try {
+    withholdingSchedule(command, call);
+  } catch (error) {
+    return /** @type {{code: string}} */ (error).code;
+  }
+  return 'worked';
+};
+
+test('the schedules refuse each input the australian-accounting 1.4.0 release refuses, with its code', () => {
+  const hort = { earnings: '231.50', tfn_quoted: true, foreign_resident: false, tax_free_threshold_claimed: true, working_holiday_maker: false,
+    labour_mobility_scheme: false, ...year('2026-27') };
+  const up = { earnings: '1299.30', pay_period: 'fortnightly', scale: 2, additional_amount: '20', ...year('2026-27') };
+  const seniors = { earnings: '1000.00', pay_period: 'fortnightly', status: 'single', medicare_levy_exemption: 'none', study_loan: true,
+    ...year('2026-27') };
+  // Each code is the one the release binary's --refusal-json gives for the same call.
+  for (const [command, call, code] of /** @type {[string, object, string][]} */ ([
+    ['horticulture-shearing-withholding', { ...hort, earnings: '1'.repeat(8193) }, 'input.decimal_too_long'],
+    ['horticulture-shearing-withholding', { ...hort, earnings: 'Infinity' }, 'input.amount_invalid'],
+    ['horticulture-shearing-withholding', { ...hort, earnings: 'abc' }, 'input.decimal_unreadable'],
+    ['horticulture-shearing-withholding', { ...hort, year: 2026 }, 'period.unsupported'],
+    ['seniors-pensioners-withholding', { ...seniors, pay_date: 20260901 }, 'input.date_invalid'],
+    ['seniors-pensioners-withholding', { ...seniors, pay_date: '2026-02-30' }, 'input.date_invalid'],
+    ['upward-variation-withholding', { ...up, scale: 4 }, 'input.missing_field'],
+    ['upward-variation-withholding', { ...up, foreign_resident: false }, 'payg.foreign_resident_not_scale_4'],
+    ['upward-variation-withholding', { ...up, scale: 1, medicare_adjustment_children: 1 }, 'payg.medicare_adjustment_not_allowed'],
+    ['upward-variation-withholding', { ...up, medicare_adjustment_children: -1 }, 'input.children_invalid'],
+    ['upward-variation-withholding', { ...up, medicare_adjustment_children: '2' }, 'input.children_invalid'],
+    ['upward-variation-withholding', { ...up, pay_period: 'monthly', extra_pay_withholding: true }, 'payg.extra_pays_not_weekly_or_fortnightly'],
+    // The crate's API refuses a command it does not have (api.rs).
+    ['payroll-tax', hort, 'command.unknown'],
+  ])) assert.equal(refusal(command, call), code, `${command} ${JSON.stringify(call).slice(0, 80)}`);
+  assert.throws(() => withholdingSchedule('horticulture-shearing-withholding', { ...hort, year: 2026 }), /That year is not covered/);
+  // The same release's amounts for the calls just inside those checks.
+  assert.deepEqual(withholdingSchedule('horticulture-shearing-withholding', { ...hort, earnings: ' 231.50 ' }).amounts,
+    { earnings_used: '231.00', withholding: '30.00' });
+  assert.deepEqual(withholdingSchedule('upward-variation-withholding', { ...up, scale: 4, foreign_resident: true }).amounts,
+    { earnings_used: '1299.00', normal_withholding: '584.00', additional_amount: '20.00', withholding: '604.00' });
+  assert.equal(withholdingSchedule('upward-variation-withholding', { ...up, pay_period: 'weekly', extra_pay_withholding: true })
+    .amounts.additional_withholding, '3.00');
+  assert.equal(withholdingSchedule('seniors-pensioners-withholding', { ...seniors, pay_date: '2026-09-01' }).amounts.study_loan_component, '0.00');
+});
+
+test('a Schedule 10 instalment rate prints as Python prints the percentage divided by 100', () => {
+  const rate = (/** @type {string} */ percent) => withholdingSchedule('voluntary-agreement-withholding', { payment: '11000', gst_included: '1000',
+    agreement_in_force: true, abn_quoted: true, agreement_applies_instalment_rate: true, instalment_rate: percent, ...year('2026-27') }).rates.rate;
+  // The release binary gives these texts; Python's str(Decimal) uses exponent form below 1E-6.
+  assert.deepEqual(['0.0000001', '0.00000012', '0', '25'].map(rate), ['1E-9', '1.2E-9', '0', '0.25']);
+});
+
+test('the decimal helpers follow Python decimal at the edges the schedules never reach', async () => {
+  const { q, mul, int, cents, fixed, pyDecimal, dec } = await import('../assets/withholding-decimal.mjs');
+  // Decimal(3) / Decimal(-6) is -0.5; 0 / 0 raises InvalidOperation, here a RangeError.
+  assert.deepEqual(q(3n, -6n), { p: -1n, q: 2n });
+  assert.throws(() => q(0n, 0n), RangeError);
+  // Context(prec=40, rounding=ROUND_HALF_EVEN).multiply(n, 1) for a 41-digit n: a half rounds to the even digit.
+  const big = (/** @type {bigint} */ n) => mul(int(n), int(1));
+  assert.deepEqual(big(12345678901234567890123456789012345678905n), int(12345678901234567890123456789012345678900n));
+  assert.deepEqual(big(12345678901234567890123456789012345678915n), int(12345678901234567890123456789012345678920n));
+  // quantize(Decimal('0.01'), ROUND_HALF_UP) of -1.005 is -1.01; ROUND_DOWN of -12.345 is -12.34.
+  assert.equal(cents(dec('-1.005')), '-1.01');
+  assert.equal(fixed(dec('-12.345'), 2), '-12.34');
+  // str(Decimal((sign, digits, exponent))).
+  assert.deepEqual([pyDecimal(-15n, -1), pyDecimal(1n, 2), pyDecimal(-123n, 3), pyDecimal(12n, -10), pyDecimal(-7n, -8)],
+    ['-1.5', '1E+2', '-1.23E+5', '1.2E-9', '-7E-8']);
+});
+
+test('the take-home form picks the Schedule 1 scale and the optional inputs each schedule takes', () => {
+  const base = { year: '2026-27', period: 'fortnight', 'ws-payment': '1299.30' };
+  const note = (/** @type {Record<string, string>} */ fields) => scheduleResult(form({ ...base, ...fields }), aud)?.note ?? '';
+  // Schedule 1's scales: 4 without a TFN, 3 for a foreign resident, 1 without the tax-free threshold, 6 with a half exemption.
+  // Scale 4 is 47% for a resident and 45% for a foreign resident.
+  assert.match(note({ 'withholding-schedule': 'sch14', 'ws-tfn': 'no' }), /scale 4, tax_rate 0\.47$/);
+  assert.match(note({ 'withholding-schedule': 'sch14', 'ws-tfn': 'no', residency: 'foreign' }), /scale 4, tax_rate 0\.45$/);
+  assert.match(note({ 'withholding-schedule': 'sch14', residency: 'foreign' }), /\): scale 3,/);
+  assert.match(note({ 'withholding-schedule': 'sch14', 'ws-threshold': 'no' }), /\): scale 1,/);
+  assert.match(note({ 'withholding-schedule': 'sch6', 'ws-exemption': 'half' }), /\): scale 6,/);
+  const noTfn = scheduleResult(form({ ...base, 'withholding-schedule': 'sch14', 'ws-tfn': 'no', residency: 'foreign' }), aud);
+  assert.deepEqual(noTfn?.rows.at(-1), ['Schedule 14: amount to withhold', '$634.00']);
+  assert.match(note({ 'withholding-schedule': 'sch6', residency: 'working-holiday' }),
+    /Schedule 15, not Schedule 6, covers every payment to a working holiday maker/);
+  assert.match(note({ 'withholding-schedule': 'sch9', residency: 'foreign' }), /Schedule 9 is for a payee who is an Australian resident/);
+  // Schedule 9 with a study loan, with and without the pay date, gives the command's own rows.
+  // 2025-26 needs the date, as its Schedule 8 coefficients start on 24 September 2025.
+  for (const [y, date] of [['2026-27', ''], ['2025-26', '2025-10-01']]) {
+    const fields = { year: y, 'ws-payment': '3000', 'withholding-schedule': 'sch9', 'study-loan': 'yes', 'ws-pay-date': date };
+    const r = withholdingSchedule('seniors-pensioners-withholding', { earnings: '3000', pay_period: 'fortnightly', status: 'single',
+      medicare_levy_exemption: 'none', ...year(y), study_loan: true, ...(date ? { pay_date: date } : {}) });
+    assert.notEqual(r.amounts.study_loan_component, '0.00', y);
+    assert.deepEqual(scheduleResult(form({ ...base, ...fields }), aud)?.rows.at(-2), ['Study and training loan component',
+      aud(Number(r.amounts.study_loan_component))], date);
+  }
+  // Schedule 10: the published 25% instalment rate on $11,000 including $1,000 GST, typed with spaces.
+  const sch10 = scheduleResult(form({ ...base, 'ws-payment': '11000', 'ws-gst': '1000', 'withholding-schedule': 'sch10', 'ws-cir-applies': 'yes',
+    'ws-cir': ' 25 ' }), aud);
+  assert.deepEqual([sch10?.rows.at(-1), sch10?.note], [['Schedule 10: amount to withhold', '$2,500.00'],
+    'Schedule 10 (voluntary-agreement-withholding): rate 0.25']);
+});

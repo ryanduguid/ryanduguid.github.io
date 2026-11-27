@@ -84,6 +84,46 @@ test('the refusals keep the command codes', () => {
   assert.equal(code(() => lodgmentRequired(base('2025-26', '1', { triggers: ['lottery'] }))), 'lodgment_required.triggers_invalid');
   assert.equal(code(() => lodgmentRequired(base('2025-26', '1.001'))), 'input.amount_invalid');
   assert.equal(code(() => lodgmentRequired(base('2025-26', '1e3'))), 'input.decimal_unreadable');
+  // Each code below is the one the australian-accounting 1.4.0 release binary's --refusal-json gives for the same call.
+  for (const [input, expected] of [
+    [base('2025-26', 'Infinity'), 'input.amount_invalid'],
+    [base('2025-26', 'abc'), 'input.decimal_unreadable'],
+    [base('2025-26', 15000), 'input.amount_invalid'],
+    [base('2025-26', '1'.repeat(8193)), 'input.decimal_too_long'],
+    [base('2025-26', '15000', { study_loan: { income: 'abc' } }), 'input.amount_invalid'],
+    [base('2025-26', '15000', { residency: { status: 5 } }), 'lodgment_required.residency_invalid'],
+    [[], 'input.not_object'],
+    [null, 'input.not_object'],
+  ]) assert.equal(code(() => lodgmentRequired(input)), expected, JSON.stringify(input)?.slice(0, 80));
+});
+
+test('the form sends each optional group and residency the command takes, and words its result', () => {
+  const none = lodgmentRequiredResult(...form({ ...FORM, residency: 'none', 'taxable-income': '1000' }));
+  // The release binary: a non-resident with income taxable in Australia lodges under paragraph 6(3)(b).
+  assert.match(none.note, /^You must lodge for 2025-26 under paragraph 6\(3\)\(b\) of the /);
+  assert.match(none.inputs, /^2025-26; not a resident; taxable income \$1,000; 0 conditions ticked$/);
+  const one = lodgmentRequiredResult(...form({ ...FORM, residency: 'part_year', months: '1' }));
+  assert.match(one.note, /under subparagraph 6\(3\)\(a\)\(ii\) of the /);
+  assert.match(one.inputs, /; resident 1 month; /);
+  const six = lodgmentRequiredResult(...form({ ...FORM, residency: 'part_year', months: '6' }));
+  assert.match(six.note, /^No condition in the .+ requires a return; you may still lodge, for example to get a refund of tax withheld$/);
+  assert.match(six.inputs, /; resident 6 months; /);
+  const groups = { ...FORM, 'under-18': 'yes', 'under-18-income': '500', 'study-loan': 'yes', 'study-loan-income': '70000', whm: 'yes',
+    'whm-other': 'yes', 'whm-taxable': '1000' };
+  assert.deepEqual(lodgmentFormInput(...form({ ...groups, residency: 'none' })), {
+    ...base('2025-26', '15000', { dividends_and_franking_credits: '0' }), residency: { status: 'none', taxable_australian_income: true },
+    under_18: { income_excluding_work: '500' }, study_loan: { income: '70000' },
+    working_holiday_maker: { other_assessable_income: true, taxable_income_excluding_remainders: '1000' } });
+  for (const [name, words] of [['under-18-income', 'your income other than from work'], ['study-loan-income', 'your income for the study loan test'],
+    ['whm-taxable', 'your taxable income without super or ETP remainders'], ['sapto-rebate', 'your rebate income']]) {
+    assert.throws(() => lodgmentRequiredResult(...form({ ...groups, sapto: 'yes', [name]: ' ' })), new RegExp(`^Error: Enter ${words}\\.$`));
+  }
+  for (const typed of ['abc', '1.001']) {
+    assert.throws(() => lodgmentRequiredResult(...form({ ...FORM, 'taxable-income': typed })), /^Error: Enter each amount in dollars and cents/);
+  }
+  assert.throws(() => lodgmentRequiredResult(...form({ ...FORM, 'child-support': 'yes' })), /separate instrument for parents; this calculator/);
+  // Any other refusal keeps the command's own words.
+  assert.throws(() => lodgmentRequiredResult(...form({ ...FORM, 'taxable-income': '1'.repeat(8193) })), /^Error: taxable_income: decimal input exceeds 8192 bytes$/);
 });
 
 test('the form opens on its worked example and refuses a blank amount in words', () => {

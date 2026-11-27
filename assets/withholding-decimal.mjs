@@ -24,7 +24,7 @@ const gcd = (a, b) => (b === 0n ? (a < 0n ? -a : a) : gcd(b, a % b));
 /** @param {bigint} p @param {bigint} [q] @returns {Q} */
 export function q(p, q = 1n) {
   const sign = q < 0n ? -1n : 1n;
-  const g = gcd(p, q) || 1n;
+  const g = gcd(p, q);
   return { p: (sign * p) / g, q: (sign * q) / g };
 }
 /** A decimal literal such as '0.1500' or '-0.6702'. @param {string} text @returns {Q} */

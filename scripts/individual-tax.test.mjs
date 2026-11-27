@@ -761,6 +761,19 @@ for (const page of Object.keys(shownCases)) {
   });
 }
 
+test('the take-home and salary packaging results word a study loan, no cover and Type 1 benefits', () => {
+  const aud = (value) => value.toLocaleString('en-AU', { style: 'currency', currency: 'AUD' });
+  const reader = (page, changes) => {
+    const fields = { ...formDefaults(readFileSync(new URL(`../_includes/calculators/${page}.html`, import.meta.url), 'utf8')), ...changes };
+    return (name) => fields[name] ?? '';
+  };
+  const takeHome = individualResult('take-home-pay', reader('take-home-pay', { 'study-loan': 'yes', cover: 'no' }), aud);
+  assert.match(takeHome.inputs, /, with a study or training loan, no private hospital cover$/);
+  // Type 1 benefits gross up at 2.0802 under s 5B(1F) of the FBTAA: $1,000 is $2,080 to the dollar.
+  const packaged = individualResult('salary-packaging', reader('salary-packaging', { 'type-one': '1000' }), aud);
+  assert.deepEqual(packaged.rows.find(([label]) => label.startsWith('Type 1')), ['Type 1 benefits grossed up under s 5B(1F), to the dollar', '$2,080.00']);
+});
+
 test('a form that is not an individual tax calculator gets no result, whatever its name', () => {
   for (const kind of ['gst', 'constructor', 'toString', '__proto__']) {
     assert.equal(individualResult(kind, () => '0', String), undefined, kind);
