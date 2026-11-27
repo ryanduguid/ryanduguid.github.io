@@ -528,7 +528,7 @@ One employee share scheme interest
 
 Income year2026-27 2025-26 2024-25 2023-24 2022-23 2021-22 2020-21 InterestShares Rights (options) to acquire shares Day acquired Amount you paid for them Market value when acquired
 
-Enter totals for the parcel. For rights valued by the regulations’ tables, leave the market value blank and give the terms below.
+Enter totals for the parcel. For rights valued by the regulations’ tables, leave the market value blank.
 
 Rights only
 
@@ -546,7 +546,7 @@ Deferred taxing point (Subdivision 83A-C)
 
 Day the restrictions and forfeiture risk ended Rights: day exercised Rights: day the resulting shares’ restrictions ended Acquired before 1 July 2022: day employment ended Day disposed of Cost base Deferred taxing point Market value at that point
 
-Fill these in when the interest is deferred: leave a day blank if it has not happened, and leave the day employment ended blank while you are still employed. The calculator works out the taxing point and asks for the value on that day when it falls in the year.
+For a deferred interest, leave blank any day that has not happened, including the day employment ended if you are still employed. The calculator asks for the value at the taxing point when it falls in the year.
 
 Income test for the $1,000 reduction (s 83A-35)
 
