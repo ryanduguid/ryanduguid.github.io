@@ -3,7 +3,7 @@
 
 use std::process::ExitCode;
 
-const USAGE: &str = "usage: site-tools <command> [arguments]\n\ncommands: build_agent_skills_manifest, build_effective_life, build_effective_life_pages, build_feed, build_llms_full, build_ozzit_reference, build_rates_json, build_site, check_agent_files, check_ato_sources, check_design, check_links, check_passages, check_production, check_publication, check_rates_register, check_seo, check_site, encode_cash_chart_webp, extract_xero_badge, favicon_render, merge_driver, minify_site, pin_rates_dataset, release_record, render_about_portrait, serve_site, stamp_source_freshness, visibility_benchmark\n";
+const USAGE: &str = "usage: site-tools <command> [arguments]\n\ncommands: build_agent_skills_manifest, build_effective_life, build_effective_life_pages, build_feed, build_llms_full, build_ozzit_reference, build_rates_json, build_site, check_agent_files, check_ato_sources, check_design, check_links, check_passages, check_production, check_publication, check_rates_register, check_seo, check_site, encode_cash_chart_webp, extract_xero_badge, favicon_render, merge_driver, minify_site, pin_rates_dataset, release_record, render_about_portrait, search_console, serve_site, stamp_source_freshness, visibility_benchmark\n";
 
 /// Commands that write files whatever their arguments, besides the `build_*` commands.
 const WRITING_COMMANDS: [&str; 6] = [
@@ -38,8 +38,10 @@ fn main() -> ExitCode {
     // An installed binary older than the checkout would write with outdated rules.
     // The publication gate needs no checkout. The merge driver is left alone because a
     // refusal would only make Git fall back to its own text merge (CONTRIBUTING.md).
-    if !matches!(command.as_str(), "check_publication" | "merge_driver")
-        && let Ok(root) = site_tools::root()
+    if !matches!(
+        command.as_str(),
+        "check_publication" | "merge_driver" | "search_console"
+    ) && let Ok(root) = site_tools::root()
     {
         let writes = command.starts_with("build_")
             || WRITING_COMMANDS.contains(&command.as_str())
@@ -66,6 +68,8 @@ fn main() -> ExitCode {
         "check_publication" => site_tools::check_publication::run(rest),
         // Git runs the merge driver on temporary files; it needs no site root either.
         "merge_driver" => site_tools::merge_driver::run(rest),
+        // Pure Search Console validation and comparison logic needs no site root.
+        "search_console" => site_tools::search_console::run(rest),
         // The former Node scripts find the site root themselves: these two only when
         // no directory is given, and the freshness check reports a missing one as an
         // outage (exit 2) rather than drift.

@@ -1048,12 +1048,17 @@ test('luxury car tax tool returns the page worked example, handles refunds and r
   assert.doesNotThrow(() => JSON.stringify(r));
   const refund = await tool.execute({
     incomeYear: '2026-27',
-    lines: [{ kind: 'refund', claimant: 'primary_producer', refundEligibleCar: true, lctBorne: '12500' }],
+    lines: [{ kind: 'refund', suppliedIn: '2026-27', claimant: 'primary_producer', refundEligibleCar: true, lctBorne: '12500' }],
   });
   assert.equal(refund.refunds, '10000.00');
   await assert.rejects(tool.execute({
     incomeYear: '2026-27',
-    lines: [{ kind: 'refund', claimant: 'primary_producer', refundEligibleCar: true, lctBorne: '5000', fuelConsumptionLitresPer100km: '5' }],
+    lines: [{ kind: 'refund', claimant: 'primary_producer', refundEligibleCar: true, lctBorne: '12500' }],
+  }), /Line 1: choose the financial year the car was supplied or imported in/);
+  await assert.rejects(tool.execute({
+    incomeYear: '2026-27',
+    lines: [{ kind: 'refund', suppliedIn: '2026-27', claimant: 'primary_producer', refundEligibleCar: true, lctBorne: '5000',
+      fuelConsumptionLitresPer100km: '5' }],
   }), /is not an input of a refund/);
   await assert.rejects(tool.execute({ incomeYear: '2018-19', lines: [{ kind: 'sale', luxuryCarTaxValue: '88000' }] }),
     /incomeYear does not match/);

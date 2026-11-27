@@ -1696,6 +1696,80 @@ test('PSI counts the rows of one payer as one source and one unrelated client', 
   }
 });
 
+// Paragraph 87-20(1)(a) and the client labels of australian-accounting #930 (psi_test.clients_invalid and
+// psi_test.clients_needed): the command's rules, over the rows with PSI.
+test('PSI client labels count unrelated clients apart from payers, on every row or none', () => {
+  const row = (amount, fields) => ({ ...psiPayer(amount, 'offer'), ...fields });
+  // 2 payers that are each an associate of a third share its payer, but are 2 clients.
+  const two = psi({ payers: [row('40', { client: 'A' }), row('30', { same: 1, client: 'B' }), row('30', { same: 1, client: 'B' })] });
+  assert.deepEqual([two.source, two.unrelated], [100, 2]);
+  const apart = psi({ payers: [row('50', { client: 'A' }), row('25', { same: 1, client: 'B' }), row('25', { client: 'C' })] });
+  assert.deepEqual([apart.unrelated, apart.rule], [3, 'section 87-20']);
+  // Without labels, 2 rows of one payer won by offers decide nothing until labelled.
+  const message = /^The unrelated clients test decides the outcome/;
+  assert.throws(() => psi({ payers: [row('50'), row('25', { same: 1 }), psiPayer('25')] }), { message });
+  // Another test met, or 80% from one payer, settles it without labels.
+  const settled = (answers) => {
+    try {
+      return psi(answers).rule;
+    } catch (error) {
+      return error.message;
+    }
+  };
+  assert.equal(settled({ payers: [row('50'), row('25', { same: 1 }), psiPayer('25')], apprentice: true }), 'section 87-25');
+  assert.equal(settled({ payers: [row('50'), row('25', { same: 1 }), psiPayer('25')], premises: ALL_PREMISES }), 'section 87-30');
+  assert.equal(settled({ payers: [row('80'), row('20', { same: 1 })] }), 'subsection 87-15(3)');
+  // One row won by an offer is not the case the labels settle.
+  assert.equal(settled({ payers: [row('50'), psiPayer('50', 'associate')] }), 'subsection 87-15(1)');
+  assert.throws(() => psi({ payers: [row('50', { client: 'A' }), row('50')] }),
+    { message: 'Give every payer a client label for the unrelated clients test, or none.' });
+  // A blank row is not a payer, so it needs no label.
+  assert.equal(psi({ payers: [row('50', { client: 'A' }), row('50', { client: 'B' })] }).unrelated, 2);
+  assert.throws(() => psi({ payers: [row('50', { client: 'A' }), row('50', { client: 'A' })] }),
+    { message: 'Payer 2: rows with one client label are one entity or its associates, so they are the same payer.' });
+  for (const client of ['', 'x'.repeat(101), 7]) {
+    assert.throws(() => psi({ payers: [row('50', { client })] }), { message: 'Payer 1: a client label is 1 to 100 characters.' });
+  }
+  assert.equal(psi({ payers: [row('100', { client: '😀'.repeat(100) })] }).unrelated, 1);
+  // The labels are checked before the earlier steps can stop, as the command checks its payers.
+  assert.throws(() => psi({ mainly: false, payers: [row('50', { client: 'A' }), row('50')] }),
+    { message: 'Give every payer a client label for the unrelated clients test, or none.' });
+});
+
+// The command this page ports, run on the same cases: see the fixture's engine line. Each refusal is
+// matched to the command's code by the start of the page's message.
+const PSI_CODES = [['Enter the principal', 'psi_test.agent_payments_invalid'], ['At least 75%', 'psi_test.agent_rules'],
+  ['Enter the PSI', 'psi_test.no_psi'], ['The market value', 'psi_test.others_exceed_psi'],
+  ['Give every payer', 'psi_test.clients_invalid'], ['The unrelated clients test', 'psi_test.clients_needed'],
+  ['Enter up to', 'psi_test.payers_invalid']];
+const psiCode = (call) => {
+  try {
+    calculations.psiDetermination(call);
+  } catch (error) {
+    if (/^Payer \d+: rows with one client label/.test(error.message)) return 'psi_test.clients_invalid';
+    if (/^Payer \d+: a client label/.test(error.message)) return 'psi_test.payers_invalid';
+    return (PSI_CODES.find(([start]) => error.message.startsWith(start)) ?? [null, error.message])[1];
+  }
+  return null;
+};
+test('PSI agrees with the australian-accounting psi-test command on every differential case', () => {
+  const { cases } = JSON.parse(readFileSync(new URL('./psi-test-engine-differential.json', import.meta.url), 'utf8'));
+  assert.ok(cases.length > 300);
+  const fixed = (v) => (v === null ? null : v.toFixed(2));
+  const reached = new Set();
+  for (const { case: source, call, refused, ...want } of cases) {
+    reached.add(refused ?? want.rule);
+    assert.equal(psiCode(call), refused ?? null, source);
+    if (refused) continue;
+    const r = calculations.psiDetermination(call);
+    assert.deepEqual({ rule: r.rule, effect: r.effect.replaceAll('’', '\''), psb: r.psb, results: fixed(r.results),
+      source: fixed(r.source), unrelated: r.unrelated, employment: fixed(r.employment) }, want, source);
+  }
+  for (const outcome of ['psi_test.clients_invalid', 'psi_test.clients_needed', 'psi_test.payers_invalid', 'section 87-20']) {
+    assert.ok(reached.has(outcome), outcome);
+  }
+});
+
 test('PSI checks an agent’s payments before any outcome, and the 75% rule after the results test', () => {
   const agent = (fields) => psi({ agent: true, commission: '100.01', principal: '100', payers: [psiPayer('100')], ...fields });
   const message = 'Enter the principal’s payments and the part of them that is commission or performance fees.';
@@ -1720,8 +1794,14 @@ test('PSI form passes a row’s payer to the steps and the inputs line', () => {
   // Subsection 85-35(2) covers only payments section 12-47 of Schedule 1 to the TAA 1953 describes.
   assert.match(html, /<input type="radio" name="earner" value="religious" \/> The individual, as a religious practitioner paid by an enterprise for work in their vocation as a member of a religious institution</);
   assert.match(html, /done as a member of a religious institution \(subsection 85-35\(2\) and section 12-47 of Schedule 1 to the Taxation Administration Act 1953\); check any other PSI they earn as a contractor\./);
-  // Linked rows are one payer for section 87-20 too, which can only understate unrelated clients.
-  assert.match(html, /2 payers that are each an associate of a third, but not of each other, count once there; that can only make the test harder to pass\./);
+  // Linked rows are one payer for section 87-20 unless every payer with PSI has a client label.
+  assert.match(html, /so 2 payers that are each an associate of a third, but not of each other, can count as 2 clients \(paragraph 87-20\(1\)\(a\)\)\./);
+  for (let row = 1; row <= 5; row++) assert.match(html, new RegExp(`<input name="client-${row}" type="text" maxlength="100"`));
+  const labelled = { ...formDefaults(html), 'amount-1': '40', 'offer-1': true, 'client-1': ' A ', 'amount-2': '30', 'offer-2': true,
+    'same-2': '1', 'client-2': 'B', 'amount-3': '30', 'client-3': 'C', 'result-1': false, 'tools-1': false, 'defects-1': false };
+  const clients = calculations.psiDeterminationResult((name) => labelled[name], (name) => labelled[name], String);
+  assert.match(clients.inputs, /payer 1 40, client A, ticked: won by a public offer; payer 2 30, same payer as payer 1, client B, ticked: won by a public offer;/);
+  assert.equal(clients.rows[0][1], `Section 87-20: ${PSB}`);
   const fields = { ...formDefaults(html), 'amount-1': '74', 'amount-2': '26', 'same-2': '1' };
   const view = calculations.psiDeterminationResult((name) => fields[name], (name) => fields[name], String);
   assert.match(view.inputs, /; payer 2 26, same payer as payer 1, ticked: none;/);
@@ -6467,11 +6547,13 @@ test('the luxury car tax form sends only the fields each line’s kind takes', (
   assert.deepEqual(lctForm({ ...refund, 'kind-2': 'change_of_use_decreasing', 'on-supply-2': '10' }).lines,
     [{ kind: 'refund', supplied_in: '2025-26', claimant: 'primary_producer', refund_eligible_car: false, lct_borne: '5' },
       { kind: 'change_of_use_decreasing', lct_payable_on_supply: '10' }]);
-  // A refund's claimant and eligibility are never assumed; without a supply year it takes the tax period's, as the command does.
+  // A refund's claimant, eligibility and supply year are never assumed, as the command's are not (AA #930).
   assert.equal(lctCode(lctForm({ ...refund, 'claimant-1': '' })), 'input.missing_field');
   assert.equal(lctCode(lctForm({ ...refund, 'eligible-1': '' })), 'input.missing_field');
   assert.equal(lctForm({ ...refund, 'supplied-1': '' }).lines[0].supplied_in, undefined);
-  assert.equal(calculations.luxuryCarTax(lctForm({ ...refund, 'supplied-1': '', 'claimant-1': 'tourism_operator', 'eligible-1': 'yes' })).refunds, 5);
+  assert.throws(() => calculations.luxuryCarTax(lctForm({ ...refund, 'supplied-1': '' })),
+    { code: 'input.missing_field', message: 'Line 1: choose the financial year the car was supplied or imported in.' });
+  assert.equal(calculations.luxuryCarTax(lctForm({ ...refund, 'claimant-1': 'tourism_operator', 'eligible-1': 'yes' })).refunds, 5);
   // Lines fill in order, so the command's line numbers are the form's.
   assert.throws(() => lctForm({ 'kind-1': '' }), { message: 'Fill line 1 before line 2.' });
   assert.throws(() => lctForm({ 'kind-1': '', 'kind-2': '' }), { message: 'Choose what at least one line is.' });

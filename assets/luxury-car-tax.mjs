@@ -103,7 +103,8 @@ function rating(fields, n) {
   return value;
 }
 
-/** The supply's financial year: the tax period's, or `supplied_in`, no later.
+/** The supply's financial year: `supplied_in`, no later than the tax period's, which a sale or
+ * importation takes.
  * @param {Record<string, unknown>} fields @param {number} n @param {string} year */
 function supplyYear(fields, n, year) {
   if (!Object.hasOwn(fields, 'supplied_in')) return year;
@@ -143,8 +144,11 @@ function parseLine(value, n, year) {
   if (typeof kind !== 'string' || !Object.hasOwn(FIELDS, kind)) refuse('luxury_car_tax.kind_invalid', `Line ${n}: choose what the line is.`);
   const unknown = Object.keys(fields).find((key) => !FIELDS[kind].includes(key));
   if (unknown !== undefined) refuse('input.field_unknown', `Line ${n}: ${unknown} is not an input of a ${LCT_KINDS[kind]}.`);
-  if ((kind === 'price_adjustment' || kind === 'change_of_use_increasing') && !Object.hasOwn(fields, 'supplied_in')) {
-    refuse('input.missing_field', `Line ${n}: choose the financial year of the supply, whose threshold applies.`);
+  if ((kind === 'price_adjustment' || kind === 'change_of_use_increasing' || kind === 'refund') && !Object.hasOwn(fields, 'supplied_in')) {
+    // The supply's year sets the threshold, and for a refund which of ss 18-5(3) and 18-10(3)
+    // applies: a refund is claimed up to 4 years after the entitlement arises.
+    refuse('input.missing_field', kind === 'refund' ? `Line ${n}: choose the financial year the car was supplied or imported in.`
+      : `Line ${n}: choose the financial year of the supply, whose threshold applies.`);
   }
   const valueKey = kind === 'price_adjustment' ? 'corrected_luxury_car_tax_value' : 'luxury_car_tax_value';
   const worked = kind === 'change_of_use_decreasing' || kind === 'refund' ? null : car(fields, n, year, valueKey);
