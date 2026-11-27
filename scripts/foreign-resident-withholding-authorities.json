@@ -1,0 +1,6 @@
+{
+  "withholding_base": "TAA Sch 1 s 14-200(3)(a): the first element of the asset's cost base just after the acquisition less any payment or property given for an option you exercised to acquire it",
+  "rate": "TAA Sch 1 s 14-200(3)(a): 12.5% for acquisitions from 1 July 2017 (Act No. 57 of 2017 Sch 1 items 1 and 4), 15% on or after 1 January 2025 (Act No. 135 of 2024 Sch 1 items 1 and 7); the acquisition is when the contract is entered into (ITAA 1997 s 109-5(2) item A1)",
+  "vendors": "TAA Sch 1 s 14-210(1)(e) and (2): every vendor without a clearance certificate; each vendor's interest share of the base at the full rate, its notice's varied rate (s 14-235(2)), or nil for a clearance certificate (PAYG withholding variation F2016L01123; LI 2026/38 s 6)",
+  "amount_payable": "TAA Sch 1 s 14-200(3) and (4): the sum of the vendors' amounts, or with no document the single s 14-200(3)(a) amount; nil if excluded (s 14-215) or varied to nil (s 14-235(5), (6)). The law sets no rounding: by the worksheet's convention each amount is rounded half up to the cent, and the single amount's rows share its cents"
+}

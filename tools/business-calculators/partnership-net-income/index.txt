@@ -1,0 +1,76 @@
+# Partnership net income calculator: each partner’s share
+
+Source: https://duguid.com.au/tools/business-calculators/partnership-net-income/
+
+> A partnership’s net income or loss under section 90 of the ITAA 1936 for 2024-25 to 2026-27, and each partner’s share of it and of exempt income under section 92.
+
+# Partnership net income calculator
+
+A partnership’s net income or loss and each partner’s share, 2024-25 to 2026-27.
+
+Published 27 November 2026. Last checked 27 November 2026.
+
+JavaScript is required for interactive calculations. The formula, assumptions and source links remain available below.
+
+A partnership’s net income or loss and each partner’s share
+
+Income year 2024-25 2025-26 2026-27
+
+Assessable income (AUD) All deductions (AUD) Of which, deductions under section 290-150 or Division 36 of the ITAA 1997 (AUD) Exempt income (AUD) Non-assessable non-exempt income (AUD)
+
+All the partnership’s income is from Australian sources Yes No
+
+Special case that applies None A corporate limited partnership (Division 5A) A VCLP, ESVCLP, AFOF or VCMP A foreign hybrid limited partnership A partner without real and effective control of their share (section 94) A partner’s interest is a segregated exempt or current pension asset Salary or interest is allocated to partners
+
+Partners (leave a name blank for none)
+
+Partner 1 name Partner 1 interest (%)
+
+Partner 1 residency Resident all year Foreign resident all year
+
+Partner 2 name Partner 2 interest (%)
+
+Partner 2 residency Resident all year Foreign resident all year
+
+Partner 3 name Partner 3 interest (%)
+
+Partner 3 residency Resident all year Foreign resident all year
+
+Partner 4 name Partner 4 interest (%)
+
+Partner 4 residency Resident all year Foreign resident all year
+
+Calculate
+
+Interests are each partner’s individual interest in the net income or loss, and must total 100%.
+
+Fictional example: the first boundary case below. Change the inputs and calculate your own. Inputs: 2025-26; assessable income $250,000.00, deductions $130,000.00 ($10,000.00 under s 290-150 or Division 36); partners: Alex 50%, Sam 30%, Jo 20%. Assessable income $250,000.00 Deductions counted (s 90) $120,000.00 Net income (s 90) $130,000.00 Alex (50%): share of net income $65,000.00 Sam (30%): share of net income $39,000.00 Jo (20%): share of net income $26,000.00 Each share is rounded half up to the cent; any cent left over goes to the largest share.
+
+## How the partnership net income calculator works
+
+A partnership lodges a return but pays no tax on its income (section 91 of the Income Tax Assessment Act 1936). The calculator ports the partnership-net-income command of australian-accounting. Its net income is its assessable income less its deductions, worked out as if it were a resident taxpayer, leaving out deductions under section 290-150 (personal super contributions) or Division 36 (tax losses) of the Income Tax Assessment Act 1997; where those deductions are larger, the excess is a partnership loss (section 90).
+
+Each partner includes their individual interest in the net income in their own assessable income, or deducts their interest in the partnership loss, and takes their interest in exempt and non-assessable non-exempt income (section 92). Each share is rounded half up to the cent, and a cent left over goes to the largest share so the shares add up to the partnership’s figure.
+
+## What the partnership net income calculator does not cover
+
+The calculator does not work out the partnership’s assessable income or deductions, or the partners’ interests: you enter them as established. It refuses a partner resident for part of the year, a foreign resident partner unless all the partnership’s income is from Australian sources, salary or interest allocated to partners, a corporate limited partnership, venture capital and foreign hybrid partnerships, a partner without real and effective control of their share (section 94) and a segregated exempt or pension asset interest. It covers 2024-25 to 2026-27. The page takes 4 partners; its WebMCP tool takes up to 50. Have a registered tax agent confirm the figures and the result.
+
+## Boundary cases
+
+Each row is a test: scripts/business-calculators.test.mjs runs this calculator on these fictional inputs and fails if the result differs from the one shown.
+
+Boundary cases: Partnership net income calculator
+
+Case | Inputs | Result
+The page’s example: $10,000 of the deductions under section 290-150 or Division 36 left out | 2025-26; assessable income $250,000.00, deductions $130,000.00 ($10,000.00 under s 290-150 or Division 36); partners: Alex 50%, Sam 30%, Jo 20% | Deductions counted $120,000.00, net income $130,000.00, partnership loss $0.00
+Deductions above the assessable income: a partnership loss | 2025-26; assessable income $80,000.00, deductions $95,000.00; partners: Alex 50%, Sam 30%, Jo 20% | Deductions counted $95,000.00, net income $0.00, partnership loss $15,000.00
+Excluded deductions turn a loss into net income | 2025-26; assessable income $100,000.00, deductions $110,000.00 ($15,000.00 under s 290-150 or Division 36); partners: Alex 50%, Sam 30%, Jo 20% | Deductions counted $95,000.00, net income $5,000.00, partnership loss $0.00
+
+One of the sixty business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+
+Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
+
+## Links
+
+- sixty business calculators: https://duguid.com.au/tools/business-calculators/

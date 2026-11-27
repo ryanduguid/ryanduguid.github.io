@@ -473,6 +473,12 @@ const rdInput = { notional_deductions: '100000.00', rsp_crc_expenditure: '0', ag
   base_rate_entity: true, total_expenses: '0', recoupment_clawback: '0', feedstock_revenue: '0', feedstock_expenditure: '0',
   present_year_base_rate_entity: true, year: '2025-26', scope_confirmed: true };
 const rdOffset: number = calculate.rdTaxOffset(rdInput).taxOffset;
+const frcgwPayable: string = calculate.foreignResidentWithholding({}).amounts.amount_payable;
+const partnershipNet: string = calculate.partnershipNetIncome({}).net_income;
+const trustDeductible: boolean | null = calculate.trustLossTests({}).deductible;
+void frcgwPayable;
+void partnershipNet;
+void trustDeductible;
 // @ts-expect-error An answer is a boolean, not 'yes'.
 calculate.rdTaxOffset({ ...rdInput, base_rate_entity: 'yes' });
 // @ts-expect-error The command's amounts are decimal text, not numbers.

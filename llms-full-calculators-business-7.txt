@@ -426,6 +426,265 @@ Planning estimates in AUD. Confirm tax treatment, liability amounts and dates se
 
 ---
 
+# Foreign resident capital gains withholding calculator
+
+Source: https://duguid.com.au/tools/business-calculators/foreign-resident-withholding/
+
+> What a purchaser pays the ATO at settlement under section 14-200: 12.5% from $750,000 before 1 January 2025, then 15%, with clearance certificates and variations.
+
+# Foreign resident CGT withholding calculator
+
+What a purchaser pays the ATO at settlement, 1 July 2017 to 30 June 2027.
+
+Published 27 November 2026. Last checked 27 November 2026.
+
+JavaScript is required for interactive calculations. The formula, assumptions and source links remain available below.
+
+Foreign resident capital gains withholding on one purchase
+
+Contract date
+
+Asset acquired Taxable Australian real property A company title interest
+
+Market value (AUD) Purchase price, the first element of the cost base (AUD) Option fee paid for an option you exercised (AUD) Sale price for a variation’s maximum (AUD; blank for the price)
+
+Excluded transaction (section 14-215) None On an approved stock exchange Through a crossing system Already subject to other withholding A securities lending arrangement An insolvent vendor company A bankruptcy or personal insolvency arrangement
+
+A class variation to nil applies (section 14-235(5) and (6)) No Yes
+
+Vendor 1
+
+Interest (any unit shared by the vendors)
+
+Document the vendor gave None A clearance certificate A notice of variation
+
+Varied rate (0.05 for 5%) Notice’s maximum sale price (AUD)
+
+Vendor 2 (optional)
+
+Interest (any unit shared by the vendors)
+
+Document the vendor gave None A clearance certificate A notice of variation
+
+Varied rate (0.05 for 5%) Notice’s maximum sale price (AUD)
+
+Vendor 3 (optional)
+
+Interest (any unit shared by the vendors)
+
+Document the vendor gave None A clearance certificate A notice of variation
+
+Varied rate (0.05 for 5%) Notice’s maximum sale price (AUD)
+
+Calculate
+
+The income year follows from the contract date. The varied rate and maximum price are used only for a vendor whose document is a notice of variation.
+
+Fictional example: the first boundary case below. Change the inputs and calculate your own. Inputs: Contract 2026-03-15; taxable Australian real property, market value $1,200,000.00, purchase price $1,200,000.00; vendor 1: interest 50, no clearance certificate or variation; vendor 2: interest 50, a notice of variation at 5% up to $1,250,000.00. Withholding base (first element of the cost base less any option fee) $1,200,000.00 Rate for a contract on 2026-03-15 15% Vendor 1: no document: full rate $90,000.00 Vendor 2: notice of variation: varied rate $30,000.00 Amount to pay the ATO at settlement $120,000.00 Each amount is rounded half up to the cent; with no document, the single amount’s cents are shared by the largest remainders.
+
+## How the foreign resident capital gains withholding calculator works
+
+A purchaser of taxable Australian real property or a company title interest must pay the ATO an amount at settlement unless every vendor gives a clearance certificate (section 14-210 of Schedule 1 to the Taxation Administration Act 1953). The calculator ports the foreign-resident-withholding command of australian-accounting. The amount is the rate times the first element of the asset’s cost base, less any amount paid for an option you exercised to buy it (section 14-200(3)): 12.5% for a contract from 1 July 2017, when a market value under $750,000 is excluded, and 15% with no threshold for a contract from 1 January 2025.
+
+With several vendors, each vendor’s share of the base follows their interest. A vendor with a clearance certificate takes nil, one with a notice of variation its varied rate (unless the sale price is above the notice’s maximum), and one with neither the full rate. With no document at all the single amount is rounded once and its cents shared out. An excluded transaction (section 14-215) or a class variation to nil gives nothing to pay.
+
+## What the foreign resident capital gains withholding calculator does not cover
+
+The calculator does not decide whether a vendor is a foreign resident, whether a clearance certificate or variation is valid, or whether an exclusion applies: you enter those as given. It does not cover an indirect Australian real property interest other than a company title interest, an option or right to acquire one, look-through earnouts (section 14-205), contracts before 1 July 2017 or after 30 June 2027, or other withholding such as interest, dividends, royalties and managed investment trust payments. Where a notice’s maximum sale price falls between the base and the sale price, it refuses, as whether the notice applies turns on whether the maximum includes GST. The page takes 3 vendors; its WebMCP tool takes up to 50. Have a registered tax agent confirm the figures and the result.
+
+## Boundary cases
+
+Each row is a test: scripts/business-calculators.test.mjs runs this calculator on these fictional inputs and fails if the result differs from the one shown.
+
+Boundary cases: Foreign resident CGT withholding calculator
+
+Case | Inputs | Result
+The page’s example: 2 vendors, one with a notice of variation at 5% | Contract 2026-03-15; taxable Australian real property, market value $1,200,000.00, purchase price $1,200,000.00; vendor 1: interest 50, no clearance certificate or variation; vendor 2: interest 50, a notice of variation at 5% up to $1,250,000.00 | Withholding base $1,200,000.00, amount to pay the ATO $120,000.00, withholding applies
+A contract in June 2024: 12.5% of the price | Contract 2024-06-01; taxable Australian real property, market value $900,000.00, purchase price $900,000.00; vendor 1: interest 1, no clearance certificate or variation | Withholding base $900,000.00, amount to pay the ATO $112,500.00, withholding applies
+A contract in October 2024 with a market value under $750,000 is excluded | Contract 2024-10-01; taxable Australian real property, market value $700,000.00, purchase price $700,000.00; vendor 1: interest 1, no clearance certificate or variation | Withholding base $700,000.00, amount to pay the ATO $0.00, nothing to withhold: excluded transaction: market value under $750,000 (s 14-215(1)(a), acquisitions before 1 January 2025)
+From 1 January 2025 there is no threshold: 15% of $700,000 | Contract 2025-01-01; taxable Australian real property, market value $700,000.00, purchase price $700,000.00; vendor 1: interest 1, no clearance certificate or variation | Withholding base $700,000.00, amount to pay the ATO $105,000.00, withholding applies
+An exercised option: the option fee comes off the base | Contract 2026-01-10; taxable Australian real property, market value $800,000.00, purchase price $800,000.00, option fee $20,000.00; vendor 1: interest 1, no clearance certificate or variation | Withholding base $780,000.00, amount to pay the ATO $117,000.00, withholding applies
+Every vendor gave a clearance certificate | Contract 2026-03-15; taxable Australian real property, market value $1,200,000.00, purchase price $1,200,000.00; vendor 1: interest 50, a clearance certificate; vendor 2: interest 50, a clearance certificate | Withholding base $1,200,000.00, amount to pay the ATO $0.00, nothing to withhold: every vendor gave a clearance certificate: s 14-210(1) applies to none (s 14-210(2))
+A variation whose maximum sale price is below the sale price gives the full rate | Contract 2026-03-15; taxable Australian real property, market value $1,200,000.00, purchase price $1,200,000.00; vendor 1: interest 1, a notice of variation at 5% up to $1,000,000.00 | Withholding base $1,200,000.00, amount to pay the ATO $180,000.00, withholding applies
+
+One of the sixty business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+
+Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
+
+## Links
+
+- sixty business calculators: https://duguid.com.au/tools/business-calculators/
+
+---
+
+# Partnership net income calculator: each partner’s share
+
+Source: https://duguid.com.au/tools/business-calculators/partnership-net-income/
+
+> A partnership’s net income or loss under section 90 of the ITAA 1936 for 2024-25 to 2026-27, and each partner’s share of it and of exempt income under section 92.
+
+# Partnership net income calculator
+
+A partnership’s net income or loss and each partner’s share, 2024-25 to 2026-27.
+
+Published 27 November 2026. Last checked 27 November 2026.
+
+JavaScript is required for interactive calculations. The formula, assumptions and source links remain available below.
+
+A partnership’s net income or loss and each partner’s share
+
+Income year 2024-25 2025-26 2026-27
+
+Assessable income (AUD) All deductions (AUD) Of which, deductions under section 290-150 or Division 36 of the ITAA 1997 (AUD) Exempt income (AUD) Non-assessable non-exempt income (AUD)
+
+All the partnership’s income is from Australian sources Yes No
+
+Special case that applies None A corporate limited partnership (Division 5A) A VCLP, ESVCLP, AFOF or VCMP A foreign hybrid limited partnership A partner without real and effective control of their share (section 94) A partner’s interest is a segregated exempt or current pension asset Salary or interest is allocated to partners
+
+Partners (leave a name blank for none)
+
+Partner 1 name Partner 1 interest (%)
+
+Partner 1 residency Resident all year Foreign resident all year
+
+Partner 2 name Partner 2 interest (%)
+
+Partner 2 residency Resident all year Foreign resident all year
+
+Partner 3 name Partner 3 interest (%)
+
+Partner 3 residency Resident all year Foreign resident all year
+
+Partner 4 name Partner 4 interest (%)
+
+Partner 4 residency Resident all year Foreign resident all year
+
+Calculate
+
+Interests are each partner’s individual interest in the net income or loss, and must total 100%.
+
+Fictional example: the first boundary case below. Change the inputs and calculate your own. Inputs: 2025-26; assessable income $250,000.00, deductions $130,000.00 ($10,000.00 under s 290-150 or Division 36); partners: Alex 50%, Sam 30%, Jo 20%. Assessable income $250,000.00 Deductions counted (s 90) $120,000.00 Net income (s 90) $130,000.00 Alex (50%): share of net income $65,000.00 Sam (30%): share of net income $39,000.00 Jo (20%): share of net income $26,000.00 Each share is rounded half up to the cent; any cent left over goes to the largest share.
+
+## How the partnership net income calculator works
+
+A partnership lodges a return but pays no tax on its income (section 91 of the Income Tax Assessment Act 1936). The calculator ports the partnership-net-income command of australian-accounting. Its net income is its assessable income less its deductions, worked out as if it were a resident taxpayer, leaving out deductions under section 290-150 (personal super contributions) or Division 36 (tax losses) of the Income Tax Assessment Act 1997; where those deductions are larger, the excess is a partnership loss (section 90).
+
+Each partner includes their individual interest in the net income in their own assessable income, or deducts their interest in the partnership loss, and takes their interest in exempt and non-assessable non-exempt income (section 92). Each share is rounded half up to the cent, and a cent left over goes to the largest share so the shares add up to the partnership’s figure.
+
+## What the partnership net income calculator does not cover
+
+The calculator does not work out the partnership’s assessable income or deductions, or the partners’ interests: you enter them as established. It refuses a partner resident for part of the year, a foreign resident partner unless all the partnership’s income is from Australian sources, salary or interest allocated to partners, a corporate limited partnership, venture capital and foreign hybrid partnerships, a partner without real and effective control of their share (section 94) and a segregated exempt or pension asset interest. It covers 2024-25 to 2026-27. The page takes 4 partners; its WebMCP tool takes up to 50. Have a registered tax agent confirm the figures and the result.
+
+## Boundary cases
+
+Each row is a test: scripts/business-calculators.test.mjs runs this calculator on these fictional inputs and fails if the result differs from the one shown.
+
+Boundary cases: Partnership net income calculator
+
+Case | Inputs | Result
+The page’s example: $10,000 of the deductions under section 290-150 or Division 36 left out | 2025-26; assessable income $250,000.00, deductions $130,000.00 ($10,000.00 under s 290-150 or Division 36); partners: Alex 50%, Sam 30%, Jo 20% | Deductions counted $120,000.00, net income $130,000.00, partnership loss $0.00
+Deductions above the assessable income: a partnership loss | 2025-26; assessable income $80,000.00, deductions $95,000.00; partners: Alex 50%, Sam 30%, Jo 20% | Deductions counted $95,000.00, net income $0.00, partnership loss $15,000.00
+Excluded deductions turn a loss into net income | 2025-26; assessable income $100,000.00, deductions $110,000.00 ($15,000.00 under s 290-150 or Division 36); partners: Alex 50%, Sam 30%, Jo 20% | Deductions counted $95,000.00, net income $5,000.00, partnership loss $0.00
+
+One of the sixty business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+
+Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
+
+## Links
+
+- sixty business calculators: https://duguid.com.au/tools/business-calculators/
+
+---
+
+# Trust loss tests checker: Schedule 2F for a prior-year loss
+
+Source: https://duguid.com.au/tools/business-calculators/trust-loss-tests/
+
+> Which Schedule 2F tests a trust must pass to deduct a prior-year loss in 2024-25 to 2026-27: 50% stake, pattern of distributions, control and income injection.
+
+# Trust loss tests checker
+
+The Schedule 2F tests a trust must pass to deduct a prior-year tax loss, 2024-25 to 2026-27.
+
+Published 27 November 2026. Last checked 27 November 2026.
+
+JavaScript is required for interactive calculations. The formula, assumptions and source links remain available below.
+
+The Schedule 2F tests for a trust deducting a prior-year tax loss
+
+Income year deducting the loss 2024-25 2025-26 2026-27
+
+Income year of the loss 2018-19 2019-20 2020-21 2021-22 2022-23 2023-24 2024-25 2025-26
+
+Kind of trust Non-fixed (such as a discretionary trust) Fixed
+
+Excepted trust throughout the test period (section 272-100) None A family trust A complying super fund A complying approved deposit fund A pooled superannuation trust A deceased estate within section 272-100(c) An exempt entity unit trust A designated infrastructure project entity
+
+Facts (Unknown leaves one unstated)
+
+Fixed trust: passed the 50% stake test (section 266-40) Unknown Yes No
+
+Fixed trust: meets the section 266-45 conditions instead Unknown Yes No
+
+Income distributed in the income year or 2 months after Unknown Yes No
+
+Income distributed in the 6 earlier income years Unknown Yes No
+
+Capital distributed in the income year or 2 months after Unknown Yes No
+
+Capital distributed in the 6 earlier income years Unknown Yes No
+
+Passed the pattern of distributions test (section 269-60) Unknown Yes No
+
+Denied this loss in an earlier year for failing the pattern test Unknown Yes No
+
+Individuals held over 50% of income or capital in the test period Unknown Yes No
+
+Those individuals kept it to the end Unknown Yes No
+
+A group began to control the trust in the test period Unknown Yes No
+
+A scheme injected assessable income to use the loss (section 270-10) Unknown Yes No
+
+Check
+
+Each fact is yours to establish. Only the facts a test needs are used: a fixed trust’s stake questions, or a non-fixed trust’s pattern, stake and control questions.
+
+Fictional example: the first boundary case below. Change the inputs and calculate your own. Inputs: 2025-26; a non-fixed trust deducting a tax loss from 2022-23. Pattern of distributions test (ss 267-30, 269-60, 269-65, 269-70) Passed Pattern test not failed in an earlier year (s 267-35) Passed 50% stake test (ss 267-40, 269-50, 269-55) Does not apply Control test (ss 267-45, 269-95) Passed Income injection test (ss 270-10, 270-15, 270-25) Passed Prior-year loss deductible under Schedule 2F Yes Each test that applies was answered on the facts stated.
+
+## How the trust loss tests checker works
+
+A trust can deduct a tax loss from an earlier year only if it passes the tests in Schedule 2F to the Income Tax Assessment Act 1936. The checker ports the trust-loss-tests command of australian-accounting. A fixed trust must pass the 50% stake test or meet the section 266-45 conditions. A non-fixed trust must pass the pattern of distributions test where it distributed income or capital in the income year and in an earlier year, must not have failed that test for the loss before, must keep any more than 50% stake individuals had, and no group may begin to control it. Every trust except a complying super fund, approved deposit fund or pooled superannuation trust, a deceased estate or an exempt entity unit trust must also pass the income injection test (section 270-10(1)(d)).
+
+An excepted trust, such as a family trust, is outside the stake, pattern and control tests. A fact left unknown stays unknown, so a test can be not established rather than passed or failed, and the loss is deductible only when every test that applies is passed.
+
+## What the trust loss tests checker does not cover
+
+The checker does not decide the facts: whether a family trust election is in force, who held the stakes, or which distributions are test year distributions. Its WebMCP tool also works the pattern of distributions test from stated test year distribution percentages; the page takes the result. It refuses widely held trusts, bad debts and current-year losses, and it does not cover deducting part of a loss year, family trust distribution tax (Division 271) or sections 269-75 to 269-85. It covers 2024-25 to 2026-27. Have a registered tax agent confirm the figures and the result.
+
+## Boundary cases
+
+Each row is a test: scripts/business-calculators.test.mjs runs this calculator on these fictional inputs and fails if the result differs from the one shown.
+
+Boundary cases: Trust loss tests checker
+
+Case | Inputs | Result
+The page’s example: a non-fixed trust that passes each test that applies | 2025-26; a non-fixed trust deducting a tax loss from 2022-23 | Prior-year loss deductible
+A group began to control the trust: the control test fails | 2025-26; a non-fixed trust deducting a tax loss from 2022-23 | Prior-year loss not deductible
+A fixed trust that passed the 50% stake test | 2025-26; a fixed trust deducting a tax loss from 2022-23 | Prior-year loss deductible
+A family trust with the income injection question unanswered | 2025-26; a non-fixed trust deducting a tax loss from 2022-23; excepted trust: family trust | Deductibility not established
+A deceased estate: outside every test, including income injection | 2025-26; a non-fixed trust deducting a tax loss from 2022-23; excepted trust: deceased estate | Prior-year loss deductible
+
+One of the sixty business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+
+Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
+
+## Links
+
+- sixty business calculators: https://duguid.com.au/tools/business-calculators/
+
+---
+
 # Foreign buyer duty and land tax surcharge: all 8 states
 
 Source: https://duguid.com.au/tools/business-calculators/foreign-surcharge/
@@ -534,190 +793,3 @@ Planning estimates in AUD. Confirm tax treatment, liability amounts and dates se
 - transfer duty calculator: https://duguid.com.au/tools/business-calculators/transfer-duty/
 - land tax calculator: https://duguid.com.au/tools/business-calculators/land-tax/
 - sixty business calculators: https://duguid.com.au/tools/business-calculators/
-
----
-
-# ASIC fees 2026-27 and late fee calculator
-
-Source: https://duguid.com.au/tools/business-calculators/asic-fees/
-
-> ASIC’s fees from 1 July 2026 for company registration, name reservation, annual reviews and business names, and the $102 or $428 late fee tier.
-
-# ASIC fees calculator
-
-ASIC’s 2026-27 fees and late fee tiers.
-
-Published 22 November 2026. Last checked 22 November 2026.
-
-JavaScript is required for interactive calculations. The formula, assumptions and source links remain available below.
-
-ASIC fee and late fee tier for 2026-27
-
-FeeRegister a company with share capital Register a company without share capital Reserve a company name, or extend a reservation Annual review fee, proprietary company (not special purpose) Annual review fee, public company (not special purpose or a small transferring financial institution) Annual review fee, special purpose proprietary company Annual review fee, special purpose company that is not proprietary Register or renew a business name for 1 year Register or renew a business name for 3 years Late payment of an annual review fee Late lodgement of a document Late fees only: the due date Late fees only: the day ASIC received the payment or document
-
-Enter the due date from ASIC’s invoice or statement, or, for a document, the last day of the time allowed to lodge it, and the day ASIC received the payment or document, both from 1 July 2026 to 30 June 2027. The calculator does not work the due date out from a review date or move it for a weekend or holiday.
-
-Calculate Fictional example: the first boundary case below. Change the inputs and calculate your own. Inputs: Late payment of an annual review fee, due Tuesday 15 September 2026, payment received by ASIC Thursday 15 October 2026. Last day of the first month after the due date Thursday 15 October 2026 Late fee tier Late, within one month after the due date Late fee, no GST $102.00 ASIC code LPF1_ETM; Corporations (Review Fees) Regulations 2003, Schedule 1 Part 3 items 1 and 2. A late fee is on top of the fee itself. Public holidays are not checked: if the due date or the last day of the first month is one where you pay or lodge, check ASIC’s invoice.
-
-## ASIC fees from 1 July 2026
-
-ASIC’s standard fees from 1 July 2026 are listed below as ASIC’s fee data and INFO 30 gave them on 22 November 2026. GST does not apply to ASIC fees.
-
-ASIC fees from 1 July 2026 (AUD, no GST)
-
-Fee | ASIC code | Amount | Imposed by
-Register a company with share capital | I02 | $636 | Corporations (Fees) Regulations 2001, Schedule 2 item 1(a)(i)
-Register a company without share capital | I01 | $524 | Schedule 2 item 1(a)(ii)
-Reserve a company name, or extend a reservation | R01 | $65 | Schedule 2 item 8
-Annual review fee, proprietary company (not a special purpose company) | A52 | $342 | Corporations (Review Fees) Regulations 2003, Schedule 1 Part 1 item 2
-Annual review fee, public company (not a special purpose company or small transferring financial institution) | A51 | $1,591 | Schedule 1 Part 1 item 1
-Annual review fee, special purpose company that is a proprietary company | A58 | $70 | Schedule 1 Part 1 item 5
-Annual review fee, special purpose company that is not a proprietary company | A53 | $65 | Schedule 1 Part 1 item 4
-Late payment of a review fee, within one month after the due date | LPF1_ETM | $102 | Schedule 1 Part 3 item 1
-Late payment of a review fee, more than one month after the due date | LPF2_ETM | $428 | Schedule 1 Part 3 item 2
-Late lodgement, within one month after the prescribed time | LPF1_ETM | $102 | Corporations (Fees) Regulations 2001, Schedule 2 item 14(a)
-Late lodgement, more than one month after the prescribed time | LPF2_ETM | $428 | Schedule 2 item 14(b)
-Register or renew a business name for 1 year | BZA, BZC | $47 | Business Names Registration (Fees) Regulations 2022, section 6 items 1 and 2
-Register or renew a business name for 3 years | BZB, BZD | $108 | Section 6 items 3 and 4
-
-The regulations state base amounts, and ASIC raises some of them each 1 July in line with the Consumer Price Index; the table gives ASIC’s indexed amounts. A special purpose company is defined in regulation 3 of the review fees regulations; it includes a company whose constitution prohibits distributions to its members and whose sole purpose is to act as trustee of a regulated superannuation fund. A company in liquidation and an entity registered with the Australian Charities and Not-for-profits Commission pay no review fee (Schedule 1 Part 1 items 10 and 11).
-
-## How the ASIC fees calculator works
-
-For a standard fee, the calculator returns ASIC’s 2026-27 amount. For a late fee, it compares the day ASIC received the payment or document with the due date you enter, as INFO 30 sets the tiers by the day ASIC receives them. A payment or document received on or before the due date is not late. A review fee paid after its due date but within one month after it costs $102, and later $428 (Schedule 1 Part 3 of the review fees regulations); a document lodged late attracts the same 2 amounts (Schedule 2 item 14 of the fees regulations). A late fee is on top of the fee itself, and ASIC can charge more than one late fee when several obligations are missed.
-
-The one month begins the day after the due date, which is not counted (item 6 of subsection 36(1) of the Acts Interpretation Act 1901). Under subsection 2G(1), a month runs to just before the same day of the next calendar month, or to the end of that month when it has no such day. A fee due on Tuesday 15 September 2026 is within one month if received by Thursday 15 October; one due on Monday 30 November 2026 is within one month if received by Thursday 31 December, because that month starts on 1 December.
-
-## What the ASIC fees calculator does not cover
-
-The calculator does not work out a due date. An annual review fee is due 2 months after the review date (subsection 1351(3) of the Corporations Act 2001), a review date can change, and a document’s lodgement period depends on the document, so you enter the due date shown by ASIC or the form’s rules. When a deadline falls on a weekend or public holiday, subsection 105(3) of the Corporations Act or subsection 36(2) of the Acts Interpretation Act may allow the next business day. The calculator does not apply that. When the due date or the last day of the first month is a Saturday or Sunday, it declines to give a tier for a received date that such a move could change, up to the following Wednesday and, after a weekend due date, the end of the month that would follow the moved date. It does not check public holidays.
-
-Not covered: due dates and received dates before 1 July 2026 or after 30 June 2027, including a fee due in one financial year and received in the next, because the sources read do not settle which year’s indexed amount applies; upfront review fees; deregistration and the review fee exceptions in subsection 1351(4); registered schemes, notified foreign passport funds, small transferring financial institutions and CCIVs; registered Australian bodies and foreign companies; credit licensee late fees; fee waivers and reviews of a late fee; and the industry funding levy. Check the amount against ASIC’s invoice before you pay.
-
-## Boundary cases
-
-Each row is a test: scripts/business-calculators.test.mjs runs this calculator on these fictional inputs and fails if the result differs from the one shown.
-
-Boundary cases: ASIC fees calculator
-
-Case | Inputs | Result
-Received exactly one month after the due date: $102 | Late payment of an annual review fee, due Tuesday 15 September 2026, payment received by ASIC Thursday 15 October 2026 | First month ends Thursday 15 October 2026, within one month, fee $102.00
-Received on the due date: not late | Late payment of an annual review fee, due Tuesday 15 September 2026, payment received by ASIC Tuesday 15 September 2026 | Not late, fee $0.00
-Received the day after the due date: $102 | Late payment of an annual review fee, due Tuesday 15 September 2026, payment received by ASIC Wednesday 16 September 2026 | First month ends Thursday 15 October 2026, within one month, fee $102.00
-Received the day after the first month: $428 | Late payment of an annual review fee, due Tuesday 15 September 2026, payment received by ASIC Friday 16 October 2026 | First month ends Thursday 15 October 2026, more than one month, fee $428.00
-Due on a month’s last day: the month runs to 31 December, s 2G(1)(b)(i) | Late lodgement of a document, due Monday 30 November 2026, document received by ASIC Thursday 31 December 2026 | First month ends Thursday 31 December 2026, within one month, fee $102.00
-Due on a month’s last day, received the day after the month: $428 | Late lodgement of a document, due Monday 30 November 2026, document received by ASIC Friday 1 January 2027 | First month ends Thursday 31 December 2026, more than one month, fee $428.00
-No 31 November: the month ends on 30 November, s 2G(1)(b)(ii) | Late payment of an annual review fee, due Friday 30 October 2026, payment received by ASIC Monday 30 November 2026 | First month ends Monday 30 November 2026, within one month, fee $102.00
-No 31 November, received on 1 December: $428 | Late payment of an annual review fee, due Friday 30 October 2026, payment received by ASIC Tuesday 1 December 2026 | First month ends Monday 30 November 2026, more than one month, fee $428.00
-No 30 February: the month ends on 28 February 2027 | Late payment of an annual review fee, due Friday 29 January 2027, payment received by ASIC Sunday 28 February 2027 | First month ends Sunday 28 February 2027, within one month, fee $102.00
-A first month ending on a Sunday, received on the Monday: refused | Late payment of an annual review fee, due Friday 29 January 2027, payment received by ASIC Monday 1 March 2027 | Refused: the first month after the due date ends on a Saturday or Sunday: subsection 105(3) of the Corporations Act or subsection 36(2) of the Acts Interpretation Act may extend it; this page does not decide that. Check ASIC’s invoice
-A first month ending on a Sunday, received on the Thursday: $428 | Late payment of an annual review fee, due Friday 29 January 2027, payment received by ASIC Thursday 4 March 2027 | First month ends Sunday 28 February 2027, more than one month, fee $428.00
-A due date on a Saturday, received on the Monday: refused | Late payment of an annual review fee, due Saturday 15 August 2026, payment received by ASIC Monday 17 August 2026 | Refused: the due date is a Saturday or Sunday, so subsection 105(3) of the Corporations Act or subsection 36(2) of the Acts Interpretation Act may move it; this page does not decide that. Check ASIC’s invoice
-A due date on a Saturday, received on the Thursday: $102 | Late payment of an annual review fee, due Saturday 15 August 2026, payment received by ASIC Thursday 20 August 2026 | First month ends Tuesday 15 September 2026, within one month, fee $102.00
-A Saturday due date that may move to Wednesday 3 March, received on 1 April: refused | Late payment of an annual review fee, due Saturday 27 February 2027, payment received by ASIC Thursday 1 April 2027 | Refused: the due date is a Saturday or Sunday, so the first month after it may end later: subsection 105(3) of the Corporations Act or subsection 36(2) of the Acts Interpretation Act may extend it; this page does not decide that. Check ASIC’s invoice
-The same due date, received on 8 April: $428 | Late payment of an annual review fee, due Saturday 27 February 2027, payment received by ASIC Thursday 8 April 2027 | First month ends Saturday 27 March 2027, more than one month, fee $428.00
-Due in 2025-26, received on 2 July 2026: refused, the year’s amount is not settled | Late payment of an annual review fee, due Monday 15 June 2026, payment received by ASIC Thursday 2 July 2026 | Refused: this page holds ASIC’s 2026-27 amounts: enter a due date and a received date from 1 July 2026 to 30 June 2027
-Received on 30 June 2026: refused, before 2026-27 | Late lodgement of a document, due Monday 15 June 2026, document received by ASIC Tuesday 30 June 2026 | Refused: this page holds ASIC’s 2026-27 amounts: enter a due date and a received date from 1 July 2026 to 30 June 2027
-Received on 30 June 2027: $102 | Late lodgement of a document, due Tuesday 15 June 2027, document received by ASIC Wednesday 30 June 2027 | First month ends Thursday 15 July 2027, within one month, fee $102.00
-Received on 1 July 2027: refused, after 2026-27 | Late lodgement of a document, due Tuesday 15 June 2027, document received by ASIC Thursday 1 July 2027 | Refused: this page holds ASIC’s 2026-27 amounts: enter a due date and a received date from 1 July 2026 to 30 June 2027
-Received the day before the due date: not late | Late lodgement of a document, due Tuesday 15 September 2026, document received by ASIC Monday 14 September 2026 | Not late, fee $0.00
-ASIC code I02 | Register a company with share capital | Fee $636.00, ASIC code I02
-ASIC code I01 | Register a company without share capital | Fee $524.00, ASIC code I01
-ASIC code R01 | Reserve a company name, or extend a reservation | Fee $65.00, ASIC code R01
-ASIC code A52 | Annual review fee, proprietary company (not a special purpose company) | Fee $342.00, ASIC code A52
-ASIC code A51 | Annual review fee, public company (not a special purpose company or small transferring financial institution) | Fee $1,591.00, ASIC code A51
-ASIC code A58 | Annual review fee, special purpose company that is a proprietary company | Fee $70.00, ASIC code A58
-ASIC code A53 | Annual review fee, special purpose company that is not a proprietary company | Fee $65.00, ASIC code A53
-ASIC code BZA or BZC | Register or renew a business name for 1 year | Fee $47.00, ASIC code BZA or BZC
-ASIC code BZB or BZD | Register or renew a business name for 3 years | Fee $108.00, ASIC code BZB or BZD
-
-One of the sixty business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
-
-## Related
-
-- Starting a business questions
-- Companies and trusts questions
-- Company tax and franking calculator
-
-Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
-
-## Links
-
-- sixty business calculators: https://duguid.com.au/tools/business-calculators/
-- Starting a business questions: https://duguid.com.au/tools/accounting-questions/business-setup/
-- Companies and trusts questions: https://duguid.com.au/tools/accounting-questions/company-compliance/
-- Company tax and franking calculator: https://duguid.com.au/tools/business-calculators/company-tax/
-
----
-
-# Australian business days calculator: 2026 and 2027
-
-Source: https://duguid.com.au/tools/business-calculators/business-days/
-
-> Count business days between 2 dates, or add or subtract them, skipping weekends and each Australian state or territory’s public holidays in 2026 and 2027.
-
-# Business days calculator
-
-Business days between 2 dates, or the date a number of business days after or before one, skipping weekends and each state’s public holidays for 2026 and 2027.
-
-Published 18 November 2026. Last checked 23 November 2026.
-
-JavaScript is required for interactive calculations. The formula, assumptions and source links remain available below.
-
-Business days inputs, 2026 and 2027
-
-Work out Business days between 2 dates The date a number of business days after the start The date a number of business days before the start Public holidays of Australian Capital Territory New South Wales Northern Territory Queensland South Australia Tasmania Victoria Western Australia Any state or territory: skip a holiday that applies throughout any of them Start date End date, to count between 2 dates Number of business days, to find a date
-
-The count starts the day after the start date and includes the end date. Dates run from 1 January 2026 to 31 December 2027.
-
-Calculate Fictional example: the first boundary case below. Change the inputs and calculate your own. Inputs: New South Wales, start 21 December 2026, end 4 January 2027. Business days after the start, to and including the end 7 Weekday public holidays skipped 25 December 2026 (Christmas Day), 28 December 2026 (Boxing Day / Boxing Day (observed) / Proclamation Day (observed)), 1 January 2027 (New Year's Day) Part-day and regional holidays count as business days; where a local day replaces Melbourne Cup Day or the WA King’s Birthday, the state date is still skipped.
-
-## How the business days calculator works
-
-The calculator skips Saturdays, Sundays and the public holidays of the state or territory you choose, using the dates confirmed for 2026 and 2027. Between 2 dates, it counts the business days after the start date up to and including the end date, so a Friday to the next Monday is 1. Forward or back, it finds the date that is that many business days after or before the start, and lists each weekday holiday it skipped.
-
-‘Any state or territory’ skips full-day public holidays that apply throughout at least one state or territory. It counts Melbourne Cup Day and the WA King’s Birthday as business days because regions can observe them on different dates.
-
-## What the business days calculator does not cover
-
-Part-day holidays, such as the evenings of Christmas Eve and New Year’s Eve in South Australia and the Northern Territory, count as business days. So do regional holidays, among them the Royal Queensland Show in Brisbane, Tasmania’s Royal Hobart Regatta and Recreation Day, and show days, and days off for one group only, such as Tasmania’s Easter Tuesday for the public service. A council or region’s local substitute for Melbourne Cup Day or the WA King’s Birthday is not applied: the state date is still skipped.
-
-The calculator covers dates through 31 December 2027. Check the applicable law for which days and which place count towards a deadline. The separate SGC and Payday Super calculator works out those due dates within its own coverage period.
-
-## Boundary cases
-
-Each row is a test: scripts/business-calculators.test.mjs runs this calculator on these fictional inputs and fails if the result differs from the one shown.
-
-Boundary cases: Business days calculator
-
-Case | Inputs | Result
-New South Wales over Christmas and New Year: 7 | New South Wales, Monday 21 December 2026 to Monday 4 January 2027 | 7 business days
-Friday to the next Monday is 1 | New South Wales, Friday 13 November 2026 to Monday 16 November 2026 | 1 business day
-The same date is 0 | New South Wales, Wednesday 18 November 2026 to Wednesday 18 November 2026 | 0 business days
-Victoria skips Melbourne Cup Day | Victoria, Monday 2 November 2026 to Wednesday 4 November 2026 | 1 business day
-New South Wales does not | New South Wales, Monday 2 November 2026 to Wednesday 4 November 2026 | 2 business days
-Western Australia skips its King’s Birthday on 28 September 2026 | Western Australia, Friday 25 September 2026 to Tuesday 29 September 2026 | 1 business day
-Any state or territory skips 9 March 2026, a holiday in 4 of them | Any state or territory, Friday 6 March 2026 to Tuesday 10 March 2026 | 1 business day
-10 business days on from 21 December 2026 in New South Wales | New South Wales, 10 business days after Monday 21 December 2026 | 10 business days, date Thursday 7 January 2027
-5 business days back from the Tuesday after Easter 2026 in New South Wales | New South Wales, 5 business days before Tuesday 7 April 2026 | 5 business days, date Friday 27 March 2026
-An end before the start is refused | New South Wales, Wednesday 18 November 2026 to Tuesday 17 November 2026 | Refused: the end date must not be before the start date
-Victoria skips the Grand Final holiday | Victoria, Thursday 30 September 2027 to Friday 1 October 2027 | 0 business days
-Counting past 31 December 2027 is refused | New South Wales, 20 business days after Monday 20 December 2027 | Refused: this page has public holidays from 1 January 2026 to 31 December 2027 for New South Wales; choose dates in that range
-
-One of the sixty business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
-
-## Related
-
-- Payday Super business days
-- Objection deadline checker
-- 2026-27 BAS due dates
-
-Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
-
-## Links
-
-- SGC and Payday Super calculator: https://duguid.com.au/tools/business-calculators/sgc-payday/
-- sixty business calculators: https://duguid.com.au/tools/business-calculators/
-- Payday Super business days: https://duguid.com.au/tools/payday-super/business-days/
-- Objection deadline checker: https://duguid.com.au/tools/business-calculators/objection-deadline/
-- 2026-27 BAS due dates: https://duguid.com.au/tools/bas-due-dates/

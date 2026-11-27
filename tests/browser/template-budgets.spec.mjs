@@ -26,7 +26,7 @@ test('calculator and question pages open on their working control', async ({ pag
   const overBudget = [];
   for (const path of [...calculators, ...topics]) {
     await page.goto(path);
-    const selector = calculators.includes(path) ? 'form[data-calculator] input' : 'details.question summary';
+    const selector = calculators.includes(path) ? 'form[data-calculator] input, form[data-calculator] select' : 'details.question summary';
     const box = await page.locator(selector).first().boundingBox();
     // The whole control, not only its first 44 pixels, ends inside the first screen.
     if (!box) overBudget.push(`${path}: no control`);
