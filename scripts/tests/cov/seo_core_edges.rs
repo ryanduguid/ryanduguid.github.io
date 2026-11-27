@@ -69,9 +69,12 @@ fn sitemap_reports_duplicates_and_a_missing_family_line_and_reads_document_dates
     assert!(failures.contains(&format!("robots.txt: no Sitemap line for {SITEMAP_REL}")));
     // The Thing's older date does not count beside the page's own WebPage date.
     assert!(
-        !failures.iter().any(|f| f.contains("lastmod")),
+        failures
+            .iter()
+            .any(|f| f.ends_with("its dateModified ['2026-01-01']")),
         "{failures:?}"
     );
+    assert!(!failures.iter().any(|f| f.contains("1999")), "{failures:?}");
 }
 
 #[test]
