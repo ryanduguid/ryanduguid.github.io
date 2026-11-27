@@ -5,7 +5,7 @@ import { readFileSync } from 'node:fs';
 import { declaredScalesHold } from '../conformance/declared-scales.mjs';
 import { calculate } from '../src/calculate.mjs';
 import { loadRegister } from '../src/load-register.mjs';
-import { buildOpenApi } from '../src/openapi.mjs';
+import { buildOpenApi, decimalPattern } from '../src/openapi.mjs';
 import { validateRequest } from '../src/schema.mjs';
 import { DEFAULTS } from '../src/server.mjs';
 
@@ -85,4 +85,13 @@ test('a declared object must carry its required members', () => {
   assert.equal(declaredScalesHold(schema, changed(formulaB, (body) => { delete body.workings.formula_b_basis.factor; })), false);
   assert.equal(declaredScalesHold(schema, changed(formulaB, (body) => { delete body.levy_before_rounding; })), false);
   assert.equal(declaredScalesHold(schema, changed(bonuses, (body) => { delete body.excluded[0].reason; })), false);
+});
+
+test('the walk reads booleans, absent values, non-string figures and untyped objects', () => {
+  assert.equal(declaredScalesHold({ type: 'boolean' }, true), true);
+  assert.equal(declaredScalesHold({ type: 'boolean' }, 'true'), false);
+  assert.equal(declaredScalesHold(schema, undefined), true, 'an absent value reports nothing');
+  assert.equal(declaredScalesHold({ pattern: decimalPattern(2) }, 1.5), false, 'a figure must be a string');
+  assert.equal(declaredScalesHold({ properties: { levy: { pattern: decimalPattern(2) } } }, 'x'), false,
+    'a schema with members needs an object');
 });
