@@ -36,7 +36,7 @@ function mapPsiPayers(payers) {
   }
   return payers.map(({
     amount, isAssociate = false, wonByPublicOffer = false, paidForResult = false,
-    suppliesTools = false, liableForDefects = false, samePayerAs,
+    suppliesTools = false, liableForDefects = false, samePayerAs, clientLabel,
   }) => ({
     amount,
     associate: isAssociate,
@@ -45,6 +45,7 @@ function mapPsiPayers(payers) {
     tools: suppliesTools,
     defects: liableForDefects,
     ...(samePayerAs === undefined ? {} : { same: samePayerAs }),
+    ...(clientLabel === undefined ? {} : { client: clientLabel }),
   }));
 }
 
@@ -66,6 +67,10 @@ export function psiDeterminationTool(kit, psiDetermination) {
   const payerSchema = record({
     amount: text('cost', 'PSI received from this payer row in AUD.'),
     samePayerAs: whole(1, 4, 'Optional 1-based row number of an earlier row for the same payer and its associates.'),
+    clientLabel: { type: 'string', minLength: 1, maxLength: 100, description: 'Optional client for the unrelated clients test '
+      + '(s 87-20(1)(a)), on every row with PSI or none: rows with one label are one entity or associates of each other, rows '
+      + 'with different labels are not, and one label stays within one payer’s rows. Without labels a payer’s rows count '
+      + 'once, and where 2 or more such rows won by public offers decide the outcome the tool refuses and asks for labels.' },
     isAssociate: { type: 'boolean', description: 'true if this payer is an associate of the individual or entity; false when omitted.' },
     wonByPublicOffer: { type: 'boolean', description: 'true if engaged as a direct result of offers to the public (s 87-20); false when omitted.' },
     paidForResult: { type: 'boolean', description: 'true if paid to produce a result (s 87-18); false when omitted.' },

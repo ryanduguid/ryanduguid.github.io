@@ -181,3 +181,20 @@ fn attribution(text: &str) -> String {
         None => escaped,
     }
 }
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn the_attribution_links_the_register_address_only_when_it_names_it() {
+        assert_eq!(
+            attribution("Source: https://www.legislation.gov.au."),
+            "Source: <a href=\"https://www.legislation.gov.au\">https://www.legislation.gov.au</a>."
+        );
+        assert_eq!(
+            attribution("Source: the Register & co"),
+            "Source: the Register &amp; co"
+        );
+    }
+}
