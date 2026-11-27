@@ -16,7 +16,7 @@ An account-based pension for one income year
 
 Income year 2027-28 2026-27 2025-26 2024-25
 
-Account balance on 1 July, or on the start day in the first year Age in whole years on the same day Start day, if the pension started during the year
+Account balance on 1 July, or on the start day in the first year Age in whole years on the same day Start day, if the pension started during the year Is it a transition to retirement income stream? No Yes
 
 Leave the start day blank for a pension running on 1 July. A start day must fall in the income year; the first year counts the days from the start day to 30 June.
 
@@ -30,9 +30,11 @@ The minimum annual payment from an account-based pension is the account balance 
 
 In the year a pension starts, the balance and age are taken on the start day, and the minimum is the same percentage of the balance times the days from the start day to 30 June over the days in the year, 366 when the year includes 29 February. A pension starting on or after 1 June, in the year’s last 30 days, needs no payment that year.
 
+A transition to retirement income stream also has a maximum: no more than 10% of the same balance each year, not reduced for a part year. The calculator shows it down to the cent, so a payment of that amount stays within the limit. The maximum excludes commutations and ends once you satisfy a condition of release with a nil cashing restriction.
+
 ## What the pension minimum calculator does not cover
 
-The calculator works 2024-25 to 2027-28 with the factors from 2023-24; it does not apply the halved factors of 2019-20 to 2022-23. It does not cover market-linked or other non-account-based pensions, transition to retirement maximums, the year a member dies, or payments that fall short. It takes the balance, age and start day as you enter them; confirm them with your fund, the ATO or a registered tax agent.
+The calculator works 2024-25 to 2027-28 with the factors from 2023-24; it does not apply the halved factors of 2019-20 to 2022-23. It does not cover market-linked or other non-account-based pensions, whether a condition of release has ended a transition to retirement maximum, commutations, the year a member dies, or payments that fall short. It takes the balance, age and start day as you enter them; confirm them with your fund, the ATO or a registered tax agent.
 
 ## Boundary cases
 

@@ -58,26 +58,29 @@ export function pensionMinimumTool(kit, { pensionMinimum, PENSION_MINIMUM_YEARS 
       + 'Schedule 7 clauses 1 to 5: age percentage factors (4% under 65 up to 14% at 95+), rounded to the nearest '
       + '$10 with $5 rounded up. Omit startDate for a pension running on 1 July; supply startDate for a first year '
       + 'pro-rated to 30 June (nil when starting on or after 1 June, the last 30 days). Excludes halved 2019-20 to '
-      + '2022-23 factors, market-linked pensions, transition-to-retirement maximums and death years.',
+      + '2022-23 factors, market-linked pensions and death years. With transitionToRetirement true it also returns the SISR reg '
+      + '6.01(2) maximum: 10% of the same balance, down to the cent, not pro-rated.',
     inputSchema: record({
       incomeYear: choice(PENSION_MINIMUM_YEARS, `Income year, ${PENSION_MINIMUM_YEARS[0]} to ${PENSION_MINIMUM_YEARS.at(-1)}.`),
       accountBalance: text('trillionCost', 'Account balance on 1 July (or startDate in the first year) in AUD.'),
       age: whole(0, 150, 'Age in whole years on that day (0 to 150).'),
       startDate: text('date', 'Optional start day as YYYY-MM-DD inside the income year; omit when running on 1 July.'),
+      transitionToRetirement: { type: 'boolean', description: 'true for a transition to retirement income stream; false when omitted.' },
       scopeConfirmed: { type: 'boolean', description: 'Optional scope confirmation; false refuses.' },
     }, ['incomeYear', 'accountBalance', 'age']),
-    run({ incomeYear, accountBalance, age, startDate, scopeConfirmed = true }) {
+    run({ incomeYear, accountBalance, age, startDate, transitionToRetirement = false, scopeConfirmed = true }) {
       const first = Number(incomeYear.slice(0, 4));
       const daysInYear = yearDays(first);
       const days = startDate === undefined ? daysInYear : pensionStartDays(startDate, first, daysInYear);
       const r = pensionMinimum({
         account_balance: accountBalance, age, days, year: incomeYear, scope_confirmed: scopeConfirmed,
+        transition_to_retirement: transitionToRetirement,
       });
       return {
         incomeYear: r.year, accountBalance: r.amounts.account_balance_used, age, startDate: startDate ?? null,
         daysCounted: r.days, daysInYear: r.daysInYear, percentageFactorPercent: r.factor, clause: r.clause,
         minimumBeforeRounding: r.amounts.minimum_before_rounding, minimumPayment: r.amounts.minimum_payment,
-        currency: 'AUD', source: `${INDIVIDUAL}pension-minimum/`,
+        maximumPayment: r.amounts.maximum_payment ?? null, currency: 'AUD', source: `${INDIVIDUAL}pension-minimum/`,
       };
     },
   });

@@ -960,6 +960,7 @@ const TOOL_KIT = { text, choice, whole, record, tool, dollars, dollarsOnly, cent
  *   division293Tax: typeof import('./division-293.mjs').division293Tax,
  *   incomeTests: typeof import('./income-tests.mjs').incomeTests,
  *   concessionalCatchUp: typeof import('./concessional-catch-up.mjs').concessionalCatchUp, catchUpYears: string[],
+ *   downsizer: typeof import('./downsizer.mjs').downsizer,
  *   incomeYears: string[], payYears: string[], soleTraderYears: string[], division293Years: string[],
  *   bonusWithholding: typeof import('./bonus-withholding.mjs').bonusWithholding,
  *   salaryPackaging: typeof import('./salary-packaging.mjs').salaryPackaging,
@@ -967,7 +968,7 @@ const TOOL_KIT = { text, choice, whole, record, tool, dollars, dollarsOnly, cent
  *   novatedYears: string[], superProjection: typeof import('./super-projection.mjs').superProjection}} engines
  */
 export function individualTaxTools({ taxEstimate, takeHomePay, studyLoanRepayment, studyLoanYears, soleTraderSetAside,
-  lumpSumArrears, receiptYears, division293Tax, incomeTests, concessionalCatchUp, catchUpYears, incomeYears,
+  lumpSumArrears, receiptYears, division293Tax, incomeTests, concessionalCatchUp, catchUpYears, downsizer, incomeYears,
   payYears, soleTraderYears, division293Years, bonusWithholding, salaryPackaging, novatedLease, packagingYears,
   novatedYears, superProjection }) {
   return {
@@ -979,7 +980,7 @@ export function individualTaxTools({ taxEstimate, takeHomePay, studyLoanRepaymen
     'sole-trader': soleTraderTool(soleTraderSetAside, soleTraderYears),
     'lump-sum-arrears': lumpSumArrearsTool(TOOL_KIT, lumpSumArrears, receiptYears),
     'division-293': division293Tool({ division293Tax, division293Years }),
-    'concessional-catch-up': concessionalCatchUpTool(TOOL_KIT, concessionalCatchUp, catchUpYears),
+    'concessional-catch-up': concessionalCatchUpTool(TOOL_KIT, concessionalCatchUp, catchUpYears, downsizer),
     'bonus-withholding': bonusWithholdingTool(bonusWithholding),
     'salary-packaging': salaryPackagingTool(salaryPackaging, packagingYears),
     'novated-lease': novatedLeaseTool(novatedLease, novatedYears),
