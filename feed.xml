@@ -8,6 +8,13 @@
   <updated>2026-11-27T00:00:00Z</updated>
   <author><name>Ryan Duguid</name></author>
   <entry>
+    <title>A new business calculator, the FBT return, composes an employer’s FBT return…</title>
+    <link href="https://duguid.com.au/changelog/#entry-1c18d5bee04cd822" />
+    <id>https://duguid.com.au/changelog/#entry-1c18d5bee04cd822</id>
+    <updated>2026-11-27T00:00:00Z</updated>
+    <summary>A new business calculator, the FBT return, composes an employer’s FBT return from its benefits’ taxable values: the type 1 and type 2 gross-up at items 14 to 16, item 23, each employee’s reportable fringe benefits amount, a rebatable employer’s rebate under section 65J, the $30,000 and $17,000 caps of section 57A employers with the $5,000 entertainment cap, items 20 to 22 and a quarter’s FBT instalment, checked against the australian-accounting fbt-return and fbt-instalment commands on 775 cases.</summary>
+  </entry>
+  <entry>
     <title>The depreciation register distinguishes assets with the same name, shows the…</title>
     <link href="https://duguid.com.au/changelog/#entry-812e9c722d31e872" />
     <id>https://duguid.com.au/changelog/#entry-812e9c722d31e872</id>
@@ -27,6 +34,20 @@
     <id>https://duguid.com.au/changelog/#entry-00a6ae5bfd6d6b55</id>
     <updated>2026-11-27T00:00:00Z</updated>
     <summary>Reference tables now carry names for screen readers. Calculator fields and reference pages have more space between headings, instructions and tables. The depreciation register identifies the industry or asset group on links that share a name. Each indexed page also has a Markdown edition at index.md.</summary>
+  </entry>
+  <entry>
+    <title>The company tax and franking calculator now also works the company tax return’s…</title>
+    <link href="https://duguid.com.au/changelog/#entry-ce4bc4c452bf396d" />
+    <id>https://duguid.com.au/changelog/#entry-ce4bc4c452bf396d</id>
+    <updated>2026-11-26T00:00:00Z</updated>
+    <summary>The company tax and franking calculator now also works the company tax return’s calculation statement for 2021-22 to 2026-27: prior-year losses with the stated outcome of their loss test, net exempt income, the tax offsets at labels C to F, credits and PAYG instalments, and the amount due or refundable at label S. It works the Division 160 loss carry back tax offset only for the claim years the law gives one: 2021-22 and 2022-23 under the former Division 160, and 2026-27 under the Division 160 that Act No. 71 of 2026 substituted.</summary>
+  </entry>
+  <entry>
+    <title>A new business calculator, blackhole expenditure, deducts business capital…</title>
+    <link href="https://duguid.com.au/changelog/#entry-f963dfebf680bc1c" />
+    <id>https://duguid.com.au/changelog/#entry-f963dfebf680bc1c</id>
+    <updated>2026-11-26T00:00:00Z</updated>
+    <summary>A new business calculator, blackhole expenditure, deducts business capital expenditure under section 40-880 for 2020-21 to 2027-28: each item to the extent of its taxable purpose, a fifth a year over 5 income years, or at once as a start-up cost of a proposed business, and nothing where an exclusion applies.</summary>
   </entry>
   <entry>
     <title>The take-home pay calculator can now also work the amount to withhold from one…</title>

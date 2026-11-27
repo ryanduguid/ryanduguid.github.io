@@ -94,10 +94,10 @@ Expenditure preserving goodwill: s 40-880(6) lifts the s 40-880(5)(d) exclusion 
 The fifth year: $20,000 incurred in 2021-22 leaves nothing after 2025-26 | 2025-26; item 1: $20,000.00 incurred in 2021-22 for your business, 50% taxable purpose | Deduction $2,000.00, deductible expenditure $10,000.00, left for later years $0.00
 Part of a depreciating asset’s cost is refused: Division 40 deducts it (s 40-880(5)(a)) | 2025-26; item 1: $1,000.00 incurred in 2025-26 for your business, 100% taxable purpose, excluded by section 40-880(5)(a) | Refused: item 1: s 40-880(5)(a) excludes expenditure that forms part of the cost of a depreciating asset; it is deducted as the asset's decline in value under Division 40 (s 40-25, with its cost under Subdivision 40-C), which this worksheet does not work out
 
-One of the sixty business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the sixty-five business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
 
 ## Links
 
-- sixty business calculators: https://duguid.com.au/tools/business-calculators/
+- sixty-five business calculators: https://duguid.com.au/tools/business-calculators/

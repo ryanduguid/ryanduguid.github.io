@@ -41,7 +41,7 @@ An exact half cent rounds up | $20.15 at 50% | Business share $10.08
 No business use | $100.00 at 0% | Business share $0.00
 A share over 100% is refused | $100.00 at 100.01% | Refused: enter an amount between 0 and 100
 
-One of the sixty-three business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the sixty-five business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 ## Related
 
@@ -55,6 +55,6 @@ Planning estimates in AUD. Confirm tax treatment, liability amounts and dates se
 
 - rate by income year: https://duguid.com.au/rates/cents-per-kilometre/
 - Phone and internet record checklist: https://duguid.com.au/tools/accounting-questions/deductions/#q15
-- sixty-three business calculators: https://duguid.com.au/tools/business-calculators/
+- sixty-five business calculators: https://duguid.com.au/tools/business-calculators/
 - Deductions questions: https://duguid.com.au/tools/accounting-questions/deductions/
 - Work expenses calculator: https://duguid.com.au/tools/individual-tax/work-expenses/

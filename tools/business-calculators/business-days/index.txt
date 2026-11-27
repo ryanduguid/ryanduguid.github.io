@@ -52,7 +52,7 @@ An end before the start is refused | New South Wales, Wednesday 18 November 2026
 Victoria skips the Grand Final holiday | Victoria, Thursday 30 September 2027 to Friday 1 October 2027 | 0 business days
 Counting past 31 December 2027 is refused | New South Wales, 20 business days after Monday 20 December 2027 | Refused: this page has public holidays from 1 January 2026 to 31 December 2027 for New South Wales; choose dates in that range
 
-One of the sixty-three business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the sixty-five business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 ## Related
 
@@ -65,7 +65,7 @@ Planning estimates in AUD. Confirm tax treatment, liability amounts and dates se
 ## Links
 
 - SGC and Payday Super calculator: https://duguid.com.au/tools/business-calculators/sgc-payday/
-- sixty-three business calculators: https://duguid.com.au/tools/business-calculators/
+- sixty-five business calculators: https://duguid.com.au/tools/business-calculators/
 - Payday Super business days: https://duguid.com.au/tools/payday-super/business-days/
 - Objection deadline checker: https://duguid.com.au/tools/business-calculators/objection-deadline/
 - 2026-27 BAS due dates: https://duguid.com.au/tools/bas-due-dates/

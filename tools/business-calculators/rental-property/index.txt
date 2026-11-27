@@ -118,7 +118,7 @@ A building begun from 22 August 1979 to 17 July 1985 is refused | 2025-26; legal
 The effect on tax before 2024-25 is refused | 2023-24; legal interest 1; held from 1 July 2020; 366 days let or available; rental income $0.00; expenses apportioned by days $0.00; expenses solely for renting $0.00; borrowing expenses $0.00; other taxable income $50,000.00 | Refused: the effect on tax is worked out for 2024-25 to 2026-27, the years the resident scale is held for here; leave other taxable income blank for an earlier year
 2027-28 is refused | 2027-28; legal interest 1; held from 1 July 2020; 365 days let or available; rental income $0.00; expenses apportioned by days $0.00; expenses solely for renting $0.00; borrowing expenses $0.00 | Refused: choose an income year from 2020-21 to 2026-27. From 2027-28 s 26-155 can limit residential rental deductions, which this calculator does not work out
 
-One of the sixty-three business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the sixty-five business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 ## Related
 
@@ -131,6 +131,6 @@ Planning estimates in AUD. Confirm tax treatment, liability amounts and dates se
 ## Links
 
 - borrowing expenses calculator: https://duguid.com.au/tools/business-calculators/borrowing-expenses/
-- sixty-three business calculators: https://duguid.com.au/tools/business-calculators/
+- sixty-five business calculators: https://duguid.com.au/tools/business-calculators/
 - Depreciation pools and capital works calculator: https://duguid.com.au/tools/business-calculators/depreciation-pools/
 - Land tax calculator: https://duguid.com.au/tools/business-calculators/land-tax/

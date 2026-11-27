@@ -50,7 +50,7 @@ A first notice after the notice of the assessment amended is refused | Amended F
 A second amendment counts subsection (1BA) from the assessment amended | Amended income tax assessment, 2 years, notice 1 June 2028, notice of the assessment amended 10 January 2028, first notice 1 March 2024 | Subsection 14ZW(1BA), 60 days after the amended notice Monday 31 July 2028, original period ends Thursday 10 January 2030, period ends Thursday 10 January 2030, last day Thursday 10 January 2030
 Subsection (1C) counts subsection (1B) from the first assessment | Amended income tax assessment, 4 years, notice 1 June 2028, notice of the assessment amended 10 January 2028, first notice 1 March 2024 | Subsection 14ZW(1B), 60 days after the amended notice Monday 31 July 2028, original period ends Wednesday 1 March 2028, period ends Monday 31 July 2028, last day Monday 31 July 2028
 
-One of the sixty-three business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the sixty-five business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 ## Related
 
@@ -62,7 +62,7 @@ Planning estimates in AUD. Confirm tax treatment, liability amounts and dates se
 
 ## Links
 
-- sixty-three business calculators: https://duguid.com.au/tools/business-calculators/
+- sixty-five business calculators: https://duguid.com.au/tools/business-calculators/
 - ATO penalties and interest calculator: https://duguid.com.au/tools/business-calculators/ato-penalties-interest/
 - Business days calculator: https://duguid.com.au/tools/business-calculators/business-days/
 - 2026-27 BAS due dates: https://duguid.com.au/tools/bas-due-dates/
