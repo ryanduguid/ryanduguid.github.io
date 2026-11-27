@@ -47,7 +47,8 @@ on the 63 business calculator pages,
 `calculate_lump_sum_arrears`, `calculate_division_293_tax`, `calculate_income_tests`, `calculate_concessional_catch_up`,
 `calculate_bonus_withholding`, `calculate_salary_packaging`, `calculate_novated_lease`, `project_super_balance`,
 `calculate_fhss_release`, `calculate_work_expenses`, `calculate_government_super_amounts`,
-`calculate_pension_minimum`, `calculate_transfer_balance` and `calculate_residency_days` on the 18
+`calculate_pension_minimum`, `calculate_transfer_balance`, `calculate_residency_days`
+and `check_lodgment_required` on the 18
 individual tax calculator pages, `calculate_decline_in_value` on the depreciation rates page and
 `calculate_coal_lsl_levy` on the Coal LSL levy calculator.
 `assets/accounting-pages.mjs`, `assets/depreciation-calculator-page.mjs` and

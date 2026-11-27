@@ -16,6 +16,7 @@ import {
 } from './webmcp-individual-more.mjs';
 import { pensionMinimumTool, transferBalanceTool } from './webmcp-individual-retirement.mjs';
 import { residencyDaysTool } from './webmcp-individual-residency.mjs';
+import { lodgmentRequiredTool } from './webmcp-individual-lodgment.mjs';
 
 // WebMCP tool descriptors for the site's calculators. Each tool calls the same module
 // function as its page's form, reads nothing from the form and sends nothing anywhere.
@@ -1033,6 +1034,14 @@ export function transferBalanceTools(engine) {
  */
 export function residencyDaysTools(engine) {
   return { 'residency-days': residencyDaysTool(TOOL_KIT, engine) };
+}
+
+/**
+ * WebMCP descriptor for the 'do I need to lodge' test.
+ * @param {import('./webmcp-individual-lodgment.mjs').LodgmentEngine} engine
+ */
+export function lodgmentRequiredTools(engine) {
+  return { 'lodgment-required': lodgmentRequiredTool(TOOL_KIT, engine) };
 }
 
 /** The WebMCP descriptor for the income tax estimate.

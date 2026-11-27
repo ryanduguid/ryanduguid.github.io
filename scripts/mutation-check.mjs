@@ -49,6 +49,7 @@ const excess = { ...tba, file: 'assets/excess-contributions.mjs' };
 const tbaPage = { ...tba, file: 'assets/transfer-balance-result.mjs' };
 const pm = { file: 'assets/pension-minimum.mjs', test: 'scripts/pension-minimum.test.mjs' };
 const rd = { file: 'assets/residency-days.mjs', test: 'scripts/residency-days.test.mjs' };
+const lr = { file: 'assets/lodgment-required.mjs', test: 'scripts/lodgment-required.test.mjs' };
 const money = { ...business, file: 'assets/money.mjs' };
 const division296 = { ...business, file: 'assets/division-296.mjs' };
 const div7a = { ...business, file: 'assets/div7a.mjs' };
@@ -1395,6 +1396,18 @@ const MUTATIONS = [
   { ...rd, name: 'residency scope not needed', find: "if (input.get('scope_confirmed') !== true) refuse", replace: 'if (false) refuse' },
   { ...rd, name: 'residency form blank departure is 29 June', find: '`${start + 1}-06-30`', replace: '`${start + 1}-06-29`' },
   { ...rd, name: 'residency page principal is the count', find: 'rows: table, principal: 3, note', replace: 'rows: table, principal: 0, note' },
+  { ...lr, name: 'lodgment threshold inclusive', find: "taxable.cents > centsOf(18200), `taxable income", replace: "taxable.cents >= centsOf(18200), `taxable income" },
+  { ...lr, name: 'lodgment part-year $395 a month', find: 'const sum = 13464 + 395 * resident.months', replace: 'const sum = 13464 + 394 * resident.months' },
+  { ...lr, name: 'lodgment under 18 ignores dividends', find: 'under18.cents > centsOf(416) || dividends.cents > centsOf(416)', replace: 'under18.cents > centsOf(416)' },
+  { ...lr, name: 'lodgment study loan for residents', find: "studyLoan && resident.status !== 'whole'", replace: 'studyLoan' },
+  { ...lr, name: 'lodgment holiday maker at $45,001', find: 'income.cents < centsOf(45001)', replace: 'income.cents <= centsOf(45001)' },
+  { ...lr, name: 'lodgment listed payment always strict', find: 'paymentInclusive ? taxable.cents <= limit : taxable.cents < limit', replace: 'taxable.cents < limit' },
+  { ...lr, name: 'lodgment Notices relieve under 18', find: 'notice ? SUBSECTION_6_3 : [...SUBSECTION_6_3', replace: 'notice ? [...SUBSECTION_6_3, \'under_18\'] : [...SUBSECTION_6_3' },
+  { ...lr, name: 'lodgment exception relieves unnamed', find: 'names.some((k) => conditions.includes(k))', replace: 'true' },
+  { ...lr, name: 'lodgment child support refusal dropped', find: 'left.length === 0 && facts.parent', replace: 'false' },
+  { ...lr, name: 'lodgment due 30 October', find: '`${end}-10-31`', replace: '`${end}-10-30`' },
+  { ...lr, name: 'lodgment 2026-27 allowed', find: "confirmed === true && year === '2026-27'", replace: 'false' },
+  { ...lr, name: 'lodgment page principal is the first step', find: 'rows, principal: rows.length - 1, note', replace: 'rows, principal: 0, note' },
 ];
 
 // Runs that must read as invalid, not as caught.
@@ -1422,6 +1435,7 @@ const SHARED = [
   'scripts/transfer-balance-engine-differential.json',
   'scripts/pension-minimum-engine-differential.json',
   'scripts/residency-days-engine-differential.json',
+  'scripts/lodgment-required-engine-differential.json',
   'scripts/concessional-catch-up-engine-differential.json',
   'scripts/unused-leave-engine-differential.json',
   'scripts/franking-account-engine-differential.json',
@@ -1444,7 +1458,7 @@ const SHARED = [
 
 const TEST_FILES = [
   levy.test, business.test, individualTest,
-  'scripts/fhss.test.mjs', 'scripts/work-expenses.test.mjs', 'scripts/government-super-amounts.test.mjs', swh.test, tba.test, pm.test, rd.test,
+  'scripts/fhss.test.mjs', 'scripts/work-expenses.test.mjs', 'scripts/government-super-amounts.test.mjs', swh.test, tba.test, pm.test, rd.test, lr.test,
   'scripts/net-medical-expenses.test.mjs',
   'scripts/foreign-income.test.mjs',
   'scripts/minors-income.test.mjs',
