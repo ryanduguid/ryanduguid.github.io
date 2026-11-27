@@ -1355,7 +1355,7 @@ const MUTATIONS = [
   { ...pm, name: 'pension page principal is the balance', find: 'rows, principal: 4, note', replace: 'rows, principal: 0, note' },
   { ...cp, name: 'CGT parcels 12 months counting the day bought', find: 'const start = acquired + 1;', replace: 'const start = acquired;' },
   { ...cp, name: 'CGT parcels share rounding down', find: '(2n * amount * part + whole) / (2n * whole)', replace: '(amount * part) / whole' },
-  { ...cp, name: 'CGT parcels last first out', find: 'parcels.at(a).acquired - parcels.at(b).acquired || a - b', replace: 'parcels.at(b).acquired - parcels.at(a).acquired || a - b' },
+  { ...cp, name: 'CGT parcels last first out', find: 'nth(parcels, a).acquired - nth(parcels, b).acquired || a - b', replace: 'nth(parcels, b).acquired - nth(parcels, a).acquired || a - b' },
   { ...cp, name: 'CGT parcels losses against discount gains first', find: 'const lo = min(og, cl);', replace: 'const lo = min(og, 0n);' },
   { ...cp, name: 'CGT parcels indexation date open', find: 'parcel.acquired <= INDEXATION_LAST_DAY', replace: 'parcel.acquired < INDEXATION_LAST_DAY' },
   { ...cp, name: 'CGT parcels company discount', find: 'discount: !s.company &&', replace: 'discount: true &&' },
@@ -1409,7 +1409,7 @@ const SHARED = [
   'scripts/borrowing-expenses-engine-differential.json',
   'scripts/wine-equalisation-tax-engine-differential.json',
   'scripts/rental-property-engine-differential.json',
-  '_includes/duty-jurisdictions.html', '_includes/finance-fields.html',
+  '_includes/cgt-parcels.html', '_includes/duty-jurisdictions.html', '_includes/finance-fields.html',
   '_data/payday_super_business_days.json', 'scripts/payg-withholding-sample.json',
   'scripts/payg-withholding-sample-2020.json', 'scripts/payg-withholding-sample-2024.json',
   'scripts/super-benefit-tax-engine-differential.json',
@@ -1418,7 +1418,7 @@ const SHARED = [
 
 const TEST_FILES = [
   levy.test, business.test, individualTest,
-  'scripts/fhss.test.mjs', 'scripts/work-expenses.test.mjs', 'scripts/government-super-amounts.test.mjs', swh.test, tba.test, pm.test, rd.test,
+  'scripts/fhss.test.mjs', 'scripts/work-expenses.test.mjs', 'scripts/government-super-amounts.test.mjs', swh.test, tba.test, pm.test, rd.test, cp.test,
   'scripts/net-medical-expenses.test.mjs',
   'scripts/foreign-income.test.mjs',
   'scripts/minors-income.test.mjs',
