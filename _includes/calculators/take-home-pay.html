@@ -34,6 +34,115 @@
 <label><input type="radio" name="cover" value="no" /> No</label>
 </fieldset>
 </div>
+<h2>Withholding under another schedule</h2>
+<p class="field-note">For 2024-25 to 2026-27, the calculator can also work the amount to withhold from one payment under another schedule, beside the year’s result.</p>
+<div class="form-grid">
+<fieldset><legend>Also work out withholding under another schedule?</legend>
+<label><input type="radio" name="withholding-schedule" value="none" checked /> No, Schedule 1 only</label>
+<label><input type="radio" name="withholding-schedule" value="daily" /> Daily or casual pay (tax table for daily and casual workers)</label>
+<label><input type="radio" name="withholding-schedule" value="sch2" /> Schedule 2: horticulture or shearing</label>
+<label><input type="radio" name="withholding-schedule" value="sch3" /> Schedule 3: actors, variety artists and other entertainers</label>
+<label><input type="radio" name="withholding-schedule" value="sch4" /> Schedule 4: a return to work payment</label>
+<label><input type="radio" name="withholding-schedule" value="sch6" /> Schedule 6: an annuity</label>
+<label><input type="radio" name="withholding-schedule" value="sch9" /> Schedule 9: a senior or pensioner</label>
+<label><input type="radio" name="withholding-schedule" value="sch10" /> Schedule 10: a payment under a voluntary agreement</label>
+<label><input type="radio" name="withholding-schedule" value="sch14" /> Schedule 14: an extra amount the payee asked for in writing</label>
+<label><input type="radio" name="withholding-schedule" value="sch15" /> Schedule 15: a working holiday maker</label>
+<label><input type="radio" name="withholding-schedule" value="noabn" /> A supplier who quoted no ABN</label>
+</fieldset>
+</div>
+<fieldset data-show-field="withholding-schedule" data-show-values="daily sch2 sch3 sch4 sch6 sch9 sch10 sch14 sch15 noabn" hidden disabled><legend>The payment for that schedule</legend>
+<div class="form-grid">
+<p class="field-note" id="take-home-ws-payment-help">The income year and residency above apply; the pay period applies to Schedules 6, 9, 14 and 15, which take a week, fortnight or month. The payment is the day’s earnings for daily or casual pay, one performance’s earnings for Schedule 3, the whole payment for Schedules 4 and 10 and a supplier without an ABN, and the earnings or payment for the pay period otherwise. These schedules are worked for 2024-25 to 2026-27.</p>
+<label class="field" for="take-home-ws-payment">Payment (dollars and cents)<input id="take-home-ws-payment" name="ws-payment" type="number" inputmode="decimal" min="0" max="1000000000" step="0.01" value="1000" aria-describedby="take-home-ws-payment-help" required /></label>
+</div>
+</fieldset>
+<fieldset data-show-field="withholding-schedule" data-show-values="daily sch2 sch3 sch4 sch6 sch14 sch15" hidden disabled><legend>The payee’s declaration</legend>
+<div class="form-grid">
+<fieldset><legend>Has the payee given a tax file number?</legend>
+<label><input type="radio" name="ws-tfn" value="yes" checked /> Yes</label>
+<label><input type="radio" name="ws-tfn" value="no" /> No</label>
+</fieldset>
+</div>
+</fieldset>
+<fieldset data-show-field="withholding-schedule" data-show-values="daily sch2 sch3 sch6 sch14" hidden disabled><legend>The tax-free threshold</legend>
+<div class="form-grid">
+<fieldset><legend>Has the payee claimed the tax-free threshold from you?</legend>
+<label><input type="radio" name="ws-threshold" value="yes" checked /> Yes</label>
+<label><input type="radio" name="ws-threshold" value="no" /> No</label>
+</fieldset>
+</div>
+</fieldset>
+<fieldset data-show-field="withholding-schedule" data-show-values="daily sch3 sch6 sch14" hidden disabled><legend>Tax offsets</legend>
+<div class="form-grid">
+<label class="field" for="take-home-ws-offsets">Tax offsets claimed on the payee’s Withholding declaration for the year (dollars and cents)<input id="take-home-ws-offsets" name="ws-offsets" type="number" inputmode="decimal" min="0" max="1000000000" step="0.01" value="0" required /></label>
+</div>
+</fieldset>
+<fieldset data-show-field="withholding-schedule" data-show-values="sch6 sch9 sch14" hidden disabled><legend>Medicare levy exemption</legend>
+<div class="form-grid">
+<fieldset><legend>Has the payee claimed a Medicare levy exemption?</legend>
+<label><input type="radio" name="ws-exemption" value="none" checked /> No</label>
+<label><input type="radio" name="ws-exemption" value="full" /> A full exemption</label>
+<label><input type="radio" name="ws-exemption" value="half" /> A half exemption</label>
+</fieldset>
+</div>
+</fieldset>
+<fieldset data-show-field="withholding-schedule" data-show-values="sch3" hidden disabled><legend>Performances</legend>
+<div class="form-grid">
+<label class="field" for="take-home-ws-week">Performances in the week<input id="take-home-ws-week" name="ws-week" type="number" inputmode="numeric" min="1" max="1000" step="1" value="1" required /></label>
+<label class="field" for="take-home-ws-day">Performances on the day paid for<input id="take-home-ws-day" name="ws-day" type="number" inputmode="numeric" min="1" max="1000" step="1" value="1" required /></label>
+</div>
+</fieldset>
+<fieldset data-show-field="withholding-schedule" data-show-values="sch6" hidden disabled><legend>The annuity</legend>
+<div class="form-grid">
+<label class="field" for="take-home-ws-deductible">Deductible amount of the annuity for the income year (dollars and cents)<input id="take-home-ws-deductible" name="ws-deductible" type="number" inputmode="decimal" min="0" max="1000000000" step="0.01" value="0" required /></label>
+<label class="field" for="take-home-ws-instalments">Instalments in the income year<input id="take-home-ws-instalments" name="ws-instalments" type="number" inputmode="numeric" min="1" max="366" step="1" value="12" required /></label>
+</div>
+</fieldset>
+<fieldset data-show-field="withholding-schedule" data-show-values="sch9" hidden disabled><legend>The senior or pensioner</legend>
+<div class="form-grid">
+<fieldset><legend>The payee is</legend>
+<label><input type="radio" name="ws-status" value="single" checked /> Single</label>
+<label><input type="radio" name="ws-status" value="illness_separated" /> A member of an illness-separated couple</label>
+<label><input type="radio" name="ws-status" value="couple" /> A member of a couple</label>
+</fieldset>
+<label class="field" for="take-home-ws-pay-date">Pay date, needed for 2025-26 with a study loan<input id="take-home-ws-pay-date" name="ws-pay-date" type="date" min="2024-07-01" max="2027-06-30" /></label>
+</div>
+</fieldset>
+<fieldset data-show-field="withholding-schedule" data-show-values="sch10 noabn" hidden disabled><legend>GST</legend>
+<div class="form-grid">
+<label class="field" for="take-home-ws-gst">GST included in the payment (dollars and cents)<input id="take-home-ws-gst" name="ws-gst" type="number" inputmode="decimal" min="0" max="1000000000" step="0.01" value="0" required /></label>
+</div>
+</fieldset>
+<fieldset data-show-field="withholding-schedule" data-show-values="sch10" hidden disabled><legend>The voluntary agreement</legend>
+<div class="form-grid">
+<p class="field-note" id="take-home-ws-cir-help">For a voluntary agreement in force that quotes the payee’s ABN. Leave the rate blank if the payee has not told you a Commissioner’s instalment rate.</p>
+<label class="field" for="take-home-ws-cir">Commissioner’s instalment rate (per cent, optional)<input id="take-home-ws-cir" name="ws-cir" type="text" inputmode="decimal" pattern="\d+(\.\d+)?" aria-describedby="take-home-ws-cir-help" /></label>
+<fieldset><legend>Does the agreement say that rate applies even below 20%?</legend>
+<label><input type="radio" name="ws-cir-applies" value="yes" /> Yes</label>
+<label><input type="radio" name="ws-cir-applies" value="no" checked /> No</label>
+</fieldset>
+</div>
+</fieldset>
+<fieldset data-show-field="withholding-schedule" data-show-values="sch14" hidden disabled><legend>The agreed amount</legend>
+<div class="form-grid">
+<label class="field" for="take-home-ws-additional">Additional amount to withhold each pay (dollars and cents)<input id="take-home-ws-additional" name="ws-additional" type="number" inputmode="decimal" min="0" max="1000000000" step="0.01" value="50" required /></label>
+</div>
+</fieldset>
+<fieldset data-show-field="withholding-schedule" data-show-values="sch15" hidden disabled><legend>The working holiday maker</legend>
+<div class="form-grid">
+<fieldset><legend>Are you registered with the ATO as an employer of working holiday makers?</legend>
+<label><input type="radio" name="ws-registered" value="yes" checked /> Yes</label>
+<label><input type="radio" name="ws-registered" value="no" /> No</label>
+</fieldset>
+<label class="field" for="take-home-ws-before">Payments to them earlier in the income year (dollars and cents)<input id="take-home-ws-before" name="ws-before" type="number" inputmode="decimal" min="0" max="1000000000" step="0.01" value="0" required /></label>
+</div>
+</fieldset>
+<fieldset data-show-field="withholding-schedule" data-show-values="noabn" hidden disabled><legend>The supply</legend>
+<div class="form-grid">
+<label class="field" for="take-home-ws-supply">All payments for the supply, excluding GST (dollars and cents)<input id="take-home-ws-supply" name="ws-supply" type="number" inputmode="decimal" min="0" max="1000000000" step="0.01" value="1000" required /></label>
+</div>
+</fieldset>
 <details>
 <summary>Use dated earnings for super</summary>
 <p id="take-home-dated-help">For one employer with super paid on top, enter one payment per line as date, gross salary before sacrifice and earnings for super. Separate the 3 entries with spaces, for example <code>2026-06-25 3000.00 2500.00</code>. Use ordinary time earnings through 2025-26 and qualifying earnings from 2026-27. Gross payments must add up to the salary for the year. For an extra pay, enter the total salary and sacrifice for the year.</p>
@@ -56,14 +165,16 @@
 <li>Super guarantee: for 2026-27, the charge percentage of 12 in section 17A(2) of the <a href="https://www.legislation.gov.au/C2004A04402/latest/text">Superannuation Guarantee (Administration) Act 1992</a> (Compilation No. 78, 1 July 2026), read 17 November 2026, on qualifying earnings up to the maximum contributions base of $270,830 for the year (section 10A(5)); for 2021-22 to 2025-26, 10%, 10.5%, 11%, 11.5% and 12% on ordinary time earnings up to a quarterly base of $58,920, $60,220, $62,270, $65,070 and $62,500, which is 4 times that for a year paid evenly. These are the general rates, not the Norfolk Island transitional rates. Rates and bases from <a href="https://www.ato.gov.au/tax-rates-and-codes/key-superannuation-rates-and-thresholds/super-guarantee">ATO: Super guarantee</a> (Tables 21, 23 and 24, last updated 17 April 2026), read 18 November 2026, and this site’s <a href="/rates/super-guarantee/">super guarantee</a> and <a href="/rates/maximum-contribution-base/">maximum contribution base</a> tables. Table 24 starts at 2021-22, so 2020-21 is not offered here.</li>
 <li>For dated payments from 1 July 2026, section 10A(6) caps cumulative qualifying earnings and section 17A(2) combines qualifying earnings on the same payday. The <a href="https://www.ato.gov.au/businesses-and-organisations/super-for-employers/paying-super-on-payday/how-to-work-out-and-pay-super">ATO’s How to work out and pay super</a>, last updated 20 October 2026 and read 21 November 2026, gives rounding to 2 decimal places. For earlier dates, the calculator caps ordinary time earnings separately in each quarter.</li>
 <li>A package including super splits so that salary and super add back to it: super is the rate ÷ (100 + the rate) of the package, or the most the base allows. Each amount rounds half up to the cent.</li>
-<li>Supplied by you: the year, your residency, the salary, its pay period and whether it includes super, the amount sacrificed, whether you have a loan and whether you had hospital cover.</li>
+<li>Withholding under another schedule, 2024-25 to 2026-27: a port of the <a href="https://github.com/ryanduguid/australian-accounting">australian-accounting</a> commands daily-casual-withholding, horticulture-shearing-withholding, entertainer-withholding, return-to-work-withholding, annuity-withholding, seniors-pensioners-withholding, voluntary-agreement-withholding, upward-variation-withholding, working-holiday-maker-withholding and no-abn-withholding, with their inputs, rounding and refusals. Schedules 2, 3, 4, 6, 9, 10, 14 and 15 and Schedule 1’s daily or casual steps, scales 1 to 6, tax offsets and Medicare levy adjustment: the <a href="https://www.legislation.gov.au/F2024L00664/asmade/2024-06-11/text">Taxation Administration (Withholding Schedules) Instrument 2024</a>, <a href="https://www.legislation.gov.au/F2025L00647/asmade/2025-06-04/text">2025</a> and <a href="https://www.legislation.gov.au/F2025L01016/asmade/2025-09-01/text">(No. 2) 2025</a> for 2024-25 and 2025-26, and the <a href="https://www.legislation.gov.au/F2026L00716/asmade/text">2026 instrument</a> for 2026-27, each as made, read 26 November 2026: their coefficients and rates are those the calculator holds. The ATO’s <a href="https://www.ato.gov.au/tax-rates-and-codes/tax-table-daily-and-casual-workers">Tax table for daily and casual workers</a> (for payments from 1 July 2026) and its <a href="https://www.ato.gov.au/tax-rates-and-codes/tax-table-daily-and-casual-workers-01-july-2024-to-30-june-2026">version from 1 July 2024</a> (last updated 17 June 2024), read 26 November 2026: 5 times the day’s earnings in whole dollars plus 99 cents on scale 2, a fifth of the weekly amount, less 0.38% of the tax offsets claimed, each rounded to the nearest dollar. The ATO’s <a href="https://www.ato.gov.au/tax-rates-and-codes/schedule-15-tax-table-for-working-holiday-makers">Schedule 15</a>, <a href="https://www.ato.gov.au/tax-rates-and-codes/schedule-9-tax-table-for-seniors-and-pensioners">Schedule 9</a>, <a href="https://www.ato.gov.au/tax-rates-and-codes/payg-withholding-schedule-10-tax-table-for-payments-made-under-voluntary-agreements">Schedule 10</a> and <a href="https://www.ato.gov.au/tax-rates-and-codes/schedule-4-tax-table-for-return-to-work-payments">Schedule 4</a> pages, read the same day, give the same rates. No ABN: section 12-190 of Schedule 1 to the Taxation Administration Act 1953, sections 4, 26 and 38 of the Taxation Administration Regulations 2017 and section 29-80.01 of the A New Tax System (Goods and Services Tax) Regulations 2019, as australian-accounting read them on 22 November 2026, and the ATO’s <a href="https://www.ato.gov.au/businesses-and-organisations/hiring-and-paying-your-workers/payg-withholding/payments-you-need-to-withhold-from/withholding-from-suppliers/withholding-if-abn-not-provided">Withholding if ABN not provided</a> (last updated 11 June 2025), read 26 November 2026: the top rate of 47% of the payment, cents ignored, unless the payments for the supply are $75 or less excluding GST. The port agrees with a release build of the commands on 3,983 cases (and on all 203,956 calls the commands’ own tests make).</li>
+<li>Supplied by you: the year, your residency, the salary, its pay period and whether it includes super, the amount sacrificed, whether you have a loan and whether you had hospital cover; with another schedule, its payment and the payee’s answers that schedule asks for.</li>
 </ul>
 </div>
 </form>
-<h2>How the take-home pay calculator works</h2><p>The take-home pay calculator takes one salary for a year, month, fortnight or week and works out the year’s income tax, offsets, Medicare levy, any Medicare levy surcharge and any study or training loan repayment on it. Salary sacrificed to super comes off first. From 2026-27 it also takes off the standard deduction of up to $1,000 for work-related expenses. It then gives what is left for the year, a month, a fortnight and a week, and an estimate of employer super guarantee. Supply dated earnings to calculate super using the applicable quarters or paydays. Employer super goes to a fund and is separate from take-home pay.</p><p>Those take-home amounts are the year’s tax spread evenly: the year’s net amount divided by 12, 26 and 52. They are not the amounts an employer withholds each pay. For a weekly, fortnightly or monthly pay, the calculator also works the PAYG amount withheld from one pay under the year’s Schedule 1, and Schedule 8 with a study loan, and the year’s withholding less the year’s tax, which is the refund or amount owing when the tax return is assessed. Withholding does not allow for the low and middle income tax offset, so in 2021-22 the offset comes back as part of the refund: $3,000 a fortnight has $670 withheld each pay and $1,543 back. For working holiday makers, who are withheld from under another schedule, use the ATO’s <a href="https://www.ato.gov.au/calculators-and-tools/tax-withheld-calculator">tax withheld calculator</a>.</p><p>The example on arrival is 2025-26, before the standard deduction: on $75,000 the Medicare levy is $1,500, as the ATO’s example of Matthew on <a href="https://www.ato.gov.au/individuals-and-families/medicare-and-private-health-insurance/medicare-levy/what-is-the-medicare-levy">What is the Medicare levy</a> gives. In 2026-27 the same salary is $74,000 of taxable income.</p><p>When the salary includes super, the calculator splits it: at 12%, a package of $112,000 is $100,000 of salary and $12,000 of super. For the package estimate, the annual earnings limit caps the estimate of employer super.</p>
+<h2>How the take-home pay calculator works</h2><p>The take-home pay calculator takes one salary for a year, month, fortnight or week and works out the year’s income tax, offsets, Medicare levy, any Medicare levy surcharge and any study or training loan repayment on it. Salary sacrificed to super comes off first. From 2026-27 it also takes off the standard deduction of up to $1,000 for work-related expenses. It then gives what is left for the year, a month, a fortnight and a week, and an estimate of employer super guarantee. Supply dated earnings to calculate super using the applicable quarters or paydays. Employer super goes to a fund and is separate from take-home pay.</p><p>Those take-home amounts are the year’s tax spread evenly: the year’s net amount divided by 12, 26 and 52. They are not the amounts an employer withholds each pay. For a weekly, fortnightly or monthly pay, the calculator also works the PAYG amount withheld from one pay under the year’s Schedule 1, and Schedule 8 with a study loan, and the year’s withholding less the year’s tax, which is the refund or amount owing when the tax return is assessed. Withholding does not allow for the low and middle income tax offset, so in 2021-22 the offset comes back as part of the refund: $3,000 a fortnight has $670 withheld each pay and $1,543 back. For other payments, choose another schedule: the calculator then also works the amount to withhold from one payment under the tax table for daily and casual workers, Schedule 2 (horticulture and shearing), 3 (performers), 4 (return to work payments), 6 (annuities), 9 (seniors and pensioners), 10 (voluntary agreements), 14 (an extra amount the payee asked for), 15 (working holiday makers) or the no ABN rule, for 2024-25 to 2026-27. Each is a port of the matching australian-accounting command, checked against it as the sources below say.</p><p>The example on arrival is 2025-26, before the standard deduction: on $75,000 the Medicare levy is $1,500, as the ATO’s example of Matthew on <a href="https://www.ato.gov.au/individuals-and-families/medicare-and-private-health-insurance/medicare-levy/what-is-the-medicare-levy">What is the Medicare levy</a> gives. In 2026-27 the same salary is $74,000 of taxable income.</p><p>When the salary includes super, the calculator splits it: at 12%, a package of $112,000 is $100,000 of salary and $12,000 of super. For the package estimate, the annual earnings limit caps the estimate of employer super.</p>
 <h2>What the take-home pay calculator does not compute</h2><p>The tax and PAYG estimates assume one employer, a salary paid evenly over the full year and no other income, deductions or offsets. Dated super can use irregular payments that add up to the year’s gross salary.</p>
 <ul>
-<li>separate tax or withholding treatment for overtime, bonuses, allowances or leave loading. PAYG estimates use 52 weekly or 26 fortnightly pays and omit withholding under scales 1, 5 and 6, withholding for working holiday makers, offsets claimed in a withholding declaration and Medicare levy variations;</li>
+<li>separate tax or withholding treatment for overtime, bonuses, allowances or leave loading. PAYG estimates use 52 weekly or 26 fortnightly pays and omit withholding under scales 1, 5 and 6, offsets claimed in a withholding declaration and Medicare levy variations;</li>
+<li>in the other schedules option, which refuses rather than guesses: payments before 2024-25, a dependants’ Medicare levy adjustment or 53 or 27 pays under Schedules 6 and 14, offsets or a levy adjustment under Schedule 9, a foreign resident with a TFN under Schedule 3 or the daily table, Pacific Australia Labour Mobility workers, a voluntary agreement not in force or without an ABN, and whether the payment belongs under the schedule;</li>
 <li>2025-26 withholding with a study loan that mixes the 2 Schedule 8s: the year’s withholding and refund take the one from 24 September 2025 for every pay, and the component before that date is shown beside it;</li>
 <li>work-related deductions you claim, which reduce the standard deduction dollar for dollar except those section 25-130(3) disregards, such as professional association fees;</li>
 <li>salary sacrifice of anything but super, reportable fringe benefits, excess concessional contributions or Division 293 tax;</li>

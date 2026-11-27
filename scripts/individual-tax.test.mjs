@@ -38,6 +38,7 @@ import { residencyDays, residencyDaysResult, residencyFormPresence } from '../as
 import './residency-days.test.mjs';
 import { lodgmentFormInput, lodgmentRequired, lodgmentRequiredResult } from '../assets/lodgment-required.mjs';
 import './lodgment-required.test.mjs';
+import './withholding-schedules.test.mjs';
 import { foreignIncomeFixture, foreignIncomeFormTests } from './foreign-income.test.mjs';
 import { minorsFixture, minorsFormTests } from './minors-income.test.mjs';
 import { nonCommercialFixture, nonCommercialFormTests } from './non-commercial-losses.test.mjs';

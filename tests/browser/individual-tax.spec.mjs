@@ -336,6 +336,27 @@ test('a 2026-27 fortnightly pay shows PAYG withheld beside the year spread evenl
   await expect(form.locator('output .result-row--principal strong')).toHaveText('$58,183.20');
 });
 
+test('take-home pay shows only the chosen schedule’s questions and works Schedule 14 beside the year offline', async ({ page, context }) => {
+  await page.goto('/tools/individual-tax/take-home-pay/');
+  const form = page.locator('#take-home-pay form');
+  await waitForCalculator(form);
+  const agreed = form.locator('fieldset[data-show-values="sch14"]');
+  await expect(agreed).toBeHidden();
+  await context.setOffline(true);
+  await form.getByLabel('2026-27').check();
+  await form.getByLabel('A fortnight').check();
+  await form.locator('input[name="withholding-schedule"][value="sch14"]').check();
+  await expect(agreed).toBeVisible();
+  await expect(form.locator('fieldset[data-show-values="sch6"]')).toBeHidden();
+  await form.locator('#take-home-ws-payment').fill('1299.30');
+  await form.locator('#take-home-ws-offsets').fill('1645');
+  await form.locator('#take-home-ws-additional').fill('20');
+  await form.locator('input[name="ws-exemption"][value="full"]').check();
+  await form.getByRole('button', { name: 'Calculate', exact: true }).click();
+  const row = (label) => form.locator('output .result-row').filter({ has: page.getByText(label, { exact: true }) }).locator('strong');
+  await expect(row('Schedule 14: amount to withhold')).toHaveText('$43.00');
+});
+
 test('take-home pay uses the supplied salary dates for super', async ({ page }) => {
   await page.goto('/tools/individual-tax/take-home-pay/');
   const form = page.locator('#take-home-pay form');
