@@ -4,10 +4,11 @@
 // Non-resident withholding on dividends, interest and royalties: the amount a payer withholds from a payment to a
 // foreign resident under TAA 1953 Schedule 1 Subdivision 12-F for 2024-25 to 2026-27. The `non-resident-withholding`
 // command of ryanduguid/australian-accounting ported line for line for its dividend, interest and royalty payment
-// types, with its inputs, order of checks, refusal codes, citations and rounding: the payment less its franked part and
+// types, with its inputs, order of checks, refusal codes (bar the scope refusal below), citations and rounding: the payment less its franked part and
 // conduit foreign income (ITAA 1936 s 128B(3)(ga)(i)), whole dollars under Taxation Administration Regulations 2017
 // s 26, 30% (dividends, royalties) or 10% (interest) or a stated treaty rate under regs 40 to 42, capped by s 12-300.
-// Managed investment trust fund payments, gaming junkets, entertainers and construction payments are refused here.
+// Managed investment trust fund payments, gaming junkets, entertainers and construction payments are refused here with
+// `non_resident_withholding.payment_type_out_of_scope`, a code the command lacks, before any other check.
 // Subdivision 12-F, s 12-300 and TAR 2017 ss 26 and 39 to 42 read on the Federal Register on 27 November 2026.
 
 export const NRW_YEARS = ['2026-27', '2025-26', '2024-25'];

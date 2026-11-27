@@ -35,6 +35,9 @@ export function nonResidentWithholdingTool(kit, calculate) {
         treaty_rate: input.treatyRate ?? null, exempt: input.exempt ?? false, already_withheld: input.alreadyWithheld ?? '0' };
       if (input.paymentType === 'dividend') {
         Object.assign(call, { franked_amount: input.frankedAmount ?? '0', conduit_foreign_income: input.conduitForeignIncome ?? '0' });
+      } else {
+        if (input.frankedAmount !== undefined) call.franked_amount = input.frankedAmount;
+        if (input.conduitForeignIncome !== undefined) call.conduit_foreign_income = input.conduitForeignIncome;
       }
       const r = calculate.nonResidentWithholding(call);
       return { incomeYear: r.period, paymentType: r.payment_type, withholding: r.amounts.withholding,

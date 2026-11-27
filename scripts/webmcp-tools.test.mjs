@@ -2260,4 +2260,5 @@ test('the non-resident withholding tool returns its page example and refuses wha
   assert.deepEqual([interest.paymentUsed, interest.withholding], ['1234.00', '123.00']);
   await assert.rejects(nrw.execute({ incomeYear: '2025-26', paymentType: 'royalty', payment: '100', treatyRate: '0.31' }), /treaty_rate must be null/);
   await assert.rejects(nrw.execute({ incomeYear: '2025-26', paymentType: 'interest', payment: '100', extra: 1 }), /extra is not an input of this tool/);
+  await assert.rejects(nrw.execute({ incomeYear: '2025-26', paymentType: 'interest', payment: '1000', frankedAmount: '500' }), /franked_amount is not an input for this payment_type/);
 });
