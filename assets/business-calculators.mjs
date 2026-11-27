@@ -672,6 +672,8 @@ export { gstMarginScheme, gstMarginSchemeResult } from './gst-margin-scheme.mjs'
 export { lowValuePool, smallBusinessPool, capitalWorks, depreciationPoolsResult, poolFormInput, poolInputsText, POOL_YEARS } from './depreciation-pools.mjs';
 export { casualOvertime, casualOvertimeResult, casualOvertimeFormInput, casualOvertimeInputsText, CASUAL_OVERTIME_PAYDAYS } from './casual-overtime.mjs';
 export { rdTaxOffset, rdTaxOffsetResult, rdFormInput, rdInputsText, RD_YEARS } from './rd-tax-offset.mjs';
+export { businessCapitalExpenditure, blackholeResult, blackholeFormInput, blackholeInputsText, BLACKHOLE_YEARS, BLACKHOLE_EXCLUSIONS } from './blackhole-expenditure.mjs';
+export { companyTaxStatement, companyTaxPageResult, statementFormInput, statementRows, LOSS_TESTS, CARRY_BACK_CONDITIONS } from './company-tax-statement.mjs';
 export { contractorEmployee, contractorEmployeeResult, contractorFormInput, contractorInputsText, CONTRACTOR_YEARS } from './contractor-employee.mjs';
 export { abnCheck, taxInvoice, taxInvoiceResult, taxInvoiceFormInput, taxInvoiceInputsText, invoiceAsHtml, TREATMENTS, MAX_LINES } from './tax-invoice.mjs';
 export { trustStreaming, trustStreamingResult, trustStreamingFormInput, trustStreamingInputsText, TRUST_STREAMING_ROWS } from './trust-streaming.mjs';

@@ -7,6 +7,7 @@ import { businessCohortBTools } from './webmcp-business-b.mjs';
 import { businessCohortCTools } from './webmcp-business-c.mjs';
 import { businessCohortDTools } from './webmcp-business-d.mjs';
 import { businessCohortETools } from './webmcp-business-e.mjs';
+import { businessS6Tools, statementSchema, statementCall } from './webmcp-business-s6.mjs';
 import { casualOvertimeTool } from './webmcp-casual-overtime.mjs';
 import { contractorEmployeeTool } from './webmcp-contractor-employee.mjs';
 import { paydayCashflowTool } from './webmcp-payday-cashflow.mjs';
@@ -283,15 +284,19 @@ const breakEvenTool = (breakEven) => tool({
   },
 });
 
-/** @param {typeof import('./business-calculators.mjs').companyTax} companyTax */
-const companyTaxTool = (companyTax) => tool({
+/** @param {typeof import('./business-calculators.mjs').companyTax} companyTax
+ * @param {typeof import('./business-calculators.mjs').companyTaxStatement} companyTaxStatement */
+const companyTaxTool = (companyTax, companyTaxStatement) => tool({
   name: 'calculate_company_tax',
   title: 'Company tax and franking calculator',
   description: 'An Australian company\'s tax rate (25% for a base rate entity under section 23AA of the Income Tax Rates Act 1986, '
     + 'otherwise 30%) and tax in AUD for an income year from 2021-22, its corporate tax rate for imputation purposes from the '
     + 'previous year\'s figures (25% for a company new this year), the maximum franking credit on a dividend, the credit at the '
     + 'franking percentage, rounded down to the cent, and an Australian resident individual shareholder\'s tax on the grossed-up '
-    + 'dividend less the franking tax offset: positive is tax to pay, negative a refund. It does not work out turnover or passive income.',
+    + 'dividend less the franking tax offset: positive is tax to pay, negative a refund. It does not work out turnover or passive income. '
+    + 'With returnStatement it also works the company tax return calculation statement for 2020-21 to 2026-27 (ITAA 1997 ss 36-10 and 36-17, '
+    + 'stated loss test outcomes under ss 165-10 to 165-15, labels A to S) and the Division 160 loss carry back tax offset for claim years '
+    + '2020-21 to 2022-23 and 2026-27 only; its label A must equal taxableIncome.',
   inputSchema: record({
     turnover: text('cost', 'Aggregated turnover for the year, connected entities and affiliates included, in AUD with at most 2 decimal places.'),
     assessableIncome: text('cost', 'Assessable income for the year in AUD with at most 2 decimal places.'),
@@ -304,6 +309,7 @@ const companyTaxTool = (companyTax) => tool({
     dividend: text('cost', 'Dividend paid in AUD with at most 2 decimal places.'),
     frankingPercent: text('percent', 'Franking percentage, 0 to 100, with at most 2 decimal places.'),
     marginalRate: text('percent', 'Shareholder\'s marginal tax rate with any Medicare levy, in per cent, 0 to 100.'),
+    returnStatement: statementSchema(TOOL_KIT),
   }, ['turnover', 'assessableIncome', 'passiveIncome', 'taxableIncome', 'existedLastYear', 'dividend', 'frankingPercent', 'marginalRate']),
   run(input) {
     const { previousTurnover = '0', previousAssessableIncome = '0', previousPassiveIncome = '0' } = input;
@@ -311,7 +317,13 @@ const companyTaxTool = (companyTax) => tool({
       taxable: input.taxableIncome, existed: input.existedLastYear,
       prior: { turnover: previousTurnover, assessable: previousAssessableIncome, passive: previousPassiveIncome },
       dividend: input.dividend, franking: input.frankingPercent, marginal: input.marginalRate });
+    const statement = input.returnStatement === undefined ? null
+      : companyTaxStatement(statementCall(input.returnStatement, input));
+    if (statement && Number(statement.calculation_statement.A) !== Number(input.taxableIncome)) {
+      throw new Error(`taxableIncome must equal the statement's taxable income (label A), ${statement.calculation_statement.A}.`);
+    }
     return {
+      ...(statement ? { returnStatement: statement } : {}),
       baseRateEntity: r.entity === 'base-rate', taxRatePercent: r.rate, tax: dollars(r.tax), imputationRatePercent: r.imputationRate,
       maximumFrankingCredit: dollars(r.maximum), frankingCredit: dollars(r.credit), grossedUpDividend: dollars(r.grossedUp),
       shareholderTax: dollars(r.shareholderTax), shareholderNet: dollars(r.net), currency: 'AUD',
@@ -565,7 +577,8 @@ const fuelTaxCreditsTool = (fuelTaxCredits) => tool({
  *   | 'rdTaxOffset' | 'RD_YEARS' | 'gstAdjustment' | 'percentFraction' | 'GST_WORKSHEETS' | 'GST_ADJUSTMENT_YEARS'
  *   | 'deferredTax' | 'DEFERRED_TAX_YEARS' | 'soleTraderCompany' | 'SOLE_TRADER_COMPANY_YEARS' | 'casualOvertime'
  *   | 'contractorEmployee' | 'CONTRACTOR_YEARS' | 'paydayCashflow' | 'taxInvoice' | 'TREATMENTS' | 'MAX_LINES'
- *   | 'trustStreaming' | 'TRUST_STREAMING_ROWS'>} calculate */
+ *   | 'trustStreaming' | 'TRUST_STREAMING_ROWS' | 'businessCapitalExpenditure' | 'BLACKHOLE_YEARS'
+ *   | 'companyTaxStatement'>} calculate */
 export function calculatorTools(calculate) {
   return {
     gst: gstTool(calculate.gst),
@@ -574,7 +587,7 @@ export function calculatorTools(calculate) {
     'hire-purchase': financeTool(calculate, true),
     lease: leaseTool(calculate.lease),
     'break-even': breakEvenTool(calculate.breakEven),
-    'company-tax': companyTaxTool(calculate.companyTax),
+    'company-tax': companyTaxTool(calculate.companyTax, calculate.companyTaxStatement),
     'foreign-surcharge': foreignSurchargeTool(calculate),
     'long-service-leave': longServiceLeaveTool(calculate.longServiceLeave),
     'fuel-tax-credits': fuelTaxCreditsTool(calculate.fuelTaxCredits),
@@ -584,6 +597,7 @@ export function calculatorTools(calculate) {
     ...businessCohortCTools(TOOL_KIT, calculate),
     ...businessCohortDTools(TOOL_KIT, calculate),
     ...businessCohortETools(TOOL_KIT, calculate),
+    ...businessS6Tools(TOOL_KIT, calculate),
     'casual-overtime': casualOvertimeTool(TOOL_KIT, calculate.casualOvertime),
     'contractor-employee': contractorEmployeeTool(TOOL_KIT, calculate),
     'payday-cashflow': paydayCashflowTool(TOOL_KIT, calculate.paydayCashflow),
