@@ -784,6 +784,9 @@ Object.assign(INPUTS, { deferredTax: (x) => calculations.deferredTaxInputsText(x
 Object.assign(ENGINE_LABELS, { deferredTax: { deferredTaxLiability: 'deferred tax liability', deferredTaxAsset: 'deferred tax asset',
   deferredTaxExpense: 'deferred tax expense', currentTax: 'current tax', incomeTaxExpense: 'income tax expense' } });
 
+const s9Aud = (value) => value.toLocaleString('en-AU', { style: 'currency', currency: 'AUD' });
+Object.assign(INPUTS, { motorVehicleDuty: (x) => calculations.motorVehicleDutyInputsText(x, s9Aud),
+  insuranceDuty: (x) => calculations.insuranceDutyInputsText(x, s9Aud), vicPropertyTaxes: (x) => calculations.vicPropertyInputsText(x, s9Aud) });
 // The casual and overtime pay page's rows (its tests are with the page's other tests below).
 Object.assign(INPUTS, { casualOvertime: (x) => calculations.casualOvertimeInputsText(x,
   (value) => value.toLocaleString('en-AU', { style: 'currency', currency: 'AUD' })) });
@@ -1263,6 +1266,10 @@ Object.assign(FORM_CALLS, { gstAdjustment: (f) => {
 } });
 
 Object.assign(FORM_CALLS, { deferredTax: (f) => [calculations.deferredTaxFormInput((name) => f[name] ?? '')] });
+
+Object.assign(FORM_CALLS, { motorVehicleDuty: (f) => [calculations.motorVehicleDutyFormInput((name) => f[name] ?? '')],
+  insuranceDuty: (f) => [calculations.insuranceDutyFormInput((name) => f[name] ?? '')],
+  vicPropertyTaxes: (f) => [calculations.vicPropertyFormInput((name) => f[name] ?? '')] });
 
 for (const [page, { function: name, rows: [first] }] of Object.entries(shownCases)) {
   test(`${page} opens on its first boundary case as the fictional example`, () => {
@@ -7312,6 +7319,92 @@ test('the deferred tax form sends the rows with a name or an amount, in order', 
     [`item-${n}-opening-carrying`]: '', [`item-${n}-opening-base`]: '' });
   const loss = calculations.deferredTaxResult((name) => ({ ...fields, ...nil })[name] ?? '', deferredAud);
   assert.deepEqual(loss.rows.at(-1), ['Average effective tax rate', '0%']);
+});
+
+// The motor vehicle duty, insurance duty and Victorian property taxes pages: ports of australian-accounting's
+// motor-vehicle-duty, insurance-duty and vic-property-taxes commands, checked against the commands' release build.
+const s9Code = (run) => {
+  try {
+    run();
+  } catch (error) {
+    return error.code;
+  }
+  return 'computed';
+};
+const s9Engines = { 'motor-vehicle-duty': calculations.motorVehicleDuty, 'insurance-duty': calculations.insuranceDuty,
+  'vic-property-taxes': calculations.vicPropertyTaxes };
+const s9Sorted = (o) => Object.fromEntries(Object.entries(o).sort(([a], [b]) => (a < b ? -1 : 1)));
+for (const [command, tests, total, refusals] of [['motor-vehicle-duty', 275, 575, 107], ['insurance-duty', 253, 552, 135], ['vic-property-taxes', 99, 312, 145]]) {
+  test(`the ${command} page agrees with the australian-accounting command on every differential case`, () => {
+    const { engine, cases } = JSON.parse(readFileSync(new URL(`./${command}-engine-differential.json`, import.meta.url), 'utf8'));
+    assert.match(engine, /at 4df634b /);
+    assert.equal(cases.filter((c) => c.source.startsWith('AA test')).length, tests);
+    assert.equal(cases.length, total);
+    let refused = 0;
+    for (const { source, call, refused: code, ...want } of cases) {
+      if (code) {
+        refused += 1;
+        assert.equal(s9Code(() => s9Engines[command](structuredClone(call))), code, source);
+        continue;
+      }
+      const r = s9Engines[command](structuredClone(call));
+      assert.deepEqual({ period: r.year, amounts: s9Sorted(r.amounts), rates: s9Sorted(r.rates) },
+        { period: want.period, amounts: s9Sorted(want.amounts), rates: s9Sorted(want.rates) }, source);
+    }
+    assert.equal(refused, refusals);
+  });
+}
+
+test('the motor vehicle duty page charges each band edge and the conditional inputs where they belong', () => {
+  const base = shownCases['motor-vehicle-duty'].rows[0].call[0];
+  const duty = (more) => calculations.motorVehicleDuty({ ...base, ...more }).amounts.duty;
+  // New South Wales: $3 for every $100, or part, to $45,000; from $45,001 the higher band, so $45,001 pays $1,350 plus $5.
+  assert.deepEqual([duty({ dutiable_value: '45000' }), duty({ dutiable_value: '45001' }), duty({ dutiable_value: '101' })], ['1350.00', '1355.00', '6.00']);
+  // Western Australia rounds down to 5 cents; $30,000 is at 3.50%.
+  assert.deepEqual([duty({ jurisdiction: 'wa', dutiable_value: '30000' }), duty({ jurisdiction: 'wa', dutiable_value: '1001' })], ['1050.00', '27.50']);
+  // The ACT's used vehicles other than AAA pay Category C, and DI2026-154 applies from 1 February 2027.
+  const act = { jurisdiction: 'act', emissions_category: 'd', new_vehicle: false, dutiable_value: '30000' };
+  assert.deepEqual([duty(act), duty({ ...act, new_vehicle: true }), duty({ ...act, new_vehicle: true, duty_date: '2027-02-01' })],
+    ['951.00', '1359.00', '1449.00']);
+  assert.equal(duty({ jurisdiction: 'nt', electric: true, dutiable_value: '50001' }), '3.00');
+  assert.equal(duty({ jurisdiction: 'sa', dutiable_value: '1' }), '5.00');
+  for (const [more, code] of [[{ engine: 'up_to_4_cylinders' }, 'input.field_unknown'], [{ jurisdiction: 'qld' }, 'input.missing_field'],
+    [{ dutiable_value: '100.50' }, 'input.amount_not_whole_dollars'], [{ duty_date: '2027-07-01' }, 'motor_vehicle_duty.date_outside_year'],
+    [{ vehicle_class: 'motorcycle' }, 'motor_vehicle_duty.vehicle_class_unsupported']]) {
+    assert.equal(s9Code(() => calculations.motorVehicleDuty({ ...base, ...more })), code, code);
+  }
+});
+
+test('the insurance duty page keeps the exact duty and refuses what the Acts leave open', () => {
+  const base = shownCases['insurance-duty'].rows[0].call[0];
+  const run = (more) => calculations.insuranceDuty({ ...base, ...more });
+  assert.deepEqual(run({ premium: '0.05' }).rates, { rate_percent: '10', exact_duty: '0.005' });
+  assert.equal(run({ premium: '0.05' }).amounts.duty, '0.01');
+  assert.deepEqual(run({ jurisdiction: 'qld', class: 'ctp' }).amounts, { duty: '0.10' });
+  assert.deepEqual(run({ jurisdiction: 'act' }).rates.abolished_from, '2017-07-01');
+  assert.equal(run({ jurisdiction: 'nsw', class: 'type_c', policy_taken_out: '2018-01-01' }).amounts.duty, '0.00');
+  assert.equal(s9Code(() => run({ jurisdiction: 'nt', term_over_one_year: true })), 'insurance_duty.term_unsettled');
+  assert.equal(s9Code(() => run({ jurisdiction: 'nt' })), 'input.missing_field');
+  assert.equal(s9Code(() => run({ class: 'life' })), 'insurance_duty.class_invalid');
+});
+
+test('the Victorian property taxes page applies the year rules, the CIPT transition and the windfall gains bands', () => {
+  const [vrlt, , wgt] = shownCases['vic-property-taxes'].rows.map((row) => row.call[0]);
+  const run = (base, more) => calculations.vicPropertyTaxes({ ...base, ...more });
+  const undeveloped = { ...vrlt, residential_land: 'undeveloped' };
+  delete undeveloped.new_residential_concession;
+  delete undeveloped.liable_previous_tax_year;
+  delete undeveloped.liable_tax_year_before;
+  assert.equal(run(undeveloped, {}).amounts.total, '8000.00');
+  assert.equal(s9Code(() => run(undeveloped, { year: '2025' })), 'vic_property_taxes.undeveloped_before_2026');
+  const cipt = run({ tax: 'commercial_industrial', year: '2026', scope_confirmed: true }, { entry_date: '2028-02-29' });
+  assert.deepEqual([cipt.amounts.total, cipt.rates.transition_period_ends, cipt.rates.earliest_possible_tax_year], ['0.00', '2038-02-28', '2039']);
+  assert.equal(s9Code(() => run({ tax: 'commercial_industrial', year: '2026', scope_confirmed: true }, { entry_date: '2025-12-31' })),
+    'vic_property_taxes.transition_end_unsettled');
+  const uplift = (after) => run(wgt, { parcels: [{ civ_before: '0', civ_after: after }, { civ_before: '50000', civ_after: '0' }] }).amounts.wgt;
+  assert.deepEqual([uplift('100000'), uplift('499999'), uplift('500000')], ['0.00', '249999.38', '250000.00']);
+  // A parcel's value, unlike a top-level field, has no 8,192-byte limit in the command.
+  assert.equal(run(wgt, { parcels: [{ civ_before: `${'0'.repeat(9000)}100000`, civ_after: '700000' }] }).amounts.wgt, '300000.00');
 });
 
 // The casual and overtime pay page: its example and sources, then the rules it applies. Hand-worked figures; the rules

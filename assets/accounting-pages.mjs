@@ -693,6 +693,15 @@ function initialiseCalculators([calculate, fieldErrors, fbtForms, { individualRe
             result = calculate.gstAdjustmentsResult(value, aud);
             showTables(result.tables);
             break;
+          case 'motor-vehicle-duty':
+            result = calculate.motorVehicleDutyResult(value, aud);
+            break;
+          case 'insurance-duty':
+            result = calculate.insuranceDutyResult(value, aud);
+            break;
+          case 'vic-property-taxes':
+            result = calculate.vicPropertyResult(value, aud);
+            break;
           case 'deferred-tax':
             result = calculate.deferredTaxResult(value, aud);
             showTables(result.tables);

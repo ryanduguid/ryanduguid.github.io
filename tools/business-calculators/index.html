@@ -52,13 +52,13 @@
       <header class="article-header site-shell">
         <nav class="article-crumb" aria-label="Breadcrumb"><ol><li><a href="/">Home</a></li><li><a href="/tools/">Tools</a></li><li aria-current="page">Business calculators</li></ol></nav>
         <h1>Business calculators</h1>
-        <p class="lead-note">Sixty free calculators that run in your browser with the formula, assumptions and primary source beside the inputs. No sign-up; inputs stay on your device.</p>
+        <p class="lead-note">Sixty-three free calculators that run in your browser with the formula, assumptions and primary source beside the inputs. No sign-up; inputs stay on your device.</p>
         {% assign checked = "" %}{% for calculator in site.data.calculator_cases %}{% if calculator[1].checked and calculator[1].checked > checked %}{% assign checked = calculator[1].checked %}{% endif %}{% endfor %}
         <p class="page-meta">Published 11 September 2026. Last checked <time datetime="{{ checked }}">{{ checked | date: "%-d %B %Y" }}</time>, the newest of the calculators’ source checks.</p>
       </header>
       <div class="site-shell accounting-content">
         <form class="tool-filter" id="calc-filter" role="search" aria-label="Filter business calculators">
-          <label class="field" for="calc-search">Search 60 calculators<input type="search" id="calc-search" name="q" autocomplete="off" placeholder="e.g. stamp duty, FBT, CGT, payroll tax, GST" /></label>
+          <label class="field" for="calc-search">Search 63 calculators<input type="search" id="calc-search" name="q" autocomplete="off" placeholder="e.g. stamp duty, FBT, CGT, payroll tax, GST" /></label>
           <p id="calc-count" class="field-note" role="status"></p>
         </form>
         <h2>Pricing, planning and loans</h2>
@@ -128,6 +128,9 @@
         <ul class="calculator-list">
           <li id="transfer-duty"><a class="collection-entry__title" href="/tools/business-calculators/transfer-duty/">Transfer duty calculator</a> General transfer (stamp) duty on a residential purchase in each of the 8 states and territories, and the duty for an eligible first home buyer of a home.</li>
           <li id="first-home-owner-grant"><a class="collection-entry__title" href="/tools/business-calculators/first-home-owner-grant/">First home owner grant calculator</a> The grant in each of the 8 states and territories for a new home, by contract date and value cap, beside the first home buyer transfer duty.</li>
+          <li id="motor-vehicle-duty"><a class="collection-entry__title" href="/tools/business-calculators/motor-vehicle-duty/">Motor vehicle duty calculator</a> One passenger vehicle’s registration duty in any state or territory for 2026-27, from each Act’s scale, with Victoria’s green and primary producer cars, Queensland’s engine rows, Tasmania’s fleet discount, the ACT’s emissions categories and the Northern Territory’s electric vehicle exemption.</li>
+          <li id="insurance-duty"><a class="collection-entry__title" href="/tools/business-calculators/insurance-duty/">Insurance duty calculator</a> The duty on one general insurance premium for a contract effected or renewed in 2026-27, at each state’s rate for the class: New South Wales Types A to C, Victoria’s business insurance, Queensland CTP, and nil in the ACT.</li>
+          <li id="vic-property-taxes"><a class="collection-entry__title" href="/tools/business-calculators/vic-property-taxes/">Victorian property taxes calculator</a> One of 3 Victorian taxes on land for 2025 or 2026: vacant residential land tax at 1%, 2% or 3% of the capital improved value, the commercial and industrial property tax (nil in both years, with the earliest tax year the land can be liable) and windfall gains tax on a rezoning’s value uplift.</li>
           <li id="land-tax"><a class="collection-entry__title" href="/tools/business-calculators/land-tax/">Land tax calculator</a> Land tax for a full year in each of the 7 states and territories that levy it, at the general or trust rates, with a foreign or absentee owner surcharge and WA’s metropolitan region improvement tax where chosen, before any exemption.</li>
           <li id="foreign-surcharge"><a class="collection-entry__title" href="/tools/business-calculators/foreign-surcharge/">Foreign purchaser surcharge calculator</a> Foreign purchaser duty and the foreign owner land tax surcharge in each state and territory, with each one’s own test of who is foreign, the 2026-27 FIRB fee and the upfront total in all 8 side by side.</li>
           <li id="payroll-tax"><a class="collection-entry__title" href="/tools/business-calculators/payroll-tax/">Payroll tax calculator</a> One employer’s annual payroll tax for 2026-27 in any state or territory, for an employer outside a group, with each step cited.</li>
@@ -158,7 +161,7 @@
       "description": "Calculate GST, margins, loans, Division 7A, FBT, payroll tax, land tax, transfer duty, PAYG instalments, fixed fees and 13-week cash flow in your browser.",
       "inLanguage": "en-AU",
       "datePublished": "2026-09-11",
-      "dateModified": "2026-11-26",
+      "dateModified": "2026-11-27",
       "license": "https://duguid.com.au/privacy/#licences",
       "isPartOf": {
         "@id": "https://duguid.com.au/#website"

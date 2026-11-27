@@ -5,6 +5,9 @@ import { number, cents, ratioCents, ratioMoney, ratioPercent } from './money.mjs
 export { fbtCarParking, fbtExpensePayment, fbtLoan, fbtMealEntertainment, fbtProperty } from './fbt-benefits.mjs';
 export { fbtEvExemption } from './fbt-ev-exemption.mjs';
 export { landTaxYear } from './land-tax.mjs';
+export { motorVehicleDuty, motorVehicleDutyResult, motorVehicleDutyFormInput, motorVehicleDutyInputsText, MOTOR_VEHICLE_DUTY_YEARS } from './motor-vehicle-duty.mjs';
+export { insuranceDuty, insuranceDutyResult, insuranceDutyFormInput, insuranceDutyInputsText, INSURANCE_CLASSES } from './insurance-duty.mjs';
+export { vicPropertyTaxes, vicPropertyResult, vicPropertyFormInput, vicPropertyInputsText, VIC_PROPERTY_YEARS } from './vic-property-taxes.mjs';
 export { vehicleClass } from './vehicle-class.mjs';
 export { pcgRisk, pcgAllocation, pcgAllocationResult } from './pcg-2021-4.mjs';
 export { cgtConcessions, cgtConcessionsAnswersOf, cgtConcessionsResult } from './cgt-concessions.mjs';

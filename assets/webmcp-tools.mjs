@@ -7,6 +7,7 @@ import { businessCohortBTools } from './webmcp-business-b.mjs';
 import { businessCohortCTools } from './webmcp-business-c.mjs';
 import { businessCohortDTools } from './webmcp-business-d.mjs';
 import { businessCohortETools } from './webmcp-business-e.mjs';
+import { stateDutyTools } from './webmcp-state-duties.mjs';
 import { casualOvertimeTool } from './webmcp-casual-overtime.mjs';
 import { contractorEmployeeTool } from './webmcp-contractor-employee.mjs';
 import {
@@ -562,7 +563,8 @@ const fuelTaxCreditsTool = (fuelTaxCredits) => tool({
  *   | 'fbtLoan' | 'fbtMealEntertainment' | 'fbtProperty' | 'landTaxYear' | 'terminationPayment' | 'transferDuty'
  *   | 'rdTaxOffset' | 'RD_YEARS' | 'gstAdjustment' | 'percentFraction' | 'GST_WORKSHEETS' | 'GST_ADJUSTMENT_YEARS'
  *   | 'deferredTax' | 'DEFERRED_TAX_YEARS' | 'soleTraderCompany' | 'SOLE_TRADER_COMPANY_YEARS' | 'casualOvertime'
- *   | 'contractorEmployee' | 'CONTRACTOR_YEARS'>} calculate */
+ *   | 'contractorEmployee' | 'CONTRACTOR_YEARS' | 'motorVehicleDuty' | 'insuranceDuty' | 'INSURANCE_CLASSES'
+ *   | 'vicPropertyTaxes'>} calculate */
 export function calculatorTools(calculate) {
   return {
     gst: gstTool(calculate.gst),
@@ -583,6 +585,7 @@ export function calculatorTools(calculate) {
     ...businessCohortETools(TOOL_KIT, calculate),
     'casual-overtime': casualOvertimeTool(TOOL_KIT, calculate.casualOvertime),
     'contractor-employee': contractorEmployeeTool(TOOL_KIT, calculate),
+    ...stateDutyTools(TOOL_KIT, calculate),
   };
 }
 

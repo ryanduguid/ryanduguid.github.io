@@ -228,7 +228,10 @@
       "1ee789e07f991caadaf17f3e165e8bc60550a06242fe627a485241855184f7b5"
     ],
     "tools/business-calculators/index.html": [
-      "017c5417aec4fa67cac2cd5aee9d90d5bf40f8378532c09cf3038cbc263bc7d0"
+      "dbba8486378a122ca1d46bc6593ef5d71956c88d7c481932c6a8da3564f99644"
+    ],
+    "tools/business-calculators/insurance-duty/index.html": [
+      "d99174b6126771198fe0117e3e68b21cca32999f7742b69a092eb7c903c0ab20"
     ],
     "tools/business-calculators/land-tax/index.html": [
       "90b1d2897a81b87c05cb1a74bb0937f468ac5e1806fa0b19603b5fff589b9e09"
@@ -247,6 +250,9 @@
     ],
     "tools/business-calculators/margin/index.html": [
       "8e36015475695a21874cd42dac763c71cb9afad90b137f1452824c2186ee0226"
+    ],
+    "tools/business-calculators/motor-vehicle-duty/index.html": [
+      "ccc622936f906ee4718dfac1b34b0f1c05f5591188265df0a4b6aa327ad7bc79"
     ],
     "tools/business-calculators/objection-deadline/index.html": [
       "dcab5352be0982423e6e11cacecd9470e3a531468a34a6db716c40ff237e308a"
@@ -301,6 +307,9 @@
     ],
     "tools/business-calculators/vehicle-class/index.html": [
       "889fa6882b45bffd088431ed6a62b42a47e982be98e5316508aa7162903f0751"
+    ],
+    "tools/business-calculators/vic-property-taxes/index.html": [
+      "08b362895916ba819a7b0e18cbef4197d8b8cca220e4542c07f94bdfa99d1020"
     ],
     "tools/business-calculators/wine-equalisation-tax/index.html": [
       "b7210b8a88ca2c95183d376e721f87f0dfcdad70e16e36d4cd327551c093e9d9"
@@ -440,7 +449,7 @@
   },
   "protected_files": {
     "robots.txt": "18d6a7d73dbde21fcae1ba0ac8ccd5750ced144637be01d142ea5dc16ee96a9d",
-    "sitemap.xml": "0a3bedb9335e4c0d6baaed5fef6d1849b9676f44103b4d6b4fb3be24691c9152"
+    "sitemap.xml": "4dc73c73646b8dbc3e20a28cb08b3929240a65f62d4682c11bbd13418222bb58"
   },
   "protected_main_links": {
     "rates/cents-per-kilometre/index.html": [
@@ -500,7 +509,7 @@
     "rates/super-guarantee/index.html": "a5d7321076de35ab9916764165ca7cdc369eef5a36ae35762be3e2ed93c6dc56"
   },
   "protected_text": {
-    "Ryan Duguid is not a registered tax or BAS agent. Nothing here is accounting, tax, legal or financial advice. Outputs are review aids for a qualified professional.": 7815,
+    "Ryan Duguid is not a registered tax or BAS agent. Nothing here is accounting, tax, legal or financial advice. Outputs are review aids for a qualified professional.": 7818,
     "Nothing here is accounting, tax, legal or financial advice. The tools are review aids for a qualified professional, not compliance determinations.": 1,
     "This site does not offer tax or BAS agent services or take requests for tax advice or lodgement.": 1
   }

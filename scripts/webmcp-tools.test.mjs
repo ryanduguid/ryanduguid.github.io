@@ -99,7 +99,7 @@ test('every calculator tool is read-only, refuses unknown inputs and has its own
     'calculate_fbt_expense_payment', 'calculate_fbt_loan', 'calculate_fbt_meal_entertainment', 'calculate_fbt_property',
     'calculate_land_tax', 'calculate_termination_payment', 'calculate_transfer_duty',
     'calculate_rd_tax_offset', 'calculate_gst_adjustments', 'calculate_deferred_tax', 'calculate_sole_trader_vs_company', 'calculate_casual_overtime_pay',
-    'calculate_contractor_employee',
+    'calculate_contractor_employee', 'calculate_motor_vehicle_duty', 'calculate_insurance_duty', 'calculate_vic_property_taxes',
     'calculate_decline_in_value', 'calculate_coal_lsl_levy']);
   for (const t of all) {
     assert.equal(t.annotations.readOnlyHint, true, t.name);
@@ -1699,7 +1699,7 @@ test('every calculator include in _includes/calculators has a registered WebMCP 
     .sort();
   const registered = [...Object.keys(tools), ...Object.keys(individual)].sort();
   assert.deepEqual(registered, slugs);
-  assert.equal(registered.length + 2, 80);
+  assert.equal(registered.length + 2, 83);
 });
 
 test('business days tool returns the page worked example, matches holiday JSON and refuses mismatched or invalid inputs', async () => {
@@ -2214,6 +2214,18 @@ test('transfer balance tool runs transfer, charge and release modes and refuses 
   await assert.rejects(tool.execute({
     calculation: 'transfer', events: [{ date: '2017-08-02', kind: 'new_income_stream', amount: '1600000' }], toDate: '2019-12-31', extra: 1,
   }), /extra is not an input of this tool/);
+});
+
+test('motor vehicle duty, insurance duty and Victorian property taxes tools return their pages’ examples and refuse bad input', async () => {
+  const car = await tools['motor-vehicle-duty'].execute({ jurisdiction: 'nsw', dutiableValue: '50000', dutyDate: '2026-09-01' });
+  assert.deepEqual([car.duty, car.rates.base, car.source], ['1600.00', '1350', 'https://duguid.com.au/tools/business-calculators/motor-vehicle-duty/']);
+  await assert.rejects(tools['motor-vehicle-duty'].execute({ jurisdiction: 'qld', dutiableValue: '50000', dutyDate: '2026-09-01' }), /engine is required/);
+  const cover = await tools['insurance-duty'].execute({ jurisdiction: 'vic', class: 'general', premium: '1000', effectedDate: '2026-09-01' });
+  assert.deepEqual([cover.duty, cover.rates.exact_duty], ['100.00', '100']);
+  await assert.rejects(tools['insurance-duty'].execute({ jurisdiction: 'vic', class: 'ctp', premium: '1000', effectedDate: '2026-09-01' }), /class in vic/);
+  const land = await tools['vic-property-taxes'].execute({ tax: 'windfall_gains', taxYear: '2026', parcels: [{ civBefore: '1000000', civAfter: '1400000' }] });
+  assert.deepEqual([land.total, land.amounts.taxable_value_uplift], ['187500.00', '400000.00']);
+  await assert.rejects(tools['vic-property-taxes'].execute({ tax: 'windfall_gains', taxYear: '2026', entryDate: '2025-01-01' }), /entry_date is an input only/);
 });
 
 test('casual and overtime pay tool returns the page example, Payday Super and quarterly rules, leave loading and refusals', async () => {

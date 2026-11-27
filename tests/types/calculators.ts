@@ -589,6 +589,15 @@ void businessSet['termination-payment'].execute({ genuineRedundancyPayment: '480
 void businessSet['transfer-duty'].execute({ place: 'AU-NSW', dutiableValue: 1350000 });
 void businessSet['contractor-employee'].execute({ incomeYear: '2026-27', hoursPerWeek: '38', salary: '100000', contractorHourlyRate: '70' });
 void businessSet['rd-tax-offset'].execute({ incomeYear: '2025-26', notionalDeductions: '100000', aggregatedTurnover: '10000000', totalExpenses: '100000' });
+void businessSet['motor-vehicle-duty'].execute({ jurisdiction: 'nsw', dutiableValue: '50000', dutyDate: '2026-09-01' });
+void businessSet['insurance-duty'].execute({ jurisdiction: 'vic', class: 'general', premium: '1000', effectedDate: '2026-09-01' });
+void businessSet['vic-property-taxes'].execute({ tax: 'commercial_industrial', taxYear: '2026', entryDate: '2025-03-15' });
+const motorDuty: string = calculate.motorVehicleDuty({}).amounts.duty;
+const insuranceDutyShown: number = calculate.insuranceDuty({}).duty;
+const vicTotal: number = calculate.vicPropertyTaxes({}).total;
+void motorDuty;
+void insuranceDutyShown;
+void vicTotal;
 void businessSet['gst-adjustments'].execute({ worksheet: 'going-concern', year: '2025-26', forConsideration: true, recipientRegistration: 'registered', writtenAgreement: 'on_or_before_supply_day', allThingsNecessary: true, carriedOnUntilSupply: true });
 void businessSet['deferred-tax'].execute({ incomeYear: '2025-26', items: [{ label: 'Plant', class: 'asset', carryingAmount: '70000', taxBase: '50000', openingCarryingAmount: '0', openingTaxBase: '0' }], accountingProfit: '100000', taxableIncome: '100000' });
 void pensionMinimumTools({ pensionMinimum, PENSION_MINIMUM_YEARS })['pension-minimum'].execute({ incomeYear: '2026-27', accountBalance: '600000', age: 67 });

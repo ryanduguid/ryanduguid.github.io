@@ -792,3 +792,74 @@ Planning estimates in AUD. Confirm tax treatment, liability amounts and dates se
 - Unused leave on termination: https://duguid.com.au/tools/business-calculators/unused-leave/
 - Bonus withholding calculator: https://duguid.com.au/tools/individual-tax/bonus-withholding/
 - Payroll and super questions: https://duguid.com.au/tools/accounting-questions/payroll-super/
+
+---
+
+# Motor vehicle duty calculator: every state, 2026-27
+
+Source: https://duguid.com.au/tools/business-calculators/motor-vehicle-duty/
+
+> Stamp duty on registering a passenger vehicle in each state and territory for 2026-27, with the green car, engine, emissions and electric vehicle rates.
+
+# Motor vehicle duty calculator
+
+Duty on registering one passenger vehicle in any state or territory, for 2026-27.
+
+Published 27 November 2026. Last checked 24 November 2026.
+
+JavaScript is required for interactive calculations. The formula, assumptions and source links remain available below.
+
+One passenger vehicle’s registration duty
+
+Dutiable value, whole AUD
+
+State or territory of registration New South Wales Victoria Queensland Western Australia South Australia Tasmania Australian Capital Territory Northern Territory
+
+Duty date, in 2026-27
+
+Queensland only: engine (Schedule 4C) Hybrid or electric Up to 4 cylinders, 2 rotors or steam 5 or 6 cylinders, or 3 rotors 7 or more cylinders
+
+Victoria only: a green car (tailpipe CO2 of 120 g/km or less) No Yes
+
+Victoria only: a primary producer passenger car No Yes
+
+ACT only: emissions category AAA AA A B C D Not rated
+
+ACT only: a new vehicle No Yes
+
+Tasmania only: a new vehicle with a manufacturer’s fleet discount No Yes
+
+Northern Territory only: an electric vehicle No Yes
+
+Calculate
+
+Enter the dutiable value the registration office uses: usually the market value or the price including GST and accessories, whichever is higher. Only the questions for the chosen state or territory are used.
+
+Fictional example: the first boundary case below. Change the inputs and calculate your own. Inputs: NSW; passenger vehicle; dutiable value $50,000.00; duty date 2026-09-01. Dutiable value $50,000.00 Motor vehicle duty $1,600.00 Revenue NSW and Service NSW: $3 for every $100, or part, to $44,999; $1,350 plus $5 for every $100, or part, over $45,000 (Duties Act 1997 (NSW) Chapter 9).
+
+## How the motor vehicle duty calculator works
+
+The calculator works out the duty on registering, or transferring the registration of, one passenger vehicle with a duty date in 2026-27, on the dutiable value you enter in whole dollars. Each state and territory charges a rate for every $100, or part of $100 ($200 in Victoria), of the value or of the part over a threshold: New South Wales $3, and $1,350 plus $5 over $45,000; Victoria $8.40 to the luxury car tax threshold, then $10.40, $14 and $18, or $8.40 throughout for a green car or a primary producer’s car; Queensland by the engine row, $2 more above $100,000; South Australia’s banded scale with a $5 minimum; Tasmania’s scale or its fleet discount rate; the ACT’s rate for the emissions category under the determination in force on the duty date, used vehicles other than Category AAA paying Category C’s; and the Northern Territory’s $3, with the first $50,000 of an electric vehicle exempt. Western Australia charges 2.75% to $25,000, a rate rising to 6.5% at $50,000 and 6.5% above, rounded down to 5 cents. It is a port of the motor-vehicle-duty command in the australian-accounting repository, checked against that command case by case.
+
+## What the motor vehicle duty calculator does not cover
+
+The calculator covers passenger vehicles only: it refuses motorcycles, goods and commercial vehicles, buses, heavy vehicles, trailers and special or conditionally registered vehicles. It does not work out the dutiable value, decide whether an exemption or concession applies beyond the ones it asks about, or add registration, CTP insurance or other fees. It refuses a duty date outside 2026-27 and a value with cents. Results are planning estimates: check them against the registration office’s quote.
+
+## Boundary cases
+
+Each row is a test: scripts/business-calculators.test.mjs runs this calculator on these fictional inputs and fails if the result differs from the one shown.
+
+Boundary cases: Motor vehicle duty calculator
+
+Case | Inputs | Result
+New South Wales, $50,000: $1,350 plus $5 for every $100 over $45,000 | NSW; passenger vehicle; dutiable value $50,000.00; duty date 2026-09-01 | Duty $1,600.00
+Victoria, $85,000 above the luxury car threshold: $10.40 for every $200 | VIC; passenger vehicle; dutiable value $85,000.00; duty date 2026-09-01 | Duty $4,420.00
+Western Australia, $40,000: the sliding rate of 5% | WA; passenger vehicle; dutiable value $40,000.00; duty date 2026-09-01 | Duty $2,000.00
+
+One of the sixty business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+
+Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
+
+## Links
+
+- sixty business calculators: https://duguid.com.au/tools/business-calculators/
