@@ -18,7 +18,8 @@ const listen = (server) => new Promise((resolve) => {
   server.listen(0, '127.0.0.1', () => resolve(`http://127.0.0.1:${server.address().port}`));
 });
 
-// `rewrite` sees each response and returns the fields to replace, if any.
+// `rewrite` sees each response and returns the fields to replace, if any: a status, a JSON
+// body or raw text.
 const revision = 'a'.repeat(40);
 const releaseArgs = (month = loadRegister().supportedMonths().at(-1)) =>
   ['--expect-month', month, '--expect-revision', revision];
@@ -38,7 +39,7 @@ async function checkThrough(rewrite = () => undefined, args = []) {
     const bytes = Buffer.from(await answer.arrayBuffer());
     const replaced = rewrite({ method: request.method, url: request.url, status: answer.status, bytes, requestBody }) ?? {};
     response.writeHead(replaced.status ?? answer.status, { 'content-type': 'application/json' });
-    response.end(replaced.body ? JSON.stringify(replaced.body) : bytes);
+    response.end(replaced.body ? JSON.stringify(replaced.body) : replaced.text ?? bytes);
   });
   const base = await listen(proxy);
   try {
@@ -123,7 +124,8 @@ test('a computation citing another rate row fails for the expected release month
 });
 
 test('malformed arguments are usage errors, not failed checks', async () => {
-  for (const args of [['--base'], ['--base='], ['--unknown'], ['--base', 'http://127.0.0.1:9', '--expect-month', '2026-13', '--expect-revision', 'a'.repeat(40)]]) {
+  for (const args of [['--base'], ['--base='], ['--unknown'], ['--base', 'http://127.0.0.1:9', '--expect-month', '2026-13', '--expect-revision', 'a'.repeat(40)],
+    ['--base', 'http://127.0.0.1:9', '--expect-month', '2026-06'], ['--base', 'http://127.0.0.1:9', '--expect-revision', 'a'.repeat(40)]]) {
     const code = await new Promise((resolve) => {
       execFile(process.execPath, [CHECKER, ...args], { timeout: 20000 }, (error) => resolve(error?.code ?? 0));
     });
@@ -179,5 +181,95 @@ test('checks about computed results fail when no fixture computes', async () => 
   assert.equal(code, 1, stdout);
   for (const name of ['decimal strings', 'complete manifest', 'rounding policy', 'advisory block']) {
     assert.ok(failed(stdout, name), `${name}\n${stdout}`);
+  }
+});
+
+test('a refusal with the expected status but another refusal class fails its fixture', async () => {
+  const { code, stdout } = await checkThrough(({ method, status, bytes }) => (
+    method === 'POST' && status === 400 ? { body: { ...JSON.parse(bytes), refusal_class: 'tampered' } } : undefined
+  ));
+  assert.equal(code, 1, stdout);
+  assert.ok(failed(stdout, 'matches every expected value'), stdout);
+});
+
+const runChecker = (args) => new Promise((resolve) => {
+  execFile(process.execPath, [CHECKER, ...args], { timeout: 20000 }, (error, stdout, stderr) => {
+    resolve({ code: error ? error.code : 0, stdout, stderr });
+  });
+});
+
+test('without --base the checker starts the service in-process and passes', async () => {
+  const { code, stdout } = await runChecker([]);
+  assert.equal(code, 0, stdout);
+  assert.match(stdout, /checks passed against http:\/\/127\.0\.0\.1:\d+\n/);
+});
+
+test('a service that cannot be reached is an error, not a pass', async () => {
+  const closed = createServer();
+  const base = await listen(closed);
+  await new Promise((resolve) => closed.close(resolve));
+  const { code, stdout, stderr } = await runChecker(['--base', base]);
+  assert.equal(code, 1, stdout);
+  assert.doesNotMatch(stdout, /checks passed/);
+  assert.match(stderr, /fetch failed/);
+});
+
+test('a computed levy sent as a JSON number fails the decimal-string check', async () => {
+  const { code, stdout } = await checkThrough(({ method, status, bytes }) => {
+    if (!isComputed(method, status)) return undefined;
+    const body = JSON.parse(bytes);
+    body.levy = Number(body.levy);
+    return { body };
+  });
+  assert.equal(code, 1, stdout);
+  assert.ok(failed(stdout, 'money and rates are decimal strings'), stdout);
+});
+
+test('a service whose repeated answer differs fails the determinism check', async () => {
+  const asked = new Map();
+  const { code, stdout } = await checkThrough(({ method, url, status, bytes, requestBody }) => {
+    if (!isComputed(method, status)) return undefined;
+    const key = `${url} ${requestBody}`;
+    asked.set(key, (asked.get(key) ?? 0) + 1);
+    if (asked.get(key) % 2 === 1) return undefined;
+    return { body: { ...JSON.parse(bytes), answered: asked.get(key) } };
+  });
+  assert.equal(code, 1, stdout);
+  assert.ok(failed(stdout, 'repeats byte-identically'), stdout);
+});
+
+test('discovery that is not a listing and an OpenAPI that is not JSON fail their checks', async () => {
+  const { code, stdout } = await checkThrough(({ url }) => {
+    if (url === '/v1/calculators') return { body: { calculators: [] } };
+    if (url === '/openapi.json') return { text: 'not JSON' };
+    return undefined;
+  }, releaseArgs());
+  assert.equal(code, 1, stdout);
+  for (const name of ['answers 200 with a calculator array', 'carries calc_uri, input_schema_ref and supported_periods',
+    'canonical identifiers agree', 'answers an OpenAPI 3 document', 'lists rate tables with content hashes',
+    'declares the body and rate limits', 'an oversized body is refused with 413']) {
+    assert.ok(failed(stdout, name), `${name}
+${stdout}`);
+  }
+  assert.match(stdout, /FAIL +release +the newest advertised period is the expected period +\(none\)/);
+  assert.match(stdout, /FAIL +3 manifest +every 200 names the rounding policy its OpenAPI documents +\(undocumented\)/);
+});
+
+test('answers without their manifest, advisory, refusal class, field or accepted values fail each check', async () => {
+  const { code, stdout } = await checkThrough(({ method, status, bytes }) => {
+    if (method !== 'POST') return undefined;
+    const body = JSON.parse(bytes);
+    if (status === 200) { delete body.manifest; delete body.advisory; }
+    if (status === 400) delete body.refusal_class;
+    if (status === 422) delete body.field;
+    if (status === 404) delete body.accepted;
+    return { body };
+  });
+  assert.equal(code, 1, stdout);
+  for (const name of ['every 200 carries a complete manifest', 'every 200 names the rounding policy',
+    'every 200 carries an advisory block', 'carries refusal_class and a reason', 'names the field that failed',
+    'names what the calculator does accept']) {
+    assert.ok(failed(stdout, name), `${name}
+${stdout}`);
   }
 });
