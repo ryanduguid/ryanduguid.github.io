@@ -45,7 +45,7 @@ through the draft [WebMCP](https://webmachinelearning.github.io/webmcp/)
 `calculate_foreign_resident_withholding`, `calculate_partnership_net_income`, `check_trust_loss_tests`,
 `calculate_motor_vehicle_duty`, `calculate_insurance_duty`, `calculate_vic_property_taxes`
 and `calculate_non_resident_withholding`
-on the 70 business calculator pages,
+on the 63 business calculator pages,
 `estimate_income_tax`, `calculate_take_home_pay`, `calculate_study_loan_repayment`, `calculate_sole_trader_set_aside`,
 `calculate_lump_sum_arrears`, `calculate_division_293_tax`, `calculate_income_tests`, `calculate_concessional_catch_up`,
 `calculate_bonus_withholding`, `calculate_salary_packaging`, `calculate_novated_lease`, `project_super_balance`,
