@@ -268,7 +268,9 @@ pub fn repr_bytes(b: &[u8]) -> String {
 /// as CPython's dtoa mode 0 gives them. Among equally short candidates dtoa takes the one
 /// nearest the exact value, ties to even; Rust's shortest form rounds such a tie up
 /// (720084694934744.25 prints as ...744.3, Python as ...744.2), so the correctly rounded
-/// candidate of the same length is preferred whenever it round-trips.
+/// candidate of the same length is preferred whenever it round-trips. That candidate never
+/// ends in 0: Rust's `{:e}` gives the fewest digits that round-trip, so a candidate of the
+/// same length whose trailing 0 could be dropped would be a shorter round trip.
 pub fn shortest_digits(a: f64) -> (String, i64) {
     let split = |text: &str| {
         let (mantissa, exponent) = text.split_once('e').expect("scientific notation");
@@ -281,11 +283,7 @@ pub fn shortest_digits(a: f64) -> (String, i64) {
     }
     let nearest = format!("{a:.*e}", digits.len() - 1);
     if nearest.parse::<f64>() == Ok(a) {
-        let (near_digits, near_decpt) = split(&nearest);
-        let trimmed = near_digits.trim_end_matches('0');
-        if trimmed.len() == digits.len() {
-            return (trimmed.to_owned(), near_decpt);
-        }
+        return split(&nearest);
     }
     (digits, decpt)
 }
@@ -1181,5 +1179,43 @@ mod edge_tests {
             ("5960464477539063".into(), -7)
         );
         assert_eq!(float_repr(2f64.powi(-24)), "5.960464477539063e-08");
+    }
+
+    #[test]
+    fn shortest_digits_round_trip_with_no_trailing_zero_and_no_more_digits_than_rust() {
+        // Values whose correctly rounded candidate carries to a new power of ten (9.5,
+        // 99.5, 0.95) and a spread of doubles from bit patterns.
+        let mut values = vec![
+            9.5,
+            99.5,
+            0.95,
+            0.1,
+            1e23,
+            5e-324,
+            f64::MAX,
+            720084694934744.25,
+        ];
+        let mut bits = 0x3ff0_0000_0000_0001_u64;
+        for _ in 0..20_000 {
+            bits = bits
+                .wrapping_mul(6364136223846793005)
+                .wrapping_add(1442695040888963407);
+            let value = f64::from_bits(bits >> 1);
+            if value.is_finite() {
+                values.push(value);
+            }
+        }
+        for a in values {
+            let (digits, decpt) = shortest_digits(a);
+            let rust = format!("{a:e}");
+            let rust_len = rust.split('e').next().unwrap().replace('.', "").len();
+            assert_eq!(digits.len(), rust_len, "{a:e}");
+            assert!(
+                digits.len() == 1 || !digits.ends_with('0'),
+                "{a:e}: {digits}"
+            );
+            let back: f64 = format!("0.{digits}e{decpt}").parse().unwrap();
+            assert_eq!(back, a, "{a:e}");
+        }
     }
 }

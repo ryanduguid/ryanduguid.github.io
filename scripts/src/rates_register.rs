@@ -974,6 +974,61 @@ mod row_tests {
     }
 
     #[test]
+    fn a_verified_row_with_an_unreadable_check_date_is_named_once() {
+        let failures = row_failures(r#""verified_at": "18 September 2026""#);
+        assert_eq!(
+            failures,
+            [
+                "levy/2023-07-01.verified_at: '18 September 2026' is not a YYYY-MM-DD date"
+                    .to_owned()
+            ]
+        );
+    }
+
+    /// The order failures of a series of live rows starting on each date, with or without ids;
+    /// superseded rows are not ordered.
+    fn order_failures(starts: &[&str], ids: bool) -> Vec<String> {
+        let rows: Vec<String> = starts
+            .iter()
+            .map(|start| {
+                let mut json = row(&format!(
+                    r#""period_start": "{start}", "status": "current""#
+                ));
+                if let Json::Object(fields) = &mut json {
+                    fields.retain(|(k, _)| k != "row_id");
+                    if ids {
+                        fields.push(("row_id".into(), Json::Str((*start).into())));
+                    }
+                }
+                pyjson::dumps(&json, pyjson::Dump::default())
+            })
+            .collect();
+        let dir = tempfile::tempdir().unwrap();
+        let path = dir.path().join("levy.json");
+        std::fs::write(
+            &path,
+            format!(r#"{{"series_id": "levy", "rows": [{}]}}"#, rows.join(", ")),
+        )
+        .unwrap();
+        let mut failures = Vec::new();
+        check_series(&path, &mut failures, Date::new(2026, 11, 27).unwrap()).unwrap();
+        failures.retain(|f| f.contains("not ordered"));
+        failures
+    }
+
+    #[test]
+    fn rows_out_of_order_are_named_only_when_their_ids_differ() {
+        let late_first = ["2024-07-01", "2023-07-01"];
+        assert_eq!(
+            order_failures(&late_first, true),
+            ["levy: rows are not ordered by period_start".to_owned()]
+        );
+        // Python compares the row_id lists; rows without ids give equal lists of None.
+        assert!(order_failures(&late_first, false).is_empty());
+        assert!(order_failures(&["2023-07-01", "2024-07-01"], true).is_empty());
+    }
+
+    #[test]
     fn a_numeric_value_must_be_written_as_a_decimal_string() {
         assert!(
             row_failures(r#""value": 2.7"#)
