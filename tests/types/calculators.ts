@@ -4,11 +4,12 @@
 // Compile only. Runtime validation and rounding have separate Node tests.
 import * as calculate from '../../assets/business-calculators.mjs';
 import {
-  calculatorTools, fhssTools, governmentSuperTools, individualTaxTools, pensionMinimumTools, residencyDaysTools, transferBalanceTools,
+  calculatorTools, fhssTools, governmentSuperTools, individualTaxTools, lodgmentRequiredTools, pensionMinimumTools, residencyDaysTools, transferBalanceTools,
   workExpensesTools,
 } from '../../assets/webmcp-tools.mjs';
 import { MAX_PERIODS, RESIDENCY_YEARS, residencyDays } from '../../assets/residency-days.mjs';
 import { PENSION_MINIMUM_YEARS, pensionMinimum } from '../../assets/pension-minimum.mjs';
+import { LODGMENT_YEARS, STATED, lodgmentRequired } from '../../assets/lodgment-required.mjs';
 import {
   ATO_TABLE_5, CHARGE_YEARS, RELEASE_YEARS, TBA_KINDS, TBA_YEARS, dayOf, excessContributions, label, transferBalance,
   yearOf,
@@ -655,3 +656,6 @@ calculate.casualOvertime({ ...coInput, lines: [{ hours: '3', percent: '175', ove
 // @ts-expect-error Rates and hours are decimal text, not numbers.
 calculate.casualOvertime({ ...coInput, base_rate: 30 });
 void coSuper;
+void lodgmentRequiredTools({ LODGMENT_YEARS, STATED, lodgmentRequired })['lodgment-required'].execute({ incomeYear: '2025-26', residency: 'whole_year', taxableIncome: '15000', dividendsAndFrankingCredits: '0', conditions: ['payg_withheld'] });
+// @ts-expect-error lodgmentRequiredTools requires STATED alongside the years and lodgmentRequired.
+lodgmentRequiredTools({ LODGMENT_YEARS, lodgmentRequired });

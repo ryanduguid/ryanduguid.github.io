@@ -2116,9 +2116,9 @@ let input = '';
 for await (const chunk of process.stdin) input += chunk;
 const shown = (value) => (value === null ? null : String(value));
 const run = {
-  objection: ({ decision, group, notice, first }) => {
-    const { periodEnds, lastDay, amendedEnds, firstEnds } = objectionDeadline(decision, group, notice, first);
-    return { periodEnds, lastDay, amendedEnds, firstEnds };
+  objection: ({ decision, group, notice, first, amended }) => {
+    const { periodEnds, lastDay, amendedEnds, originalEnds } = objectionDeadline(decision, group, notice, first, amended);
+    return { periodEnds, lastDay, amendedEnds, originalEnds };
   },
   payg: ({ inputs }) => {
     try {
@@ -2161,8 +2161,14 @@ fn lodging_day(end: Date) -> Date {
 }
 
 /// The period's end, the lodging day, and for an amended assessment its 2 candidate ends, from
-/// s 14ZW(1)(aa), (aaa) and (c), and (1B) and (1BA).
-fn objection_oracle(decision: &str, group: i16, notice: Date, first: Date) -> [Option<Date>; 4] {
+/// s 14ZW(1)(aa), (aaa) and (c), and (1B) and (1BA): (1BA)(c) counts from notice of the assessment
+/// amended, and (1C) moves only (1B)(c)'s count to the first assessment's notice.
+fn objection_oracle(
+    decision: &str,
+    group: i16,
+    notice: Date,
+    [first, assessment_amended]: [Date; 2],
+) -> [Option<Date>; 4] {
     let years = match decision {
         "fbt" | "amended-fbt" => 4,
         _ => group,
@@ -2170,7 +2176,12 @@ fn objection_oracle(decision: &str, group: i16, notice: Date, first: Date) -> [O
     let (end, amended, original) = match decision {
         "other" => (sixty_days_after(notice), None, None),
         "amended" | "amended-fbt" => {
-            let (amended, original) = (sixty_days_after(notice), years_after(first, years));
+            let from = if years == 2 {
+                assessment_amended
+            } else {
+                first
+            };
+            let (amended, original) = (sixty_days_after(notice), years_after(from, years));
             (amended.max(original), Some(amended), Some(original))
         }
         _ => (years_after(notice, years), None, None),
@@ -2205,9 +2216,14 @@ fn objection_case(rng: &mut Seeded) -> (Value, Value) {
     let decision = rng.pick(&["assessment", "amended", "fbt", "amended-fbt", "other"]);
     let group = rng.pick(&[2, 4]);
     let notice = notice_day(rng);
-    // A first notice on or before the amended one, up to about 6 years earlier.
+    // Notice of the assessment amended on or before the amended one, and the first assessment's
+    // on or before that, as often the same day, each up to about 4 years earlier.
     let floor = date(1900, 1, 1);
-    let first = (0..rng.below(2200)).fold(notice, |day, _| day.yesterday().unwrap().max(floor));
+    let back =
+        |from: Date, days: u64| (0..days).fold(from, |day, _| day.yesterday().unwrap().max(floor));
+    let assessment_amended = back(notice, rng.below(1500));
+    let any_days = rng.below(1500);
+    let first = back(assessment_amended, rng.pick(&[0, any_days]));
     (
         json!({
             "kind": "objection",
@@ -2215,12 +2231,13 @@ fn objection_case(rng: &mut Seeded) -> (Value, Value) {
             "group": group.to_string(),
             "notice": notice.strftime("%Y-%m-%d").to_string(),
             "first": first.strftime("%Y-%m-%d").to_string(),
+            "amended": assessment_amended.strftime("%Y-%m-%d").to_string(),
         }),
         {
             let [period, last, amended, original] =
-                objection_oracle(decision, group, notice, first);
+                objection_oracle(decision, group, notice, [first, assessment_amended]);
             json!({"periodEnds": iso(period), "lastDay": iso(last),
-                "amendedEnds": iso(amended), "firstEnds": iso(original)})
+                "amendedEnds": iso(amended), "originalEnds": iso(original)})
         },
     )
 }
@@ -2241,14 +2258,25 @@ fn the_objection_oracle_counts_leap_days_month_ends_and_weekends_by_hand() {
     assert_eq!(years_after(date(2028, 2, 28), 4), date(2032, 2, 28));
     // Month and year ends: 31 December 2026 runs to 31 December 2028.
     assert_eq!(years_after(date(2026, 12, 31), 2), date(2028, 12, 31));
+    let once = [date(2026, 10, 20); 2];
     assert_eq!(
-        objection_oracle("amended", 2, date(2028, 10, 2), date(2026, 10, 20)),
+        objection_oracle("amended", 2, date(2028, 10, 2), once),
         [
             Some(date(2028, 12, 1)),
             Some(date(2028, 12, 1)),
             Some(date(2028, 12, 1)),
             Some(date(2028, 10, 20))
         ]
+    );
+    // Amended again: (1BA) from the assessment amended, (1B) from the first assessment's notice.
+    let twice = [date(2024, 3, 1), date(2028, 1, 10)];
+    assert_eq!(
+        objection_oracle("amended", 2, date(2028, 6, 1), twice)[2..],
+        [Some(date(2028, 7, 31)), Some(date(2030, 1, 10))]
+    );
+    assert_eq!(
+        objection_oracle("amended", 4, date(2028, 6, 1), twice)[..1],
+        [Some(date(2028, 7, 31))]
     );
 }
 
@@ -8334,14 +8362,16 @@ impl LeaseCase {
 }
 
 /// What the lease engine must return. The liability is the payments not paid at commencement
-/// and the residual, discounted one period at a time (paragraph 26); the asset's cost adds what
-/// paragraph 24 lists. All interest is what is paid after commencement less the liability, where
-/// the engine adds each period's; and the depreciation adds up to the cost, the liability to nil.
+/// and the residual, discounted one period at a time (paragraph 26), with no limit on the
+/// residual (paragraph 27(c)); the asset's cost adds what paragraph 24 lists. All interest is
+/// what is paid after commencement less the liability, where the engine adds each period's; and
+/// the depreciation adds up to the cost, the liability to nil.
 fn lease_oracle(case: &LeaseCase) -> Value {
     let refused = |message: &str| json!({ "refused": message });
     let t = &case.terms;
-    // The engine finds the present value with the finance schedule, so its refusals come first.
-    if let Some(message) = finance_oracle(t).get("refused") {
+    // The engine checks the payments with the finance schedule, residual left out, so its
+    // refusals come first.
+    if let Some(message) = finance_oracle(&Terms { balloon: 0, ..*t }).get("refused") {
         return json!({ "refused": message });
     }
     let at_start = if t.advance { t.payment } else { 0 };
@@ -8396,7 +8426,9 @@ fn lease_case(rng: &mut Seeded) -> LeaseCase {
     let periods = rng.pick(&[1, 2, frequency.most, any_term, any_term]);
     let payment = 1 + rng.cents(10_000_000 - 1);
     let any_residual = rng.below(payment * u64::from(periods) / 4 + 1);
-    let balloon = rng.pick(&[0, 0, payment, any_residual]);
+    // More than every payment together, so more than their present value.
+    let large_residual = payment * u64::from(periods) + 1 + rng.below(payment + 1);
+    let balloon = rng.pick(&[0, 0, payment, any_residual, large_residual]);
     let small = |rng: &mut Seeded| {
         let any = rng.cents(payment * 2);
         rng.pick(&[0, 0, any])
@@ -8464,6 +8496,15 @@ fn the_engine_agrees_with_the_oracle_on_every_seeded_lease() {
     );
     assert!(seeded.iter().any(|one| one.terms.rate == 0));
     assert!(expected.iter().any(|want| want["refused"] == NO_COST));
+    // A residual above the payments' present value is measured, not refused (paragraph 27(c)).
+    assert!(seeded.iter().zip(&expected).any(|(one, want)| {
+        one.terms.balloon
+            > amount_oracle(&Terms {
+                balloon: 0,
+                ..one.terms
+            })
+            && want.get("refused").is_none()
+    }));
     assert!(
         expected
             .iter()

@@ -49,6 +49,10 @@ const excess = { ...tba, file: 'assets/excess-contributions.mjs' };
 const tbaPage = { ...tba, file: 'assets/transfer-balance-result.mjs' };
 const pm = { file: 'assets/pension-minimum.mjs', test: 'scripts/pension-minimum.test.mjs' };
 const rd = { file: 'assets/residency-days.mjs', test: 'scripts/residency-days.test.mjs' };
+const lr = { file: 'assets/lodgment-required.mjs', test: 'scripts/lodgment-required.test.mjs' };
+const wsDecimal = { file: 'assets/withholding-decimal.mjs', test: individualTest };
+const ws1 = { file: 'assets/withholding-schedule-1.mjs', test: individualTest };
+const ws = { file: 'assets/withholding-schedules.mjs', test: individualTest };
 const money = { ...business, file: 'assets/money.mjs' };
 const division296 = { ...business, file: 'assets/division-296.mjs' };
 const div7a = { ...business, file: 'assets/div7a.mjs' };
@@ -257,11 +261,12 @@ const MUTATIONS = [
   { ...business, name: 'an objection period counts the day notice is given', find: 'const start = new Date(day.getTime() + DAY);', replace: 'const start = day;' },
   { ...business, name: 'an objection period of years ends on the anniversary', find: 'start.getUTCDate()) - DAY)', replace: 'start.getUTCDate()))' },
   { ...business, name: 'an objection allows 59 days, not 60', find: 'getTime() + 60 * DAY', replace: 'getTime() + 59 * DAY' },
+  { ...business, name: 'subsection (1C) reaches (1BA), counting it from the first assessment', find: 'yearsAfter(years === 2 ? amendedDay : firstDay, years)', replace: 'yearsAfter(firstDay, years)' },
   { ...business, name: 'a Saturday last day moves to the Sunday', find: 'weekday === 6 ? 2', replace: 'weekday === 6 ? 1' },
   { ...business, name: 'a Sunday last day stands', find: 'weekday === 0 ? 1 : 0', replace: 'weekday === 0 ? 0 : 0' },
   { ...business, name: 'item 1, 2, 3 or 3A gives 4 years', find: "group === '4' ? 4 : 2", replace: "group === '2' ? 4 : 2" },
   { ...business, name: 'an FBT assessment allows 2 years', find: "decision === 'fbt' || decision === 'amended-fbt' ||", replace: "decision === 'amended-fbt' ||" },
-  { ...business, name: 'an amended assessment takes the earlier date', find: 'amended.getTime() > original.getTime()', replace: 'amended.getTime() < original.getTime()' },
+  { ...business, name: 'an amended assessment takes the earlier date', find: 'sixty.getTime() > original.getTime()', replace: 'sixty.getTime() < original.getTime()' },
   { ...psi, name: 'PSI meets the results test only above 75%', find: '4 * met >= 3 * total', replace: '4 * met > 3 * total' },
   { ...psi, name: 'PSI counts a result without liability for defects', find: 'result && tools && defects ? amounts[i]', replace: 'result && tools ? amounts[i]' },
   { ...psi, name: 'PSI needs more than 80% from one payer to stop self-assessment', find: '5 * largest >= 4 * total', replace: '5 * largest > 4 * total' },
@@ -577,8 +582,9 @@ const MUTATIONS = [
   { ...projection, name: 'super projection leaves the percentage fee out', find: 'const fees = y.fee + y.insurance + percentFee;', replace: 'const fees = y.fee + y.insurance;' },
   { ...packaging, name: 'salary packaging puts meal entertainment in the other type', find: 'grossUp(typeOne + (p.mealsTypeOne ? meals : 0), TYPE_1)', replace: 'grossUp(typeOne + (p.mealsTypeOne ? 0 : meals), TYPE_1)' },
   { ...packaging, name: 'salary packaging grosses Type 2 benefits up at the Type 1 rate', find: 'typeTwo: grossUp(typeTwo + (p.mealsTypeOne ? 0 : meals), TYPE_2)', replace: 'typeTwo: grossUp(typeTwo + (p.mealsTypeOne ? 0 : meals), TYPE_1)' },
-  { ...packaging, name: 'salary packaging rounds the gross-up down', find: '+ 1000000n) / 2000000n', replace: ') / 2000000n' },
+  { ...packaging, name: 'salary packaging rounds the gross-up down', find: '* num + 100n * den) / (200n * den)', replace: '* num) / (200n * den)' },
   { ...packaging, name: 'salary packaging gives a charity the hospital cap', find: 'charity: 30000, hospital: 17000', replace: 'charity: 17000, hospital: 17000' },
+  { ...packaging, name: 'salary packaging grosses Type 2 benefits up at the 4-place 1.8868', find: '([100n, 53n])', replace: '([18868n, 10000n])' },
   { ...packaging, name: 'salary packaging allows no meal entertainment over the cap', find: 'const excess = overCap - mealAllowance;', replace: 'const excess = overCap;' },
   { ...packaging, name: 'salary packaging allows meal entertainment beyond $5,000', find: 'Math.min(MEAL_ALLOWANCE, grossed.meals, overCap)', replace: 'Math.min(grossed.meals, overCap)' },
   { ...packaging, name: 'salary packaging taxes the excess at 45%', find: 'const fbt = excess * 47;', replace: 'const fbt = excess * 45;' },
@@ -911,7 +917,7 @@ const MUTATIONS = [
     find: 'const fee = Number(ratioCents(BigInt(whole) * 100n * numerator, denominator)) / 100;',
     replace: 'const fee = firbFee(kind, String(Math.floor(number(consideration, { money: true }) * Number(numerator) / Number(denominator)))).fee;' },
   { ...surcharges, name: 'the comparison takes the chosen jurisdiction’s duty everywhere', find: 'const duty = /** @type {number} */ (generals[place]);', replace: 'const duty = /** @type {number} */ (generals[purchase.place]);' },
-  { ...leaseEngine, name: 'the payment at commencement stays in the liability', find: 'BigInt(Math.round(pv.amount * 100)) - (advance ? payment : 0n)', replace: 'BigInt(Math.round(pv.amount * 100))' },
+  { ...leaseEngine, name: 'the payment at commencement stays in the liability', find: 'advance, residual) - (advance ? payment : 0n);', replace: 'advance, residual);' },
   { ...leaseEngine, name: 'incentives add to the right-of-use asset', find: '- incentives + direct + restoration', replace: '+ incentives + direct + restoration' },
   { ...leaseEngine, name: 'initial direct costs are left out of the asset', find: '+ direct + restoration;', replace: '+ restoration;' },
   { ...leaseEngine, name: 'the last period does not take the rounding', find: 'period === last ? paid - balance : ', replace: 'false ? paid - balance : ' },
@@ -1445,6 +1451,31 @@ const MUTATIONS = [
   { ...rd, name: 'residency scope not needed', find: "if (input.get('scope_confirmed') !== true) refuse", replace: 'if (false) refuse' },
   { ...rd, name: 'residency form blank departure is 29 June', find: '`${start + 1}-06-30`', replace: '`${start + 1}-06-29`' },
   { ...rd, name: 'residency page principal is the count', find: 'rows: table, principal: 3, note', replace: 'rows: table, principal: 0, note' },
+  { ...lr, name: 'lodgment threshold inclusive', find: "taxable.cents > centsOf(18200), `taxable income", replace: "taxable.cents >= centsOf(18200), `taxable income" },
+  { ...lr, name: 'lodgment part-year $395 a month', find: 'const sum = 13464 + 395 * resident.months', replace: 'const sum = 13464 + 394 * resident.months' },
+  { ...lr, name: 'lodgment under 18 ignores dividends', find: 'under18.cents > centsOf(416) || dividends.cents > centsOf(416)', replace: 'under18.cents > centsOf(416)' },
+  { ...lr, name: 'lodgment study loan for residents', find: "studyLoan && resident.status !== 'whole'", replace: 'studyLoan' },
+  { ...lr, name: 'lodgment holiday maker at $45,001', find: 'income.cents < centsOf(45001)', replace: 'income.cents <= centsOf(45001)' },
+  { ...lr, name: 'lodgment listed payment always strict', find: 'paymentInclusive ? taxable.cents <= limit : taxable.cents < limit', replace: 'taxable.cents < limit' },
+  { ...lr, name: 'lodgment Notices relieve under 18', find: 'notice ? SUBSECTION_6_3 : [...SUBSECTION_6_3', replace: 'notice ? [...SUBSECTION_6_3, \'under_18\'] : [...SUBSECTION_6_3' },
+  { ...lr, name: 'lodgment exception relieves unnamed', find: 'names.some((k) => conditions.includes(k))', replace: 'true' },
+  { ...lr, name: 'lodgment child support refusal dropped', find: 'left.length === 0 && facts.parent', replace: 'false' },
+  { ...lr, name: 'lodgment due 30 October', find: '`${end}-10-31`', replace: '`${end}-10-30`' },
+  { ...lr, name: 'lodgment 2026-27 allowed', find: "confirmed === true && year === '2026-27'", replace: 'false' },
+  { ...lr, name: 'lodgment page principal is the first step', find: 'rows, principal: rows.length - 1, note', replace: 'rows, principal: 0, note' },
+  { ...wsDecimal, name: 'withholding context rounds up', find: 'if (rest > den ||', replace: 'if (rest > 0n ||' },
+  { ...wsDecimal, name: 'withholding rounds a half down', find: '(2n * n * s + a.q) / (2n * a.q)', replace: '(2n * n * s + a.q - 1n) / (2n * a.q)' },
+  { ...ws1, name: 'withholding monthly 33 cents not lifted', find: "add(earnings, dec('0.01'))", replace: "add(earnings, dec('0'))" },
+  { ...ws1, name: 'withholding fortnightly offsets at 4%', find: "fortnightly: '0.038'", replace: "fortnightly: '0.04'" },
+  { ...ws1, name: 'withholding scale 2 shade out at 7%', find: "levy: '0.0200', shadeOut: '0.0800'", replace: "levy: '0.0200', shadeOut: '0.0700'" },
+  { ...ws1, name: 'withholding 2026 53rd pay band', find: '[2575, 7]', replace: '[2575, 6]' },
+  { ...ws, name: 'Schedule 2 at 14%', find: "foreign ? '0.30' : '0.13'", replace: "foreign ? '0.30' : '0.14'" },
+  { ...ws, name: 'daily offsets at 0.40%', find: "dec('0.0038')", replace: "dec('0.0040')" },
+  { ...ws, name: 'no ABN withheld at $75', find: 'cmp(total, int(75)) > 0', replace: 'cmp(total, int(75)) >= 0' },
+  { ...ws, name: 'Schedule 15 top column rounded', find: 'column <= 4 ? halfUp(product)', replace: 'column <= 5 ? halfUp(product)' },
+  { ...ws, name: 'Schedule 10 instalment rate of 20% ignored', find: "cmp(cir.value, dec('0.20')) >= 0", replace: "cmp(cir.value, dec('0.20')) > 0" },
+  { ...ws, name: 'Schedule 9 scales transposed', find: 'exemption * 3 + status + 1', replace: 'status * 3 + exemption + 1' },
+  { ...ws, name: 'Schedule 3 offsets per day', find: 'div(div(/** @type {Q} */ (offsets), int(52)), int(week))', replace: 'div(/** @type {Q} */ (offsets), int(52))' },
 ];
 
 // Runs that must read as invalid, not as caught.
@@ -1473,6 +1504,7 @@ const SHARED = [
   'scripts/transfer-balance-engine-differential.json',
   'scripts/pension-minimum-engine-differential.json',
   'scripts/residency-days-engine-differential.json',
+  'scripts/lodgment-required-engine-differential.json',
   'scripts/concessional-catch-up-engine-differential.json',
   'scripts/unused-leave-engine-differential.json',
   'scripts/franking-account-engine-differential.json',
@@ -1494,15 +1526,17 @@ const SHARED = [
   'scripts/payg-withholding-sample-2020.json', 'scripts/payg-withholding-sample-2024.json',
   'scripts/super-benefit-tax-engine-differential.json',
   'scripts/super-lump-sum-options-engine-differential.json',
+  'scripts/withholding-schedules-engine-differential.json',
 ];
 
 const TEST_FILES = [
   levy.test, business.test, individualTest,
-  'scripts/fhss.test.mjs', 'scripts/work-expenses.test.mjs', 'scripts/government-super-amounts.test.mjs', swh.test, tba.test, pm.test, rd.test,
+  'scripts/fhss.test.mjs', 'scripts/work-expenses.test.mjs', 'scripts/government-super-amounts.test.mjs', swh.test, tba.test, pm.test, rd.test, lr.test,
   'scripts/net-medical-expenses.test.mjs',
   'scripts/foreign-income.test.mjs',
   'scripts/minors-income.test.mjs',
   'scripts/non-commercial-losses.test.mjs',
+  'scripts/withholding-schedules.test.mjs',
 ];
 
 const MAX_PATTERN_LENGTH = 12000;

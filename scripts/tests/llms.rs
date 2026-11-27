@@ -312,6 +312,16 @@ fn part_index_keeps_the_sections_after_it() {
     assert_eq!(with_part_index(&built, &parts).unwrap(), built);
 }
 
+/// The calculator total is recounted by hand, so llms.txt states it once, in its summary,
+/// and a recount cannot leave a stale copy elsewhere in the file.
+#[test]
+fn machine_index_states_the_calculator_total_once() {
+    let llms = std::fs::read_to_string(common::repository().join("llms.txt")).unwrap();
+    let total = regex::Regex::new(r"\d+ [A-Za-z ]*tax and business calculators").unwrap();
+    let found: Vec<&str> = total.find_iter(&llms).map(|m| m.as_str()).collect();
+    assert_eq!(found.len(), 1, "{found:?}");
+}
+
 /// llms.txt keeps the shape of the format at https://llmstxt.org/.
 #[test]
 fn machine_index_keeps_the_llms_txt_shape() {

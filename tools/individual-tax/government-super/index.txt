@@ -82,7 +82,7 @@ LISTO on $50: the $10 minimum (s 12E(2)(c)) | 2025-26, assessable income $20,000
 LISTO at adjusted taxable income $37,001: nil (s 12C(1)(b)) | 2025-26, assessable income $37,001, eligible income $37,001.00, personal contributions $0.00, concessional contributions $4,000.00 | Co-contribution $0.00, LISTO $0.00
 Spouse income $39,999: 18% of $1 (s 290-235(1)) | 2025-26, assessable income $90,000, eligible income $90,000.00, personal contributions $0.00, concessional contributions $0.00, spouse income $39,999.00, spouse contributions $3,000.00 | Co-contribution $0.00, LISTO $0.00, spouse offset $0.18
 
-One of the eighteen individual tax calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the nineteen individual tax calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 ## Related
 
@@ -95,6 +95,6 @@ Planning estimates in AUD. Confirm tax treatment, liability amounts and dates se
 ## Links
 
 - income tests calculator: https://duguid.com.au/tools/individual-tax/income-tests/
-- eighteen individual tax calculators: https://duguid.com.au/tools/individual-tax/
+- nineteen individual tax calculators: https://duguid.com.au/tools/individual-tax/
 - Concessional catch-up calculator: https://duguid.com.au/tools/individual-tax/concessional-catch-up/
 - Super projection calculator: https://duguid.com.au/tools/individual-tax/super-projection/
