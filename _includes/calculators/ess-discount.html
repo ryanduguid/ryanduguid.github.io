@@ -1,0 +1,82 @@
+<section class="business-calculator" id="ess-discount">
+<form class="calculator-split" data-calculator="ess-discount">
+<fieldset disabled><legend>One employee share scheme interest</legend>
+<div class="form-grid">
+<label class="field" for="ess-discount-acquired">Day acquired<input id="ess-discount-acquired" name="acquired" type="date" min="2015-07-01" max="2027-06-30" value="2025-09-01" required /></label>
+<label class="field" for="ess-discount-year">Income year<select enterkeyhint="next" name="year" id="ess-discount-year"><option value="2026-27">2026-27</option><option value="2025-26" selected>2025-26</option><option value="2024-25">2024-25</option><option value="2023-24">2023-24</option><option value="2022-23">2022-23</option><option value="2021-22">2021-22</option><option value="2020-21">2020-21</option></select></label>
+<label class="field" for="ess-discount-kind">Interest<select name="kind" id="ess-discount-kind"><option value="share" selected>Shares</option><option value="right">Rights (options) to acquire shares</option></select></label>
+<label class="field" for="ess-discount-consideration">Amount you paid for them<input id="ess-discount-consideration" name="consideration" type="number" inputmode="decimal" min="0" step="0.01" value="0" /></label>
+<label class="field" for="ess-discount-market-value">Market value when acquired<input id="ess-discount-market-value" name="market-value" type="number" inputmode="decimal" min="0" step="0.01" value="2500" aria-describedby="ess-discount-value-note" /></label>
+</div>
+<p class="field-note" id="ess-discount-value-note">Enter totals for the parcel. For rights valued by the regulations’ tables, leave the market value blank.</p>
+<fieldset><legend>Rights only</legend>
+<div class="form-grid">
+<label class="field" for="ess-discount-exercise-price">Total exercise price<input id="ess-discount-exercise-price" name="exercise-price" type="number" inputmode="decimal" min="0" step="0.01" value="" /></label>
+<label class="field" for="ess-discount-share-market-value">Market value of the shares the rights may acquire<input id="ess-discount-share-market-value" name="share-market-value" type="number" inputmode="decimal" min="0" step="0.01" value="" /></label>
+<label class="field" for="ess-discount-last-exercise-day">Last exercise day<input id="ess-discount-last-exercise-day" name="last-exercise-day" type="date" min="2015-07-01" max="2042-12-31" value="" /></label>
+<label class="field" for="ess-discount-valuation">Value the rights at<select name="valuation" id="ess-discount-valuation"><option value="market_value" selected>Their market value</option><option value="regulations">The regulations’ tables (unlisted rights)</option></select></label>
+<label class="field" for="ess-discount-deferral-stated">Scheme states Subdivision 83A-C applies<select name="deferral-stated" id="ess-discount-deferral-stated"><option value="no" selected>No</option><option value="yes">Yes</option></select></label>
+</div>
+</fieldset>
+<fieldset><legend>Scheme and personal conditions</legend>
+<div class="form-grid">
+<label class="field" for="ess-discount-employed">Acquired because of your employment<select name="employed" id="ess-discount-employed"><option value="yes" selected>Yes</option><option value="no">No</option></select></label>
+<label class="field" for="ess-discount-ordinary-shares-only">Scheme offers only ordinary shares, or rights to them<select name="ordinary-shares-only" id="ess-discount-ordinary-shares-only"><option value="yes" selected>Yes</option><option value="no">No</option></select></label>
+<label class="field" for="ess-discount-not-share-trading-company">Employer’s main business is not share trading<select name="not-share-trading-company" id="ess-discount-not-share-trading-company"><option value="yes" selected>Yes</option><option value="no">No</option></select></label>
+<label class="field" for="ess-discount-minimum-holding-period">Held 3 years or until you leave (s 83A-45(4))<select name="minimum-holding-period" id="ess-discount-minimum-holding-period"><option value="yes" selected>Yes</option><option value="no">No</option></select></label>
+<label class="field" for="ess-discount-ten-percent-limit">You hold no more than 10% of the company<select name="ten-percent-limit" id="ess-discount-ten-percent-limit"><option value="yes" selected>Yes</option><option value="no">No</option></select></label>
+<label class="field" for="ess-discount-non-discriminatory">Offered on a non-discriminatory basis<select name="non-discriminatory" id="ess-discount-non-discriminatory"><option value="yes" selected>Yes</option><option value="no">No</option></select></label>
+<label class="field" for="ess-discount-broad-availability">Shares: offered to at least 75% of permanent employees<select name="broad-availability" id="ess-discount-broad-availability"><option value="yes" selected>Yes</option><option value="no">No</option></select></label>
+<label class="field" for="ess-discount-real-risk">Real risk of forfeiture<select name="real-risk" id="ess-discount-real-risk"><option value="no" selected>No</option><option value="yes">Yes</option></select></label>
+<label class="field" for="ess-discount-salary-sacrifice">Acquired by salary sacrifice (s 83A-105(4))<select name="salary-sacrifice" id="ess-discount-salary-sacrifice"><option value="no" selected>No</option><option value="yes">Yes</option></select></label>
+</div>
+</fieldset>
+<fieldset><legend>Start-up concession (s 83A-33)</legend>
+<div class="form-grid">
+<label class="field" for="ess-discount-start-up">Claim the start-up concession<select name="start-up" id="ess-discount-start-up"><option value="no" selected>No</option><option value="yes">Yes</option></select></label>
+<label class="field" for="ess-discount-unlisted">Company is unlisted<select name="unlisted" id="ess-discount-unlisted"><option value="yes" selected>Yes</option><option value="no">No</option></select></label>
+<label class="field" for="ess-discount-under-ten-years">Incorporated less than 10 years before<select name="under-ten-years" id="ess-discount-under-ten-years"><option value="yes" selected>Yes</option><option value="no">No</option></select></label>
+<label class="field" for="ess-discount-turnover">Aggregated turnover<input id="ess-discount-turnover" name="turnover" type="number" inputmode="decimal" min="0" step="0.01" value="" /></label>
+<label class="field" for="ess-discount-employer-resident">Employer is an Australian resident<select name="employer-resident" id="ess-discount-employer-resident"><option value="yes" selected>Yes</option><option value="no">No</option></select></label>
+</div>
+</fieldset>
+<fieldset><legend>Deferred taxing point (Subdivision 83A-C)</legend>
+<div class="form-grid">
+<label class="field" for="ess-discount-restrictions-lifted">Day the restrictions and forfeiture risk ended<input id="ess-discount-restrictions-lifted" name="restrictions-lifted" type="date" min="2015-07-01" max="2042-12-31" value="" /></label>
+<label class="field" for="ess-discount-exercised">Rights: day exercised<input id="ess-discount-exercised" name="exercised" type="date" min="2015-07-01" max="2042-12-31" value="" /></label>
+<label class="field" for="ess-discount-share-lifted">Rights: day the resulting shares’ restrictions ended<input id="ess-discount-share-lifted" name="share-lifted" type="date" min="2015-07-01" max="2042-12-31" value="" /></label>
+<label class="field" for="ess-discount-employment-ended">Acquired before 1 July 2022: day employment ended<input id="ess-discount-employment-ended" name="employment-ended" type="date" min="2015-07-01" max="2027-06-30" value="" /></label>
+<label class="field" for="ess-discount-disposed">Day disposed of<input id="ess-discount-disposed" name="disposed" type="date" min="2015-07-01" max="2042-12-31" value="" /></label>
+<label class="field" for="ess-discount-cost-base">Cost base<input id="ess-discount-cost-base" name="cost-base" type="number" inputmode="decimal" min="0" step="0.01" value="" /></label>
+<label class="field" for="ess-discount-tp-date">Deferred taxing point<input id="ess-discount-tp-date" name="tp-date" type="date" min="2015-07-01" max="2042-12-31" value="" /></label>
+<label class="field" for="ess-discount-tp-value">Market value at that point<input id="ess-discount-tp-value" name="tp-value" type="number" inputmode="decimal" min="0" step="0.01" value="" /></label>
+</div>
+<p class="field-note">For a deferred interest, leave blank any day that has not happened, including the day employment ended if you are still employed. The calculator asks for the value at the taxing point when it falls in the year.</p>
+</fieldset>
+<fieldset><legend>Income test for the $1,000 reduction (s 83A-35)</legend>
+<div class="form-grid">
+<label class="field" for="ess-discount-taxable-income">Taxable income<input id="ess-discount-taxable-income" name="taxable-income" type="number" inputmode="decimal" min="0" step="0.01" value="90000" /></label>
+<label class="field" for="ess-discount-fringe-benefits">Reportable fringe benefits<input id="ess-discount-fringe-benefits" name="fringe-benefits" type="number" inputmode="decimal" min="0" step="0.01" value="" /></label>
+<label class="field" for="ess-discount-super-contributions">Reportable super contributions<input id="ess-discount-super-contributions" name="super-contributions" type="number" inputmode="decimal" min="0" step="0.01" value="" /></label>
+<label class="field" for="ess-discount-investment-loss">Total net investment loss<input enterkeyhint="done" id="ess-discount-investment-loss" name="investment-loss" type="number" inputmode="decimal" min="0" step="0.01" value="" /></label>
+</div>
+</fieldset>
+<button type="submit" class="button">Calculate</button>
+</fieldset>
+{% include calculator-example.html inputs="2025-26; share acquired 2025-09-01 for $0.00, worth $2,500.00" rows="Discount on the interest|$2,500.00;Treatment|Taxed upfront, eligible for the reduction (s 83A-25);Upfront discounts eligible for the reduction (label D)|$2,500.00;Other upfront discounts (label E)|$0.00;Deferred discounts (label F)|$0.00;Less the reduction (s 83A-35)|$1,000.00;Assessable discount for 2025-26 (label B)|$1,500.00" principal="6" note="Amounts are rounded to the cent" %}
+<div class="sources-applied" hidden>
+<h2>Sources applied</h2>
+<ul class="sources">
+<li>The rules: <a href="https://www.legislation.gov.au/C2004A05138/latest/text">Income Tax Assessment Act 1997</a> Division 83A (ss 83A-10 to 83A-45, 83A-105 to 83A-125 and 83A-305 to 83A-315), compilation 268 (1 October 2026), and Act No. 8 of 2022 Schedule 10, which ended cessation of employment as a taxing point from 1 July 2022; read 22 November 2026, the source the australian-accounting <code>ess-discount</code> command cites.</li>
+<li>The tables for unlisted rights: Income Tax Assessment (1997 Act) Regulations 2021 ss 83A-315.01 to 83A-315.09, compilation 16 (27 June 2026), read 22 November 2026.</li>
+<li>The calculator agrees with the command on 701 test cases, refusals included.</li>
+<li>Supplied by you: the year, each value, condition and date, and the income test amounts.</li>
+</ul>
+</div>
+</form>
+<h2>How the employee share scheme discount calculator works</h2>
+<p>An employee share scheme discount is the market value of the shares or rights when you acquired them less what you paid. Division 83A of the Income Tax Assessment Act 1997 includes it in your assessable income in one of 3 ways. Most discounts are taxed upfront, in the year you acquired the interest (s 83A-25). If the scheme meets the conditions for the $1,000 reduction and your income for the test is $180,000 or less, s 83A-35 takes up to $1,000 off the upfront discounts that qualify. An eligible start-up concession reduces the amount to nil (s 83A-33).</p>
+<p>Tax is deferred (Subdivision 83A-C) where there is a real risk of forfeiture, where up to $5,000 of shares a year are acquired by salary sacrifice, or for rights whose scheme says so. Then the amount is the market value at the deferred taxing point less the cost base, in the year of that point: the earliest of the restrictions ending, 15 years, and for interests acquired before 1 July 2022 the end of your employment, moved to a disposal within 30 days after it. An unlisted right can be valued by the regulations’ tables. The result shows the amounts for question 12 of your return: labels D, E, F and B.</p>
+<h2>What the employee share scheme discount calculator does not cover</h2>
+<p>The calculator does not take interests acquired before 1 July 2015, foreign employment or foreign or temporary residents, or the capital gains tax on a later disposal. It never values a share: enter market values from your employer’s statement or a valuation. The form takes one interest; the WebMCP tool takes up to 50, with forfeited interests and the regulations’ value at a taxing point. Confirm the amounts with your employee share scheme statement and a registered tax agent.</p>
+</section>
