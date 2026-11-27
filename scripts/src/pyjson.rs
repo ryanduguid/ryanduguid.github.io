@@ -844,7 +844,10 @@ mod tests {
 
     #[test]
     fn error_columns_count_from_the_last_newline() {
-        assert_eq!(err("[\n1,]"), "Expecting value: line 2 column 3 (char 4)");
+        assert_eq!(
+            err("[\n1,]"),
+            "Illegal trailing comma before end of array: line 2 column 2 (char 3)"
+        );
         assert_eq!(
             err("[1e]"),
             "Expecting ',' delimiter: line 1 column 3 (char 2)"
