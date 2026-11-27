@@ -568,9 +568,9 @@ fn only_deploy_fuzzing_publication_and_codecov_are_exempt_from_the_actual_aggreg
     let repository = Path::new(env!("CARGO_MANIFEST_DIR")).join("..");
     let workflow =
         std::fs::read_to_string(repository.join(".github/workflows/checks.yml")).unwrap();
-    assert!(
-        workflow.contains("checks-gates --exempt deploy --exempt fuzzing --exempt publication --exempt codecov\n")
-    );
+    assert!(workflow.contains(
+        "checks-gates --exempt deploy --exempt fuzzing --exempt publication --exempt codecov\n"
+    ));
     let python = if cfg!(windows) { "python" } else { "python3" };
     if std::process::Command::new(python)
         .arg("--version")
