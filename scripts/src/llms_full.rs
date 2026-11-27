@@ -274,7 +274,41 @@ fn section_for_url(url: &str) -> &str {
     }
 }
 
-/// Section files keep complete page entries and their citations below 100 KB.
+/// The most bytes a section part holds.
+const PART_BUDGET: usize = 96_000;
+
+/// An entry too long for one part, cut after whole lines (a changelog row, a heading, a
+/// paragraph or a link) and never inside a fenced block, into chunks of at most `room`
+/// bytes that concatenate back to the entry.
+fn split_page<'a>(section: &str, page: &'a str, room: usize) -> Result<Vec<&'a str>, String> {
+    let too_long =
+        || format!("llms-full: {section} page holds a line or block over the section part budget");
+    let (mut chunks, mut start, mut cut, mut end, mut fenced) = (Vec::new(), 0, 0, 0, false);
+    for line in page.split_inclusive('\n') {
+        fenced ^= line.starts_with("```");
+        end += line.len();
+        if end - start > room {
+            if cut == start {
+                return Err(too_long());
+            }
+            chunks.push(&page[start..cut]);
+            start = cut;
+            if end - start > room {
+                return Err(too_long());
+            }
+        }
+        if !fenced {
+            cut = end;
+        }
+    }
+    chunks.push(&page[start..]);
+    Ok(chunks)
+}
+
+/// Section files keep page entries and their citations below 100 KB. Each part opens with
+/// the header and a line break; a page too long for one part continues in the next parts
+/// of its section, listed with its title and "(continued)", and the text after each
+/// part's header and line break, taken in order, is the page again.
 pub fn section_parts(entries: &[(String, String)]) -> Result<Vec<Part>, String> {
     let mut sections = std::collections::BTreeMap::<String, Vec<(String, String)>>::new();
     for (url, entry) in entries {
@@ -290,24 +324,31 @@ pub fn section_parts(entries: &[(String, String)]) -> Result<Vec<Part>, String> 
         let mut text = HEADER.to_owned();
         let mut titles = Vec::new();
         let mut number = 1;
+        let room = PART_BUDGET - HEADER.len() - 1;
         for (title, page) in pages {
-            if HEADER.len() + page.len() + 1 > 96_000 {
-                return Err(format!(
-                    "llms-full: {section} page exceeds the section part budget"
-                ));
-            }
-            if text.len() + page.len() + 1 > 96_000 {
-                parts.push(Part {
-                    name: format!("llms-full-{section}-{number}.txt"),
-                    text,
-                    titles: std::mem::take(&mut titles),
+            let chunks = if page.len() > room {
+                split_page(&section, &page, room)?
+            } else {
+                vec![page.as_str()]
+            };
+            for (n, chunk) in chunks.into_iter().enumerate() {
+                if text.len() + chunk.len() + 1 > PART_BUDGET {
+                    parts.push(Part {
+                        name: format!("llms-full-{section}-{number}.txt"),
+                        text,
+                        titles: std::mem::take(&mut titles),
+                    });
+                    number += 1;
+                    text = HEADER.to_owned();
+                }
+                text.push('\n');
+                text.push_str(chunk);
+                titles.push(if n == 0 {
+                    title.clone()
+                } else {
+                    format!("{title} (continued)")
                 });
-                number += 1;
-                text = HEADER.to_owned();
             }
-            text.push('\n');
-            text.push_str(&page);
-            titles.push(title);
         }
         parts.push(Part {
             name: format!("llms-full-{section}-{number}.txt"),
