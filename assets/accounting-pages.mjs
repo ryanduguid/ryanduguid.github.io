@@ -601,6 +601,7 @@ function initialiseCalculators([calculate, fieldErrors, fbtForms, { individualRe
             break;
           case 'trust-loss-tests':
             result = calculate.trustLossResult(value);
+            break;
           case 'contractor-employee':
             result = calculate.contractorEmployeeResult(value, aud);
             break;
