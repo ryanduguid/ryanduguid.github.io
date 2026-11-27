@@ -391,7 +391,7 @@ Published 27 November 2026. Last checked 27 November 2026.
 
 JavaScript is required for interactive calculations. The formula, assumptions and source links remain available below.
 
-The ATO’s endorsement review worksheet, answered here
+The ATO’s review worksheet
 
 Which worksheet Worksheet 1: a DGR endorsed as a whole Worksheet 2: a DGR endorsed for a fund, authority or institution it owns or includes An income tax exempt charity Is the entity’s ABN still current? Yes No
 
