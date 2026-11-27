@@ -70,7 +70,7 @@ test('a -0 contribution or proceeds stays -0 where the command’s decimals keep
 test('the downsizer refuses as the command does, in its order', () => {
   assert.equal(downsizerGiven({ year: '2025-26' }), false);
   assert.equal(downsizerGiven({ downsizer_age: 70 }), true);
-  const { downsizer_age: _, ...noAge } = BASE;
+  const noAge = Object.fromEntries(Object.entries(BASE).filter(([key]) => key !== 'downsizer_age'));
   assert.throws(() => downsizer(noAge, '2025-26'), { code: 'input.missing_field', message: 'downsizer_age is required' });
   assert.equal(DOWNSIZER_INPUTS.length, 10);
   for (const [fields, refused] of [
@@ -142,7 +142,7 @@ test('with a fault in the catch-up and one in the downsizer, the page refuses th
       assert.throws(() => {
         concessionalCatchUp(input, () => readDownsizerInputs(given));
         downsizer(given, input.year);
-      }, (error) => (error.code ?? null) === codes[i], `${name} with ${JSON.stringify(downsizerFault).slice(0, 60)}`);
+      }, (error) => (error.code ?? null) === codes.at(i), `${name} with ${JSON.stringify(downsizerFault).slice(0, 60)}`);
     });
   }
   // The form: a downsizer amount it cannot read comes before the defined benefit refusal, a day outside the year after it,

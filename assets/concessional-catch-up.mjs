@@ -88,14 +88,14 @@ function readable(value) {
 const proposalGiven = (input) => input?.proposed !== undefined && String(input.proposed).trim() !== '';
 
 /** The command reads this year's amounts, then the downsizer inputs, before it checks the year or any range:
- * an amount it cannot read refuses first, then `readFirst` runs. @param {CatchUpInput} input @param {() => void} readFirst */
+ * an amount it cannot read refuses first, then `readFirst` runs. @param {CatchUpInput} input @param {(() => void) | undefined} readFirst */
 function readAmounts(input, readFirst) {
   /** @type {[unknown, string][]} */
   const given = [[input?.balance, 'Total super balance on 30 June before the year'],
     [input?.concessional, `${input?.year} concessional contributions`]];
   if (proposalGiven(input)) given.push([input.proposed, 'Proposed contribution']);
   for (const [value, what] of given) if (!readable(value)) amount(value, what);
-  readFirst();
+  readFirst?.();
 }
 
 /**
@@ -103,7 +103,7 @@ function readAmounts(input, readFirst) {
  * @param {CatchUpInput} input
  * @param {() => void} [readFirst] reads the downsizer inputs where the command does, before the other checks
  */
-export function concessionalCatchUp(input, readFirst = () => {}) {
+export function concessionalCatchUp(input, readFirst) {
   readAmounts(input, readFirst);
   if (!CATCH_UP_YEARS.includes(input?.year)) throw new Error(`Choose ${CATCH_UP_YEARS.slice().reverse().join(', ')}.`);
   if (typeof input.definedBenefit !== 'boolean') throw new Error('Say whether the person has a defined benefit interest.');

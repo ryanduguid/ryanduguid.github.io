@@ -30,9 +30,10 @@ export const downsizerGiven = (given) => DOWNSIZER_INPUTS.some((key) => Object.h
 /** The command's reading of each input: present, and an amount given as text readable as a decimal.
  * @param {Record<string, unknown>} given */
 export function readDownsizerInputs(given) {
+  const input = new Map(Object.entries(given));
   for (const key of DOWNSIZER_INPUTS) {
-    if (!Object.hasOwn(given, key)) refuse('input.missing_field', `${key} is required`);
-    const value = given[key];
+    if (!input.has(key)) refuse('input.missing_field', `${key} is required`);
+    const value = input.get(key);
     if (!AMOUNTS.has(key) || typeof value !== 'string') continue;
     if (new TextEncoder().encode(value).length > 8192) refuse('input.decimal_too_long', `${key} is too long.`);
     const text = value.trim();
@@ -143,4 +144,54 @@ export function downsizer(given, year) {
   const covered = eligible ? least(least(made, ownRoom), proceedsRoom) : NIL;
   return { eligible, tests: rows, amounts: { downsizer_cap_remaining: money(ownRoom), downsizer_proceeds_remaining: money(proceedsRoom),
     downsizer_covered: money(covered), downsizer_not_covered: money(less(made, covered)) } };
+}
+
+/** The form's message for each downsizer refusal it can meet. @param {string} year */
+const formMessages = (year) => new Map([['input.age_invalid', 'Enter the age at the downsizer contribution in whole years, from 0 to 150.'],
+  ['input.date_invalid', 'Enter each downsizer day as a date.'], ['input.decimal_unreadable', 'Enter each downsizer amount in dollars and cents.'],
+  ['input.amount_invalid', 'Enter each downsizer amount from 0 to 1,000,000,000,000, to the cent.'],
+  ['downsizer.date_outside_year', `Enter a downsizer contribution day in ${year}.`],
+  ['downsizer.settlement_before_contract', 'The change of ownership cannot be before the sale contract.'],
+  ['downsizer.contribution_before_settlement', 'Enter a downsizer contribution made on or after the change of ownership.']]);
+
+/** `work`, a downsizer refusal worded for the form. @template T @param {string} year @param {() => T} work @returns {T} */
+function worded(year, work) {
+  try {
+    return work();
+  } catch (error) {
+    const code = /** @type {{code?: string}} */ (error).code;
+    throw new Error(formMessages(year).get(String(code)) ?? /** @type {Error} */ (error).message);
+  }
+}
+
+/** The catch-up form's downsizer inputs as the command names them, or null when no downsizer contribution is given.
+ * @param {(name: string) => string} value @returns {Record<string, unknown> | null} */
+export function downsizerFormArgs(value) {
+  if (value('downsizer') !== 'yes') return null;
+  const age = value('downsizer-age').trim();
+  const amount = (/** @type {string} */ name) => value(`downsizer-${name}`).trim();
+  return { downsizer_contribution: amount('amount'), downsizer_contribution_date: value('downsizer-made'),
+    downsizer_age: /^\d+$/.test(age) ? Number(age) : age, downsizer_contract_date: value('downsizer-contract'),
+    downsizer_settlement_date: value('downsizer-settled'), downsizer_longer_period_allowed: value('downsizer-longer') === 'yes',
+    downsizer_capital_proceeds: amount('proceeds'), downsizer_earlier_own: amount('earlier-own'),
+    downsizer_earlier_from_proceeds: amount('earlier-proceeds'), downsizer_conditions_met: value('downsizer-conditions') === 'yes' };
+}
+
+/** The command's reading of the form's downsizer inputs, a refusal worded for the form.
+ * @param {Record<string, unknown>} given @param {string} year */
+export const readDownsizerForm = (given, year) => worded(year, () => readDownsizerInputs(given));
+
+/** The catch-up form's downsizer rows and note, or none when no downsizer contribution is given.
+ * @param {Record<string, unknown> | null} given @param {string} year @param {(amount: number) => string} aud */
+export function downsizerFormPart(given, year, aud) {
+  if (given === null) return { rows: [], notes: [], inputs: '' };
+  const { eligible, tests: rows, amounts } = worded(year, () => downsizer(given, year));
+  const failed = rows.filter((test) => !test.met).map((test) => `${test.finding} (${test.authority})`);
+  return { rows: [['Downsizer contribution covered, outside both caps', aud(Number(amounts.downsizer_covered))],
+    ['Downsizer contribution not covered', aud(Number(amounts.downsizer_not_covered))],
+    ['Left of the $300,000 downsizer limit', aud(Number(amounts.downsizer_cap_remaining))],
+    ['Left of the capital proceeds', aud(Number(amounts.downsizer_proceeds_remaining))]],
+  notes: [eligible ? 'The downsizer contribution is covered up to the lesser of the 2 limits (s 292-102(3))'
+    : `The downsizer contribution is not covered: ${failed.join('; ')}`],
+  inputs: `, downsizer contribution ${aud(Number(given.downsizer_contribution))}` };
 }
