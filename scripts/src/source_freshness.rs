@@ -20,7 +20,7 @@ use std::process::{Command, Stdio};
 use std::sync::LazyLock;
 use std::time::Duration;
 
-const SITE_REPOSITORY: &str = "ryanduguid/ryanduguid.github.io";
+pub(crate) const SITE_REPOSITORY: &str = "ryanduguid/ryanduguid.github.io";
 const GH_TIMEOUT: Duration = Duration::from_secs(15);
 const RELEASE_FIELDS: &str = "map({tag_name, draft, prerelease, published_at})";
 const MONTHS: [&str; 12] = [
@@ -74,7 +74,7 @@ static RELEASE_LINK: LazyLock<Regex> = LazyLock::new(|| {
         r##"<a href="https://github\.com/([A-Za-z0-9_.-]+/[A-Za-z0-9_.-]+)/releases/tag/([^"#?]+)""##,
     )
 });
-static STABLE: LazyLock<Regex> = LazyLock::new(|| pattern(r"^[0-9]+\.[0-9]+\.[0-9]+$"));
+pub(crate) static STABLE: LazyLock<Regex> = LazyLock::new(|| pattern(r"^[0-9]+\.[0-9]+\.[0-9]+$"));
 static RELEASE_META: LazyLock<Regex> =
     LazyLock::new(|| pattern(r#"<p class="release-meta">((?s:.)*?)</p>"#));
 static LD_JSON: LazyLock<Regex> =

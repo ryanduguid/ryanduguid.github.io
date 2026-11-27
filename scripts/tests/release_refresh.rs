@@ -1,22 +1,26 @@
 // Copyright 2026 Ryan Duguid
 // SPDX-License-Identifier: Apache-2.0
 
-//! The publish job's content check of the tool release refresh: the snapshot may change
-//! only in release tokens, every stamped page must be what apply_tool_releases writes,
-//! and anything else must be a text mirror build_llms_full --check holds.
+//! The publish job's content check of the tool release refresh: in each changed snapshot
+//! entry only the version and date are free and the tag, date label and URL must follow
+//! from them, every stamped page must be what apply_tool_releases writes, and anything
+//! else must be a text mirror build_llms_full --check holds.
 mod common;
 
 use serde_json::{Map, Value};
-use site_tools::release_refresh::{refresh_failures, shape_failures};
+use site_tools::release_refresh::{refresh_failures, snapshot_failures};
 use site_tools::source_freshness::apply_tool_releases;
 use std::path::Path;
 
 const OLD: &str = r#"{
   "coal-lsl-levy": {
     "version": "0123456789abcdef0123456789abcdef01234567",
+    "date": "2026-11-27",
+    "dateLabel": "27 November 2026",
     "url": "https://github.com/ryanduguid/ryanduguid.github.io/commit/0123456789abcdef0123456789abcdef01234567"
   },
   "ozzit": {
+    "name": "Ozzit",
     "version": "3.8.0",
     "tag": "v3.8.0",
     "date": "2026-11-24",
@@ -25,76 +29,217 @@ const OLD: &str = r#"{
   }
 }
 "#;
+const TOOLS: &str = r#"{
+  "coal-lsl-levy": { "repository": "ryanduguid/ryanduguid.github.io", "tagPrefix": null },
+  "ozzit": { "repository": "ryanduguid/Ozzit", "tagPrefix": "v" }
+}"#;
 const PATH: &str = "_data/tool_releases.json";
+const COMMIT: &str = "0123456789abcdef0123456789abcdef01234567";
 
-fn shape(new: &str) -> Vec<String> {
-    shape_failures(PATH, Some(OLD), new)
+fn tools() -> Map<String, Value> {
+    serde_json::from_str(TOOLS).unwrap()
+}
+
+fn check(new: &str) -> Vec<String> {
+    snapshot_failures(Some(OLD), new, &tools())
+}
+
+/// The refusal of `what` in the entry `slug`.
+fn refused(slug: &str, what: &str) -> String {
+    format!("{PATH}: {slug}: {what}")
+}
+
+fn not_derived(slug: &str, key: &str) -> String {
+    refused(
+        slug,
+        &format!("{key} is not what the refresh writes for its version, date and tool"),
+    )
 }
 
 #[test]
 fn a_version_bump_is_accepted() {
-    let new = OLD.replace("3.8.0", "3.10.1").replace(
-        "0123456789abcdef0123456789abcdef01234567",
-        "89abcdef0123456789abcdef0123456789abcdef",
-    );
-    assert_eq!(shape(&new), Vec::<String>::new());
+    let new = OLD
+        .replace("3.8.0", "3.10.1")
+        .replace(COMMIT, "89abcdef0123456789abcdef0123456789abcdef");
+    assert_eq!(check(&new), Vec::<String>::new());
+    assert_eq!(check(OLD), Vec::<String>::new());
 }
 
 #[test]
 fn a_date_change_is_accepted() {
     let new = OLD
         .replace("2026-11-24", "2026-12-01")
-        .replace("24 November 2026", "1 December 2026");
-    assert_eq!(shape(&new), Vec::<String>::new());
+        .replace("24 November 2026", "1 December 2026")
+        .replace("2026-11-27", "2027-01-02")
+        .replace("27 November 2026", "2 January 2027");
+    assert_eq!(check(&new), Vec::<String>::new());
 }
 
 #[test]
-fn an_added_line_is_refused() {
-    let new = OLD.replace(
-        "    \"tag\": \"v3.8.0\",\n",
-        "    \"tag\": \"v3.8.0\",\n    \"note\": \"3.9.0\",\n",
+fn a_tag_that_does_not_match_its_version_is_refused() {
+    // The tag and URL moved without the version.
+    assert_eq!(
+        check(&OLD.replace("v3.8.0", "v3.9.0")),
+        [not_derived("ozzit", "tag"), not_derived("ozzit", "url")]
+    );
+    // The version moved without the tag and URL.
+    assert_eq!(
+        check(&OLD.replace("\"3.8.0\"", "\"3.9.0\"")),
+        [not_derived("ozzit", "tag"), not_derived("ozzit", "url")]
+    );
+}
+
+#[test]
+fn a_url_for_another_repository_is_refused() {
+    assert_eq!(
+        check(&OLD.replace("ryanduguid/Ozzit", "someone/Ozzit")),
+        [not_derived("ozzit", "url")]
     );
     assert_eq!(
-        shape(&new),
-        [format!(
-            "{PATH}: 14 lines became 15; a release refresh adds and removes no line"
+        check(&OLD.replace("ryanduguid.github.io/commit", "someone.github.io/commit")),
+        [not_derived("coal-lsl-levy", "url")]
+    );
+    // A commit swapped into the URL alone.
+    let url = format!("commit/{COMMIT}");
+    let swapped = "commit/89abcdef0123456789abcdef0123456789abcdef";
+    assert_eq!(
+        check(&OLD.replace(&url, swapped)),
+        [not_derived("coal-lsl-levy", "url")]
+    );
+}
+
+#[test]
+fn a_date_label_that_disagrees_with_its_date_is_refused() {
+    assert_eq!(
+        check(&OLD.replace("24 November 2026", "25 November 2026")),
+        [not_derived("ozzit", "dateLabel")]
+    );
+    assert_eq!(
+        check(&OLD.replace("2026-11-24", "2026-11-25")),
+        [not_derived("ozzit", "dateLabel")]
+    );
+}
+
+#[test]
+fn a_changed_name_field_is_refused() {
+    assert_eq!(
+        check(&OLD.replace("\"Ozzit\"", "\"Ozzit Pro\"")),
+        [refused(
+            "ozzit",
+            "changes name, which a release refresh never writes"
         )]
     );
 }
 
 #[test]
-fn a_removed_line_is_refused() {
-    let new = OLD.replace("    \"dateLabel\": \"24 November 2026\",\n", "");
+fn a_version_or_date_that_is_not_one_is_refused() {
     assert_eq!(
-        shape(&new),
-        [format!(
-            "{PATH}: 14 lines became 13; a release refresh adds and removes no line"
+        check(&OLD.replace("3.8.0", "latest")),
+        [refused(
+            "ozzit",
+            "version is not a stable major.minor.patch"
         )]
     );
-    // A dropped final newline is a removed line too.
-    assert_eq!(shape(OLD.trim_end()).len(), 1);
+    assert_eq!(
+        check(&OLD.replace(COMMIT, "main")),
+        [refused(
+            "coal-lsl-levy",
+            "version is not a 40-character commit"
+        )]
+    );
+    assert_eq!(
+        check(&OLD.replace(COMMIT, &COMMIT.to_uppercase())),
+        [refused(
+            "coal-lsl-levy",
+            "version is not a 40-character commit"
+        )]
+    );
+    assert_eq!(
+        check(
+            &OLD.replace("2026-11-24", "2026-02-30")
+                .replace("24 November 2026", "30 February 2026")
+        ),
+        [refused("ozzit", "date is not an ISO calendar date")]
+    );
 }
 
 #[test]
-fn a_prose_change_is_refused() {
-    let new = OLD
-        .replace("24 November 2026", "24 November 2026, now audited")
-        .replace("github.com/ryanduguid/Ozzit", "example.com/Ozzit");
+fn an_entry_or_field_added_removed_or_reordered_is_refused() {
+    let entries = || {
+        format!("{PATH}: adds, removes or reorders an entry; a release refresh only updates them")
+    };
+    let mut data: Map<String, Value> = serde_json::from_str(OLD).unwrap();
+    let ozzit = data.shift_remove("ozzit").unwrap();
+    let write = |data: &Map<String, Value>| {
+        format!(
+            "{}\n",
+            site_tools::node::stringify(&Value::Object(data.clone()))
+        )
+    };
+    assert_eq!(check(&write(&data)), [entries()]);
+    let mut reordered = Map::new();
+    reordered.insert("ozzit".into(), ozzit.clone());
+    reordered.extend(data.clone());
+    assert_eq!(check(&write(&reordered)), [entries()]);
+    data.insert("ozzit".into(), ozzit.clone());
+    data.insert("other".into(), ozzit);
+    assert_eq!(check(&write(&data)), [entries()]);
+
+    let fields = || refused("ozzit", "adds, removes or reorders a field");
     assert_eq!(
-        shape(&new),
-        [
-            format!("{PATH}:10: changes more than a release version, date or commit"),
-            format!("{PATH}:11: changes more than a release version, date or commit"),
-        ]
+        check(&OLD.replace("    \"name\": \"Ozzit\",\n", "")),
+        [fields()]
     );
-    // A version replaced by a word is prose too.
-    assert_eq!(shape(&OLD.replace("v3.8.0\",", "vlatest\",")).len(), 1);
+    assert_eq!(
+        check(&OLD.replace(
+            "    \"name\": \"Ozzit\",\n    \"version\": \"3.8.0\",\n",
+            "    \"version\": \"3.8.0\",\n    \"name\": \"Ozzit\",\n"
+        )),
+        [fields()]
+    );
+}
+
+#[test]
+fn an_entry_the_tools_do_not_describe_is_refused() {
+    let new = OLD.replace("3.8.0", "3.9.0");
+    let mut tools = tools();
+    tools.remove("ozzit");
+    assert_eq!(
+        snapshot_failures(Some(OLD), &new, &tools),
+        [refused(
+            "ozzit",
+            "no tool of that name in main's _data/tools.json"
+        )]
+    );
+    let text = OLD.replace(
+        "\"ozzit\": {\n    \"name\": \"Ozzit\",",
+        "\"ozzit\": \"3.8.0\",\n  \"was\": {\n    \"name\": \"Ozzit\",",
+    );
+    let flat = OLD.replace(
+        "\"ozzit\": {\n    \"name\": \"Ozzit\",",
+        "\"ozzit\": \"3.9.0\",\n  \"was\": {\n    \"name\": \"Ozzit\",",
+    );
+    assert_eq!(
+        snapshot_failures(Some(&text), &flat, &tools),
+        [refused("ozzit", "not an object")]
+    );
+}
+
+#[test]
+fn a_snapshot_that_is_not_the_writers_json_is_refused() {
+    assert_eq!(
+        check(OLD.trim_end()),
+        [format!("{PATH}: not laid out as the refresh writes it")]
+    );
+    for new in ["[]\n", "{\n"] {
+        assert_eq!(check(new), [format!("{PATH}: not a JSON object")], "{new}");
+    }
 }
 
 #[test]
 fn a_new_file_is_refused() {
     assert_eq!(
-        shape_failures(PATH, None, OLD),
+        snapshot_failures(None, OLD, &tools()),
         [format!(
             "{PATH}: a new file; a release refresh only rewrites files main has"
         )]
@@ -237,16 +382,15 @@ fn a_changed_llms_txt_body_is_refused() {
 }
 
 #[test]
-fn a_snapshot_change_beyond_release_tokens_is_refused() {
+fn a_snapshot_url_that_drifts_from_its_release_is_refused() {
     let (base, root) = refreshed();
     let path = root.path().join(PATH);
     let text = site_tools::read(&path).unwrap();
     std::fs::write(&path, text.replacen("ryanduguid/Ozzit", "someone/Ozzit", 1)).unwrap();
-    let failures = refresh_failures(root.path(), base.path(), &changed(&[PATH])).unwrap();
-    assert!(
-        failures[0].starts_with(&format!("{PATH}:"))
-            && failures[0].ends_with(": changes more than a release version, date or commit"),
-        "{failures:?}"
+    // The pages replayed from that snapshot pass; the snapshot itself does not.
+    assert_eq!(
+        refresh_failures(root.path(), base.path(), &changed(&[PATH])).unwrap(),
+        [not_derived("ozzit", "url")]
     );
 }
 

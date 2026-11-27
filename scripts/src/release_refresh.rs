@@ -4,60 +4,126 @@
 //! The content check of the automatic tool release refresh. A read-only job applies the
 //! refresh patch to main and runs this before the publish job may push that patch. Each
 //! changed file must be one of 3 kinds, or the refresh is refused:
-//! - `_data/tool_releases.json`, whose lines may differ from main's only in release
-//!   version, date and commit tokens, the only bytes the refresh reads from GitHub;
+//! - `_data/tool_releases.json`, in which a changed entry may change only its version and
+//!   date, the only values the refresh reads from GitHub, and the fields that follow from
+//!   them and main's `_data/tools.json` (tag, date label and URL);
 //! - a page `apply_tool_releases` stamps, which must equal what it writes from main's
 //!   copy and the refreshed snapshot (`llms.txt` apart from its part index);
 //! - a text mirror `build_llms_full` writes, which the same job then regenerates with
 //!   `build_llms_full --check`, as it does the part index of `llms.txt`.
 
 use crate::llms_full::{page_path, with_part_index};
-use crate::source_freshness::{apply_tool_releases, parse_object};
-use regex::{NoExpand, Regex};
+use crate::node;
+use crate::source_freshness::{
+    SITE_REPOSITORY, STABLE, apply_tool_releases, format_date, parse_object,
+};
+use serde_json::{Map, Value};
 use std::path::{Path, PathBuf};
-use std::sync::LazyLock;
 
 const SNAPSHOT: &str = "_data/tool_releases.json";
 
-/// A 40-character commit, an ISO date, a release version or a long date.
-static TOKEN: LazyLock<Regex> = LazyLock::new(|| {
-    Regex::new(concat!(
-        r"\b[0-9a-f]{40}\b|[0-9]{4}-[0-9]{2}-[0-9]{2}|[0-9]+\.[0-9]+\.[0-9]+",
-        r"|\b[0-9]{1,2} (?:January|February|March|April|May|June|July|August",
-        r"|September|October|November|December) [0-9]{4}\b",
-    ))
-    .expect("valid pattern")
-});
-
-/// Each line of `new` that differs from the same line of `old` by more than release
-/// tokens. A new file (no `old`) or a changed line count is refused outright, since a
-/// refresh adds and removes nothing.
-pub fn shape_failures(path: &str, old: Option<&str>, new: &str) -> Vec<String> {
+/// Every way the refreshed snapshot `new` departs from main's `old`: the refresh writes
+/// it with `node::stringify`, keeps its entries and their fields in order, and in each
+/// entry it changes sets the version and date and derives the rest as the writer does
+/// from main's `tools`.
+pub fn snapshot_failures(old: Option<&str>, new: &str, tools: &Map<String, Value>) -> Vec<String> {
     let Some(old) = old else {
         return vec![format!(
-            "{path}: a new file; a release refresh only rewrites files main has"
+            "{SNAPSHOT}: a new file; a release refresh only rewrites files main has"
         )];
     };
-    let (old, new): (Vec<&str>, Vec<&str>) = (old.split('\n').collect(), new.split('\n').collect());
-    if old.len() != new.len() {
-        return vec![format!(
-            "{path}: {} lines became {}; a release refresh adds and removes no line",
-            old.len(),
-            new.len()
-        )];
+    let parse = |text: &str| match serde_json::from_str(text) {
+        Ok(Value::Object(map)) => Some(map),
+        _ => None,
+    };
+    let (Some(was), Some(now)) = (parse(old), parse(new)) else {
+        return vec![format!("{SNAPSHOT}: not a JSON object")];
+    };
+    let mut failures = Vec::new();
+    if new != format!("{}\n", node::stringify(&Value::Object(now.clone()))) {
+        failures.push(format!("{SNAPSHOT}: not laid out as the refresh writes it"));
     }
-    let shape = |line: &str| TOKEN.replace_all(line, NoExpand("\0")).into_owned();
-    old.iter()
-        .zip(&new)
-        .enumerate()
-        .filter(|(_, (was, now))| was != now && shape(was) != shape(now))
-        .map(|(i, _)| {
-            format!(
-                "{path}:{}: changes more than a release version, date or commit",
-                i + 1
-            )
-        })
-        .collect()
+    if !was.keys().eq(now.keys()) {
+        failures.push(format!(
+            "{SNAPSHOT}: adds, removes or reorders an entry; a release refresh only updates them"
+        ));
+        return failures;
+    }
+    // serde_json's map equality ignores key order, which the layout holds to main's.
+    let same = |a: &Value, b: &Value| node::stringify(a) == node::stringify(b);
+    for ((slug, was), now) in was.iter().zip(now.values()) {
+        if same(was, now) {
+            continue;
+        }
+        let at = |what: &str| format!("{SNAPSHOT}: {slug}: {what}");
+        let (Value::Object(was), Value::Object(now)) = (was, now) else {
+            failures.push(at("not an object"));
+            continue;
+        };
+        if !was.keys().eq(now.keys()) {
+            failures.push(at("adds, removes or reorders a field"));
+            continue;
+        }
+        let Some(tool) = tools.get(slug) else {
+            failures.push(at("no tool of that name in main's _data/tools.json"));
+            continue;
+        };
+        let text = |key: &str| now.get(key).and_then(Value::as_str).unwrap_or_default();
+        let (version, date) = (text("version"), text("date"));
+        let mut derived = vec![("dateLabel", format_date(date))];
+        match tool.get("tagPrefix") {
+            Some(Value::Null) => {
+                if version.len() != 40
+                    || !version
+                        .bytes()
+                        .all(|b| matches!(b, b'0'..=b'9' | b'a'..=b'f'))
+                {
+                    failures.push(at("version is not a 40-character commit"));
+                }
+                let url = format!("https://github.com/{SITE_REPOSITORY}/commit/{version}");
+                derived.push(("url", url));
+            }
+            prefix => {
+                if !STABLE.is_match(version) {
+                    failures.push(at("version is not a stable major.minor.patch"));
+                }
+                let tag = format!("{}{version}", node::template(prefix));
+                let repository = node::template(tool.get("repository"));
+                let url = format!("https://github.com/{repository}/releases/tag/{tag}");
+                derived.extend([("tag", tag), ("url", url)]);
+            }
+        }
+        if date
+            .parse::<jiff::civil::Date>()
+            .ok()
+            .map(|d| d.to_string())
+            .as_deref()
+            != Some(date)
+        {
+            failures.push(at("date is not an ISO calendar date"));
+        }
+        for (key, want) in &derived {
+            if now.get(*key).and_then(Value::as_str) != Some(want) {
+                failures.push(at(&format!(
+                    "{key} is not what the refresh writes for its version, date and tool"
+                )));
+            }
+        }
+        let free =
+            |key: &str| key == "version" || key == "date" || derived.iter().any(|(k, _)| *k == key);
+        failures.extend(
+            now.iter()
+                .filter(|(key, value)| {
+                    !free(key) && !was.get(key.as_str()).is_some_and(|v| same(v, value))
+                })
+                .map(|(key, _)| {
+                    at(&format!(
+                        "changes {key}, which a release refresh never writes"
+                    ))
+                }),
+        );
+    }
+    failures
 }
 
 fn bytes(dir: &Path, rel: &str) -> Result<Vec<u8>, String> {
@@ -76,11 +142,11 @@ pub fn refresh_failures(
     base: &Path,
     changed: &[String],
 ) -> Result<Vec<String>, String> {
+    let tools = parse_object(&base.join("_data/tools.json"))?;
     let old = text(base, SNAPSHOT).ok();
-    let mut failures = shape_failures(SNAPSHOT, old.as_deref(), &text(root, SNAPSHOT)?);
+    let mut failures = snapshot_failures(old.as_deref(), &text(root, SNAPSHOT)?, &tools);
 
     // Replay the stamp on a copy of main's pages with the refreshed snapshot.
-    let tools = parse_object(&base.join("_data/tools.json"))?;
     let snapshot = parse_object(&root.join(SNAPSHOT))?;
     let mut stamped: Vec<String> = ["tools/index.html", "sitemap.xml", "index.html", "llms.txt"]
         .map(str::to_owned)
