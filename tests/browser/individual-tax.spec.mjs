@@ -11,7 +11,8 @@ const CALCULATORS = { 'income-tax': '$510.00', 'take-home-pay': '$60,212.00', 's
   'salary-packaging': '$5,291.50', 'novated-lease': '$6,047.48',
   'super-projection': '$539,266.80', fhss: '$14,350.00', 'work-expenses': '$590.00',
   'government-super': '$500.00', 'transfer-balance': '$26.80', 'pension-minimum': '$30,000.00',
-  'residency-days': 'Met' };
+  'residency-days': 'Met', 'defined-benefit-income-cap': '$7,500.00',
+  'foreign-pension-upp': '$11,217.05', 'scholarship-exemption': 'Yes', 'super-crystallisation': '$178,873.84' };
 
 test.describe('before any script runs', () => {
   test.use({ javaScriptEnabled: false });
@@ -46,13 +47,14 @@ for (const id of Object.keys(CALCULATORS)) {
       await form.locator('#fhss-debt-offset').fill('0');
     }
     if (id === 'work-expenses') await form.locator('#work-expenses-scope').selectOption('yes');
-    await form.getByRole('button', { name: 'Calculate', exact: true }).click();
+    await form.getByRole('button', { name: id === 'scholarship-exemption' ? 'Check' : 'Calculate', exact: true }).click();
     await expect(output.locator('.result-example')).toHaveCount(0);
     expect(await output.evaluate((element) => element.textContent)).toBe(example);
     await page.reload();
     await waitForCalculator(form);
     if (id === 'residency-days') await form.locator('input[type=date]').first().fill('2025-07-02');
-    else await form.locator('input[type=number]').first().fill('1');
+    else if (id === 'scholarship-exemption') await form.locator('input[name=full-time][value=no]').check();
+    else await form.locator('input[type=number], input[inputmode=decimal]').first().fill('1');
     await expect(output).toHaveText('Enter the inputs and calculate.');
   });
 }

@@ -4,10 +4,14 @@
 // Compile only. Runtime validation and rounding have separate Node tests.
 import * as calculate from '../../assets/business-calculators.mjs';
 import {
-  calculatorTools, fhssTools, governmentSuperTools, individualTaxTools, pensionMinimumTools, residencyDaysTools, transferBalanceTools,
+  calculatorTools, fhssTools, governmentSuperTools, individualTaxTools, pensionMinimumTools, residencyDaysTools, crystallisationTools, dbIncomeCapTools, foreignPensionTools, scholarshipTools, transferBalanceTools,
   workExpensesTools,
 } from '../../assets/webmcp-tools.mjs';
 import { MAX_PERIODS, RESIDENCY_YEARS, residencyDays } from '../../assets/residency-days.mjs';
+import { DB_INCOME_CAP_YEARS, definedBenefitIncomeCap } from '../../assets/defined-benefit-income-cap.mjs';
+import { FOREIGN_PENSION_YEARS, foreignPensionUpp } from '../../assets/foreign-pension-upp.mjs';
+import { COMMONWEALTH_PAYMENTS, PAYMENT_TYPES, SCHOLARSHIP_YEARS, scholarshipExemption } from '../../assets/scholarship-exemption.mjs';
+import { superCrystallisation } from '../../assets/super-crystallisation.mjs';
 import { PENSION_MINIMUM_YEARS, pensionMinimum } from '../../assets/pension-minimum.mjs';
 import {
   ATO_TABLE_5, CHARGE_YEARS, RELEASE_YEARS, TBA_KINDS, TBA_YEARS, dayOf, excessContributions, label, transferBalance,
@@ -636,3 +640,12 @@ calculate.casualOvertime({ ...coInput, lines: [{ hours: '3', percent: '175', ove
 // @ts-expect-error Rates and hours are decimal text, not numbers.
 calculate.casualOvertime({ ...coInput, base_rate: 30 });
 void coSuper;
+
+const s10 = { ...dbIncomeCapTools({ DB_INCOME_CAP_YEARS, definedBenefitIncomeCap }), ...foreignPensionTools({ FOREIGN_PENSION_YEARS, foreignPensionUpp }),
+  ...scholarshipTools({ SCHOLARSHIP_YEARS, PAYMENT_TYPES, COMMONWEALTH_PAYMENTS, scholarshipExemption }), ...crystallisationTools({ superCrystallisation }) };
+void s10['defined-benefit-income-cap'].execute({ incomeYear: '2025-26', taxFreeAndTaxed: '1', untaxed: '0', otherDefinedBenefitIncome: '0' });
+void s10['super-crystallisation'].execute({ eligibleServiceStart: '1980-01-01', interestValue: '1', concessionalComponent: '0', postJune1994InvalidityComponent: '0', cgtExemptComponent: '0', undeductedContributions: '0' });
+// @ts-expect-error dbIncomeCapTools requires the years alongside the engine.
+dbIncomeCapTools({ definedBenefitIncomeCap });
+// @ts-expect-error scholarshipTools requires the payment lists.
+scholarshipTools({ SCHOLARSHIP_YEARS, scholarshipExemption });

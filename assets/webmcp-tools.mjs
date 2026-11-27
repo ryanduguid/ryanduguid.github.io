@@ -16,6 +16,10 @@ import {
 } from './webmcp-individual-more.mjs';
 import { pensionMinimumTool, transferBalanceTool } from './webmcp-individual-retirement.mjs';
 import { residencyDaysTool } from './webmcp-individual-residency.mjs';
+import { dbIncomeCapTool } from './webmcp-individual-db-income-cap.mjs';
+import { foreignPensionTool } from './webmcp-individual-foreign-pension.mjs';
+import { scholarshipTool } from './webmcp-individual-scholarship.mjs';
+import { crystallisationTool } from './webmcp-individual-crystallisation.mjs';
 
 // WebMCP tool descriptors for the site's calculators. Each tool calls the same module
 // function as its page's form, reads nothing from the form and sends nothing anywhere.
@@ -1032,6 +1036,38 @@ export function transferBalanceTools(engine) {
  */
 export function residencyDaysTools(engine) {
   return { 'residency-days': residencyDaysTool(TOOL_KIT, engine) };
+}
+
+/**
+ * WebMCP descriptor for the defined benefit income cap.
+ * @param {import('./webmcp-individual-db-income-cap.mjs').DbIncomeCapEngine} engine
+ */
+export function dbIncomeCapTools(engine) {
+  return { 'defined-benefit-income-cap': dbIncomeCapTool(TOOL_KIT, engine) };
+}
+
+/**
+ * WebMCP descriptor for the foreign pension undeducted purchase price.
+ * @param {import('./webmcp-individual-foreign-pension.mjs').ForeignPensionEngine} engine
+ */
+export function foreignPensionTools(engine) {
+  return { 'foreign-pension-upp': foreignPensionTool(TOOL_KIT, engine) };
+}
+
+/**
+ * WebMCP descriptor for the scholarship exemption check.
+ * @param {import('./webmcp-individual-scholarship.mjs').ScholarshipEngine} engine
+ */
+export function scholarshipTools(engine) {
+  return { 'scholarship-exemption': scholarshipTool(TOOL_KIT, engine) };
+}
+
+/**
+ * WebMCP descriptor for super crystallisation at 30 June 2007.
+ * @param {import('./webmcp-individual-crystallisation.mjs').CrystallisationEngine} engine
+ */
+export function crystallisationTools(engine) {
+  return { 'super-crystallisation': crystallisationTool(TOOL_KIT, engine) };
 }
 
 /** The WebMCP descriptor for the income tax estimate.

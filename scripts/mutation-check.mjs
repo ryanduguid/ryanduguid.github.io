@@ -49,6 +49,11 @@ const excess = { ...tba, file: 'assets/excess-contributions.mjs' };
 const tbaPage = { ...tba, file: 'assets/transfer-balance-result.mjs' };
 const pm = { file: 'assets/pension-minimum.mjs', test: 'scripts/pension-minimum.test.mjs' };
 const rd = { file: 'assets/residency-days.mjs', test: 'scripts/residency-days.test.mjs' };
+const dbCap = { file: 'assets/defined-benefit-income-cap.mjs', test: 'scripts/defined-benefit-income-cap.test.mjs' };
+const fpUpp = { file: 'assets/foreign-pension-upp.mjs', test: 'scripts/foreign-pension-upp.test.mjs' };
+const schol = { file: 'assets/scholarship-exemption.mjs', test: 'scripts/scholarship-exemption.test.mjs' };
+const cryst = { file: 'assets/super-crystallisation.mjs', test: 'scripts/super-crystallisation.test.mjs' };
+const args = { file: 'assets/command-args.mjs', test: 'scripts/command-args.test.mjs' };
 const money = { ...business, file: 'assets/money.mjs' };
 const division296 = { ...business, file: 'assets/division-296.mjs' };
 const div7a = { ...business, file: 'assets/div7a.mjs' };
@@ -1404,6 +1409,26 @@ const MUTATIONS = [
   { ...rd, name: 'residency scope not needed', find: "if (input.get('scope_confirmed') !== true) refuse", replace: 'if (false) refuse' },
   { ...rd, name: 'residency form blank departure is 29 June', find: '`${start + 1}-06-30`', replace: '`${start + 1}-06-29`' },
   { ...rd, name: 'residency page principal is the count', find: 'rows: table, principal: 3, note', replace: 'rows: table, principal: 0, note' },
+  { ...dbCap, name: 'DB cap not rounded up', find: 'days)))), true)', replace: 'days)))), false)' },
+  { ...dbCap, name: 'DB cap pro-rating drops the first day', find: 'add(exact(1n), exact(BigInt(after)))', replace: 'exact(BigInt(after))' },
+  { ...dbCap, name: 'DB cap not reduced by other income', find: 'max(exact(0n), sub(unreduced, other))', replace: 'unreduced' },
+  { ...dbCap, name: 'DB assessable at the whole excess', find: "['assessable_income', mul(excess, exact(1n, 2n))]", replace: "['assessable_income', excess]" },
+  { ...dbCap, name: 'DB offset reduction leaves out untaxed elements', find: 'sub(add(taxed, untaxed), cap)', replace: 'sub(taxed, cap)' },
+  { ...dbCap, name: 'DB 2025-26 cap from $1.9 million', find: "['2025-26', 2000000n]", replace: "['2025-26', 1900000n]" },
+  { ...fpUpp, name: 'UPP residual value ignored', find: 'div(mul(share, sub(price, residual)), years)', replace: 'div(mul(share, price), years)' },
+  { ...fpUpp, name: 'UPP excluded amount not capped at the pension', find: 'const excluded = min(first.value, annuity);', replace: 'const excluded = first.value;' },
+  { ...fpUpp, name: 'UPP share ignored', find: "if (total === undefined) return exact(1n);", replace: 'return exact(1n);' },
+  { ...fpUpp, name: 'UPP UK rate 10%', find: 'exact(8n, 100n)', replace: 'exact(10n, 100n)' },
+  { ...fpUpp, name: 'UPP Dutch rate 20%', find: 'mul(annuity, exact(1n, 4n))', replace: 'mul(annuity, exact(1n, 5n))' },
+  { ...fpUpp, name: 'UPP commuted allowed', find: "if (flag(input.get('commuted'), 'commuted')) refuse", replace: "if (false) refuse" },
+  { ...schol, name: 'Scholarship employment condition ignored', find: 'const met = [facts[0], !facts[1], !facts[2], facts[3]];', replace: 'const met = [facts[0], true, !facts[2], facts[3]];' },
+  { ...schol, name: 'Scholarship full-time test ignored', find: 'const met = [facts[0], !facts[1], !facts[2], facts[3]];', replace: 'const met = [true, !facts[1], !facts[2], facts[3]];' },
+  { ...schol, name: 'Scholarship Commonwealth payment allowed', find: "if (commonwealth !== 'none') refuse", replace: 'if (false) refuse' },
+  { ...cryst, name: 'Crystallisation 30 June 1983 left out', find: 'Math.max(0, BEFORE - start + 1)', replace: 'Math.max(0, BEFORE - start)' },
+  { ...cryst, name: 'Crystallisation lesser test dropped', find: 'const chosen = min(byDays, sub(base, undeducted));', replace: 'const chosen = byDays;' },
+  { ...cryst, name: 'Crystallisation CGT exempt left in the base', find: 'const base = sub(sub(sub(value, concessional), invalidity), cgt);', replace: 'const base = sub(sub(value, concessional), invalidity);' },
+  { ...cryst, name: 'Crystallisation undeducted left out of the segment', find: 'add(add(add(add(concessional, invalidity), undeducted), cgt), pre)', replace: 'add(add(add(concessional, invalidity), cgt), pre)' },
+  { ...args, name: 'Decimal steps keep 41 digits', find: 'if (top / bottom >= ten(40))', replace: 'if (top / bottom >= ten(41))' },
 ];
 
 // Runs that must read as invalid, not as caught.
@@ -1431,6 +1456,11 @@ const SHARED = [
   'scripts/transfer-balance-engine-differential.json',
   'scripts/pension-minimum-engine-differential.json',
   'scripts/residency-days-engine-differential.json',
+  'scripts/defined-benefit-income-cap-engine-differential.json',
+  'scripts/foreign-pension-upp-engine-differential.json',
+  'scripts/scholarship-exemption-engine-differential.json',
+  'scripts/super-crystallisation-engine-differential.json',
+  'scripts/super-income-cases.mjs',
   'scripts/concessional-catch-up-engine-differential.json',
   'scripts/unused-leave-engine-differential.json',
   'scripts/franking-account-engine-differential.json',
@@ -1454,7 +1484,7 @@ const SHARED = [
 
 const TEST_FILES = [
   levy.test, business.test, individualTest,
-  'scripts/fhss.test.mjs', 'scripts/work-expenses.test.mjs', 'scripts/government-super-amounts.test.mjs', swh.test, tba.test, pm.test, rd.test,
+  'scripts/fhss.test.mjs', 'scripts/work-expenses.test.mjs', 'scripts/government-super-amounts.test.mjs', swh.test, tba.test, pm.test, rd.test, dbCap.test, fpUpp.test, schol.test, cryst.test, args.test,
   'scripts/net-medical-expenses.test.mjs',
   'scripts/foreign-income.test.mjs',
   'scripts/minors-income.test.mjs',

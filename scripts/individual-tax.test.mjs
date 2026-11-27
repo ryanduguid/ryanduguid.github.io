@@ -36,6 +36,16 @@ import { pensionMinimum, pensionMinimumFormInput, pensionMinimumResult } from '.
 import './pension-minimum.test.mjs';
 import { residencyDays, residencyDaysResult, residencyFormPresence } from '../assets/residency-days.mjs';
 import './residency-days.test.mjs';
+import { ENGINES as SUPER_ENGINES, FORM_CALLS as SUPER_FORM_CALLS, INPUTS as SUPER_INPUTS, OUTPUTS as SUPER_OUTPUTS } from './super-income-cases.mjs';
+import { dbIncomeCapResult } from '../assets/defined-benefit-income-cap.mjs';
+import { foreignPensionResult } from '../assets/foreign-pension-upp.mjs';
+import { scholarshipResult } from '../assets/scholarship-exemption.mjs';
+import { crystallisationResult } from '../assets/super-crystallisation.mjs';
+import './command-args.test.mjs';
+import './defined-benefit-income-cap.test.mjs';
+import './foreign-pension-upp.test.mjs';
+import './scholarship-exemption.test.mjs';
+import './super-crystallisation.test.mjs';
 import { foreignIncomeFixture, foreignIncomeFormTests } from './foreign-income.test.mjs';
 import { minorsFixture, minorsFormTests } from './minors-income.test.mjs';
 import { nonCommercialFixture, nonCommercialFormTests } from './non-commercial-losses.test.mjs';
@@ -53,6 +63,7 @@ const engines = { taxEstimate, takeHomePay, studyLoanRepayment, soleTraderSetAsi
     const r = residencyDays(...call);
     return { days_in_australia: r.tests.days_in_australia, days_needed: r.tests.days_needed, exception_applies: r.visitor, days_183: r.tests.days_183 };
   } };
+Object.assign(engines, SUPER_ENGINES);
 const shownCases = JSON.parse(readFileSync(new URL('../_data/individual_tax_cases.json', import.meta.url), 'utf8'));
 const dollars = (value) => `$${Number(value).toLocaleString('en-AU', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
 const whole = (value) => `$${Number(value).toLocaleString('en-AU')}`;
@@ -156,6 +167,7 @@ const INPUTS = {
     + c.earlier.map((r) => `${r.year} ${dollars(r.contributions)}${r.balance === undefined ? '' : ` at ${dollars(r.balance)}`}`)
       .join(', '),
 };
+Object.assign(INPUTS, SUPER_INPUTS);
 const OUTPUTS = {
   workExpenses: (r) => ({
     home_office: () => `${r.methodsAvailable.map((m) => `${HOME_OUTPUT[m]} ${dollars(r.amounts[`${m}_method`])}`).join(', ').replace(/^./, (c) => c.toUpperCase())}; `
@@ -246,6 +258,7 @@ const formDefaults = (html) => {
   }
   return fields;
 };
+Object.assign(OUTPUTS, SUPER_OUTPUTS);
 // How assets/individual-tax-results.mjs passes each form's fields to its engine.
 const fhssExampleFields = fields => ({ ...fields, scope: 'yes', 'withholding-basis': 'unable', 'debt-offset': '0', transition: '' });
 const FORM_CALLS = {
@@ -299,6 +312,7 @@ const FORM_CALLS = {
     earlier: Object.keys(CAP).sort().filter((year) => f[`contributions-${year}`]).map((year) => ({ year,
       contributions: f[`contributions-${year}`], ...(f[`balance-${year}`] ? { balance: f[`balance-${year}`] } : {}) })) }],
 };
+Object.assign(FORM_CALLS, SUPER_FORM_CALLS);
 for (const [page, { function: name, rows: [first] }] of Object.entries(shownCases)) {
   test(`${page} opens on its first boundary case as the worked example`, () => {
     const html = readFileSync(new URL(`../_includes/calculators/${page}.html`, import.meta.url), 'utf8');
@@ -737,6 +751,10 @@ for (const page of Object.keys(shownCases)) {
       : page === 'transfer-balance' ? transferBalanceResult(value, aud)
       : page === 'pension-minimum' ? pensionMinimumResult(value, aud)
       : page === 'residency-days' ? residencyDaysResult(value)
+      : page === 'defined-benefit-income-cap' ? dbIncomeCapResult(value)
+      : page === 'foreign-pension-upp' ? foreignPensionResult(value)
+      : page === 'scholarship-exemption' ? scholarshipResult(value)
+      : page === 'super-crystallisation' ? crystallisationResult(value)
       : individualResult(page, value, aud);
     assert.equal(result.inputs, example[1]);
     assert.equal(result.rows.map((row) => row.join('|')).join(';'), example[2]);

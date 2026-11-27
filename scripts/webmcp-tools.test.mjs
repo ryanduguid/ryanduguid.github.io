@@ -8,7 +8,12 @@ import { readFileSync, readdirSync } from 'node:fs';
 import {
   calculatorTools, depreciationTools, fhssTools, governmentSuperTools, individualTaxTools, levyTools, ozzitTools,
   pensionMinimumTools, residencyDaysTools, transferBalanceTools, workExpensesTools,
+  crystallisationTools, dbIncomeCapTools, foreignPensionTools, scholarshipTools,
 } from '../assets/webmcp-tools.mjs';
+import { DB_INCOME_CAP_YEARS, definedBenefitIncomeCap } from '../assets/defined-benefit-income-cap.mjs';
+import { FOREIGN_PENSION_YEARS, foreignPensionUpp } from '../assets/foreign-pension-upp.mjs';
+import { COMMONWEALTH_PAYMENTS, PAYMENT_TYPES, SCHOLARSHIP_YEARS, scholarshipExemption } from '../assets/scholarship-exemption.mjs';
+import { superCrystallisation } from '../assets/super-crystallisation.mjs';
 import { engines as individualEngines } from '../assets/individual-tax-results.mjs';
 import { fhss } from '../assets/fhss-result.mjs';
 import { workExpenses, workExpensesYears } from '../assets/work-expenses-result.mjs';
@@ -465,6 +470,10 @@ const individual = {
   ...pensionMinimumTools({ pensionMinimum, PENSION_MINIMUM_YEARS }),
   ...transferBalanceTools({ ATO_TABLE_5, CHARGE_YEARS, RELEASE_YEARS, TBA_KINDS, TBA_YEARS, dayOf, excessContributions, label, transferBalance, yearOf }),
   ...residencyDaysTools({ MAX_PERIODS, RESIDENCY_YEARS, residencyDays }),
+  ...dbIncomeCapTools({ DB_INCOME_CAP_YEARS, definedBenefitIncomeCap }),
+  ...foreignPensionTools({ FOREIGN_PENSION_YEARS, foreignPensionUpp }),
+  ...scholarshipTools({ SCHOLARSHIP_YEARS, PAYMENT_TYPES, COMMONWEALTH_PAYMENTS, scholarshipExemption }),
+  ...crystallisationTools({ superCrystallisation }),
 };
 
 test('each individual tax tool is keyed by the form that registers it and is read-only', () => {
@@ -474,7 +483,8 @@ test('each individual tax tool is keyed by the form that registers it and is rea
     'calculate_concessional_catch_up', 'calculate_bonus_withholding', 'calculate_salary_packaging',
     'calculate_novated_lease', 'calculate_fhss_release', 'calculate_work_expenses',
     'calculate_government_super_amounts', 'calculate_pension_minimum', 'calculate_transfer_balance',
-    'calculate_residency_days']);
+    'calculate_residency_days', 'calculate_defined_benefit_income_cap', 'calculate_foreign_pension_upp',
+    'check_scholarship_exemption', 'calculate_super_crystallisation']);
   for (const [key, t] of Object.entries(individual)) {
     const form = readFileSync(new URL(`../_includes/calculators/${key}.html`, import.meta.url), 'utf8');
     assert.ok(form.includes(`<form class="calculator-split" data-calculator="${key}">`), key);
@@ -482,7 +492,7 @@ test('each individual tax tool is keyed by the form that registers it and is rea
     assert.equal(t.inputSchema.additionalProperties, false, t.name);
     for (const name of t.inputSchema.required) assert.ok(name in t.inputSchema.properties, `${t.name} ${name}`);
     // A day count has no money in it.
-    if (t.name !== 'calculate_residency_days') assert.match(t.description, /\bAUD\b/, t.name);
+    if (!['calculate_residency_days', 'check_scholarship_exemption'].includes(t.name)) assert.match(t.description, /\bAUD\b/, t.name);
     assert.match(t.description, / General information only, not advice\.$/, t.name);
   }
 });
@@ -2330,4 +2340,40 @@ test('trust streaming tool returns the ATO Lang Trust example and the trustee’
     /kind does not match/);
   await assert.rejects(tool.execute({ otherTrustIncome: '100', otherNetIncome: '100', beneficiaries: [{ kind: 'individual', presentEntitlement: '101' }] }),
     /cannot exceed the trust/);
+});
+
+test('defined benefit income cap tool works the cap, the excess and the reduced offset', async () => {
+  const r = await individual['defined-benefit-income-cap'].execute({ incomeYear: '2025-26', taxFreeAndTaxed: '140000', untaxed: '20000', otherDefinedBenefitIncome: '0' });
+  assert.deepEqual([r.cap, r.assessableIncome, r.untaxedOffsetBeforeReduction, r.offsetReduction, r.untaxedOffset], ['125000.00', '7500.00', '2000.00', '3500.00', '0.00']);
+  const late = await individual['defined-benefit-income-cap'].execute({ incomeYear: '2023-24', taxFreeAndTaxed: '0', untaxed: '0', otherDefinedBenefitIncome: '0', firstDay: '2024-01-01' });
+  assert.equal(late.cap, '59051.00');
+  await assert.rejects(individual['defined-benefit-income-cap'].execute({ incomeYear: '2025-26', taxFreeAndTaxed: '1', untaxed: '0', otherDefinedBenefitIncome: '0', firstDay: '2024-07-01' }), /first day in 2025-26/);
+});
+
+test('foreign pension tool works s 27H, the UK and Dutch rates and refuses a commuted annuity', async () => {
+  const tool = individual['foreign-pension-upp'];
+  const r = await tool.execute({ incomeYear: '2025-26', method: 'formula', annuityDerived: '15000', undeductedPurchasePrice: '100000', residualCapitalValue: '20000',
+    relevantNumberBasis: 'term_years', relevantNumber: '10', commuted: false, wholeYear: true });
+  assert.deepEqual([r.deductibleAmount, r.assessableAmount], ['8000.00', '7000.00']);
+  assert.equal((await tool.execute({ incomeYear: '2025-26', method: 'uk_state_pension', annuityDerived: '12000', ukCategory: 'b_widow' })).deductibleAmount, '960.00');
+  assert.equal((await tool.execute({ incomeYear: '2025-26', method: 'dutch_svb_fallback', annuityDerived: '8000' })).deductibleAmount, '2000.00');
+  await assert.rejects(tool.execute({ incomeYear: '2025-26', method: 'formula', annuityDerived: '15000', undeductedPurchasePrice: '100000', residualCapitalValue: '0',
+    relevantNumberBasis: 'term_years', relevantNumber: '10', commuted: true, wholeYear: true }), /commuted/);
+  await assert.rejects(tool.execute({ incomeYear: '2024-25', method: 'dutch_svb_fallback', annuityDerived: '8000' }), /2025-26 only/);
+});
+
+test('scholarship tool applies item 2.1A and the s 51-35 exceptions and refuses Commonwealth payments', async () => {
+  const tool = individual['scholarship-exemption'];
+  const facts = { incomeYear: '2025-26', paymentType: 'scholarship', fullTimeStudent: true, employmentCondition: false, labourContractCondition: false, principallyEducational: true };
+  assert.equal((await tool.execute(facts)).exempt, true);
+  assert.deepEqual((await tool.execute({ ...facts, employmentCondition: true })).conditionsNotMet, ['no_employment_condition']);
+  await assert.rejects(tool.execute({ ...facts, commonwealthPayment: 'education_or_training_payment' }), /Austudy/);
+});
+
+test('crystallisation tool works the pre-July 83 component and the crystallised segment', async () => {
+  const r = await individual['super-crystallisation'].execute({ eligibleServiceStart: '1975-03-01', interestValue: '500000', concessionalComponent: '0',
+    postJune1994InvalidityComponent: '0', cgtExemptComponent: '0', undeductedContributions: '50000' });
+  assert.deepEqual([r.preJuly83Component, r.crystallisedSegment, r.taxableComponent, r.serviceDays, r.preJuly1983Days], ['128873.84', '178873.84', '321126.16', 11810, 3044]);
+  await assert.rejects(individual['super-crystallisation'].execute({ eligibleServiceStart: '1975-03-01', interestValue: '1', concessionalComponent: '0',
+    postJune1994InvalidityComponent: '0', cgtExemptComponent: '0', undeductedContributions: '0', untaxedSource: true }), /untaxed source/);
 });
