@@ -11,6 +11,8 @@ import {
 } from './command-args.mjs';
 import { formAmount, formMoney } from './form-amount.mjs';
 
+/** @typedef {import('./command-args.mjs').Exact} Exact */
+
 export const DB_INCOME_CAP_YEARS = ['2017-18', '2018-19', '2019-20', '2020-21', '2021-22', '2022-23', '2023-24', '2024-25', '2025-26', '2026-27'];
 
 /** s 294-35(3): the general transfer balance cap for each year (the ATO's transfer balance cap page). */
@@ -45,6 +47,19 @@ function capSteps(general, after, days, other) {
   return [unreduced, max(exact(0n), sub(unreduced, other))];
 }
 
+/** The amounts over the cap and the untaxed element offset. @param {Exact} taxed @param {Exact} untaxed @param {Exact} cap @param {Exact} unreduced */
+function amountsFor(taxed, untaxed, cap, unreduced) {
+  const tenth = exact(1n, 10n);
+  const excess = max(exact(0n), sub(taxed, cap));
+  const offset = mul(untaxed, tenth);
+  const reduction = mul(max(exact(0n), sub(add(taxed, untaxed), cap)), tenth);
+  return amountsOf([
+    ['unreduced_cap', unreduced], ['defined_benefit_income_cap', cap], ['excess_over_cap', excess],
+    ['assessable_income', mul(excess, exact(1n, 2n))], ['untaxed_offset_before_reduction', offset],
+    ['offset_reduction', reduction], ['untaxed_offset', max(exact(0n), sub(offset, reduction))],
+  ]);
+}
+
 /**
  * The command's result: { period, amounts, rates }, each amount to the cent.
  * @param {unknown} given the command's JSON input
@@ -58,15 +73,7 @@ export function definedBenefitIncomeCap(given) {
   const after = daysAfter(input, year, first, last);
   const general = /** @type {bigint} */ (GENERAL_CAP.get(year));
   const [unreduced, cap] = capSteps(general, after, days, other);
-  const tenth = exact(1n, 10n);
-  const excess = max(exact(0n), sub(taxed, cap));
-  const offset = mul(untaxed, tenth);
-  const reduction = mul(max(exact(0n), sub(add(taxed, untaxed), cap)), tenth);
-  const amounts = amountsOf([
-    ['unreduced_cap', unreduced], ['defined_benefit_income_cap', cap], ['excess_over_cap', excess],
-    ['assessable_income', mul(excess, exact(1n, 2n))], ['untaxed_offset_before_reduction', offset],
-    ['offset_reduction', reduction], ['untaxed_offset', max(exact(0n), sub(offset, reduction))],
-  ]);
+  const amounts = amountsFor(taxed, untaxed, cap, unreduced);
   /** @type {Record<string, string>} */
   const rates = { general_transfer_balance_cap: String(general), days_in_year: String(days) };
   if (after !== null) rates.days_after_first_day = String(after);

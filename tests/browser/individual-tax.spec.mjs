@@ -53,7 +53,8 @@ for (const id of Object.keys(CALCULATORS)) {
     await page.reload();
     await waitForCalculator(form);
     if (id === 'residency-days') await form.locator('input[type=date]').first().fill('2025-07-02');
-    else await form.locator('input[type=number]').first().fill('1');
+    else if (id === 'scholarship-exemption') await form.locator('input[name=full-time][value=no]').check();
+    else await form.locator('input[type=number], input[inputmode=decimal]').first().fill('1');
     await expect(output).toHaveText('Enter the inputs and calculate.');
   });
 }
