@@ -47,7 +47,7 @@ for (const id of Object.keys(CALCULATORS)) {
       await form.locator('#fhss-debt-offset').fill('0');
     }
     if (id === 'work-expenses') await form.locator('#work-expenses-scope').selectOption('yes');
-    await form.getByRole('button', { name: 'Calculate', exact: true }).click();
+    await form.getByRole('button', { name: id === 'scholarship-exemption' ? 'Check' : 'Calculate', exact: true }).click();
     await expect(output.locator('.result-example')).toHaveCount(0);
     expect(await output.evaluate((element) => element.textContent)).toBe(example);
     await page.reload();
