@@ -8,6 +8,20 @@
   <updated>2026-11-27T00:00:00Z</updated>
   <author><name>Ryan Duguid</name></author>
   <entry>
+    <title>A new business calculator, the DGR and charity endorsement review, works…</title>
+    <link href="https://duguid.com.au/changelog/#entry-dce8435346d2696c" />
+    <id>https://duguid.com.au/changelog/#entry-dce8435346d2696c</id>
+    <updated>2026-11-27T00:00:00Z</updated>
+    <summary>A new business calculator, the DGR and charity endorsement review, works through the ATO’s 3 endorsement review worksheets for a deductible gift recipient or an income tax exempt charity and says whether the entity is still entitled, needs to act or is no longer entitled, with the provision behind each answer and the notice the law requires. It checks nothing against a register, and agrees with the australian-accounting endorsement-review command on 107 cases.</summary>
+  </entry>
+  <entry>
+    <title>A new business calculator, the ABN and ACN check digit checker, applies the…</title>
+    <link href="https://duguid.com.au/changelog/#entry-3d25a2007fa5c769" />
+    <id>https://duguid.com.au/changelog/#entry-3d25a2007fa5c769</id>
+    <updated>2026-11-27T00:00:00Z</updated>
+    <summary>A new business calculator, the ABN and ACN check digit checker, applies the published check digit test of ABN Lookup or ASIC to the digits entered. It checks the format only: it calls no register, and a valid check digit does not show that the number was issued, is active or is registered for GST. It agrees with the australian-accounting identifier checks on 13,512 cases.</summary>
+  </entry>
+  <entry>
     <title>The depreciation register distinguishes assets with the same name, shows the…</title>
     <link href="https://duguid.com.au/changelog/#entry-812e9c722d31e872" />
     <id>https://duguid.com.au/changelog/#entry-812e9c722d31e872</id>
