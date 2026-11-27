@@ -161,6 +161,16 @@ test('a lease residual is paid with GST and claimed back in the comparison', () 
   assert.deepEqual([residual.cash - without.cash, residual.credits - without.credits, residual.taxValue], [11000, 1000, 10000]);
 });
 
+test('early payment and overpayment interest refuse a day before the base interest rates begin', () => {
+  const { cases } = JSON.parse(readFileSync('scripts/ato-penalties-interest-engine-differential.json', 'utf8'));
+  const call = (question) => cases.find((c) => !c.refused && c.call.question === question).call;
+  const refusal = { code: 'ato_interest_penalties.rate_unpublished',
+    message: 'No base interest rate is published for 1 January 1998: the rates run from 1 July 1999 to 31 December 2026.' };
+  assert.throws(() => calculations.atoPenaltiesInterest({ ...call('early_payment_interest'), paid_on: '1998-01-01', notice_issued: '1998-01-01' }), refusal);
+  assert.throws(() => calculations.atoPenaltiesInterest({ ...call('overpayment_interest'), payments: [{ paid_on: '1998-01-01', amount: '5000' }],
+    notice_issued: '1998-01-01' }), refusal);
+});
+
 test('deferred tax refuses a decimal of more than 8,192 bytes', () => {
   const { cases } = JSON.parse(readFileSync('scripts/deferred-tax-engine-differential.json', 'utf8'));
   const { call } = cases.find((c) => !c.refused);
