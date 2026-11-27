@@ -1678,6 +1678,39 @@ test('PSI counts the rows of one payer as one source and one unrelated client', 
   }
 });
 
+// Paragraph 87-20(1)(a) and the client labels of australian-accounting #930 (psi_test.clients_invalid and
+// psi_test.clients_needed): the command's rules, over the rows with PSI.
+test('PSI client labels count unrelated clients apart from payers, on every row or none', () => {
+  const row = (amount, fields) => ({ ...psiPayer(amount, 'offer'), ...fields });
+  // 2 payers that are each an associate of a third share its payer, but are 2 clients.
+  const two = psi({ payers: [row('40', { client: 'A' }), row('30', { same: 1, client: 'B' }), row('30', { same: 1, client: 'B' })] });
+  assert.deepEqual([two.source, two.unrelated], [100, 2]);
+  const apart = psi({ payers: [row('50', { client: 'A' }), row('25', { same: 1, client: 'B' }), row('25', { client: 'C' })] });
+  assert.deepEqual([apart.unrelated, apart.rule], [3, 'section 87-20']);
+  // Without labels, 2 rows of one payer won by offers decide nothing until labelled.
+  const message = /^The unrelated clients test decides the outcome/;
+  assert.throws(() => psi({ payers: [row('50'), row('25', { same: 1 }), psiPayer('25')] }), { message });
+  // Another test met, or 80% from one payer, settles it without labels.
+  assert.equal(psi({ payers: [row('50'), row('25', { same: 1 }), psiPayer('25')], apprentice: true }).rule, 'section 87-25');
+  assert.equal(psi({ payers: [row('50'), row('25', { same: 1 }), psiPayer('25')], premises: ALL_PREMISES }).rule, 'section 87-30');
+  assert.equal(psi({ payers: [row('80'), row('20', { same: 1 })] }).rule, 'subsection 87-15(3)');
+  // One row won by an offer is not the case the labels settle.
+  assert.equal(psi({ payers: [row('50'), psiPayer('50', 'associate')] }).rule, 'subsection 87-15(1)');
+  assert.throws(() => psi({ payers: [row('50', { client: 'A' }), row('50')] }),
+    { message: 'Give every payer a client label for the unrelated clients test, or none.' });
+  // A blank row is not a payer, so it needs no label.
+  assert.equal(psi({ payers: [row('50', { client: 'A' }), row('50', { client: 'B' })] }).unrelated, 2);
+  assert.throws(() => psi({ payers: [row('50', { client: 'A' }), row('50', { client: 'A' })] }),
+    { message: 'Payer 2: rows with one client label are one entity or its associates, so they are the same payer.' });
+  for (const client of ['', 'x'.repeat(101), 7]) {
+    assert.throws(() => psi({ payers: [row('50', { client })] }), { message: 'Payer 1: a client label is 1 to 100 characters.' });
+  }
+  assert.equal(psi({ payers: [row('100', { client: '😀'.repeat(100) })] }).unrelated, 1);
+  // The labels are checked before the earlier steps can stop, as the command checks its payers.
+  assert.throws(() => psi({ mainly: false, payers: [row('50', { client: 'A' }), row('50')] }),
+    { message: 'Give every payer a client label for the unrelated clients test, or none.' });
+});
+
 test('PSI checks an agent’s payments before any outcome, and the 75% rule after the results test', () => {
   const agent = (fields) => psi({ agent: true, commission: '100.01', principal: '100', payers: [psiPayer('100')], ...fields });
   const message = 'Enter the principal’s payments and the part of them that is commission or performance fees.';
@@ -1702,8 +1735,14 @@ test('PSI form passes a row’s payer to the steps and the inputs line', () => {
   // Subsection 85-35(2) covers only payments section 12-47 of Schedule 1 to the TAA 1953 describes.
   assert.match(html, /<input type="radio" name="earner" value="religious" \/> The individual, as a religious practitioner paid by an enterprise for work in their vocation as a member of a religious institution</);
   assert.match(html, /done as a member of a religious institution \(subsection 85-35\(2\) and section 12-47 of Schedule 1 to the Taxation Administration Act 1953\); check any other PSI they earn as a contractor\./);
-  // Linked rows are one payer for section 87-20 too, which can only understate unrelated clients.
-  assert.match(html, /2 payers that are each an associate of a third, but not of each other, count once there; that can only make the test harder to pass\./);
+  // Linked rows are one payer for section 87-20 unless every payer with PSI has a client label.
+  assert.match(html, /so 2 payers that are each an associate of a third, but not of each other, can count as 2 clients \(paragraph 87-20\(1\)\(a\)\)\./);
+  for (let row = 1; row <= 5; row++) assert.match(html, new RegExp(`<input name="client-${row}" type="text" maxlength="100"`));
+  const labelled = { ...formDefaults(html), 'amount-1': '40', 'offer-1': true, 'client-1': ' A ', 'amount-2': '30', 'offer-2': true,
+    'same-2': '1', 'client-2': 'B', 'amount-3': '30', 'client-3': 'C', 'result-1': false, 'tools-1': false, 'defects-1': false };
+  const clients = calculations.psiDeterminationResult((name) => labelled[name], (name) => labelled[name], String);
+  assert.match(clients.inputs, /payer 1 40, client A, ticked: won by a public offer; payer 2 30, same payer as payer 1, client B, ticked: won by a public offer;/);
+  assert.equal(clients.rows[0][1], `Section 87-20: ${PSB}`);
   const fields = { ...formDefaults(html), 'amount-1': '74', 'amount-2': '26', 'same-2': '1' };
   const view = calculations.psiDeterminationResult((name) => fields[name], (name) => fields[name], String);
   assert.match(view.inputs, /; payer 2 26, same payer as payer 1, ticked: none;/);
