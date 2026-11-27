@@ -1,9 +1,10 @@
 # Codecov reads this file from .github/, where Jekyll never publishes it. It
-# reports the site tools' Rust coverage and the calculator engines' Node
-# coverage together. The project floor is main's measured line coverage,
-# rounded down (96.80% on 27 November 2026: Rust 95.15%, engines 98.44%).
-# Raise it with the tests until it reaches 100%, never lower it to pass. Every
-# change must test each line it adds or changes. Codecov posts no comments.
+# reports the site tools' Rust coverage, the calculator engines' Node coverage
+# and the Coal LSL levy service's Node coverage together. The project floor is
+# main's measured line coverage, rounded down (96.80% on 27 November 2026:
+# Rust 95.15%, engines 98.44%). Raise it with the tests until it reaches 100%,
+# never lower it to pass. Every change must test each line it adds or changes.
+# Codecov posts no comments.
 coverage:
   round: down
   status:
@@ -12,6 +13,11 @@ coverage:
         target: 96%
         threshold: 0%
         if_not_found: failure
+      # Each flag is one upload in checks.yml's codecov job.
+      coal-lsl-service:
+        flags: [coal-lsl-service]
+        target: 100%
+        threshold: 0%
     patch:
       default:
         target: 100%
