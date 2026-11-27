@@ -100,6 +100,7 @@ test('every calculator tool is read-only, refuses unknown inputs and has its own
     'calculate_land_tax', 'calculate_termination_payment', 'calculate_transfer_duty',
     'calculate_rd_tax_offset', 'calculate_gst_adjustments', 'calculate_deferred_tax', 'calculate_sole_trader_vs_company', 'calculate_trust_streaming',
     'calculate_casual_overtime_pay', 'calculate_contractor_employee', 'calculate_payday_super_cashflow', 'check_tax_invoice',
+    'calculate_portable_lsl_levy',
     'calculate_decline_in_value', 'calculate_coal_lsl_levy']);
   for (const t of all) {
     assert.equal(t.annotations.readOnlyHint, true, t.name);
@@ -1722,7 +1723,7 @@ test('every calculator include in _includes/calculators has a registered WebMCP 
     .sort();
   const registered = [...Object.keys(tools), ...Object.keys(individual)].sort();
   assert.deepEqual(registered, slugs);
-  assert.equal(registered.length + 2, 83);
+  assert.equal(registered.length + 2, 84);
 });
 
 test('business days tool returns the page worked example, matches holiday JSON and refuses mismatched or invalid inputs', async () => {
@@ -2325,4 +2326,19 @@ test('trust streaming tool returns the ATO Lang Trust example and the trustee’
     /kind does not match/);
   await assert.rejects(tool.execute({ otherTrustIncome: '100', otherNetIncome: '100', beneficiaries: [{ kind: 'individual', presentEntitlement: '101' }] }),
     /cannot exceed the trust/);
+});
+
+test('portable LSL levy tool returns the page example, the Queensland parts and refuses what the page refuses', async () => {
+  const tool = tools['portable-lsl-levy'];
+  const base = { incomeYear: '2026-27', jurisdiction: 'vic', scheme: 'community_services', ordinaryWages: '500000' };
+  const r = await tool.execute(base);
+  assert.deepEqual([r.levy, r.board, r.basis, r.rates.rate, r.source],
+    ['8250.00', 'Portable Long Service Authority (Victoria)', 'ordinary_wages', '0.0165', 'https://duguid.com.au/tools/business-calculators/portable-lsl-levy/']);
+  const qld = await tool.execute({ incomeYear: '2026-27', jurisdiction: 'qld', scheme: 'construction', projectCost: '200400', partialExemption: false });
+  assert.deepEqual([qld.levy, qld.amounts.whs_levy, qld.steps.length], ['1151.00', '250.00', 4]);
+  const tas = await tool.execute({ incomeYear: '2026-27', jurisdiction: 'tas', scheme: 'construction', ordinaryWages: '1000', paidOnTime: false });
+  assert.equal(tas.levy, '25.00');
+  await assert.rejects(tool.execute({ ...base, scheme: 'security', jurisdiction: 'nsw' }), /No portable long service leave scheme/);
+  await assert.rejects(tool.execute({ ...base, projectCost: '1' }), /project_cost does not apply/);
+  await assert.rejects(tool.execute({ ...base, extra: 1 }), /extra is not an input of this tool/);
 });

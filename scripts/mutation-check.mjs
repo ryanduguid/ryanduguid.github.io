@@ -77,6 +77,7 @@ const pools = { ...business, file: 'assets/depreciation-pools.mjs' };
 const rdOffset = { ...business, file: 'assets/rd-tax-offset.mjs' };
 const casualOt = { ...business, file: 'assets/casual-overtime.mjs' };
 const contractor = { ...business, file: 'assets/contractor-employee.mjs' };
+const plsl = { ...business, file: 'assets/portable-lsl-levy.mjs' };
 const invoice = { ...business, file: 'assets/tax-invoice.mjs' };
 const trustStream = { ...business, file: 'assets/trust-streaming.mjs' };
 const gstAdjustments = { ...business, file: 'assets/gst-adjustments.mjs' };
@@ -1162,6 +1163,15 @@ const MUTATIONS = [
   { ...rdOffset, name: 'R&D deduction amount not subtracted', find: 'const income = offset - adjusted[6] - deduction;', replace: 'const income = offset - adjusted[6];' },
   { ...rdOffset, name: 'R&D clawback income over the offset year rate', find: 'ratioCents((income < 0n ? -income : income), presentRate * 1000n)', replace: 'ratioCents((income < 0n ? -income : income), e.rate * 1000n)' },
   { ...rdOffset, name: 'R&D clawback below the threshold allowed', find: 'if (clawback !== 0n && e.notional - clawback < THRESHOLD) {', replace: 'if (false) {' },
+  { ...plsl, name: "Portable LSL NSW construction rate of 0.3%", find: "[d('250000'), d('0.0025')]", replace: "[d('250000'), d('0.003')]" },
+  { ...plsl, name: "Portable LSL NSW construction rounded half up", find: "quantize(mul(cost, applied), 0, 'down')", replace: "quantize(mul(cost, applied), 0, 'half-up')" },
+  { ...plsl, name: "Portable LSL 50 cents rounded up", find: "d('0.5')) > 0 ?", replace: "d('0.5')) >= 0 ?" },
+  { ...plsl, name: "Portable LSL Queensland levy due below $150,000", find: "cmp(cost, threshold) < 0 ? nil(id, below)", replace: "cmp(cost, threshold) <= 0 ? nil(id, below)" },
+  { ...plsl, name: "Portable LSL NT projects over $5 billion calculated", find: "if (cmp(cost, upper) > 0) {", replace: "if (cmp(cost, upper) > 1) {" },
+  { ...plsl, name: "Portable LSL Tasmania on-time rate of 2.5%", find: "? ['0.018', '1.8% discounted", replace: "? ['0.025', '1.8% discounted" },
+  { ...plsl, name: "Portable LSL wage levy rounded down", find: "value: quantize(mul(wages, applied), -2, 'half-up')", replace: "value: quantize(mul(wages, applied), -2, 'down')" },
+  { ...plsl, name: "Portable LSL Coal LSL fields accepted", find: "rejectPresent(v, COAL_FIELDS, context);", replace: "void COAL_FIELDS;" },
+  { ...plsl, name: "Portable LSL NSW community services 1.7% in 2025-26", find: "? ['0.013', '1.3% transitional", replace: "? ['0.017', '1.3% transitional" },
   { ...contractor, name: 'Contractor labour of exactly half counted as principally', find: 'const principally = 2 * labour > fee;', replace: 'const principally = 2 * labour >= fee;' },
   { ...contractor, name: 'Contractor right to delegate ignored', find: 'personal: !e.delegate,', replace: 'personal: true,' },
   { ...contractor, name: 'Contractor result contract ignored', find: 'notResult: !e.result,', replace: 'notResult: true,' },
@@ -1429,6 +1439,7 @@ const SHARED = [
   'scripts/rd-tax-offset-engine-differential.json',
   'scripts/gst-adjustments-engine-differential.json',
   'scripts/deferred-tax-engine-differential.json',
+  'scripts/portable-lsl-levy-engine-differential.json',
   'scripts/ato-penalties-interest-engine-differential.json',
   'scripts/borrowing-expenses-engine-differential.json',
   'scripts/wine-equalisation-tax-engine-differential.json',
