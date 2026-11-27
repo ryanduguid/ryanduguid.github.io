@@ -117,8 +117,8 @@ fn dtoa(d: f64, mode: u8, ndigits: usize) -> (String, i64) {
 }
 
 #[derive(Clone, Copy, Default)]
+// CPython's Py_DTSF_ADD_SIGN is never set here: format_float_internal adds the sign itself.
 struct FloatFlags {
-    add_sign: bool,
     add_dot_0: bool,
     alt: bool,
     no_neg_0: bool,
@@ -141,8 +141,6 @@ fn format_float_short(
         }
         if sign {
             out.push('-');
-        } else if flags.add_sign {
-            out.push('+');
         }
         out.push_str(match (d.is_nan(), upper) {
             (true, false) => "nan",
@@ -197,8 +195,6 @@ fn format_float_short(
     };
     if sign {
         out.push('-');
-    } else if flags.add_sign {
-        out.push('+');
     }
     let zeros = |n: i64| "0".repeat(n.max(0) as usize);
     if decpt <= 0 {
@@ -821,6 +817,16 @@ fn unknown_code(kind: char, value: &Json) -> String {
     }
 }
 
+/// `format(int, spec)`, `value` being the int or bool `int` came from.
+fn format_integer(int: &BigInt, value: &Json, spec: &str) -> Result<String> {
+    let format = parse_spec(value, spec, Some('d'), '>')?;
+    match format.kind.unwrap_or('d') {
+        'b' | 'c' | 'd' | 'o' | 'x' | 'X' | 'n' => format_int(int, &format),
+        'e' | 'E' | 'f' | 'F' | 'g' | 'G' | '%' => format_float(int_to_float(int)?, &format),
+        kind => Err(unknown_code(kind, value)),
+    }
+}
+
 /// `format(value, spec)` for a decoded value (str, int, float, bool, None, list, dict).
 pub fn format_value(value: &Json, spec: &str) -> Result<String> {
     if spec.is_empty() {
@@ -829,28 +835,14 @@ pub fn format_value(value: &Json, spec: &str) -> Result<String> {
     match value {
         Json::Str(s) => {
             let format = parse_spec(value, spec, Some('s'), '<')?;
-            match format.kind {
-                Some('s') => format_string(s, &format),
-                Some(kind) => Err(unknown_code(kind, value)),
-                None => unreachable!("default type"),
+            // parse_spec falls back to the default type, so the kind is always set.
+            match format.kind.unwrap_or('s') {
+                's' => format_string(s, &format),
+                kind => Err(unknown_code(kind, value)),
             }
         }
-        Json::Int(_) | Json::Bool(_) => {
-            let int = match value {
-                Json::Int(i) => i.clone(),
-                Json::Bool(b) => BigInt::from(u8::from(*b)),
-                _ => unreachable!(),
-            };
-            let format = parse_spec(value, spec, Some('d'), '>')?;
-            match format.kind {
-                Some('b' | 'c' | 'd' | 'o' | 'x' | 'X' | 'n') => format_int(&int, &format),
-                Some('e' | 'E' | 'f' | 'F' | 'g' | 'G' | '%') => {
-                    format_float(int_to_float(&int)?, &format)
-                }
-                Some(kind) => Err(unknown_code(kind, value)),
-                None => unreachable!("default type"),
-            }
-        }
+        Json::Int(i) => format_integer(i, value, spec),
+        Json::Bool(b) => format_integer(&BigInt::from(u8::from(*b)), value, spec),
         Json::Float(f) => {
             let format = parse_spec(value, spec, None, '>')?;
             match format.kind {
@@ -1395,5 +1387,28 @@ mod tests {
         ];
         assert_eq!(sum(&mixed).unwrap().repr(), "2.5");
         assert!(sum(&[Json::Str("x".into())]).is_err());
+    }
+
+    #[test]
+    fn zero_keeps_one_digit_in_every_float_presentation() {
+        for (value, spec, expected) in [
+            (0.0, ".2e", "0.00e+00"),
+            (0.0, "", "0.0"),
+            (-0.0, "g", "-0"),
+            (0.0, "+.1f", "+0.0"),
+            (f64::INFINITY, "+", "+inf"),
+        ] {
+            assert_eq!(f(Json::Float(value), spec), expected, "{value} {spec}");
+        }
+    }
+
+    #[test]
+    fn sum_counts_a_bool_as_an_int() {
+        let items = [
+            Json::Bool(true),
+            Json::Int(BigInt::from(2)),
+            Json::Bool(false),
+        ];
+        assert_eq!(sum(&items).unwrap().repr(), "3");
     }
 }

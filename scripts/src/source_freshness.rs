@@ -20,7 +20,7 @@ use std::process::{Command, Stdio};
 use std::sync::LazyLock;
 use std::time::Duration;
 
-const SITE_REPOSITORY: &str = "ryanduguid/ryanduguid.github.io";
+pub(crate) const SITE_REPOSITORY: &str = "ryanduguid/ryanduguid.github.io";
 const GH_TIMEOUT: Duration = Duration::from_secs(15);
 const RELEASE_FIELDS: &str = "map({tag_name, draft, prerelease, published_at})";
 const MONTHS: [&str; 12] = [
@@ -74,7 +74,7 @@ static RELEASE_LINK: LazyLock<Regex> = LazyLock::new(|| {
         r##"<a href="https://github\.com/([A-Za-z0-9_.-]+/[A-Za-z0-9_.-]+)/releases/tag/([^"#?]+)""##,
     )
 });
-static STABLE: LazyLock<Regex> = LazyLock::new(|| pattern(r"^[0-9]+\.[0-9]+\.[0-9]+$"));
+pub(crate) static STABLE: LazyLock<Regex> = LazyLock::new(|| pattern(r"^[0-9]+\.[0-9]+\.[0-9]+$"));
 static RELEASE_META: LazyLock<Regex> =
     LazyLock::new(|| pattern(r#"<p class="release-meta">((?s:.)*?)</p>"#));
 static LD_JSON: LazyLock<Regex> =
@@ -145,10 +145,8 @@ pub trait Host {
             }
         };
         check("build_feed --write", crate::feed::run(root, &write)?)?;
-        check(
-            "build_llms_full --write",
-            crate::llms_full::run(root, &write)?,
-        )?;
+        // build_llms_full --write exits 0 whenever it does not fail outright.
+        crate::llms_full::run(root, &write)?;
         check(
             "check_design --update-baseline",
             crate::check_design::run(root, &["--update-baseline".to_owned()])?,
@@ -583,9 +581,7 @@ pub fn stamp_tool_metadata(
             }
             let release =
                 release.ok_or("Cannot read properties of undefined (reading 'version')")?;
-            let Value::Object(fields) = entry else {
-                continue;
-            };
+            let fields = entry.as_object_mut().expect("only an object has a @type");
             for (key, value) in [
                 (
                     "@type",
@@ -800,7 +796,7 @@ pub fn build_calculator_revision(host: &mut dyn Host) -> Result<(Value, String),
     Ok(revisions.pop().expect("four revisions"))
 }
 
-fn parse_object(path: &Path) -> Result<Map<String, Value>, String> {
+pub(crate) fn parse_object(path: &Path) -> Result<Map<String, Value>, String> {
     match serde_json::from_str(&node::read(path)?).map_err(|e| e.to_string())? {
         Value::Object(map) => Ok(map),
         _ => Err(format!("{}: expected a JSON object", path.display())),
@@ -941,8 +937,24 @@ fn freshness(root: &Path, args: &[String], host: &mut dyn Host) -> Result<u8, St
         host.say(HELP.trim_end(), false);
         return Ok(0);
     }
+    let usage = HELP.lines().next().unwrap_or_default();
+    if args.first().is_some_and(|a| a == "--verify-tool-releases") {
+        let [_, base, changed @ ..] = args else {
+            return Err(format!(
+                "{usage}\nsite-tools stamp_source_freshness: error: --verify-tool-releases needs BASE"
+            ));
+        };
+        let failures = crate::release_refresh::refresh_failures(root, Path::new(base), changed)?;
+        for failure in &failures {
+            host.say(failure, true);
+        }
+        if !failures.is_empty() {
+            return Ok(1);
+        }
+        host.say("the release refresh is what its generators write", false);
+        return Ok(0);
+    }
     if let Some(unknown) = args.iter().find(|a| !FLAGS.contains(&a.as_str())) {
-        let usage = HELP.lines().next().unwrap_or_default();
         return Err(format!(
             "{usage}\nsite-tools stamp_source_freshness: error: unrecognized argument {unknown}"
         ));

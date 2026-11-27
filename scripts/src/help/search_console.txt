@@ -1,0 +1,20 @@
+usage: site-tools search_console [-h] <subcommand> [arguments]
+
+Pure validation, comparison windows, request building, URL inspection checks
+and row-comparison formatting for the Search Console reader (`sc-domain:duguid.com.au`).
+Credential storage and Google OAuth stay in `.agents/tools/search-console/server.py`.
+
+subcommands:
+  comparison_windows    compute adjacent inclusive reporting windows
+  build_search_request  validate and build a Search Analytics query body
+  validate_site_url     check that an inspection target is HTTPS on duguid.com.au
+  compare_search_rows   join current and previous rows and rank by |delta impressions|
+  compare_requests      build endpoint, windows and both period request bodies
+  compare_response      validate parameters and shape two period payloads
+  inspect_request       build the URL inspection endpoint and request body
+  inspect_response      validate URL and shape an inspection response payload
+  sitemaps_response     validate and shape a sitemaps response payload
+  self_test             run offline checks against built-in fixtures
+
+options:
+  -h, --help            show this help message and exit

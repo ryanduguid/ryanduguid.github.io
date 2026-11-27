@@ -51,3 +51,45 @@ pub fn settle(what: &str, candidates: &[Vec<String>]) -> Result<Vec<String>> {
         .map(|(options, at)| options[at].clone())
         .collect())
 }
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    fn options(texts: &[&str]) -> Vec<String> {
+        texts.iter().map(|t| (*t).to_owned()).collect()
+    }
+
+    #[test]
+    fn a_page_without_candidates_is_named() {
+        assert_eq!(
+            settle("title", &[options(&["a"]), options(&[])]),
+            Err("page 1 has no title that fits".into())
+        );
+    }
+
+    #[test]
+    fn a_clash_that_outlasts_the_candidates_names_its_text() {
+        assert_eq!(
+            settle(
+                "title",
+                &[options(&["Pumps", "Pumps"]), options(&["pumps"])]
+            ),
+            Err("1 pages share a title, such as [\"Pumps\"]".into())
+        );
+    }
+
+    #[test]
+    fn a_clash_moves_each_page_to_its_next_candidate() {
+        assert_eq!(
+            settle(
+                "title",
+                &[
+                    options(&["Pumps", "Pumps (mining)"]),
+                    options(&["pumps", "Pumps (water)"])
+                ]
+            ),
+            Ok(options(&["Pumps (mining)", "Pumps (water)"]))
+        );
+    }
+}

@@ -790,3 +790,42 @@ fn seo_core_metadata_authority_surface_calculator_dates_and_pages_cover_edges() 
             .is_none()
     );
 }
+
+#[test]
+fn llms_full_check_names_a_missing_part_a_stale_page_and_an_undeclared_output() {
+    let tmp = tempfile::tempdir().unwrap();
+    let root = tmp.path();
+    write(
+        root,
+        "index.html",
+        r#"<!doctype html><html><head><title>Home</title><meta name="description" content="Desc"></head><body><main><h1>Home</h1><p>Body</p></main></body></html>"#,
+    );
+    write(
+        root,
+        "sitemap.xml",
+        "<urlset><url><loc>https://duguid.com.au/</loc></url></urlset>",
+    );
+    write(
+        root,
+        "llms.txt",
+        "# Site\n\n> Summary\n\n## Full text by section\n\n- [Old](https://duguid.com.au/old.txt): old\n",
+    );
+    let check = || llms_full::run(root, &s(&["--check"])).unwrap();
+    let rewrite = || assert_eq!(llms_full::run(root, &s(&["--write"])).unwrap(), 0);
+    rewrite();
+    assert_eq!(check(), 0);
+    // A section part that is gone reads as empty, so it is stale.
+    let part = std::fs::read_dir(root)
+        .unwrap()
+        .map(|e| e.unwrap().file_name().to_string_lossy().into_owned())
+        .find(|name| name.starts_with("llms-full-"))
+        .unwrap();
+    std::fs::remove_file(root.join(&part)).unwrap();
+    assert_eq!(check(), 1);
+    rewrite();
+    write(root, "index.txt", "stale\n");
+    assert_eq!(check(), 1);
+    rewrite();
+    write(root, ".github/review-generated.json", r#"{"paths": []}"#);
+    assert_eq!(check(), 1);
+}

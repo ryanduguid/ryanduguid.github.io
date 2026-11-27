@@ -924,6 +924,16 @@ pub fn run_batch_with(
     urls: &[String],
     args: &[&str],
 ) -> Result<HashMap<String, Page>, String> {
+    run_batch_within(command, urls, args, BATCH_TIMEOUT)
+}
+
+/// `run_batch_with` with the time the batch may take given.
+pub fn run_batch_within(
+    command: &[&str],
+    urls: &[String],
+    args: &[&str],
+    timeout: Duration,
+) -> Result<HashMap<String, Page>, String> {
     let directory = tempfile::Builder::new()
         .prefix("ato-batch-")
         .tempdir()
@@ -949,7 +959,7 @@ pub fn run_batch_with(
     }
     let outcome = match batch.spawn() {
         Err(error) => node::spawn_error(&error, command[0]),
-        Ok(mut child) => match node::wait(&mut child, Some(BATCH_TIMEOUT)) {
+        Ok(mut child) => match node::wait(&mut child, Some(timeout)) {
             None => format!("spawnSync {} ETIMEDOUT", command[0]),
             Some(status) => format!(
                 "exit {}",
@@ -957,6 +967,12 @@ pub fn run_batch_with(
             ),
         },
     };
+    read_batch_index(&out, &outcome)
+}
+
+/// The pages a finished batch left in `out`, from its index.json; `outcome` names how the
+/// batch ended, for the error when it wrote no index.
+fn read_batch_index(out: &Path, outcome: &str) -> Result<HashMap<String, Page>, String> {
     let index = out.join("index.json");
     if !index.exists() {
         return Err(format!(
@@ -1036,14 +1052,15 @@ fn fetch_pdf(url: &str) -> Result<Page, String> {
 
 /// A PDF fetched directly, tried up to three times when the fetch itself fails.
 pub fn read_pdf(url: &str) -> Page {
-    for attempt in 1.. {
+    let mut attempt = 1;
+    loop {
         match fetch_pdf(url) {
             Ok(page) => return page,
             Err(error) if attempt == 3 => return Page::error(format!("PDF fetch failed: {error}")),
             Err(_) => std::thread::sleep(Duration::from_secs(3)),
         }
+        attempt += 1;
     }
-    unreachable!("the third attempt returns")
 }
 
 fn retry_pdf(page: &Page) -> bool {
@@ -1591,7 +1608,14 @@ pub fn parse_args(args: &[String]) -> Result<Options, String> {
     Ok(options)
 }
 
-fn sweep(args: &[String]) -> Result<u8, String> {
+/// The sweep with its batch reader, PDF reader and redirect request given, so a test can
+/// stand in for the browser and the network.
+pub fn sweep_with(
+    args: &[String],
+    batch: &mut Batch<'_>,
+    pdf: &mut dyn FnMut(&str) -> Page,
+    get: &mut Get<'_>,
+) -> Result<u8, String> {
     let options = parse_args(args)?;
     let directories: Vec<PathBuf> = if options.positionals.is_empty() {
         vec![crate::root()?]
@@ -1623,7 +1647,7 @@ fn sweep(args: &[String]) -> Result<u8, String> {
     };
     let (sources, deferred) = select_sources(&sources, Path::new(&baseline), MAX_URLS);
     let urls: Vec<String> = sources.iter().map(|(u, _)| u.clone()).collect();
-    let pages = read_pages(&urls, &mut run_batch, &mut read_pdf)?;
+    let pages = read_pages(&urls, batch, pdf)?;
     let value_files = collect_values(&directories)?;
     let mut findings = Findings {
         date: jiff::ZonedDateTime::now().strftime("%Y-%m-%d").to_string(),
@@ -1741,9 +1765,7 @@ fn sweep(args: &[String]) -> Result<u8, String> {
             });
         }
     }
-    (findings.moves, findings.notes) = sort_moves(&moved, &mut |url| {
-        follow_redirects(url, &mut get_unfollowed)
-    });
+    (findings.moves, findings.notes) = sort_moves(&moved, &mut |url| follow_redirects(url, get));
     findings.notes.extend(held);
     // The issue file is written before any baseline moves, so a failed write leaves the
     // changes to find again.
@@ -1799,7 +1821,8 @@ fn sweep(args: &[String]) -> Result<u8, String> {
 }
 
 pub fn run(args: &[String]) -> Result<u8, String> {
-    Ok(sweep(args).unwrap_or_else(|message| {
+    let swept = sweep_with(args, &mut run_batch, &mut read_pdf, &mut get_unfollowed);
+    Ok(swept.unwrap_or_else(|message| {
         node::log(&message, true);
         1
     }))
