@@ -40,7 +40,7 @@ For a business registered or required to be registered for GST. You establish ea
 
 The value is the luxury car tax value, with GST and customs duty but not luxury car tax; for a price adjustment, the corrected value. Leave the litres blank for a car with no combined fuel consumption rating.
 
-An adjustment takes the year the car was supplied or imported in. A refund left blank takes the tax period’s year; choose the earlier year for a car supplied or imported before then, and one from before 1 July 2019 is refused.
+An adjustment or refund takes the year the car was supplied or imported in, which can be before the tax period’s; a refund for a car supplied or imported before 1 July 2019 is refused.
 
 Needed only for a car rated above 3.5 and up to 7 litres, supplied or imported from 1 July 2025. Answer yes if, before that day, it was supplied or imported and used in Australia other than for a quotable purpose: the 7 litre rating then continues.
 
@@ -52,7 +52,7 @@ Fictional example: the first boundary case below. Change the inputs and calculat
 
 The luxury car tax calculator works out the tax on a tax period’s sales and importations of luxury cars in 2019-20 to 2026-27, with the price and change of use adjustments and labels 1E and 1F on the business activity statement. Each car takes the threshold for the financial year of its supply or importation, or the fuel-efficient car limit for a car rated at most 3.5 litres per 100 km from 1 July 2025 and at most 7 litres before. The tax is 33% of the GST-exclusive value over that threshold. Tax on an importation is shown apart, because it is paid to the Department of Home Affairs with any customs duty. A primary producer’s or tourism operator’s refund of the tax borne on a refund-eligible car, up to $10,000, is shown apart too, because it is claimed on the ATO’s form.
 
-Its results match the luxury-car-tax command of Ryan Duguid’s australian-accounting calculators on the ATO’s examples and 306 test cases, refusals included.
+Its results match the luxury-car-tax command of Ryan Duguid’s australian-accounting calculators on the ATO’s examples and 309 test cases, refusals included.
 
 ## What the luxury car tax calculator does not cover
 
