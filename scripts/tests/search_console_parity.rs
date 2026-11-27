@@ -46,7 +46,7 @@ print(json.dumps(out, indent=2, sort_keys=True))
 
 fn python(cases: &str) -> String {
     let interpreter = if cfg!(windows) { "python" } else { "python3" };
-    let core_dir = common::root().join(".agents/tools/search-console");
+    let core_dir = common::repository().join(".agents/tools/search-console");
     let mut child = Command::new(interpreter)
         .args(["-I", "-c", HARNESS])
         .arg(core_dir)

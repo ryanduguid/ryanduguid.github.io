@@ -46,10 +46,7 @@ fn usage_error(subcommand: Option<&str>, message: &str) -> Exit {
         Some(sub) => format!("{USAGE}site-tools search_console {sub}: error: {message}\n"),
         None => format!("{USAGE}site-tools search_console: error: {message}\n"),
     };
-    match crate::print_text(&text, true) {
-        Ok(()) => Exit::Code(2),
-        Err(error) => Exit::Error(error.to_string()),
-    }
+    print_text_stderr(&text).err().unwrap_or(Exit::Code(2))
 }
 
 fn print(text: &str) -> CliResult<()> {
@@ -164,10 +161,7 @@ fn help(sub: &str, explicit: Option<String>) -> Exit {
             ),
         );
     }
-    match print(HELP) {
-        Ok(()) => Exit::Code(0),
-        Err(exit) => exit,
-    }
+    print(HELP).err().unwrap_or(Exit::Code(0))
 }
 
 /// Store the value of one resolved flag, reading it from `args` when needed.

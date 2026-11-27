@@ -7,8 +7,9 @@ use site_tools::py::Date;
 use site_tools::pyjson::{self, Json};
 use site_tools::search_console::{
     MAX_ROWS, PROPERTY, build_compare_requests, build_inspect_request, build_search_request,
-    compare_search_rows, comparison_windows, format_compare_response, format_inspect_response,
-    format_sitemaps_response, parse_date, self_test, validate_site_url,
+    compare_search_rows, comparison_windows, extract_rows, format_compare_response,
+    format_inspect_response, format_sitemaps_response, parse_date, self_test, sitemaps_endpoint,
+    validate_site_url,
 };
 use std::io::Write;
 use std::process::{Command, Output, Stdio};
@@ -662,4 +663,202 @@ fn overflow_infinity_sort_bigint_float_and_large_cli_ints() {
             .unwrap()
             .contains("unknown Search Console dimension: bogus")
     );
+}
+
+#[test]
+fn response_shaping_refuses_unexpected_shapes() {
+    assert_eq!(
+        sitemaps_endpoint(),
+        "https://www.googleapis.com/webmasters/v3/sites/sc-domain%3Aduguid.com.au/sitemaps"
+    );
+    let shape = "unexpected response shape";
+    assert!(extract_rows(&json("[]")).unwrap_err().contains(shape));
+    assert!(extract_rows(&json("{}")).unwrap().is_empty());
+    assert!(
+        extract_rows(&json(r#"{"rows": [1]}"#))
+            .unwrap_err()
+            .contains("malformed analytics rows")
+    );
+    let url = "https://duguid.com.au/";
+    assert!(
+        format_inspect_response(url, &json("[]"))
+            .unwrap_err()
+            .contains(shape)
+    );
+    assert_eq!(
+        format_inspect_response(url, &json("{}"))
+            .unwrap()
+            .get("inspection_result"),
+        Some(&json("{}"))
+    );
+    assert!(
+        format_sitemaps_response(&json("[]"))
+            .unwrap_err()
+            .contains(shape)
+    );
+    assert_eq!(
+        format_sitemaps_response(&json("{}"))
+            .unwrap()
+            .get("sitemaps"),
+        Some(&json("[]"))
+    );
+}
+
+#[test]
+fn cli_parses_flags_positionals_and_json_inputs_as_argparse_does() {
+    let rows = r#""current": [], "previous": []"#;
+    let text_dimensions = format!(r#"{{"dimensions": "page", {rows}}}"#);
+    let no_dimensions = format!("{{{rows}}}");
+    let cases: &[(&[&str], Option<&str>, i32, &str)] = &[
+        (
+            &["comparison_windows", "--end-date"],
+            None,
+            2,
+            "argument --end-date: expected one argument",
+        ),
+        (&["comparison_windows", "-h"], None, 0, ""),
+        (
+            &["comparison_windows", "--bogus"],
+            None,
+            2,
+            "unrecognized arguments: --bogus",
+        ),
+        (
+            &["comparison_windows", "-x"],
+            None,
+            2,
+            "unrecognized arguments: -x",
+        ),
+        (
+            &["comparison_windows", "--end-date", "2026-08-28", "extra"],
+            None,
+            2,
+            "unrecognized arguments: extra",
+        ),
+        (
+            &["comparison_windows", "--end-date", "2026-13-01"],
+            None,
+            1,
+            "",
+        ),
+        (
+            &[
+                "build_search_request",
+                "--start-date",
+                "2026-08-01",
+                "--end-date",
+                "2026-08-28",
+                "--dimensions=page",
+            ],
+            None,
+            0,
+            "",
+        ),
+        (
+            &[
+                "build_search_request",
+                "--start-date",
+                "2026-08-01",
+                "--end-date",
+                "2026-08-28",
+            ],
+            None,
+            2,
+            "the following arguments are required: --dimensions",
+        ),
+        (
+            &["validate_site_url", "--", "https://duguid.com.au/"],
+            None,
+            0,
+            "",
+        ),
+        (
+            &[
+                "validate_site_url",
+                "https://duguid.com.au/",
+                "https://duguid.com.au/a/",
+            ],
+            None,
+            2,
+            "unrecognized arguments: https://duguid.com.au/a/",
+        ),
+        (
+            &["compare_search_rows"],
+            Some("[]"),
+            1,
+            "input must be a JSON object",
+        ),
+        (
+            &["compare_search_rows"],
+            Some(text_dimensions.as_str()),
+            1,
+            "dimensions must be a list of strings",
+        ),
+        (
+            &["compare_search_rows"],
+            Some(r#"{"dimensions": ["page"], "previous": []}"#),
+            1,
+            "missing required JSON field: current",
+        ),
+        (
+            &["compare_search_rows"],
+            Some(r#"{"dimensions": ["page"], "current": {}, "previous": []}"#),
+            1,
+            "current must be a list",
+        ),
+        (
+            &["compare_search_rows", "--dimensions", "page"],
+            Some(no_dimensions.as_str()),
+            0,
+            "",
+        ),
+        (
+            &["compare_search_rows"],
+            Some(no_dimensions.as_str()),
+            2,
+            "dimensions are required via --dimensions or input JSON",
+        ),
+        (
+            &["compare_requests", "--end-date", "2026-08-28"],
+            None,
+            0,
+            "",
+        ),
+        (
+            &[
+                "compare_requests",
+                "--end-date",
+                "2026-08-28",
+                "--days",
+                "0",
+            ],
+            None,
+            1,
+            "",
+        ),
+        (
+            &["compare_response", "--end-date", "2026-08-28"],
+            Some(r#"{"previous": {}}"#),
+            1,
+            "missing required JSON field: current",
+        ),
+        (
+            &["compare_response", "--end-date", "2026-08-28"],
+            Some(r#"{"current": {}}"#),
+            1,
+            "missing required JSON field: previous",
+        ),
+        (
+            &["compare_response", "--end-date", "2026-08-28"],
+            Some(r#"{"current": [], "previous": {}}"#),
+            1,
+            "unexpected response shape",
+        ),
+    ];
+    for (args, stdin_data, code, message) in cases {
+        let output = run_cli(args, *stdin_data);
+        assert_eq!(output.status.code(), Some(*code), "{args:?}");
+        let stderr = String::from_utf8(output.stderr).unwrap();
+        assert!(stderr.contains(message), "{args:?}: {stderr}");
+    }
 }

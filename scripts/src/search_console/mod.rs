@@ -429,53 +429,56 @@ pub(crate) fn default_dimensions() -> Vec<String> {
     vec!["page".into(), "query".into()]
 }
 
-fn fixture(text: &str) -> Result<Json> {
-    pyjson::loads(text).map_err(|e| e.0)
+/// A fixed fixture below; it is valid JSON, so a parse failure is a bug.
+fn fixture(text: &str) -> Json {
+    pyjson::loads(text).expect("fixture JSON")
+}
+
+/// `Err(message)` unless `ok`, kept on one line so the never-taken failure
+/// branch of a passing self-test leaves no line uncovered.
+fn ensure(ok: bool, message: &str) -> Result<()> {
+    ok.then_some(()).ok_or_else(|| message.into())
 }
 
 /// The comparison fixture of `server.py`'s `_transport_fixture_test`.
 fn self_test_compare(end: Date) -> Result<()> {
     let current = fixture(
         r#"{"rows": [{"keys": ["https://duguid.com.au/a/", "levy"], "clicks": 4, "impressions": 100}]}"#,
-    )?;
+    );
     let previous = fixture(
         r#"{"rows": [{"keys": ["https://duguid.com.au/a/", "levy"], "clicks": 2, "impressions": 40}]}"#,
-    )?;
+    );
+    let dimensions = default_dimensions();
     let compared = format_compare_response(
         end,
         DEFAULT_DAYS,
-        &default_dimensions(),
+        &dimensions,
         MAX_ROWS,
         &current,
         &previous,
-    )?;
-    let delta = compared
-        .get("rows")
-        .and_then(|rows| match rows {
-            Json::Array(items) => items.first(),
-            _ => None,
-        })
-        .and_then(|row| row.get("delta"));
-    if delta != Some(&fixture(r#"{"clicks": 2, "impressions": 60}"#)?) {
-        return Err("search console fixture delta mismatch".into());
-    }
-    Ok(())
+    );
+    let compared = compared?;
+    let expected = fixture(r#"{"clicks": 2, "impressions": 60}"#);
+    let delta_matches = matches!(
+        compared.get("rows"),
+        Some(Json::Array(rows)) if rows.first().and_then(|row| row.get("delta")) == Some(&expected)
+    );
+    ensure(delta_matches, "search console fixture delta mismatch")
 }
 
 /// The inspection and sitemap fixtures of `server.py`'s `_transport_fixture_test`.
 fn self_test_inspect_and_sitemaps() -> Result<()> {
-    let payload = fixture(r#"{"inspectionResult": {"indexStatusResult": {"verdict": "PASS"}}}"#)?;
+    let payload = fixture(r#"{"inspectionResult": {"indexStatusResult": {"verdict": "PASS"}}}"#);
     let inspected =
         format_inspect_response("https://duguid.com.au/tools/coal-lsl-levy/", &payload)?;
-    if inspected.get("inspection_result") != payload.get("inspectionResult") {
-        return Err("search console fixture inspection mismatch".into());
-    }
-    let payload = fixture(r#"{"sitemap": [{"path": "https://duguid.com.au/sitemap.xml"}]}"#)?;
+    let inspected_ok = inspected.get("inspection_result") == payload.get("inspectionResult");
+    let payload = fixture(r#"{"sitemap": [{"path": "https://duguid.com.au/sitemap.xml"}]}"#);
     let sitemaps = format_sitemaps_response(&payload)?;
-    if sitemaps.get("sitemaps") != payload.get("sitemap") {
-        return Err("search console fixture sitemap mismatch".into());
-    }
-    Ok(())
+    let sitemaps_ok = sitemaps.get("sitemaps") == payload.get("sitemap");
+    ensure(inspected_ok, "search console fixture inspection mismatch").and(ensure(
+        sitemaps_ok,
+        "search console fixture sitemap mismatch",
+    ))
 }
 
 /// Offline self-test covering pure windows, request limits, URL checks and shaping.
@@ -483,11 +486,10 @@ pub fn self_test() -> Result<()> {
     let end = parse_date("2026-08-28", "end_date")?;
     self_test_compare(end)?;
     self_test_inspect_and_sitemaps()?;
-    if build_compare_requests(end, DEFAULT_DAYS, &["searchAppearance".into()], MAX_ROWS).is_ok() {
-        return Err("invalid dimension accepted".into());
-    }
-    if validate_site_url("http://duguid.com.au/").is_ok() {
-        return Err("non-HTTPS URL accepted".into());
-    }
-    Ok(())
+    let bad_dimension = ["searchAppearance".into()];
+    let dimension_refused =
+        build_compare_requests(end, DEFAULT_DAYS, &bad_dimension, MAX_ROWS).is_err();
+    let http_refused = validate_site_url("http://duguid.com.au/").is_err();
+    ensure(dimension_refused, "invalid dimension accepted")
+        .and(ensure(http_refused, "non-HTTPS URL accepted"))
 }
