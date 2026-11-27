@@ -23,7 +23,8 @@ export function helpIndexationTool(kit, { HELP_INDEXATION_YEARS, MAX_ENTRIES, he
     date: text('date', 'Day the voluntary repayment was made, YYYY-MM-DD.'),
     amount: text('trillionCost', 'The repayment in AUD.'),
   }, ['date', 'amount']);
-  const list = (/** @type {object} */ items, /** @type {string} */ description) => ({ type: 'array', maxItems: MAX_ENTRIES, items, description });
+  /** @param {ReturnType<typeof record>} items @param {string} description */
+  const list = (items, description) => (/** @type {const} */ ({ type: 'array', maxItems: MAX_ENTRIES, items, description }));
   const amounts = Object.fromEntries(AMOUNTS.map(([name]) => [name, text('trillionCost', `Optional ${name} in AUD; see the description.`)]));
   return tool({
     name: 'calculate_help_indexation',

@@ -49,12 +49,15 @@ function refuse(code, message) {
  * @param {string} value @returns {bigint | null | undefined} */
 function cents(value) {
   const text = value.trim();
-  const m = /^(-?)(\d+)(?:\.(\d+))?$/.exec(text);
-  if (!m) return /^[+-]?(?:inf|infinity|s?nan\d*)$/i.test(text) ? null : undefined;
-  const fraction = m[3] ?? '';
+  const negative = text.startsWith('-');
+  const pieces = (negative ? text.slice(1) : text).split('.');
+  if (pieces.length > 2 || !pieces.every((piece) => /^\d+$/.test(piece))) {
+    return /^[+-]?(inf|infinity|s?nan\d*)$/i.test(text) ? null : undefined;
+  }
+  const [whole, fraction = ''] = pieces;
   if (fraction.length > 2) return null;
-  const amount = BigInt(m[2] + fraction.padEnd(2, '0'));
-  return (m[1] && amount !== 0n) || amount > MAX_CENTS ? null : amount;
+  const amount = BigInt(whole + fraction.padEnd(2, '0'));
+  return (negative && amount !== 0n) || amount > MAX_CENTS ? null : amount;
 }
 
 /** A top-level amount, read as the command reads every decimal input. @param {string} key @param {unknown} value */
