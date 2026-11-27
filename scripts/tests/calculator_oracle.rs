@@ -167,7 +167,9 @@
 //! A further 2,000 seeded PSI cases, from their own seed, work Part 2-42 of the ITAA 1997 in whole
 //! per cent of exact cents, join the rows of one payer by union-find, where the engine follows each
 //! row to its payer's first row, and count unrelated payers as joined groups. The 2-place shares
-//! round down, as the engine's do, so the oracle cannot show that convention.
+//! round down, as the engine's do, so the oracle cannot show that convention. A third of them
+//! carry client labels, some inconsistent, and the rest meet the refusal where unlabelled rows of
+//! one payer decide the unrelated clients test (AA #930).
 mod common;
 
 use jiff::ToSpan;
@@ -9055,7 +9057,8 @@ import { psiDetermination } from './assets/business-calculators.mjs';
 let input = '';
 for await (const chunk of process.stdin) input += chunk;
 const kinds = [['Enter the principal', 'agent-payments'], ['At least 75%', 'agent-rules'], ['Enter the PSI', 'no-psi'],
-  ['The market value', 'others']];
+  ['The market value', 'others'], ['Give every payer', 'clients-invalid'], ['rows with one client label', 'clients-invalid'],
+  ['The unrelated clients test', 'clients-needed']];
 const fixed = (value) => (value === null ? null : value.toFixed(2));
 process.stdout.write(JSON.stringify(JSON.parse(input).map((one) => {
   try {
@@ -9063,7 +9066,7 @@ process.stdout.write(JSON.stringify(JSON.parse(input).map((one) => {
     return { rule: r.rule, psb: r.psb, results: fixed(r.results), source: fixed(r.source), unrelated: r.unrelated,
       employment: fixed(r.employment) };
   } catch (error) {
-    return { refused: (kinds.find(([start]) => error.message.startsWith(start)) ?? ['', error.message])[1] };
+    return { refused: (kinds.find(([part]) => error.message.includes(part)) ?? ['', error.message])[1] };
   }
 })));
 ";
@@ -9072,12 +9075,13 @@ const PSI_CASES: usize = 2_000;
 const PSI_FLAGS: [&str; 5] = ["associate", "offer", "result", "tools", "defects"];
 const PSI_PREMISES: [&str; 5] = ["times", "mainly", "exclusive", "private", "clients"];
 
-/// One row of PSI: its cents, the 5 ticks in `PSI_FLAGS` order and the earlier row (from 1) whose
-/// payer it is, if any.
+/// One row of PSI: its cents, the 5 ticks in `PSI_FLAGS` order, the earlier row (from 1) whose
+/// payer it is, if any, and its client label for s 87-20(1)(a), if any.
 struct PsiRow {
     cents: u64,
     flags: [bool; 5],
     same: Option<usize>,
+    client: Option<usize>,
 }
 
 struct PsiCase {
@@ -9109,6 +9113,9 @@ impl PsiCase {
                 }
                 if let Some(same) = row.same {
                     payer["same"] = json!(same);
+                }
+                if let Some(client) = row.client {
+                    payer["client"] = json!(format!("Client {client}"));
                 }
                 payer
             })
@@ -9156,9 +9163,34 @@ fn psi_outcome(
 /// Part 2-42 of the ITAA 1997 (Compilation No. 268, read 22 November 2026) in whole per cent of
 /// exact cents: s 84-5(1), s 85-35(1) and (2), s 87-15(1)(a) and (b), s 87-18(1) and (3), s 87-40(2)(c),
 /// s 87-15(3) and ss 87-20, 87-25 and 87-30. An agent's payments are checked first, as the psi-test
-/// command of ryanduguid/australian-accounting checks them.
+/// command of ryanduguid/australian-accounting checks them, after the client labels: over the rows
+/// with PSI, on every row or none, and one label within one payer (s 87-15(3)).
 fn psi_oracle(case: &PsiCase) -> Value {
     let none = [None, None, None];
+    let mut parent: Vec<usize> = (0..case.rows.len()).collect();
+    for (row, PsiRow { same, .. }) in case.rows.iter().enumerate() {
+        if let Some(same) = same {
+            let (from, to) = (psi_root(&parent, row), psi_root(&parent, same - 1));
+            parent[from] = to;
+        }
+    }
+    let counted: Vec<usize> = (0..case.rows.len())
+        .filter(|row| case.rows[*row].cents > 0)
+        .collect();
+    let labelled = counted
+        .iter()
+        .filter(|row| case.rows[**row].client.is_some())
+        .count();
+    let spread = counted.iter().any(|a| {
+        counted.iter().any(|b| {
+            case.rows[*a].client.is_some()
+                && case.rows[*a].client == case.rows[*b].client
+                && psi_root(&parent, *a) != psi_root(&parent, *b)
+        })
+    });
+    if spread || (labelled != 0 && labelled != counted.len()) {
+        return json!({ "refused": "clients-invalid" });
+    }
     if let Some((commission, principal)) = case.agent
         && (principal == 0 || commission > principal)
     {
@@ -9208,27 +9240,38 @@ fn psi_oracle(case: &PsiCase) -> Value {
     {
         return json!({ "refused": "agent-rules" });
     }
-    let mut parent: Vec<usize> = (0..case.rows.len()).collect();
-    for (row, PsiRow { same, .. }) in case.rows.iter().enumerate() {
-        if let Some(same) = same {
-            let (from, to) = (psi_root(&parent, row), psi_root(&parent, same - 1));
-            parent[from] = to;
-        }
-    }
     let mut payers = vec![0_u64; case.rows.len()];
     for (row, PsiRow { cents, .. }) in case.rows.iter().enumerate() {
         payers[psi_root(&parent, row)] += cents;
     }
     let largest = payers.iter().copied().max().unwrap();
-    let mut clients: Vec<usize> = (0..case.rows.len())
+    let won: Vec<usize> = (0..case.rows.len())
         .filter(|row| {
             let PsiRow { cents, flags, .. } = &case.rows[*row];
             *cents > 0 && !flags[0] && flags[1]
         })
-        .map(|row| psi_root(&parent, row))
+        .collect();
+    // A label, or the payer where there are none: labels are on every counted row or none.
+    let mut clients: Vec<(bool, usize)> = won
+        .iter()
+        .map(|row| match case.rows[*row].client {
+            Some(client) => (true, client),
+            None => (false, psi_root(&parent, *row)),
+        })
         .collect();
     clients.sort_unstable();
     clients.dedup();
+    let employs = case.others * 100 >= 20 * total || case.apprentice;
+    let premises = case.premises.iter().all(|on| *on);
+    if clients.len() < 2
+        && won.len() >= 2
+        && labelled == 0
+        && largest * 100 < 80 * total
+        && !employs
+        && !premises
+    {
+        return json!({ "refused": "clients-needed" });
+    }
     let figures = [
         Some(results),
         Some(psi_share(largest, total)),
@@ -9240,8 +9283,8 @@ fn psi_oracle(case: &PsiCase) -> Value {
     }
     let passes: Vec<&str> = [
         (clients.len() >= 2, "87-20"),
-        (case.others * 100 >= 20 * total || case.apprentice, "87-25"),
-        (case.premises.iter().all(|on| *on), "87-30"),
+        (employs, "87-25"),
+        (premises, "87-30"),
     ]
     .into_iter()
     .filter_map(|(met, section)| met.then_some(section))
@@ -9277,7 +9320,28 @@ fn psi_case(rng: &mut Seeded) -> PsiCase {
             rng.below(4) != 0,
         ];
         let same = (row > 0 && rng.below(3) == 0).then(|| 1 + rng.below(row as u64) as usize);
-        rows.push(PsiRow { cents, flags, same });
+        rows.push(PsiRow {
+            cents,
+            flags,
+            same,
+            client: None,
+        });
+    }
+    // A third of cases label their rows: mostly each payer's own label, some payers split into 2
+    // clients, and now and then a label on another payer's row or a row left without one.
+    if rng.below(3) == 0 {
+        for row in 0..count {
+            let mut payer = row;
+            while let Some(same) = rows[payer].same {
+                payer = same - 1;
+            }
+            rows[row].client = match rng.below(12) {
+                0 => None,
+                1 => Some(rng.below(count as u64) as usize),
+                2..=4 => Some(count + row),
+                _ => Some(payer),
+            };
+        }
     }
     let total: u64 = rows.iter().map(|row| row.cents).sum();
     let agent = (rng.below(5) == 0).then(|| {
@@ -9307,6 +9371,7 @@ fn the_psi_oracle_joins_a_payers_rows() {
         cents,
         flags: PSI_FLAGS.map(|flag| flags.split(' ').any(|on| on == flag)),
         same,
+        client: None,
     };
     let case = |rows| PsiCase {
         earner: "sole-trader",
@@ -9333,6 +9398,31 @@ fn the_psi_oracle_joins_a_payers_rows() {
     ]));
     assert_eq!(chain["unrelated"], 2);
     assert_eq!(chain["rule"], "subsection 87-15(3)");
+    // 2 rows of one payer won by offers decide the unrelated clients test only with labels.
+    let mut trust = vec![
+        row(4_000, "offer", None),
+        row(3_900, "offer", Some(1)),
+        row(2_100, "", None),
+    ];
+    assert_eq!(psi_oracle(&case(trust))["refused"], "clients-needed");
+    let labelled = |labels: [usize; 3]| {
+        let mut rows = vec![
+            row(4_000, "offer", None),
+            row(3_900, "offer", Some(1)),
+            row(2_100, "", None),
+        ];
+        for (row, label) in rows.iter_mut().zip(labels) {
+            row.client = Some(label);
+        }
+        psi_oracle(&case(rows))
+    };
+    assert_eq!(labelled([1, 2, 3])["rule"], "section 87-20");
+    assert_eq!(labelled([1, 2, 3])["unrelated"], 2);
+    assert_eq!(labelled([1, 1, 3])["rule"], "subsection 87-15(1)");
+    assert_eq!(labelled([1, 1, 1])["refused"], "clients-invalid");
+    trust = vec![row(4_000, "offer", None), row(3_900, "offer", Some(1))];
+    trust[0].client = Some(1);
+    assert_eq!(psi_oracle(&case(trust))["refused"], "clients-invalid");
 }
 
 #[test]
@@ -9374,6 +9464,8 @@ fn the_psi_engine_agrees_with_the_oracle_on_seeded_cases() {
         "agent-rules",
         "no-psi",
         "others",
+        "clients-invalid",
+        "clients-needed",
     ] {
         assert!(reached.contains(outcome), "{outcome}");
     }
