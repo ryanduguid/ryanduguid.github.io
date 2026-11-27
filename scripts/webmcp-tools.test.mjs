@@ -100,9 +100,9 @@ test('every calculator tool is read-only, refuses unknown inputs and has its own
     'calculate_land_tax', 'calculate_termination_payment', 'calculate_transfer_duty',
     'calculate_rd_tax_offset', 'calculate_gst_adjustments', 'calculate_deferred_tax', 'calculate_sole_trader_vs_company', 'calculate_trust_streaming',
     'calculate_foreign_resident_withholding', 'calculate_partnership_net_income', 'check_trust_loss_tests',
+    'calculate_casual_overtime_pay', 'calculate_contractor_employee', 'calculate_payday_super_cashflow', 'check_tax_invoice',
     'calculate_motor_vehicle_duty', 'calculate_insurance_duty', 'calculate_vic_property_taxes',
     'calculate_non_resident_withholding',
-    'calculate_casual_overtime_pay', 'calculate_contractor_employee', 'calculate_payday_super_cashflow', 'check_tax_invoice',
     'calculate_decline_in_value', 'calculate_coal_lsl_levy']);
   for (const t of all) {
     assert.equal(t.annotations.readOnlyHint, true, t.name);
