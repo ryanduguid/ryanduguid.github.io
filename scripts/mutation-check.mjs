@@ -77,6 +77,9 @@ const pools = { ...business, file: 'assets/depreciation-pools.mjs' };
 const rdOffset = { ...business, file: 'assets/rd-tax-offset.mjs' };
 const casualOt = { ...business, file: 'assets/casual-overtime.mjs' };
 const contractor = { ...business, file: 'assets/contractor-employee.mjs' };
+const esicEngine = { ...business, file: 'assets/esic.mjs' };
+const rvfEngine = { ...business, file: 'assets/residential-vacancy-fee.mjs' };
+const aaPort = { ...business, file: 'assets/aa-port.mjs' };
 const invoice = { ...business, file: 'assets/tax-invoice.mjs' };
 const trustStream = { ...business, file: 'assets/trust-streaming.mjs' };
 const gstAdjustments = { ...business, file: 'assets/gst-adjustments.mjs' };
@@ -1173,6 +1176,21 @@ const MUTATIONS = [
   { ...rdOffset, name: 'R&D deduction amount not subtracted', find: 'const income = offset - adjusted[6] - deduction;', replace: 'const income = offset - adjusted[6];' },
   { ...rdOffset, name: 'R&D clawback income over the offset year rate', find: 'ratioCents((income < 0n ? -income : income), presentRate * 1000n)', replace: 'ratioCents((income < 0n ? -income : income), e.rate * 1000n)' },
   { ...rdOffset, name: 'R&D clawback below the threshold allowed', find: 'if (clawback !== 0n && e.notional - clawback < THRESHOLD) {', replace: 'if (false) {' },
+  { ...esicEngine, name: "ESIC offset at 25%", find: "c: 20n, e: -2", replace: "c: 25n, e: -2" },
+  { ...esicEngine, name: "ESIC $200,000 cap ignored", find: "value: cmp(room, gross.value) < 0 ? room : gross.value }", replace: "value: gross.value }" },
+  { ...esicEngine, name: "ESIC income limit of $200,000 exceeded", find: "cmp(income, int(200_000)) <= 0", replace: "cmp(income, int(200_000)) < 0" },
+  { ...esicEngine, name: "ESIC item 7 counted with item 6", find: "if (seen[5]) seen[6] = false;", replace: "if (false) seen[6] = false;" },
+  { ...esicEngine, name: "ESIC 6-year route expenses of $1 million refused", find: "cmp(money(v.expenses_three_prior_years), int(1_000_000)) <= 0", replace: "cmp(money(v.expenses_three_prior_years), int(1_000_000)) < 0" },
+  { ...esicEngine, name: "ESIC money receivable left out of the retail limit", find: "retailLimit(w, paid, add(add(paid, receivable), nonCash));", replace: "retailLimit(w, paid, add(paid, nonCash));" },
+  { ...rvfEngine, name: "Vacancy fee not doubled from 9 April 2024", find: "const multiplier = p.start >= APRIL_2024 ? 2 : 1;", replace: "const multiplier = 1;" },
+  { ...rvfEngine, name: "Vacancy fee due at exactly 183 days", find: "else if (occupied >= 183)", replace: "else if (occupied > 183)" },
+  { ...rvfEngine, name: "Vacancy fee established dwelling not tripled", find: "const whole = wholeFee(p.basis, consideration, schedule, triple);", replace: "const whole = wholeFee(p.basis, consideration, schedule, 1);" },
+  { ...rvfEngine, name: "Vacancy fee exact million multiple not reduced", find: "=== 0 ? floored - 1n : floored", replace: "=== 0 ? floored : floored" },
+  { ...rvfEngine, name: "Vacancy fee residential cap ignored", find: "const capped = single > BigInt(s.cap) ? BigInt(s.cap) : single;", replace: "const capped = single;" },
+  { ...rvfEngine, name: "Vacancy fee share rounded down", find: "quantize(mul(whole.value, share), -2, 'half-up')", replace: "quantize(mul(whole.value, share), -2, 'down')" },
+  { ...rvfEngine, name: "Vacancy fee late return not deemed liable", find: "else if (!lodged) status = 'deemed_liable_late_return';", replace: "else if (false) status = 'deemed_liable_late_return';" },
+  { ...aaPort, name: "AA port nil sum loses its sign", find: "s: x === 0n ? a.s && b.s : x < 0n", replace: "s: x < 0n" },
+  { ...aaPort, name: "AA port amounts at 3 decimal places", find: "v.e < -2)", replace: "v.e < -3)" },
   { ...contractor, name: 'Contractor labour of exactly half counted as principally', find: 'const principally = 2 * labour > fee;', replace: 'const principally = 2 * labour >= fee;' },
   { ...contractor, name: 'Contractor right to delegate ignored', find: 'personal: !e.delegate,', replace: 'personal: true,' },
   { ...contractor, name: 'Contractor result contract ignored', find: 'notResult: !e.result,', replace: 'notResult: true,' },
@@ -1440,6 +1458,8 @@ const SHARED = [
   'scripts/rd-tax-offset-engine-differential.json',
   'scripts/gst-adjustments-engine-differential.json',
   'scripts/deferred-tax-engine-differential.json',
+  'scripts/esic-engine-differential.json',
+  'scripts/residential-vacancy-fee-engine-differential.json',
   'scripts/ato-penalties-interest-engine-differential.json',
   'scripts/borrowing-expenses-engine-differential.json',
   'scripts/wine-equalisation-tax-engine-differential.json',

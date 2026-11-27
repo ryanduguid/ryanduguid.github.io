@@ -5709,6 +5709,8 @@ What changed and when, across this site and the tagged tool releases. Dates are 
 ## Site
 
 Date | Change
+27 November 2026 | A new business calculator, residential vacancy fee, works a foreign owner’s annual vacancy fee on a dwelling for vacancy years from 2020-21 to 2026-27 under Part 6A of the Foreign Acquisitions and Takeovers Act 1975, with the application fee schedule, the doubling from 9 April 2024 and the return’s due date. Its WebMCP tool is calculate_residential_vacancy_fee.
+27 November 2026 | A new business calculator, ESIC tax offset, works the early stage investor tax offset on new shares in an early stage innovation company for 2016-17 to 2026-27 under Subdivision 360-A of the Income Tax Assessment Act 1997: the company and investor tests, the 20% offset, the $200,000 cap and the modified CGT treatment. Its WebMCP tool is calculate_esic_tax_offset.
 27 November 2026 | The depreciation register distinguishes assets with the same name, shows the dates recorded against asset group headings and links directly to sections of long tables. The work expenses and rental property calculators now label telephone expenses as dollar amounts.
 27 November 2026 | The Markdown editions of calculators now preserve the instructions shown when JavaScript is off, including the link to the depreciation register data file.
 27 November 2026 | Reference tables now carry names for screen readers. Calculator fields and reference pages have more space between headings, instructions and tables. The depreciation register identifies the industry or asset group on links that share a name. Each indexed page also has a Markdown edition at index.md.
@@ -5973,6 +5975,8 @@ Published 30 August 2026. Last reviewed 24 November 2026.
 ## Links
 
 - Follow this changelog as an Atom feed: https://duguid.com.au/feed.xml
+- residential vacancy fee: https://duguid.com.au/tools/business-calculators/residential-vacancy-fee/
+- ESIC tax offset: https://duguid.com.au/tools/business-calculators/esic/
 - depreciation register: https://duguid.com.au/tools/depreciation-rates/
 - depreciation register data file: https://duguid.com.au/tools/depreciation-rates/effective-life.json
 - sole trader against company: https://duguid.com.au/tools/business-calculators/sole-trader-company/
@@ -6570,11 +6574,11 @@ Source: https://duguid.com.au/tools/business-calculators/
 
 # Business calculators
 
-Sixty-three free calculators that run in your browser with the formula, assumptions and primary source beside the inputs. No sign-up; inputs stay on your device.
+Sixty-five free calculators that run in your browser with the formula, assumptions and primary source beside the inputs. No sign-up; inputs stay on your device.
 
 Published 11 September 2026. Last checked 26 November 2026, the newest of the calculators’ source checks.
 
-Search 63 calculators
+Search 65 calculators
 
 ## Pricing, planning and loans
 
@@ -6617,6 +6621,7 @@ Search 63 calculators
 - Franking account calculator A company’s franking account for 2025-26 or 2026-27: franking deficit tax and its offset, the benchmark rule and the franking return’s labels and due date.
 - Company tax and franking calculator A company’s 25% or 30% rate from the base rate entity test, its rate for franking dividends, the maximum franking credit and a shareholder’s tax or refund.
 - R&D tax offset calculator A company’s R&D tax incentive offset for 2021-22 to 2026-27, refundable or with the premium tiers, and the amount a grant or feedstock clawback includes in assessable income.
+- ESIC tax offset calculator The early stage investor tax offset on new shares in an early stage innovation company for 2016-17 to 2026-27: the company and investor tests, the 20% offset, the $200,000 cap and the modified CGT treatment.
 - Deferred tax calculator A company’s AASB 112 tax effect worksheet: deferred tax liability and asset, the movement, current tax and the reconciliation.
 - Salary against dividends calculator A company owner’s salary and super guarantee against fully franked dividends for 2021-22 to 2026-27: the cash and super kept after tax, and the split that keeps the most.
 - Sole trader against company calculator One business profit taxed as a sole trader, with the small business income tax offset, and through a company paying a salary, super guarantee and fully franked dividends, for 2021-22 to 2026-27: each structure’s total tax.
@@ -6647,6 +6652,7 @@ Search 63 calculators
 - First home owner grant calculator The grant in each of the 8 states and territories for a new home, by contract date and value cap, beside the first home buyer transfer duty.
 - Land tax calculator Land tax for a full year in each of the 7 states and territories that levy it, at the general or trust rates, with a foreign or absentee owner surcharge and WA’s metropolitan region improvement tax where chosen, before any exemption.
 - Foreign purchaser surcharge calculator Foreign purchaser duty and the foreign owner land tax surcharge in each state and territory, with each one’s own test of who is foreign, the 2026-27 FIRB fee and the upfront total in all 8 side by side.
+- Residential vacancy fee calculator A foreign owner’s annual vacancy fee on a residential dwelling for vacancy years from 2020-21 to 2026-27: the 183-day test, exemptions, the application fee schedule, the doubling from 9 April 2024 and the return’s due date.
 - Payroll tax calculator One employer’s annual payroll tax for 2026-27 in any state or territory, for an employer outside a group, with each step cited.
 
 ## Indirect taxes, ATO deadlines and ASIC
@@ -6699,6 +6705,7 @@ Planning estimates in AUD. Confirm tax treatment, liability amounts and dates se
 - Franking account calculator: https://duguid.com.au/tools/business-calculators/franking-account/
 - Company tax and franking calculator: https://duguid.com.au/tools/business-calculators/company-tax/
 - R&D tax offset calculator: https://duguid.com.au/tools/business-calculators/rd-tax-offset/
+- ESIC tax offset calculator: https://duguid.com.au/tools/business-calculators/esic/
 - Deferred tax calculator: https://duguid.com.au/tools/business-calculators/deferred-tax/
 - Salary against dividends calculator: https://duguid.com.au/tools/business-calculators/salary-dividend/
 - Sole trader against company calculator: https://duguid.com.au/tools/business-calculators/sole-trader-company/
@@ -6720,6 +6727,7 @@ Planning estimates in AUD. Confirm tax treatment, liability amounts and dates se
 - First home owner grant calculator: https://duguid.com.au/tools/business-calculators/first-home-owner-grant/
 - Land tax calculator: https://duguid.com.au/tools/business-calculators/land-tax/
 - Foreign purchaser surcharge calculator: https://duguid.com.au/tools/business-calculators/foreign-surcharge/
+- Residential vacancy fee calculator: https://duguid.com.au/tools/business-calculators/residential-vacancy-fee/
 - Payroll tax calculator: https://duguid.com.au/tools/business-calculators/payroll-tax/
 - PAYG instalments calculator: https://duguid.com.au/tools/business-calculators/payg-instalments/
 - Objection deadline checker: https://duguid.com.au/tools/business-calculators/objection-deadline/
@@ -16357,6 +16365,92 @@ Planning estimates in AUD. Confirm tax treatment, liability amounts and dates se
 
 ---
 
+# ESIC tax offset: early stage investor offset and CGT
+
+Source: https://duguid.com.au/tools/business-calculators/esic/
+
+> The 20% early stage investor tax offset on new ESIC shares for 2016-17 to 2026-27: the company and investor tests, the $200,000 cap and the modified CGT treatment.
+
+# ESIC tax offset calculator
+
+The early stage investor tax offset on shares in an early stage innovation company.
+
+Published 27 November 2026. Last checked 24 November 2026.
+
+JavaScript is required for interactive calculations. The formula, assumptions and source links remain available below.
+
+One investor’s new shares in one company
+
+Money paid for the shares (AUD)
+
+Income year the shares were issued 2026-27 2025-26 2024-25 2023-24 2022-23 2021-22 2020-21 2019-20 2018-19 2017-18 2016-17
+
+Investor Individual Company, not widely held Widely held company or its 100% subsidiary ESVCLP
+
+Money still to be received (AUD, blank for none) Non-cash benefit at market value (AUD)
+
+Year incorporated in Australia Not incorporated in Australia 2026-27 2025-26 2024-25 2023-24 2022-23 2021-22 2020-21 2019-20 2018-19 2017-18 2016-17 2015-16 2014-15 2013-14 2012-13 2011-12 2010-11
+
+Year registered in the ABR Not registered, or not needed 2026-27 2025-26 2024-25 2023-24 2022-23 2021-22 2020-21 2019-20 2018-19 2017-18 2016-17 2015-16 2014-15
+
+Expenses in the 3 years before (AUD) Expenses, previous year (AUD) Assessable income, previous year (AUD) Of which an Accelerating Commercialisation Grant (AUD) Of which an R&D clawback, s 355-450(1) (AUD) Innovation items that apply, s 360-45(1) (e.g. 1, 6)
+
+Company meets the principles-based innovation test No Yes
+
+Company’s shares are listed on a stock exchange No Yes
+
+Company is a foreign company No Yes
+
+Investor and company are affiliates of each other No Yes
+
+Shares acquired under an employee share scheme No Yes
+
+Investor holds more than 30% after the issue No Yes
+
+No disclosure document needed (s 708(8), (10) or (11)) Yes No
+
+Paid for other ESICs’ shares this year (AUD)
+
+Another ESIC’s offer needed no disclosure document No Yes
+
+Other early stage investor offsets this year, with affiliates (AUD) Those offsets carried forward to this year (AUD)
+
+Calculate
+
+The other ESICs’ fields apply only where this offer needed a disclosure document (section 360-20). Item 7 does not count with item 6.
+
+Fictional example: the first boundary case below. Change the inputs and calculate your own. Inputs: 2025-26; individual investing $100,000.00; company incorporated 2024-25, expenses $300,000.00, income $20,000.00; items 1, 6. Early stage innovation company Yes Innovation points 125 Amount for the issue of the shares $100,000.00 20% of that amount $20,000.00 Room under the $200,000 cap $200,000.00 Tax offset $20,000.00 Modified CGT treatment Applies to these shares The offset is 20% of the amount for the issue, capped so the year’s offsets with affiliates and carried forward amounts do not exceed $200,000.
+
+## How the ESIC tax offset calculator works
+
+An investor in new shares of an early stage innovation company (ESIC) gets a non-refundable tax offset of 20% of the amount for the issue, under Subdivision 360-A of the Income Tax Assessment Act 1997. The calculator ports the esic command of australian-accounting. It checks the company tests of section 360-40 for the year of issue: incorporated or registered recently enough, expenses of $1 million or less and assessable income of $200,000 or less in the previous year, not listed, from 2018-19 not a foreign company, and 100 innovation points under section 360-45 or the principles-based test. It then checks the investor tests of sections 360-15 and 360-20, including the $50,000 limit where an offer needed a disclosure document. The offset is capped so the year’s offsets with affiliates and carried forward amounts do not exceed $200,000. Where the investor is entitled, the shares also take the modified CGT treatment of Subdivision 360-B.
+
+## What the ESIC tax offset calculator does not cover
+
+The calculator does not decide whether the principles-based test is met or which innovation items apply: you state them. It does not work out the offset for a trust’s or partnership’s members, whether the investor is a sophisticated investor, the offset carried forward to a later year, or the capital gain or loss when the shares are sold. Before 2018-19 it refuses a non-cash benefit, an ESVCLP investor and the 6-year incorporation route; for 2021-22 it refuses an R&D clawback amount. Have a registered tax agent confirm the figures and the result.
+
+## Boundary cases
+
+Each row is a test: scripts/business-calculators.test.mjs runs this calculator on these fictional inputs and fails if the result differs from the one shown.
+
+Boundary cases: ESIC tax offset calculator
+
+Case | Inputs | Result
+The page’s example: an individual’s $100,000 in a company incorporated last year | 2025-26; individual investing $100,000.00; company incorporated 2024-25, expenses $300,000.00, income $20,000.00; items 1, 6 | Amount for the issue $100,000.00, tax offset $20,000.00, 125 innovation points
+The $200,000 cap leaves $10,000 of room | 2025-26; individual investing $100,000.00; company incorporated 2024-25, expenses $300,000.00, income $20,000.00; items 1, 6 | Amount for the issue $100,000.00, tax offset $10,000.00, 125 innovation points
+Expenses of $1,000,000.01 in the previous year: not an ESIC, no offset | 2025-26; individual investing $100,000.00; company incorporated 2024-25, expenses $1,000,000.01, income $20,000.00; items 1, 6 | Amount for the issue $100,000.00, tax offset $0.00, 125 innovation points
+Items 1 and 3 together: refused | 2025-26; individual investing $100,000.00; company incorporated 2024-25, expenses $300,000.00, income $20,000.00; items 1, 3 | Refused: items 1 (at least 50% of total expenses) and 3 (at least 15% but less than 50%) cannot both apply
+
+One of the sixty-three business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+
+Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
+
+## Links
+
+- sixty-three business calculators: https://duguid.com.au/tools/business-calculators/
+
+---
+
 # Trust streaming calculator: Division 6, 6E and section 99A
 
 Source: https://duguid.com.au/tools/business-calculators/trust-streaming/
@@ -16832,6 +16926,84 @@ Planning estimates in AUD. Confirm tax treatment, liability amounts and dates se
 - section 14: https://www.legislation.gov.au/F2015L01854/2025-11-01/2025-11-01/text/original/epub/OEBPS/document_1/document_1.html
 - transfer duty calculator: https://duguid.com.au/tools/business-calculators/transfer-duty/
 - land tax calculator: https://duguid.com.au/tools/business-calculators/land-tax/
+- sixty-three business calculators: https://duguid.com.au/tools/business-calculators/
+
+---
+
+# Residential vacancy fee for foreign owners
+
+Source: https://duguid.com.au/tools/business-calculators/residential-vacancy-fee/
+
+> A foreign owner’s annual vacancy fee on a dwelling occupied fewer than 183 days, for vacancy years from 2020-21 to 2026-27, with the return’s due date.
+
+# Residential vacancy fee calculator
+
+A foreign owner’s annual vacancy fee on a residential dwelling.
+
+Published 27 November 2026. Last checked 24 November 2026.
+
+JavaScript is required for interactive calculations. The formula, assumptions and source links remain available below.
+
+One foreign owner’s dwelling for one vacancy year
+
+First day of the vacancy year
+
+Financial year the vacancy year starts in 2026-27 2025-26 2024-25 2023-24 2022-23 2021-22 2020-21
+
+Days residentially occupied or genuinely available to rent
+
+Held as a foreign person for the whole vacancy year Yes No
+
+Vacancy fee return lodged within 30 days after the year Yes No
+
+Section 43D exemption, with evidence None Damaged, unsafe or unsuitable Substantial repairs or renovations Court order or law prevents occupation Occupant in medical or residential care
+
+How the dwelling was acquired Notified to the Treasurer Under a developer’s exemption certificate Under another exemption certificate Under an order or no objection notification
+
+Ownership Sole owner Joint tenants Tenants in common
+
+Application fee waived No Waived in full
+
+Application fee from The fee schedule, from the consideration The fee paid, entered below
+
+Application fee paid by this owner (AUD) Consideration for the dwelling (AUD)
+
+Dwelling New or near-new Established
+
+Date the application or notice was given Share held as a tenant in common (0.5 for half)
+
+Calculate
+
+A vacancy year runs 12 months from the day the owner could first occupy the dwelling, or its anniversary. The dwelling and its notice date are not used for a fee waived in full in a vacancy year starting before 9 April 2024.
+
+Fictional example: the first boundary case below. Change the inputs and calculate your own. Inputs: 2025-26; vacancy year from 2025-08-01; 100 days occupied; notified, sole; consideration $1,500,000.00; new or near-new dwelling notified 2025-05-01. Vacancy year 2025-08-01 to 2026-07-31 Liability Liable: occupied fewer than 183 days Application fee basis $29,500.00 Vacancy fee multiplier 2 Vacancy fee payable $59,000.00 Return due 2026-08-30 Keep records until 2031-07-31 The fee is the application fee for the dwelling, doubled for a vacancy year from 9 April 2024; it is payable on the date in the notice of liability.
+
+## How the residential vacancy fee calculator works
+
+Under Part 6A of the Foreign Acquisitions and Takeovers Act 1975, a foreign owner of a residential dwelling lodges a vacancy fee return each vacancy year. The owner pays an annual vacancy fee if the dwelling was residentially occupied, or genuinely available to rent, for fewer than 183 days. The calculator ports the residential-vacancy-fee command of australian-accounting. The fee equals the foreign investment application fee for the dwelling, worked from the fee schedule in force on the notice date or entered as paid, and is doubled for a vacancy year starting on or after 9 April 2024. A late return makes the owner liable whatever the days, and an exemption under section 43D of the Foreign Acquisitions and Takeovers Regulation 2015 removes the fee. It also gives the return’s due date and how long to keep records.
+
+## What the residential vacancy fee calculator does not cover
+
+The calculator does not decide whether you are a foreign person, when the vacancy year starts, which days count as occupied or whether an exemption applies: you enter those. It does not cover build-to-rent developments, partial fee waivers, a waiver or remission under section 115H, the fee schedule before 2021 (enter the application fee paid instead), a fee above the statutory cap floor, or state and territory vacancy taxes and surcharges. Have a registered tax agent confirm the figures and the result.
+
+## Boundary cases
+
+Each row is a test: scripts/business-calculators.test.mjs runs this calculator on these fictional inputs and fails if the result differs from the one shown.
+
+Boundary cases: Residential vacancy fee calculator
+
+Case | Inputs | Result
+The page’s example: $1.5 million consideration, occupied 100 days, doubled | 2025-26; vacancy year from 2025-08-01; 100 days occupied; notified, sole; consideration $1,500,000.00; new or near-new dwelling notified 2025-05-01 | Application fee basis $29,500.00, vacancy fee payable $59,000.00
+Occupied 183 days: no fee | 2025-26; vacancy year from 2025-08-01; 183 days occupied; notified, sole; consideration $1,500,000.00; new or near-new dwelling notified 2025-05-01 | Application fee basis $29,500.00, vacancy fee payable $0.00
+A vacancy year before 9 April 2024 with a stated fee: not doubled | 2023-24; vacancy year from 2023-08-01; 100 days occupied; notified, sole; application fee $13,200.00 | Application fee basis $13,200.00, vacancy fee payable $13,200.00
+An established dwelling notified from 9 April 2024: the fee tripled, then doubled | 2025-26; vacancy year from 2025-08-01; 100 days occupied; notified, sole; consideration $1,500,000.00; established dwelling notified 2025-05-01 | Application fee basis $88,500.00, vacancy fee payable $177,000.00
+
+One of the sixty-three business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+
+Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
+
+## Links
+
 - sixty-three business calculators: https://duguid.com.au/tools/business-calculators/
 
 ---

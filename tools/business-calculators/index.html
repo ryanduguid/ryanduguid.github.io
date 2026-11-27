@@ -52,13 +52,13 @@
       <header class="article-header site-shell">
         <nav class="article-crumb" aria-label="Breadcrumb"><ol><li><a href="/">Home</a></li><li><a href="/tools/">Tools</a></li><li aria-current="page">Business calculators</li></ol></nav>
         <h1>Business calculators</h1>
-        <p class="lead-note">Sixty-three free calculators that run in your browser with the formula, assumptions and primary source beside the inputs. No sign-up; inputs stay on your device.</p>
+        <p class="lead-note">Sixty-five free calculators that run in your browser with the formula, assumptions and primary source beside the inputs. No sign-up; inputs stay on your device.</p>
         {% assign checked = "" %}{% for calculator in site.data.calculator_cases %}{% if calculator[1].checked and calculator[1].checked > checked %}{% assign checked = calculator[1].checked %}{% endif %}{% endfor %}
         <p class="page-meta">Published 11 September 2026. Last checked <time datetime="{{ checked }}">{{ checked | date: "%-d %B %Y" }}</time>, the newest of the calculators’ source checks.</p>
       </header>
       <div class="site-shell accounting-content">
         <form class="tool-filter" id="calc-filter" role="search" aria-label="Filter business calculators">
-          <label class="field" for="calc-search">Search 63 calculators<input type="search" id="calc-search" name="q" autocomplete="off" placeholder="e.g. stamp duty, FBT, CGT, payroll tax, GST" /></label>
+          <label class="field" for="calc-search">Search 65 calculators<input type="search" id="calc-search" name="q" autocomplete="off" placeholder="e.g. stamp duty, FBT, CGT, payroll tax, GST" /></label>
           <p id="calc-count" class="field-note" role="status"></p>
         </form>
         <h2>Pricing, planning and loans</h2>
@@ -102,6 +102,7 @@
           <li id="franking-account"><a class="collection-entry__title" href="/tools/business-calculators/franking-account/">Franking account calculator</a> A company’s franking account for 2025-26 or 2026-27: franking deficit tax and its offset, the benchmark rule and the franking return’s labels and due date.</li>
           <li id="company-tax"><a class="collection-entry__title" href="/tools/business-calculators/company-tax/">Company tax and franking calculator</a> A company’s 25% or 30% rate from the base rate entity test, its rate for franking dividends, the maximum franking credit and a shareholder’s tax or refund.</li>
           <li id="rd-tax-offset"><a class="collection-entry__title" href="/tools/business-calculators/rd-tax-offset/">R&amp;D tax offset calculator</a> A company’s R&amp;D tax incentive offset for 2021-22 to 2026-27, refundable or with the premium tiers, and the amount a grant or feedstock clawback includes in assessable income.</li>
+          <li id="esic"><a class="collection-entry__title" href="/tools/business-calculators/esic/">ESIC tax offset calculator</a> The early stage investor tax offset on new shares in an early stage innovation company for 2016-17 to 2026-27: the company and investor tests, the 20% offset, the $200,000 cap and the modified CGT treatment.</li>
           <li id="deferred-tax"><a class="collection-entry__title" href="/tools/business-calculators/deferred-tax/">Deferred tax calculator</a> A company’s AASB 112 tax effect worksheet: deferred tax liability and asset, the movement, current tax and the reconciliation.</li>
           <li id="salary-dividend"><a class="collection-entry__title" href="/tools/business-calculators/salary-dividend/">Salary against dividends calculator</a> A company owner’s salary and super guarantee against fully franked dividends for 2021-22 to 2026-27: the cash and super kept after tax, and the split that keeps the most.</li>
           <li id="sole-trader-company"><a class="collection-entry__title" href="/tools/business-calculators/sole-trader-company/">Sole trader against company calculator</a> One business profit taxed as a sole trader, with the small business income tax offset, and through a company paying a salary, super guarantee and fully franked dividends, for 2021-22 to 2026-27: each structure’s total tax.</li>
@@ -132,6 +133,7 @@
           <li id="first-home-owner-grant"><a class="collection-entry__title" href="/tools/business-calculators/first-home-owner-grant/">First home owner grant calculator</a> The grant in each of the 8 states and territories for a new home, by contract date and value cap, beside the first home buyer transfer duty.</li>
           <li id="land-tax"><a class="collection-entry__title" href="/tools/business-calculators/land-tax/">Land tax calculator</a> Land tax for a full year in each of the 7 states and territories that levy it, at the general or trust rates, with a foreign or absentee owner surcharge and WA’s metropolitan region improvement tax where chosen, before any exemption.</li>
           <li id="foreign-surcharge"><a class="collection-entry__title" href="/tools/business-calculators/foreign-surcharge/">Foreign purchaser surcharge calculator</a> Foreign purchaser duty and the foreign owner land tax surcharge in each state and territory, with each one’s own test of who is foreign, the 2026-27 FIRB fee and the upfront total in all 8 side by side.</li>
+          <li id="residential-vacancy-fee"><a class="collection-entry__title" href="/tools/business-calculators/residential-vacancy-fee/">Residential vacancy fee calculator</a> A foreign owner’s annual vacancy fee on a residential dwelling for vacancy years from 2020-21 to 2026-27: the 183-day test, exemptions, the application fee schedule, the doubling from 9 April 2024 and the return’s due date.</li>
           <li id="payroll-tax"><a class="collection-entry__title" href="/tools/business-calculators/payroll-tax/">Payroll tax calculator</a> One employer’s annual payroll tax for 2026-27 in any state or territory, for an employer outside a group, with each step cited.</li>
         </ul>
         <h2>Indirect taxes, ATO deadlines and ASIC</h2>
@@ -161,7 +163,7 @@
       "description": "Calculate GST, margins, loans, Division 7A, FBT, payroll tax, land tax, transfer duty, PAYG instalments, fixed fees and 13-week cash flow in your browser.",
       "inLanguage": "en-AU",
       "datePublished": "2026-09-11",
-      "dateModified": "2026-11-26",
+      "dateModified": "2026-11-27",
       "license": "https://duguid.com.au/privacy/#licences",
       "isPartOf": {
         "@id": "https://duguid.com.au/#website"
