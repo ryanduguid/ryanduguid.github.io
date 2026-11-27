@@ -255,8 +255,8 @@ function bonusResult(value, aud) {
    * @param {[{studyLoan: number, total: number}, string][]} parts */
   const loanNote = (parts) => {
     const each = parts.map(([t, label]) => `${aud(t.studyLoan)} of the ${aud(t.total)}`.replaceAll('.00', '') + ` ${label}`);
-    return loan ? `Each amount withheld includes the Schedule 8 study loan component: ${each.slice(0, -1).join(', ')}`
-      + `${each.length > 1 ? ' and ' : ''}${each.at(-1)}` : '';
+    return loan ? `Each amount withheld includes the Schedule 8 study loan component: ${each.slice(0, -1).join(', ')} and `
+      + each.at(-1) : '';
   };
   if (r.method === 'A') return methodAResult(r, { aud, loan, head, money, loanNote });
   const rows = [['Withheld from this pay’s earnings', aud(r.base.total)]];
@@ -348,7 +348,7 @@ const percent = (/** @type {number} */ rate) => `${Number((rate * 100).toFixed(2
 function lumpSumArrearsResult(value, aud) {
   const accrual = [];
   for (const slot of ARREARS_SLOTS) {
-    const field = (/** @type {string} */ name) => (value(`${slot}-${name}`) ?? '').trim();
+    const field = (/** @type {string} */ name) => value(`${slot}-${name}`).trim();
     // Only the 2 latest accrual years take their own taxable income and rebate facts.
     const facts = slot.startsWith('earlier') ? []
       : ARREARS_FACTS.map(([key, name]) => [key, field(name)]).filter(([, text]) => text !== '');
@@ -365,10 +365,10 @@ function lumpSumArrearsResult(value, aud) {
   let note = 'No offset: the total arrears amount is less than 10% of normal taxable income less it';
   if (r.met) {
     rows.push([`Tax on arrears in ${year}`, aud(/** @type {number} */ (r.taxOnArrears))],
-      ...(r.notional ?? []).map(({ year: accrued, amount }) => [`Notional tax for ${accrued}`, aud(amount)]));
+      ...r.notional.map(({ year: accrued, amount }) => [`Notional tax for ${accrued}`, aud(amount)]));
     if (r.distant) rows.push(['Notional tax for the distant years', aud(r.distant.amount)]);
     rows.push(['Notional tax on arrears', aud(/** @type {number} */ (r.notionalTotal))]);
-    const [latest, before] = r.notional ?? [];
+    const [latest, before] = r.notional;
     const distant = r.distant?.years ?? [];
     const listed = distant.length > 1 ? `${distant.slice(0, -1).join(', ')} and ${distant.at(-1)}` : distant[0];
     note = r.distant && r.rates ? `${distant.length > 1 ? 'The distant years' : 'The distant year'} ${listed} `
