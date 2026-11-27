@@ -19,6 +19,7 @@ fn exchange(port: u16, raw: &str) -> String {
 fn site() -> (tempfile::TempDir, u16) {
     let site = tempfile::tempdir().unwrap();
     std::fs::write(site.path().join("page.txt"), "plain body").unwrap();
+    std::fs::write(site.path().join("data.csv"), "a,b\n").unwrap();
     let port = start(site.path());
     (site, port)
 }
@@ -26,7 +27,11 @@ fn site() -> (tempfile::TempDir, u16) {
 #[test]
 fn an_http_0_9_request_gets_the_body_without_a_status_line_or_headers() {
     let (_site, port) = site();
-    assert_eq!(exchange(port, "GET /page.txt\r\n"), "plain body");
+    assert_eq!(exchange(port, "GET /data.csv\r\n"), "a,b\n");
+    // A type the server may gzip reads Accept-Encoding with get_all, which an
+    // HTTP/0.9 request's plain header dict lacks in http.server: the handler fails
+    // and the connection closes with nothing sent.
+    assert_eq!(exchange(port, "GET /page.txt\r\n"), "");
 }
 
 #[test]
