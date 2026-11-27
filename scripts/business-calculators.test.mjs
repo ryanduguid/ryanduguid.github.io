@@ -504,7 +504,7 @@ const transferDutyScales = (() => {
   return scales;
 })();
 // A boundary case names its jurisdiction; the engine takes that jurisdiction's scale.
-const engineArgs = (name, call) => (name === 'transferDuty' ? [call[0], transferDutyScales[call[1]]]
+const engineArgs = (name, call) => (name === 'identifierCheck' ? [call[1], call[0]] : name === 'transferDuty' ? [call[0], transferDutyScales[call[1]]]
   : name === 'firstHomeDuty' ? [call[0], transferDutyScales[call[1]], call[1], call[2]]
   : name === 'landTaxYear' ? landTaxArgs(call)
   : name === 'businessDays' ? [call[0], businessDayHolidays]
@@ -806,6 +806,9 @@ Object.assign(ENGINE_LABELS, { trustStreaming: { netIncome: 'net income', truste
   ...Object.fromEntries([1, 2, 3, 4].flatMap((n) => [['Division6', 'Division 6 share'], ['AttributableGain', 'attributable gain'],
     ['ExtraCapitalGain', 'extra capital gain'], ['AttributableFranked', 'attributable franked distribution'], ['FrankingCredit', 'franking credit'],
     ['Assessable', 'assessable']].map(([field, words]) => [`b${n}${field}`, `beneficiary ${n} ${words}`]))) } });
+Object.assign(INPUTS, { endorsementReview: calculations.endorsementInputsText, identifierCheck: (number, kind) => calculations.identifierInputsText(kind, number) });
+Object.assign(ENGINE_LABELS, { endorsementReview: { status: (v) => `status ${v.replaceAll('_', ' ')}` },
+  identifierCheck: { result: (v) => v.replaceAll('_', ' '), formatted: (v) => (v === null ? 'not formatted' : `formatted ${v}`) } });
 
 for (const [page, { function: name, peer, rows }] of Object.entries(shownCases)) {
   if (peer) {
@@ -1269,6 +1272,8 @@ Object.assign(FORM_CALLS, { casualOvertime: (f) => [calculations.casualOvertimeF
 Object.assign(FORM_CALLS, { rdTaxOffset: (f) => [calculations.rdFormInput((name) => f[name] ?? '')] });
 
 Object.assign(FORM_CALLS, { contractorEmployee: (f) => [calculations.contractorFormInput((name) => f[name] ?? '')] });
+Object.assign(FORM_CALLS, { endorsementReview: (f) => calculations.endorsementFormInput((name) => f[name] ?? ''),
+  identifierCheck: (f) => calculations.identifierFormInput((name) => f[name] ?? '').reverse() });
 
 Object.assign(FORM_CALLS, { gstAdjustment: (f) => {
   const { worksheet, input } = calculations.gstFormInput((name) => f[name] ?? '');
@@ -7925,4 +7930,87 @@ test('trust streaming refuses inputs it cannot settle', () => {
   assert.equal(calculations.trustStreaming({ ...trustZero, other_trust_income: '100', other_net_income: '100' }).trustee.assessable, 100);
   // Trust income below nil with net income above it: nobody is entitled and the trustee is assessed on it all.
   assert.equal(calculations.trustStreaming({ ...trustZero, other_trust_income: '-50', other_net_income: '100' }).trustee.assessable, 100);
+});
+
+// The ATO's endorsement review worksheets NAT 74110, NAT 11685 and NAT 11686, read 27 November 2026, as the
+// endorsement-review command of ryanduguid/australian-accounting (main 7f3c3eb) answers them.
+const ER_KEYS = { income_tax_exempt_charity: ['abn_current', 'registered_charity', 'meets_a_test', 'meets_both_conditions'],
+  dgr_whole: ['abn_current', 'within_category', 'winding_up_clause', 'in_australia', 'receipts_correct'],
+  dgr_fund: ['abn_current', 'within_category', 'gift_fund_maintained', 'in_australia', 'receipts_correct'] };
+const erAnswers = (sheet, ...no) => Object.fromEntries(ER_KEYS[sheet].map((k) => [k, !no.includes(k)]));
+
+test('endorsement review: a no to a condition ends entitlement, a no on receipts needs action, and the worst wins', () => {
+  const status = (sheet, ...no) => calculations.endorsementReview(sheet, erAnswers(sheet, ...no)).status;
+  for (const sheet of Object.keys(ER_KEYS)) {
+    assert.equal(status(sheet), 'continues', sheet);
+    for (const key of ER_KEYS[sheet]) assert.equal(status(sheet, key), key === 'receipts_correct' ? 'action_needed' : 'not_entitled', key);
+  }
+  assert.equal(status('dgr_fund', 'receipts_correct', 'in_australia'), 'not_entitled');
+  const r = calculations.endorsementReview('dgr_whole', erAnswers('dgr_whole', 'abn_current'));
+  assert.deepEqual(Object.keys(r.findings[0]), ['question', 'provision', 'answer', 'outcome', 'action']);
+  assert.match(r.findings[0].action, /s 426-45\(3\)/);
+  assert.deepEqual(Object.keys(r.findings[1]), ['question', 'provision', 'answer']);
+  assert.equal(r.notAsked.length, 3);
+  assert.equal(calculations.endorsementReview('income_tax_exempt_charity', erAnswers('income_tax_exempt_charity')).notAsked.length, 1);
+});
+
+test('endorsement review refuses another worksheet, a missing, extra or non-boolean answer', () => {
+  const refused = (sheet, answers, code) => assert.throws(() => calculations.endorsementReview(sheet, answers), { code });
+  refused('dgr', {}, 'endorsement_review.worksheet_invalid');
+  refused('toString', {}, 'endorsement_review.worksheet_invalid');
+  const full = erAnswers('dgr_fund');
+  refused('dgr_fund', { ...full, extra: true }, 'endorsement_review.answers_invalid');
+  refused('dgr_fund', { ...full, receipts_correct: 'yes' }, 'endorsement_review.answers_invalid');
+  refused('dgr_fund', [true, true, true, true, true], 'endorsement_review.answers_invalid');
+  refused('dgr_fund', null, 'endorsement_review.answers_invalid');
+  const rest = Object.fromEntries(Object.entries(full).filter(([key]) => key !== 'gift_fund_maintained'));
+  refused('dgr_fund', { ...rest, winding_up_clause: true }, 'endorsement_review.answers_invalid');
+});
+
+test('endorsement review page reads only the chosen worksheet’s questions and names each provision', () => {
+  const fields = { worksheet: 'dgr_fund', 'abn-current': 'yes', 'within-category': 'yes', 'winding-up-clause': 'no',
+    'gift-fund-maintained': 'no', 'in-australia': 'yes', 'receipts-correct': 'yes', 'registered-charity': 'no' };
+  const view = calculations.endorsementReviewResult((name) => fields[name]);
+  assert.equal(view.rows[0][1], 'Not entitled to the endorsement on these answers');
+  assert.equal(view.rows.length, 7);
+  assert.match(view.rows[4][1], /^No\. Not entitled for the period the gift fund was not maintained/);
+  assert.equal(view.inputs, 'Worksheet 2, a DGR endorsed for a fund, authority or institution (NAT 11686); 5 questions, no to gift fund maintained');
+  assert.doesNotMatch(view.note, /\.$/);
+  const html = calculatorInclude('endorsement-review');
+  for (const key of Object.values(ER_KEYS).flat()) assert.ok(html.includes(`name="${key.replaceAll('_', '-')}" value="no"`), key);
+});
+
+// ABN Lookup's Format of the ABN and ASIC's EDGE specification Appendix D, both read 27 November 2026.
+test('ABN and ACN check digits pass the registers’ own examples and fail one digit off', () => {
+  const check = (kind, value) => calculations.identifierCheck(kind, value);
+  const GOOD = '51 824 753 556';
+  assert.equal(check('abn', GOOD).result, 'CHECK_DIGIT_VALID');
+  assert.equal(check('abn', GOOD.replaceAll(' ', '')).formatted, '51 824 753 556');
+  assert.equal(check('abn', ` ${GOOD} `).result, 'CHECK_DIGIT_VALID');
+  for (const bad of ['51 824 753 557', '41 824 753 556', '61 824 753 556', '00000090000']) {
+    assert.equal(check('abn', bad).result, 'CHECK_DIGIT_INVALID', bad);
+  }
+  for (const bad of ['5182475355', '518247535566', '51-824-753-556', '51\u00a0824 753 556', '\u0665\u0661824753556', '', '51824753556\n', '5182475355-']) {
+    assert.deepEqual([check('abn', bad).result, check('abn', bad).formatted], ['MALFORMED', null], JSON.stringify(bad));
+  }
+  assert.equal(check('acn', '004 085 616').result, 'CHECK_DIGIT_VALID');
+  assert.equal(check('acn', '000250000').result, 'CHECK_DIGIT_VALID');
+  for (const bad of ['004 085 617', '004 085 626', '123 456 789', '000250001']) assert.equal(check('acn', bad).result, 'CHECK_DIGIT_INVALID', bad);
+  for (const bad of ['00408561', '0040856161', '004-085-616']) assert.equal(check('acn', bad).result, 'MALFORMED', bad);
+  const r = check('abn', GOOD);
+  assert.deepEqual([r.abrRegistrationEstablished, r.gstRegistrationEstablished, r.checkDigitValid], [false, false, true]);
+  assert.match(r.notEstablished, /proves neither that the number was issued/);
+  for (const kind of ['abn', 'acn']) {
+    for (const number of ['004 085 616', GOOD, '1']) assert.match(check(kind, number).notEstablished, /issued.*active|active.*issued/s, `${kind} ${number}`);
+  }
+  assert.throws(() => check('tfn', '123'), { code: 'identifier.kind_invalid' });
+  assert.throws(() => check('abn', Number(GOOD.replaceAll(' ', ''))), { code: 'identifier.value_invalid' });
+});
+
+test('ABN and ACN page says it looks nothing up and never that a number is registered', () => {
+  const html = calculatorInclude('abn-acn-check');
+  assert.match(html, /nothing is looked up, and a valid check digit does not mean the number is registered/);
+  const view = calculations.identifierCheckResult((name) => ({ kind: 'acn', number: '004 085 617' })[name]);
+  assert.match(view.rows[0][1], /^Check digit invalid\. /);
+  assert.equal(view.rows.at(-2)[0], 'What this does not establish');
 });

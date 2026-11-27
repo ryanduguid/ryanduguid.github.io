@@ -616,6 +616,12 @@ function initialiseCalculators([calculate, fieldErrors, fbtForms, { individualRe
             csv = result.html; // eslint-disable-line xss/no-mixed-html -- the invoice file is downloaded, never inserted into this page
             csvDownload.disabled = false;
             break;
+          case 'endorsement-review':
+            result = calculate.endorsementReviewResult(value);
+            break;
+          case 'abn-acn-check':
+            result = calculate.identifierCheckResult(value);
+            break;
           case 'fuel-tax-credits':
             result = calculate.fuelTaxCreditsResult(value, aud);
             break;

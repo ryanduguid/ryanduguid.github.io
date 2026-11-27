@@ -522,6 +522,19 @@ calculate.trustStreaming({ ...trustInput, other_trust_income: 80000 });
 const trustProvision: number = calculate.trustStreaming(trustInput).trustee.provision;
 void trustTax;
 void trustProvision;
+const erStatus: string = calculate.endorsementReview('dgr_whole', { abn_current: true }).status;
+// @ts-expect-error The worksheet is one of the 3 named.
+calculate.endorsementReview('dgr', {});
+// @ts-expect-error An answer is a boolean, not 'yes'.
+calculate.endorsementReview('dgr_fund', { abn_current: 'yes' });
+const idValid: boolean = calculate.identifierCheck('abn', ['51', '824', '753', '556'].join(' ')).checkDigitValid;
+// @ts-expect-error A pass never establishes registration.
+const idRegistered: true = calculate.identifierCheck('acn', '004 085 616').abrRegistrationEstablished;
+// @ts-expect-error Only an ABN or an ACN.
+calculate.identifierCheck('tfn', ['004', '085', '616'].join(' '));
+void erStatus;
+void idValid;
+void idRegistered;
 const gstBdInput = { party: 'supplier', event: 'written_off', amount: '550.00', taxable_or_creditable: true, cash_basis: false,
   special_rule: 'none', attributed: true, year: '2025-26', scope_confirmed: true };
 const gstApplies: boolean = calculate.gstBadDebt(gstBdInput).applies;
@@ -620,6 +633,8 @@ void businessSet['land-tax'].execute({ place: 'AU-NSW', taxableLandValue: 110000
 void businessSet['termination-payment'].execute({ genuineRedundancyPayment: '48000', completedYearsOfService: 5, codeOTaxableComponent: '17678', otherTaxablePayments: '140000', dateOfBirth: '1996-08-01' });
 void businessSet['transfer-duty'].execute({ place: 'AU-NSW', dutiableValue: 1350000 });
 void businessSet['contractor-employee'].execute({ incomeYear: '2026-27', hoursPerWeek: '38', salary: '100000', contractorHourlyRate: '70' });
+void businessSet['endorsement-review'].execute({ worksheet: 'dgr_fund', answers: { abn_current: true } });
+void businessSet['abn-acn-check'].execute({ identifier: 'acn', number: '004 085 616' });
 void businessSet['rd-tax-offset'].execute({ incomeYear: '2025-26', notionalDeductions: '100000', aggregatedTurnover: '10000000', totalExpenses: '100000' });
 void businessSet['tax-invoice'].execute({ supplierName: 'Example Stationery Pty Ltd', supplierAbn: '51 824 753 556', issued: '2026-11-26', lines: [{ description: 'Pens', quantity: '20', unitPrice: '1.10', treatment: 'taxable' }] });
 void businessSet['gst-adjustments'].execute({ worksheet: 'going-concern', year: '2025-26', forConsideration: true, recipientRegistration: 'registered', writtenAgreement: 'on_or_before_supply_day', allThingsNecessary: true, carriedOnUntilSupply: true });

@@ -11,6 +11,8 @@ import { casualOvertimeTool } from './webmcp-casual-overtime.mjs';
 import { contractorEmployeeTool } from './webmcp-contractor-employee.mjs';
 import { paydayCashflowTool } from './webmcp-payday-cashflow.mjs';
 import { taxInvoiceTools } from './webmcp-tax-invoice.mjs';
+import { endorsementReviewTool } from './webmcp-endorsement-review.mjs';
+import { identifierCheckTool } from './webmcp-abn-acn-check.mjs';
 import {
   concessionalCatchUpTool, fhssTool, governmentSuperTool, lumpSumArrearsTool, studyLoanTool, workExpensesTool,
 } from './webmcp-individual-more.mjs';
@@ -47,6 +49,7 @@ const PATTERNS = {
   signedCost: /^-?\d{1,10}$|^-?\d{1,10}\.\d{1,2}$/,
   trillionCost: /^\d{1,13}$|^\d{1,13}\.\d{1,2}$/,
   signedTrillionCost: /^-?\d{1,13}$|^-?\d{1,13}\.\d{1,2}$/,
+  identifier: /^[0-9 ]{1,40}$/,
 };
 
 /**
@@ -570,7 +573,8 @@ const fuelTaxCreditsTool = (fuelTaxCredits) => tool({
  *   | 'rdTaxOffset' | 'RD_YEARS' | 'gstAdjustment' | 'percentFraction' | 'GST_WORKSHEETS' | 'GST_ADJUSTMENT_YEARS'
  *   | 'deferredTax' | 'DEFERRED_TAX_YEARS' | 'soleTraderCompany' | 'SOLE_TRADER_COMPANY_YEARS' | 'casualOvertime'
  *   | 'contractorEmployee' | 'CONTRACTOR_YEARS' | 'paydayCashflow' | 'taxInvoice' | 'TREATMENTS' | 'MAX_LINES'
- *   | 'trustStreaming' | 'TRUST_STREAMING_ROWS'>} calculate */
+ *   | 'trustStreaming' | 'TRUST_STREAMING_ROWS' | 'endorsementReview' | 'ENDORSEMENT_WORKSHEETS' | 'identifierCheck'
+ *   | 'IDENTIFIER_KINDS'>} calculate */
 export function calculatorTools(calculate) {
   return {
     gst: gstTool(calculate.gst),
@@ -593,6 +597,8 @@ export function calculatorTools(calculate) {
     'contractor-employee': contractorEmployeeTool(TOOL_KIT, calculate),
     'payday-cashflow': paydayCashflowTool(TOOL_KIT, calculate.paydayCashflow),
     ...taxInvoiceTools(TOOL_KIT, calculate),
+    'endorsement-review': endorsementReviewTool(TOOL_KIT, calculate),
+    'abn-acn-check': identifierCheckTool(TOOL_KIT, calculate),
   };
 }
 

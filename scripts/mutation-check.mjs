@@ -85,6 +85,8 @@ const casualOt = { ...business, file: 'assets/casual-overtime.mjs' };
 const contractor = { ...business, file: 'assets/contractor-employee.mjs' };
 const invoice = { ...business, file: 'assets/tax-invoice.mjs' };
 const trustStream = { ...business, file: 'assets/trust-streaming.mjs' };
+const endorsement = { ...business, file: 'assets/endorsement-review.mjs' };
+const identifiers = { ...business, file: 'assets/abn-acn-check.mjs' };
 const gstAdjustments = { ...business, file: 'assets/gst-adjustments.mjs' };
 const deferredTaxEngine = { ...business, file: 'assets/deferred-tax.mjs' };
 const lct = { ...business, file: 'assets/luxury-car-tax.mjs' };
@@ -1211,6 +1213,14 @@ const MUTATIONS = [
   { ...trustStream, name: 'Trust Division 6E keeps the streamed amounts in present entitlement', find: 'const entitled6E = sub(whole(p.entitlement), s.inIncome);', replace: 'const entitled6E = whole(p.entitlement);' },
   { ...trustStream, name: 'Trust company beneficiary discounts its gain', find: 'const KIND_DISCOUNT = { individual: true, trust: true, company: false };', replace: 'const KIND_DISCOUNT = { individual: true, trust: true, company: true };' },
   { ...trustStream, name: 'Trust trustee gets no franking credit offset', find: 'const afterOffset = sub(tax, trusteeShares.credit);', replace: 'const afterOffset = tax;' },
+  { ...endorsement, name: 'Endorsement review never needs action', find: 'else if (failed.length) status = ACTION_NEEDED;', replace: 'else if (false) status = ACTION_NEEDED;' },
+  { ...endorsement, name: 'Endorsement review lets a no to a condition continue', find: 'if (failed.some((q) => q.outcome === NOT_ENTITLED)) status = NOT_ENTITLED;', replace: 'if (false) status = NOT_ENTITLED;' },
+  { ...endorsement, name: 'Endorsement review accepts an extra answer', find: 'if (given.size !== questions.length) throw bad;', replace: 'if (given.size < questions.length) throw bad;' },
+  { ...endorsement, name: 'Endorsement review ends entitlement for wrong receipts', find: '\'a receipt for\', ACTION_NEEDED, RECEIPTS)', replace: '\'a receipt for\', NOT_ENTITLED, RECEIPTS)' },
+  { ...identifiers, name: 'ABN with a first digit of 0 passes', find: 'd[0] !== 0\n      && ', replace: '' },
+  { ...identifiers, name: 'ABN passes on a remainder of 1', find: '% 89 === 0', replace: '% 89 === 1' },
+  { ...identifiers, name: 'ACN check digit of 10 not set to 0', find: '% 10)) % 10 === d[8]', replace: '% 10)) === d[8]' },
+  { ...identifiers, name: 'ABN or ACN with hyphens removed', find: 'if (c !== \' \' && (c < \'0\' || c > \'9\')) return null;', replace: 'if (c !== \' \' && c !== \'-\' && (c < \'0\' || c > \'9\')) return null;' },
   { ...gstAdjustments, name: 'GST creditable purpose threshold counted as over it', find: 'cmp(value, d(finance ? \'10000\' : \'1000\')) <= 0', replace: 'cmp(value, d(finance ? \'10000\' : \'1000\')) < 0' },
   { ...gstAdjustments, name: 'GST 5 adjustment periods at $5,000 or less', find: 'const [low, lowCount] = finance ? [\'50000\', 1] : [\'5000\', 2];', replace: 'const [low, lowCount] = finance ? [\'50000\', 1] : [\'5000\', 5];' },
   { ...gstAdjustments, name: 'GST $500,000 given 5 adjustment periods', find: 'cmp(value, d(\'500000\')) < 0 ? 5 : 10', replace: 'cmp(value, d(\'500000\')) <= 0 ? 5 : 10' },

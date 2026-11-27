@@ -105,7 +105,7 @@ test('every calculator tool is read-only, refuses unknown inputs and has its own
     'calculate_fbt_expense_payment', 'calculate_fbt_loan', 'calculate_fbt_meal_entertainment', 'calculate_fbt_property',
     'calculate_land_tax', 'calculate_termination_payment', 'calculate_transfer_duty',
     'calculate_rd_tax_offset', 'calculate_gst_adjustments', 'calculate_deferred_tax', 'calculate_sole_trader_vs_company', 'calculate_trust_streaming',
-    'calculate_casual_overtime_pay', 'calculate_contractor_employee', 'calculate_payday_super_cashflow', 'check_tax_invoice',
+    'calculate_casual_overtime_pay', 'calculate_contractor_employee', 'calculate_payday_super_cashflow', 'check_tax_invoice', 'review_dgr_charity_endorsement', 'check_abn_acn_check_digit',
     'calculate_decline_in_value', 'calculate_coal_lsl_levy']);
   for (const t of all) {
     assert.equal(t.annotations.readOnlyHint, true, t.name);
@@ -2394,4 +2394,33 @@ test('crystallisation tool works the pre-July 83 component and the crystallised 
   assert.deepEqual([r.preJuly83Component, r.crystallisedSegment, r.taxableComponent, r.serviceDays, r.preJuly1983Days], ['128873.84', '178873.84', '321126.16', 11810, 3044]);
   await assert.rejects(individual['super-crystallisation'].execute({ eligibleServiceStart: '1975-03-01', interestValue: '1', concessionalComponent: '0',
     postJune1994InvalidityComponent: '0', cgtExemptComponent: '0', undeductedContributions: '0', untaxedSource: true }), /untaxed source/);
+});
+
+test('endorsement review tool gives the worksheet outcome and refuses another worksheet’s answers', async () => {
+  const tool = tools['endorsement-review'];
+  const answers = { abn_current: true, within_category: true, winding_up_clause: true, in_australia: true, receipts_correct: false };
+  const r = await tool.execute({ worksheet: 'dgr_whole', answers });
+  assert.deepEqual([r.worksheet, r.status, r.findings.length, r.findings[4].outcome, r.source],
+    ['NAT 11685-02.2021 (Worksheet 1)', 'action_needed', 5, 'action_needed', 'https://duguid.com.au/tools/business-calculators/endorsement-review/']);
+  const charity = await tool.execute({ worksheet: 'income_tax_exempt_charity',
+    answers: { abn_current: false, registered_charity: true, meets_a_test: true, meets_both_conditions: true } });
+  assert.equal(charity.status, 'not_entitled');
+  assert.doesNotThrow(() => JSON.stringify(r));
+  await assert.rejects(tool.execute({ worksheet: 'dgr_fund', answers }), /Answer each question on the worksheet/);
+  await assert.rejects(tool.execute({ worksheet: 'dgr', answers }), /worksheet does not match/);
+  await assert.rejects(tool.execute({ worksheet: 'dgr_whole', answers: { ...answers, extra: true } }), /extra is not an input/);
+  await assert.rejects(tool.execute({ worksheet: 'dgr_whole', answers: { ...answers, in_australia: 'yes' } }), /in_australia must be true or false/);
+});
+
+test('ABN and ACN tool checks the digits only and never establishes registration', async () => {
+  const tool = tools['abn-acn-check'];
+  const GOOD = '51 824 753 556';
+  const r = await tool.execute({ identifier: 'abn', number: GOOD });
+  assert.deepEqual([r.result, r.checkDigitValid, r.formatted, r.abrRegistrationEstablished, r.gstRegistrationEstablished, r.source],
+    ['CHECK_DIGIT_VALID', true, '51 824 753 556', false, false, 'https://duguid.com.au/tools/business-calculators/abn-acn-check/']);
+  assert.equal((await tool.execute({ identifier: 'acn', number: '004085617' })).result, 'CHECK_DIGIT_INVALID');
+  assert.equal((await tool.execute({ identifier: 'acn', number: '00408561' })).result, 'MALFORMED');
+  await assert.rejects(tool.execute({ identifier: 'abn', number: GOOD.replaceAll(' ', '-') }), /number does not match/);
+  await assert.rejects(tool.execute({ identifier: 'tfn', number: GOOD }), /identifier does not match/);
+  await assert.rejects(tool.execute({ identifier: 'abn', number: '1'.repeat(41) }), /number does not match/);
 });
