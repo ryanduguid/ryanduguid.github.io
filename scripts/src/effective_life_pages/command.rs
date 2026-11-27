@@ -137,10 +137,12 @@ fn include(site: &Site) -> String {
         ),
     );
     for table in [Table::A, Table::B] {
-        let pages = site.plan.pages.iter();
-        let Some(index) = pages.clone().find(|page| page.kind == Kind::Index(table)) else {
-            continue;
-        };
+        let index = site
+            .plan
+            .pages
+            .iter()
+            .find(|page| page.kind == Kind::Index(table))
+            .expect("plan_with adds each table's index page");
         let (lists, groups) = group_lists(site, table);
         out.push_str(&format!(
             "<details>\n<summary>{} ({groups} pages)</summary>\n<p><a href=\"{}\">{}</a></p>\n{lists}</details>\n",
@@ -289,15 +291,19 @@ fn say(text: &str) -> Result<()> {
 }
 
 fn refuse_gone(gone: &[Record]) -> Result<u8> {
-    for record in gone {
-        say(&format!(
-            "the data no longer has the page {} ({:?})\n",
-            record.url, record.key
-        ))?;
-    }
-    say(
+    let mut text: String = gone
+        .iter()
+        .map(|record| {
+            format!(
+                "the data no longer has the page {} ({:?})\n",
+                record.url, record.key
+            )
+        })
+        .collect();
+    text.push_str(
         "Refused: a rebuild must not remove a published address. Record where each one went in the address map before rebuilding (CONTRIBUTING, Effective life pages).\n",
-    )?;
+    );
+    say(&text)?;
     Ok(1)
 }
 
@@ -314,9 +320,8 @@ fn write(root: &Path, build: &Build, present: &[String]) -> Result<u8> {
         if path.is_file() && crate::read(&path)? == *text {
             continue;
         }
-        if let Some(parent) = path.parent() {
-            std::fs::create_dir_all(parent).map_err(|e| format!("{}: {e}", parent.display()))?;
-        }
+        let parent = path.parent().expect("a page path is below the site root");
+        std::fs::create_dir_all(parent).map_err(|e| format!("{}: {e}", parent.display()))?;
         std::fs::write(&path, text).map_err(|e| format!("{rel}: {e}"))?;
         changed += 1;
     }

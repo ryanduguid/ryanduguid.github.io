@@ -500,10 +500,10 @@ enum Body {
     File(File),
 }
 
-struct Handler {
+struct Handler<W: Write> {
     directory: Arc<PathBuf>,
     client: String,
-    writer: TcpStream,
+    writer: W,
     requestline: String,
     command: Option<String>,
     path: String,
@@ -527,7 +527,7 @@ fn control_escaped(text: &str) -> String {
     out
 }
 
-impl Handler {
+impl<W: Write> Handler<W> {
     fn header(&self, name: &str) -> Option<&str> {
         let name = name.to_lowercase();
         self.headers
@@ -1015,14 +1015,11 @@ fn handle(stream: TcpStream, directory: Arc<PathBuf>) {
         .peer_addr()
         .map(|a| a.ip().to_string())
         .unwrap_or_default();
-    let (Ok(reader), Ok(writer)) = (stream.try_clone(), stream.try_clone()) else {
-        return;
-    };
-    let mut reader = BufReader::new(reader);
+    let mut reader = BufReader::new(&stream);
     let mut handler = Handler {
         directory,
         client,
-        writer,
+        writer: &stream,
         requestline: String::new(),
         command: None,
         path: String::new(),
@@ -1107,6 +1104,94 @@ pub fn run(root: &Path) -> Result<u8, String> {
 mod tests {
     use super::*;
     use std::time::Duration;
+
+    fn handler<W: Write>(directory: &Path, writer: W) -> Handler<W> {
+        Handler {
+            directory: Arc::new(directory.to_path_buf()),
+            client: "127.0.0.1".into(),
+            writer,
+            requestline: String::new(),
+            command: None,
+            path: String::new(),
+            request_version: String::new(),
+            headers: Vec::new(),
+            plain_headers: false,
+            close_connection: true,
+            buffer: Vec::new(),
+        }
+    }
+
+    #[test]
+    fn an_error_page_to_a_client_that_takes_no_bytes_ends_the_connection_with_the_write_error() {
+        let many_headers = format!("GET / HTTP/1.0\r\n{}\r\n", "a: b\r\n".repeat(101));
+        let long_header = format!("GET / HTTP/1.0\r\na: {}\r\n\r\n", "b".repeat(MAXLINE));
+        for request in [
+            "GET / HTTP/x\r\n",
+            "GET / HTTP/2.0\r\n",
+            "GET / x HTTP/1.0\r\n",
+            "POST /\r\n",
+            long_header.as_str(),
+            many_headers.as_str(),
+        ] {
+            let mut reader = io::Cursor::new(request.as_bytes());
+            let mut room: [u8; 0] = [];
+            let error = handler(Path::new("."), &mut room[..])
+                .handle_one_request(&mut reader)
+                .unwrap_err();
+            assert_eq!(error.kind(), io::ErrorKind::WriteZero, "{request:?}");
+        }
+    }
+
+    #[test]
+    fn join_adds_a_separator_only_when_the_directory_lacks_one() {
+        let separator = std::path::MAIN_SEPARATOR;
+        assert_eq!(join("site", "a.html"), format!("site{separator}a.html"));
+        assert_eq!(
+            join(&format!("site{separator}"), "a.html"),
+            format!("site{separator}a.html")
+        );
+    }
+
+    #[cfg(unix)]
+    fn reply(directory: &Path, request: &str) -> String {
+        let mut written = Vec::new();
+        let mut reader = io::Cursor::new(request.as_bytes());
+        handler(directory, &mut written)
+            .handle_one_request(&mut reader)
+            .unwrap();
+        String::from_utf8_lossy(&written).into_owned()
+    }
+
+    #[cfg(unix)]
+    #[test]
+    fn unreadable_files_and_folders_get_the_not_found_pages_python_sends() {
+        use std::os::unix::fs::PermissionsExt;
+        let site = tempfile::tempdir().unwrap();
+        std::fs::write(site.path().join("page.html"), "<p>hi</p>").unwrap();
+        std::fs::create_dir(site.path().join("private")).unwrap();
+        let locked = std::fs::Permissions::from_mode(0o000);
+        std::fs::set_permissions(site.path().join("page.html"), locked.clone()).unwrap();
+        std::fs::set_permissions(site.path().join("private"), locked).unwrap();
+        // Root reads through any mode, so these refusals only show for other users.
+        let refused = std::fs::read(site.path().join("page.html")).is_err();
+        let page = reply(
+            site.path(),
+            "GET /page.html HTTP/1.0\r\nAccept-Encoding: gzip\r\n\r\n",
+        );
+        assert_eq!(
+            page.starts_with("HTTP/1.1 404 File not found\r\n"),
+            refused,
+            "{page}"
+        );
+        let folder = reply(site.path(), "GET /private/ HTTP/1.0\r\n\r\n");
+        assert_eq!(
+            folder.starts_with("HTTP/1.1 404 No permission to list directory\r\n"),
+            refused,
+            "{folder}"
+        );
+        let open = std::fs::Permissions::from_mode(0o755);
+        std::fs::set_permissions(site.path().join("private"), open).unwrap();
+    }
 
     #[test]
     fn status_names_an_unlisted_code_as_http_server_does() {
