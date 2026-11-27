@@ -692,7 +692,7 @@ A scholarship, bursary, educational allowance or educational assistance paid to 
 
 ## What the scholarship exemption check does not cover
 
-The check refuses the Commonwealth payments s 51-35 excludes (assistance for secondary education or isolated children, education or training payments such as Austudy, ABSTUDY and Youth Allowance, and the education entry payment), which other provisions may exempt in whole or part, and friendly society scholarship plans, which can be taxable. It does not test a prize or award, decide whether you are a full-time student, or work out tax or withholding on a payment that is not exempt. Confirm your answers with the provider, the ATO or a registered tax agent.
+The check refuses the Commonwealth payments s 51-35 excludes (assistance for secondary education or isolated children, education or training payments such as Austudy, ABSTUDY and Youth Allowance, and the education entry payment), which other provisions may exempt in whole or part. It also refuses friendly society scholarship plans, which can be taxable. It does not test a prize or award, decide whether you are a full-time student, or work out tax or withholding on a payment that is not exempt. Confirm your answers with the provider, the ATO or a registered tax agent.
 
 ## Boundary cases
 
