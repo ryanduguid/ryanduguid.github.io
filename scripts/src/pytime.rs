@@ -94,9 +94,7 @@ fn separator_location(s: &[u8]) -> Option<usize> {
     }
     if s[4] == b'-' {
         if s[5] == b'W' {
-            if n < 8 {
-                return None;
-            }
+            // n is at least 8: the caller refuses fewer than 7 characters, and 7 returned above.
             if n > 8 && s[8] == b'-' {
                 if n == 9 {
                     return None;
@@ -147,10 +145,9 @@ fn iso_week(year: i64, week: i64, day: i64) -> Option<Date> {
     Date::from_ordinal(monday + (week - 1) * 7 + (day - 1))
 }
 
+/// `s` is the date part `separator_location` marks off: 7, 8 or 10 bytes, and a week
+/// date's day, when it has one, is its last byte after a separator matching the year's.
 fn parse_date(s: &[u8]) -> Option<(i64, i64, i64)> {
-    if ![7, 8, 10].contains(&s.len()) {
-        return None;
-    }
     let year = digits(s, 0, 4)?;
     let has_sep = s[4] == b'-';
     let mut pos = 4 + usize::from(has_sep);
@@ -160,14 +157,7 @@ fn parse_date(s: &[u8]) -> Option<(i64, i64, i64)> {
         pos += 2;
         let mut day = 1;
         if s.len() > pos {
-            if (s[pos] == b'-') != has_sep {
-                return None;
-            }
-            pos += usize::from(has_sep);
-            day = digits(s, pos, 1)?;
-            if pos + 1 != s.len() {
-                return None;
-            }
+            day = digits(s, pos + usize::from(has_sep), 1)?;
         }
         let date = iso_week(year, week, day)?;
         return Some((
