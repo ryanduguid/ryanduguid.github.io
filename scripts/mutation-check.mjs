@@ -66,6 +66,7 @@ const marginScheme = { ...business, file: 'assets/gst-margin-scheme.mjs' };
 const surcharges = { ...business, file: 'assets/foreign-surcharge.mjs' };
 const businessDays = { ...business, file: 'assets/business-days.mjs' };
 const sgc = { ...business, file: 'assets/sgc-payday.mjs' };
+const cashflowEngine = { ...business, file: 'assets/payday-cashflow.mjs' };
 const cgt = { ...business, file: 'assets/cgt.mjs' };
 const lsl = { ...business, file: 'assets/long-service-leave.mjs' };
 const salaryDividend = { ...business, file: 'assets/salary-dividend.mjs' };
@@ -76,6 +77,8 @@ const pools = { ...business, file: 'assets/depreciation-pools.mjs' };
 const rdOffset = { ...business, file: 'assets/rd-tax-offset.mjs' };
 const casualOt = { ...business, file: 'assets/casual-overtime.mjs' };
 const contractor = { ...business, file: 'assets/contractor-employee.mjs' };
+const invoice = { ...business, file: 'assets/tax-invoice.mjs' };
+const trustStream = { ...business, file: 'assets/trust-streaming.mjs' };
 const gstAdjustments = { ...business, file: 'assets/gst-adjustments.mjs' };
 const deferredTaxEngine = { ...business, file: 'assets/deferred-tax.mjs' };
 const lct = { ...business, file: 'assets/luxury-car-tax.mjs' };
@@ -257,9 +260,19 @@ const MUTATIONS = [
   { ...psi, name: 'PSI counts a result without liability for defects', find: 'result && tools && defects ? amounts[i]', replace: 'result && tools ? amounts[i]' },
   { ...psi, name: 'PSI needs more than 80% from one payer to stop self-assessment', find: '5 * largest >= 4 * total', replace: '5 * largest > 4 * total' },
   { ...psi, name: 'PSI ignores the 80% rule', find: 'if (oneSource) {', replace: 'if (false) {' },
-  { ...psi, name: 'PSI counts an associate as an unrelated client', find: 'amounts[i] && !associate && offer', replace: 'amounts[i] && offer' },
-  { ...psi, name: 'PSI counts an unrelated client not won by an offer', find: '!associate && offer ? [rows[i]]', replace: '!associate ? [rows[i]]' },
-  { ...psi, name: 'PSI counts each row of one payer as its own unrelated client', find: 'offer ? [rows[i]] : []', replace: 'offer ? [i] : []' },
+  { ...psi, name: 'PSI counts an associate as an unrelated client', find: 'amounts.at(i) && !associate && offer', replace: 'amounts.at(i) && offer' },
+  { ...psi, name: 'PSI counts an unrelated client not won by an offer', find: '!associate && offer\n    ? [{', replace: '!associate\n    ? [{' },
+  { ...psi, name: 'PSI counts each row of one payer as its own unrelated client', find: 'won.map(({ client, row }) => (client === undefined ? `payer ${row}`', replace: 'won.map(({ client, row }, n) => (client === undefined ? `payer ${n}`' },
+  { ...psi, name: 'PSI counts labelled rows by payer, not by client label', find: '`client ${client}`', replace: '`payer ${row}`' },
+  { ...psi, name: 'PSI takes client labels on some rows only', find: 'if (labelled && labelled !== counted.length) {', replace: 'if (false) {' },
+  { ...psi, name: 'PSI takes one client label on 2 payers', find: '(payerOf.get(client) ?? row) !== row', replace: 'false' },
+  { ...psi, name: 'PSI needs a client label on a blank row', find: '(amounts.at(i) ? [{ client, row: rows.at(i), n: i + 1 }] : [])', replace: '[{ client, row: rows.at(i), n: i + 1 }]' },
+  { ...psi, name: 'PSI takes a client label over 100 characters', find: '[...client].length > 100', replace: '[...client].length > 101' },
+  { ...psi, name: 'PSI never asks for client labels', find: 'if (unrelated < 2 && won.length >= 2', replace: 'if (false && won.length >= 2' },
+  { ...psi, name: 'PSI asks for client labels with one row won by an offer', find: 'unrelated < 2 && won.length >= 2', replace: 'unrelated < 2 && won.length >= 1' },
+  { ...psi, name: 'PSI asks for client labels under the 80% rule', find: '&& !labelled && !oneSource', replace: '&& !labelled' },
+  { ...psi, name: 'PSI asks for client labels where the premises test decides', find: '&& !employs && !premisesMet) {', replace: '&& !employs) {' },
+  { ...psi, name: 'PSI asks for client labels where the employment test decides', find: '&& !employs && !premisesMet) {', replace: '&& !premisesMet) {' },
   { ...psi, name: 'PSI counts each row of one payer as its own source', find: 'sums[rows[i]] += amount', replace: 'sums[i] += amount' },
   { ...psi, name: 'PSI links a row to the row it names, not that payer’s first row', find: 'same === undefined ? i : first[same - 1]', replace: 'same === undefined ? i : same - 1' },
   { ...psi, name: 'PSI accepts a row named as the same payer as a later row', find: 'same >= 1 && same <= i', replace: 'same >= 1' },
@@ -749,6 +762,12 @@ const MUTATIONS = [
   { ...sgc, name: 'SGC a first out-of-cycle contribution drops item 1', find: "['first-out-of-cycle', ['first', 'out-of-cycle']]", replace: "['first-out-of-cycle', ['out-of-cycle']]" },
   { ...sgc, name: 'SGC combined periods take the first, not the latest', find: '(period[0] > latest[0] ? period : latest), usual)', replace: '(latest[0] === usual[0] ? period : latest), usual)' },
   { ...sgc, name: 'SGC ignores the maximum contributions base', find: 'Math.min(earnings, Math.max(0, MAXIMUM_BASE_2026_27 - cents(inputs.earlier)))', replace: 'earnings' },
+  { ...cashflowEngine, name: 'Payday cashflow at 11%', find: 'BigInt(cents(inputs.earnings)) * 12n', replace: 'BigInt(cents(inputs.earnings)) * 11n' },
+  { ...cashflowEngine, name: 'Payday cashflow quarterly date a day late', find: "due: '2026-10-28'", replace: "due: '2026-10-29'" },
+  { ...cashflowEngine, name: 'Payday cashflow part-day dates not flagged', find: 'partDay = true;', replace: 'partDay = false;' },
+  { ...cashflowEngine, name: 'Payday cashflow fortnights of 15 days', find: "['fortnightly', { step: 14,", replace: "['fortnightly', { step: 15," },
+  { ...cashflowEngine, name: 'Payday cashflow monthly date not moved to a shorter month end', find: 'Math.min(date, last)', replace: 'date' },
+  { ...cashflowEngine, name: 'Payday cashflow average not weighted by amount', find: 'weighted += sg * daysEarlier;', replace: 'weighted += daysEarlier;' },
   { ...sgc, name: 'SGC notional earnings run on the final shortfall', find: 'const notional = compoundedEarnings(base, rates);', replace: 'const notional = compoundedEarnings(final, rates);' },
   { ...sgc, name: 'SGC notional earnings include the assessment day', find: 'received : assessment - 1;', replace: 'received : assessment;' },
   { ...sgc, name: 'SGC notional earnings stop the day before receipt', find: '? received : assessment - 1;', replace: '? received - 1 : assessment - 1;' },
@@ -916,7 +935,8 @@ const MUTATIONS = [
   { ...lct, name: 'LCT refund for a car that is not refund-eligible', find: '!l.eligible ? 0n :', replace: 'false ? 0n :' },
   { ...lct, name: 'LCT 2 primary producer refunds pass', find: 'if (primary.length > 1) {', replace: 'if (primary.length > 2) {' },
   { ...lct, name: 'LCT a refund before 1 July 2019 passes', find: 'if (supplyYear(fields, n, year) < \'2019-20\') {', replace: 'if (supplyYear(fields, n, year) < \'2012-13\') {' },
-  { ...lct, name: 'LCT an adjustment without its supply year takes the period', find: '&& !Object.hasOwn(fields, \'supplied_in\')) {\n    refuse(\'input.missing_field\'', replace: '&& false) {\n    refuse(\'input.missing_field\'' },
+  { ...lct, name: 'LCT an adjustment without its supply year takes the period', find: '=== \'refund\') && !Object.hasOwn(fields, \'supplied_in\')) {', replace: '=== \'refund\') && false) {' },
+  { ...lct, name: 'LCT a refund without its supply year takes the period', find: "kind === 'change_of_use_increasing' || kind === 'refund') && !Object", replace: "kind === 'change_of_use_increasing') && !Object" },
   { ...fhog, name: 'FHOG NSW bought cap at $750,000', find: 'amount: 10000, bought: 600000, built: 750000 }', replace: 'amount: 10000, bought: 750000, built: 750000 }' },
   { ...fhog, name: 'FHOG Queensland pays $15,000', find: 'amount: 30000, bought: 749999', replace: 'amount: 15000, bought: 749999' },
   { ...fhog, name: 'FHOG Queensland pays at $750,000', find: 'bought: 749999, built: 749999', replace: 'bought: 750000, built: 750000' },
@@ -1162,6 +1182,29 @@ const MUTATIONS = [
   { ...contractor, name: 'Unclaimable GST left out of the cost', find: 'const gstCost = e.credits ? 0 : gst;', replace: 'const gstCost = 0;' },
   { ...contractor, name: 'Other paid leave not taken off the hours', find: 'WEEKS * 100 - annual - other', replace: 'WEEKS * 100 - annual' },
   { ...contractor, name: 'Payroll tax always without super', find: 'atRate(wages + (e.payrollSuper ? employeeSg : 0), payrollRate)', replace: 'atRate(wages, payrollRate)' },
+  { ...invoice, name: 'Tax invoice recipient needed from $1,001', find: 'const RECIPIENT_THRESHOLD = 100000n;', replace: 'const RECIPIENT_THRESHOLD = 100100n;' },
+  { ...invoice, name: 'Tax invoice $1,000 itself not enough for the recipient rule', find: 'totalPrice >= RECIPIENT_THRESHOLD', replace: 'totalPrice > RECIPIENT_THRESHOLD' },
+  { ...invoice, name: 'Tax invoice recipient needed with no taxable supply', find: '(hasTaxable && totalPrice', replace: '(true && totalPrice' },
+  { ...invoice, name: 'Tax invoice GST-inclusive prices taken as 10%', find: 'const divisor = inclusive ? 11n : 10n;', replace: 'const divisor = inclusive ? 10n : 10n;' },
+  { ...invoice, name: 'Tax invoice taxable supply rule ignored', find: "x.rounding === 'invoice' || taxable.length < 2", replace: 'true' },
+  { ...invoice, name: 'Tax invoice GST-exclusive total leaves out the GST', find: 'const totalPrice = inclusive ? amount : amount + gst;', replace: 'const totalPrice = amount;' },
+  { ...invoice, name: 'Tax invoice line amount truncated', find: 'ratioCents(BigInt(Math.round(quantity * 1000)) * BigInt(unit), 1000n)', replace: 'BigInt(Math.floor(quantity * unit))' },
+  { ...invoice, name: 'ABN first digit not reduced by 1', find: '(i === 0 ? digit - 1 : digit)', replace: 'digit' },
+  { ...invoice, name: 'ABN leading zero accepted', find: 'digits[0] !== 0 && total % 89 === 0', replace: 'total % 89 === 0' },
+  { ...invoice, name: 'ABN last 2 weights swapped', find: 'const ABN_WEIGHTS = [10, 1, 3, 5, 7, 9, 11, 13, 15, 17, 19];', replace: 'const ABN_WEIGHTS = [10, 1, 3, 5, 7, 9, 11, 13, 15, 19, 17];' },
+  { ...invoice, name: 'RCTI issued without the Determination confirmed', find: 'if (x.rcti_conditions_met !== true)', replace: 'if (false)' },
+  { ...invoice, name: 'RCTI omits that the supplier pays the GST', find: 'if (rcti && gst > 0n) statements.push', replace: 'if (false) statements.push' },
+  { ...invoice, name: 'Tax invoice download leaves angle brackets unescaped', find: 'text.replace(/[&<>"\']/g,', replace: 'text.replace(/[&"\']/g,' },
+  { ...trustStream, name: 'Trust s 99A at 47%', find: 'const tax = mul(trusteeAmount, [45n, 100n]);', replace: 'const tax = mul(trusteeAmount, [47n, 100n]);' },
+  { ...trustStream, name: 'Trust discounted gain not grossed up', find: 'const GROSS_UP = { none: 1n, discount: 2n, small_business: 2n, both: 4n };', replace: 'const GROSS_UP = { none: 1n, discount: 1n, small_business: 2n, both: 4n };' },
+  { ...trustStream, name: 'Trust both concessions grossed up twice', find: 'const GROSS_UP = { none: 1n, discount: 2n, small_business: 2n, both: 4n };', replace: 'const GROSS_UP = { none: 1n, discount: 2n, small_business: 2n, both: 2n };' },
+  { ...trustStream, name: 'Trust no rateable reduction', find: 'const scale = withoutCredits < streamed ? div(whole(withoutCredits), whole(streamed)) : ONE;', replace: 'const scale = ONE;' },
+  { ...trustStream, name: 'Trust specific entitlement at the net benefit, not the gain', find: 'specificGain: gainIncome ? div(mul(G, whole(gainBenefit)), whole(gainIncome)) : ZERO,', replace: 'specificGain: gainIncome ? whole(gainBenefit) : ZERO,' },
+  { ...trustStream, name: 'Trust adjusted percentage over all trust income', find: 'const base = people.reduce((t, p) => sub(sub(t, p.specificGain), p.specificFranked), whole(trustIncome));', replace: 'const base = whole(trustIncome);' },
+  { ...trustStream, name: 'Trust franking credit not shared with the distribution', find: 'credit: franked ? div(mul(whole(credits), frankedShare), F) : ZERO,', replace: 'credit: ZERO,' },
+  { ...trustStream, name: 'Trust Division 6E keeps the streamed amounts in present entitlement', find: 'const entitled6E = sub(whole(p.entitlement), s.inIncome);', replace: 'const entitled6E = whole(p.entitlement);' },
+  { ...trustStream, name: 'Trust company beneficiary discounts its gain', find: 'const KIND_DISCOUNT = { individual: true, trust: true, company: false };', replace: 'const KIND_DISCOUNT = { individual: true, trust: true, company: true };' },
+  { ...trustStream, name: 'Trust trustee gets no franking credit offset', find: 'const afterOffset = sub(tax, trusteeShares.credit);', replace: 'const afterOffset = tax;' },
   { ...gstAdjustments, name: 'GST creditable purpose threshold counted as over it', find: 'cmp(value, d(finance ? \'10000\' : \'1000\')) <= 0', replace: 'cmp(value, d(finance ? \'10000\' : \'1000\')) < 0' },
   { ...gstAdjustments, name: 'GST 5 adjustment periods at $5,000 or less', find: 'const [low, lowCount] = finance ? [\'50000\', 1] : [\'5000\', 2];', replace: 'const [low, lowCount] = finance ? [\'50000\', 1] : [\'5000\', 5];' },
   { ...gstAdjustments, name: 'GST $500,000 given 5 adjustment periods', find: 'cmp(value, d(\'500000\')) < 0 ? 5 : 10', replace: 'cmp(value, d(\'500000\')) <= 0 ? 5 : 10' },
@@ -1375,7 +1418,7 @@ const SHARED = [
   'rates/general-interest-charge', '_data/individual_tax_cases.json', 'tools/individual-tax',
   'rates/individual-income-tax', 'rates/study-loan-repayment', 'rates/super-guarantee',
   'rates/maximum-contribution-base', 'rates/car-limit', 'tools/payday-super', 'llms.txt',
-  '.well-known/llms.txt', 'scripts/fbt-engine-differential.json',
+  '.well-known/llms.txt', '_layouts/calculator.html', 'scripts/fbt-engine-differential.json',
   'scripts/fbt-property-expense-engine-differential.json',
   'scripts/lump-sum-arrears-engine-differential.json',
   'scripts/income-tests-engine-differential.json',
@@ -1401,6 +1444,7 @@ const SHARED = [
   'scripts/borrowing-expenses-engine-differential.json',
   'scripts/wine-equalisation-tax-engine-differential.json',
   'scripts/rental-property-engine-differential.json',
+  'scripts/psi-test-engine-differential.json',
   '_includes/duty-jurisdictions.html', '_includes/finance-fields.html',
   '_data/payday_super_business_days.json', 'scripts/payg-withholding-sample.json',
   'scripts/payg-withholding-sample-2020.json', 'scripts/payg-withholding-sample-2024.json',

@@ -1269,3 +1269,55 @@ fn a_recorded_pypi_lag_must_be_stated_and_differ() {
         &format!("{FPA}: pypi_lag names {version}, the published version"),
     );
 }
+
+#[test]
+fn only_the_github_api_gets_the_token() {
+    use site_tools::release_record::authorization;
+    assert_eq!(
+        authorization(Some("t"), "https://api.github.com/repos/o/r"),
+        Some("Bearer t".to_owned())
+    );
+    assert_eq!(authorization(Some("t"), "https://example.com/"), None);
+    assert_eq!(authorization(Some(""), "https://api.github.com/"), None);
+    assert_eq!(authorization(None, "https://api.github.com/"), None);
+}
+
+#[test]
+fn a_get_sends_its_authorization_and_stops_at_its_time_limit() {
+    use site_tools::release_record::{LiveError, get_with};
+    use std::io::{Read, Write};
+    use std::time::Duration;
+    let listener = std::net::TcpListener::bind("127.0.0.1:0").unwrap();
+    let url = format!("http://{}/", listener.local_addr().unwrap());
+    let server = std::thread::spawn(move || {
+        // The first request is answered with what it asked for; the second never is.
+        let (mut stream, _) = listener.accept().unwrap();
+        let mut request = [0; 4096];
+        let read = stream.read(&mut request).unwrap();
+        let request = String::from_utf8_lossy(&request[..read]).to_lowercase();
+        let body = if request.contains("authorization: bearer t") {
+            "yes"
+        } else {
+            "no"
+        };
+        write!(
+            stream,
+            "HTTP/1.1 200 OK\r\nContent-Length: {}\r\nConnection: close\r\n\r\n{body}",
+            body.len()
+        )
+        .unwrap();
+        let (idle, _) = listener.accept().unwrap();
+        std::thread::sleep(Duration::from_secs(2));
+        drop(idle);
+    });
+    let limit = Duration::from_secs(5);
+    assert_eq!(
+        get_with(&url, true, Some("Bearer t".into()), limit).unwrap(),
+        b"yes"
+    );
+    assert_eq!(
+        get_with(&url, false, None, Duration::from_millis(300)).unwrap_err(),
+        LiveError::Error("TimeoutError".into(), "The read operation timed out".into())
+    );
+    server.join().unwrap();
+}

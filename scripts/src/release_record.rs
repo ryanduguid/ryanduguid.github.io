@@ -101,9 +101,33 @@ pub trait Live {
 /// The network, through ureq.
 pub struct Network;
 
+/// The Authorization header for `url`. Unauthenticated GitHub API calls share 60 an
+/// hour per runner address, so CI passes its token; it goes only to api.github.com.
+pub fn authorization(token: Option<&str>, url: &str) -> Option<String> {
+    token
+        .filter(|t| !t.is_empty() && url.starts_with("https://api.github.com/"))
+        .map(|t| format!("Bearer {t}"))
+}
+
 fn get(url: &str, accept_json: bool) -> std::result::Result<Vec<u8>, LiveError> {
+    let token = std::env::var("GH_TOKEN").ok();
+    get_with(
+        url,
+        accept_json,
+        authorization(token.as_deref(), url),
+        TIMEOUT,
+    )
+}
+
+/// One GET as urlopen makes it, with its Authorization header and time limit given.
+pub fn get_with(
+    url: &str,
+    accept_json: bool,
+    authorization: Option<String>,
+    timeout: Duration,
+) -> std::result::Result<Vec<u8>, LiveError> {
     let agent: ureq::Agent = ureq::Agent::config_builder()
-        .timeout_global(Some(TIMEOUT))
+        .timeout_global(Some(timeout))
         .user_agent(USER_AGENT)
         .build()
         .into();
@@ -111,12 +135,8 @@ fn get(url: &str, accept_json: bool) -> std::result::Result<Vec<u8>, LiveError> 
     if accept_json {
         request = request.header("Accept", "application/json");
     }
-    // Unauthenticated GitHub API calls share 60 an hour per runner address, so CI
-    // passes its token; it goes only to api.github.com.
-    if let Some(token) = std::env::var("GH_TOKEN").ok().filter(|t| !t.is_empty())
-        && url.starts_with("https://api.github.com/")
-    {
-        request = request.header("Authorization", format!("Bearer {token}"));
+    if let Some(value) = authorization {
+        request = request.header("Authorization", value);
     }
     match request.call() {
         Ok(mut response) => response
@@ -1134,4 +1154,203 @@ pub fn run(root: &Path, args: &[String]) -> Result<u8> {
     }
     say("release record matches the pages it covers\n")?;
     Ok(0)
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    fn json(text: &str) -> Json {
+        pyjson::loads(text).unwrap()
+    }
+
+    /// Answers each JSON read from a list of (URL, answer) pairs.
+    struct Fake(Vec<(String, std::result::Result<Json, LiveError>)>);
+
+    impl Live for Fake {
+        fn json(&mut self, url: &str) -> std::result::Result<Json, LiveError> {
+            self.0
+                .iter()
+                .find(|(u, _)| u == url)
+                .unwrap_or_else(|| panic!("unexpected read {url}"))
+                .1
+                .clone()
+        }
+
+        /// The text answer to `url`, served as bytes.
+        fn bytes(&mut self, url: &str) -> std::result::Result<Vec<u8>, LiveError> {
+            self.json(url)
+                .map(|served| served.as_str().unwrap_or_default().as_bytes().to_vec())
+        }
+    }
+
+    fn type_error(message: &str) -> LiveError {
+        LiveError::Error("TypeError".into(), message.into())
+    }
+
+    #[test]
+    fn an_http_error_names_its_status_and_reason_as_urllib_does() {
+        assert_eq!(
+            LiveError::Http(404).detail(),
+            "HTTPError: HTTP Error 404: Not Found"
+        );
+        assert_eq!(LiveError::Http(599).detail(), "HTTPError: HTTP Error 599: ");
+    }
+
+    #[test]
+    fn a_refused_connection_is_a_url_error() {
+        let port = std::net::TcpListener::bind("127.0.0.1:0")
+            .unwrap()
+            .local_addr()
+            .unwrap()
+            .port();
+        // The listener is dropped, so nothing accepts on the port.
+        let result = Network.bytes(&format!("http://127.0.0.1:{port}/"));
+        assert!(
+            matches!(&result, Err(LiveError::Error(kind, message))
+                if kind == "URLError" && message.starts_with("<urlopen error ")),
+            "{result:?}"
+        );
+    }
+
+    #[test]
+    fn python_lookups_on_the_wrong_kind_raise_pythons_errors() {
+        assert_eq!(
+            item(&json(r#""text""#), "k"),
+            Err("TypeError: string indices must be integers, not 'str'".into())
+        );
+        assert_eq!(
+            get_key(&json("[]"), "k"),
+            Err("AttributeError: 'list' object has no attribute 'get'".into())
+        );
+        assert_eq!(
+            text(&json("1")),
+            Err("TypeError: must be str, not int".into())
+        );
+        assert_eq!(
+            dict_items(&json("[]")),
+            Err("AttributeError: 'list' object has no attribute 'items'".into())
+        );
+    }
+
+    #[test]
+    fn membership_follows_pythons_in_for_each_kind() {
+        assert_eq!(contains(&json(r#"["page", "x"]"#), "page"), Ok(true));
+        assert_eq!(contains(&json(r#"["pages"]"#), "page"), Ok(false));
+        assert_eq!(contains(&json(r#""a page""#), "page"), Ok(true));
+        assert_eq!(
+            contains(&json("1"), "page"),
+            Err("TypeError: argument of type 'int' is not iterable".into())
+        );
+    }
+
+    #[test]
+    fn counting_an_empty_needle_counts_every_gap_as_python_does() {
+        assert_eq!(count("abc", ""), 4);
+        assert_eq!(count("", ""), 1);
+    }
+
+    #[test]
+    fn live_lookups_on_the_wrong_kind_raise_type_errors() {
+        assert_eq!(
+            live_item(&json("[]"), "k"),
+            Err(type_error(
+                "list indices must be integers or slices, not str"
+            ))
+        );
+        assert_eq!(
+            live_item(&json(r#""s""#), "k"),
+            Err(type_error("string indices must be integers, not 'str'"))
+        );
+        assert_eq!(
+            live_item(&json("null"), "k"),
+            Err(type_error("'NoneType' object is not subscriptable"))
+        );
+    }
+
+    #[test]
+    fn a_registry_server_record_that_is_not_an_object_is_a_changed_contract() {
+        let url = "https://registry.example/v0/servers/x";
+        let mut live = Fake(vec![(url.into(), Ok(json(r#"{"server": 5}"#)))]);
+        assert_eq!(
+            registry_version(&mut live, &json(&format!(r#"{{"registry_url": "{url}"}}"#))),
+            Err(LiveError::value(
+                "the MCP registry server record returned int, expected an object"
+            ))
+        );
+    }
+
+    fn releases_url(page: usize) -> String {
+        format!(
+            "https://api.github.com/repos/o/r/releases?per_page={RELEASE_PAGE_SIZE}&page={page}"
+        )
+    }
+
+    #[test]
+    fn a_release_without_a_tag_is_skipped_under_a_prefix() {
+        let mut live = Fake(vec![(
+            releases_url(1),
+            Ok(json(r#"[{"name": "untagged"}, {"tag_name": "v1.2.0"}]"#)),
+        )]);
+        assert_eq!(
+            release_tags(&mut live, "o/r", "v"),
+            Ok((vec!["v1.2.0".into()], true))
+        );
+    }
+
+    fn component(version: &str) -> Json {
+        json(&format!(
+            r#"{{"repository": "https://github.com/o/r", "published": {{"release_url": "https://github.com/o/r/releases/tag/v1.0.0", "version": {version}}}}}"#
+        ))
+    }
+
+    #[test]
+    fn a_recorded_version_that_is_not_text_cannot_be_compared() {
+        assert_eq!(
+            github_version(&mut Fake(vec![]), &component("1")),
+            Err(type_error("removesuffix() argument must be str, not int"))
+        );
+    }
+
+    #[test]
+    fn a_server_error_on_the_recorded_release_is_not_absence() {
+        let url = "https://api.github.com/repos/o/r/releases/tags/v1.0.0";
+        let mut live = Fake(vec![(url.into(), Err(LiveError::Http(500)))]);
+        assert_eq!(
+            recorded_release_exists(&mut live, &component(r#""1.0.0""#)),
+            Err(LiveError::Http(500))
+        );
+        let mut live = Fake(vec![(url.into(), Err(LiveError::Http(410)))]);
+        assert_eq!(
+            recorded_release_exists(&mut live, &component(r#""1.0.0""#)),
+            Ok(MISSING.into())
+        );
+    }
+
+    #[test]
+    fn a_served_asset_of_another_size_has_changed() {
+        let url = "https://example.com/a.zip";
+        let mut live = Fake(vec![(url.into(), Ok(Json::Str("abc".into())))]);
+        let published = json(&format!(r#"{{"download_url": "{url}", "asset_bytes": 4}}"#));
+        assert_eq!(
+            live_asset(&mut live, &published),
+            Ok(Some(found(
+                "asset",
+                CHANGED,
+                "3 bytes, record says 4".into()
+            )))
+        );
+    }
+
+    #[test]
+    fn verify_live_on_a_record_without_components_probes_nothing_and_passes() {
+        let root = tempfile::tempdir().unwrap();
+        std::fs::create_dir(root.path().join("scripts")).unwrap();
+        std::fs::write(
+            root.path().join("scripts/release_record.json"),
+            r#"{"components": {}}"#,
+        )
+        .unwrap();
+        assert_eq!(run(root.path(), &["--verify-live".into()]), Ok(0));
+    }
 }

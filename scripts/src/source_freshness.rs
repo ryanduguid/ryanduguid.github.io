@@ -145,10 +145,8 @@ pub trait Host {
             }
         };
         check("build_feed --write", crate::feed::run(root, &write)?)?;
-        check(
-            "build_llms_full --write",
-            crate::llms_full::run(root, &write)?,
-        )?;
+        // build_llms_full --write exits 0 whenever it does not fail outright.
+        crate::llms_full::run(root, &write)?;
         check(
             "check_design --update-baseline",
             crate::check_design::run(root, &["--update-baseline".to_owned()])?,
@@ -583,9 +581,7 @@ pub fn stamp_tool_metadata(
             }
             let release =
                 release.ok_or("Cannot read properties of undefined (reading 'version')")?;
-            let Value::Object(fields) = entry else {
-                continue;
-            };
+            let fields = entry.as_object_mut().expect("only an object has a @type");
             for (key, value) in [
                 (
                     "@type",
