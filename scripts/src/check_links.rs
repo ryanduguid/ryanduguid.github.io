@@ -8,8 +8,8 @@
 //! included; other http(s) links must resolve, with bounded retries for transport
 //! failures, HTTP 429 and 5xx; hrefs must not be empty; retired names and em or en dashes
 //! must not appear; and no own-repository link may point at an archived repository.
-//! A source that refuses the checker (HTTP 403 from a `.gov.au` host, or LinkedIn's
-//! 999) is reported as refused the runner, not failed: government sites refuse
+//! A source that refuses the checker (HTTP 403 from a `.gov.au` host or
+//! developer.xero.com, or LinkedIn's 999) is reported as refused the runner, not failed: government sites refuse
 //! automated requests, GitHub's runners most of all, and the answer says nothing about
 //! the page. A 404, 410, a 403 from any other host or any other error still fails.
 //! With `--transient-warnings`, links still failing with HTTP 429, 5xx or a timeout
@@ -187,8 +187,8 @@ pub fn is_inconclusive(url: &str, error: &NetError) -> bool {
 }
 
 /// Whether an answer refuses the checker rather than answering for the page: HTTP 403
-/// from an Australian government host, whose firewalls refuse GitHub's runners, or
-/// LinkedIn's 999. A 403 from any other host can mean a missing file (cloud storage
+/// from an Australian government host or developer.xero.com, whose firewalls refuse
+/// GitHub's runners, or LinkedIn's 999. A 403 from any other host can mean a missing file (cloud storage
 /// answers 403 for one), so it still fails.
 pub fn refused_the_runner(href: &str, status: u16) -> bool {
     let host = pyurl::urlsplit(href)
@@ -197,7 +197,7 @@ pub fn refused_the_runner(href: &str, status: u16) -> bool {
         .unwrap_or_default();
     let within = |domain: &str| host == domain || host.ends_with(&format!(".{domain}"));
     match status {
-        403 => within("gov.au"),
+        403 => within("gov.au") || host == "developer.xero.com",
         999 => within("linkedin.com"),
         _ => false,
     }
