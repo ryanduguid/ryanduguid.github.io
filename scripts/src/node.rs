@@ -328,14 +328,14 @@ fn wait_unless(
     timeout: Option<std::time::Duration>,
     stop: impl Fn() -> bool,
 ) -> Option<std::process::ExitStatus> {
-    match poll(|| child.try_wait(), timeout, stop) {
+    let polled = poll(|| child.try_wait(), timeout, stop);
+    if polled == Polled::Stopped {
+        let _ = child.kill();
+        let _ = child.wait();
+    }
+    match polled {
         Polled::Exited(status) => Some(status),
-        Polled::Stopped => {
-            let _ = child.kill();
-            let _ = child.wait();
-            None
-        }
-        Polled::Failed => None,
+        Polled::Stopped | Polled::Failed => None,
     }
 }
 

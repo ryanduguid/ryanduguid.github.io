@@ -1121,20 +1121,8 @@ mod tests {
         }
     }
 
-    /// A client that has hung up: every write fails.
-    struct HungUp;
-
-    impl Write for HungUp {
-        fn write(&mut self, _: &[u8]) -> io::Result<usize> {
-            Err(io::ErrorKind::BrokenPipe.into())
-        }
-        fn flush(&mut self) -> io::Result<()> {
-            Ok(())
-        }
-    }
-
     #[test]
-    fn an_error_page_to_a_client_that_hung_up_ends_the_connection_with_the_write_error() {
+    fn an_error_page_to_a_client_that_takes_no_bytes_ends_the_connection_with_the_write_error() {
         let many_headers = format!("GET / HTTP/1.0\r\n{}\r\n", "a: b\r\n".repeat(101));
         let long_header = format!("GET / HTTP/1.0\r\na: {}\r\n\r\n", "b".repeat(MAXLINE));
         for request in [
@@ -1146,10 +1134,11 @@ mod tests {
             many_headers.as_str(),
         ] {
             let mut reader = io::Cursor::new(request.as_bytes());
-            let error = handler(Path::new("."), HungUp)
+            let mut room: [u8; 0] = [];
+            let error = handler(Path::new("."), &mut room[..])
                 .handle_one_request(&mut reader)
                 .unwrap_err();
-            assert_eq!(error.kind(), io::ErrorKind::BrokenPipe, "{request:?}");
+            assert_eq!(error.kind(), io::ErrorKind::WriteZero, "{request:?}");
         }
     }
 
@@ -1184,21 +1173,22 @@ mod tests {
         std::fs::set_permissions(site.path().join("page.html"), locked.clone()).unwrap();
         std::fs::set_permissions(site.path().join("private"), locked).unwrap();
         // Root reads through any mode, so these refusals only show for other users.
-        if std::fs::read(site.path().join("page.html")).is_err() {
-            let page = reply(
-                site.path(),
-                "GET /page.html HTTP/1.0\r\nAccept-Encoding: gzip\r\n\r\n",
-            );
-            assert!(
-                page.starts_with("HTTP/1.1 404 File not found\r\n"),
-                "{page}"
-            );
-            let folder = reply(site.path(), "GET /private/ HTTP/1.0\r\n\r\n");
-            assert!(
-                folder.starts_with("HTTP/1.1 404 No permission to list directory\r\n"),
-                "{folder}"
-            );
-        }
+        let refused = std::fs::read(site.path().join("page.html")).is_err();
+        let page = reply(
+            site.path(),
+            "GET /page.html HTTP/1.0\r\nAccept-Encoding: gzip\r\n\r\n",
+        );
+        assert_eq!(
+            page.starts_with("HTTP/1.1 404 File not found\r\n"),
+            refused,
+            "{page}"
+        );
+        let folder = reply(site.path(), "GET /private/ HTTP/1.0\r\n\r\n");
+        assert_eq!(
+            folder.starts_with("HTTP/1.1 404 No permission to list directory\r\n"),
+            refused,
+            "{folder}"
+        );
         let open = std::fs::Permissions::from_mode(0o755);
         std::fs::set_permissions(site.path().join("private"), open).unwrap();
     }
