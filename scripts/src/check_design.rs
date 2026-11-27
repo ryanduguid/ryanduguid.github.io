@@ -1800,12 +1800,7 @@ pub fn update_baseline(root: &Path) -> Result<PathBuf, UpdateError> {
         },
     ) + "\n";
     // Path.write_text writes the platform's line ending.
-    let text = if cfg!(windows) {
-        text.replace('\n', "\r\n")
-    } else {
-        text
-    };
-    std::fs::write(&path, text)
+    std::fs::write(&path, crate::platform_text(&text))
         .map_err(|e| py::oserror_str(&e, &path.to_string_lossy(), py::OsStyle::Errno))?;
     Ok(path)
 }
@@ -2017,6 +2012,34 @@ mod tests {
         let result = check_document_delivery(&root, &baseline);
         std::fs::remove_dir_all(&root).unwrap();
         assert_eq!(result, Err("TypeError: unhashable type: 'list'".into()));
+    }
+
+    // Windows paths as pathlib's as_posix reports them, measured by the Windows
+    // coverage run.
+    #[cfg(windows)]
+    #[test]
+    fn windows_reports_and_derives_paths_with_forward_slashes() {
+        assert_eq!(
+            text_alternate(r"guides\tax.html"),
+            Ok("guides/tax.txt".into())
+        );
+        let dir = Path::new(env!("OUT_DIR"))
+            .join(format!("site-tools-design-win-{}", std::process::id()));
+        std::fs::create_dir_all(&dir).unwrap();
+        let page = dir.join("page.html");
+        std::fs::write(
+            &page,
+            r#"<script type="application/ld+json">{"a": }</script>"#,
+        )
+        .unwrap();
+        let result = json_ld_digests(&page);
+        std::fs::remove_dir_all(&dir).unwrap();
+        let (digests, failures) = result.unwrap();
+        assert!(digests.is_empty());
+        let shown = format!("invalid JSON-LD block 1: {}: ", posix(&page));
+        assert!(!shown.contains('\\'), "{shown}");
+        assert_eq!(failures.len(), 1);
+        assert!(failures[0].starts_with(&shown), "{failures:?}");
     }
 
     #[test]

@@ -16,4 +16,12 @@ coverage:
       default:
         target: 100%
         threshold: 0%
+# The Windows run of the Rust suites uploads under this flag and counts towards
+# the default statuses with the Linux upload. It is never carried forward: a
+# commit without its own Windows report leaves the Windows-only lines missed.
+flags:
+  windows:
+    paths:
+      - scripts/
+    carryforward: false
 comment: false
