@@ -14,7 +14,10 @@ pub const RETIRED_NAMES: [&str; 11] = [
     "LouisGoldberg",
 ];
 
-pub const CI_MANUAL_URLS: [&str; 21] = [
+pub const CI_MANUAL_URLS: [&str; 23] = [
+    // The certificate chain ended with an unknown issuer on hosted CI in run 45947107085 (27 November 2026).
+    "https://saplsl-community.org.au/employers-home/what-do-i-have-to-do",
+    "https://saplsl-construction.org.au/employers/how-to-complete-employer-returns",
     // Still timed out 4 times on hosted CI in run 44173032679 (18 November 2026).
     "https://softwaredevelopers.ato.gov.au/GDPupliftfactor",
     "https://softwaredevelopers.ato.gov.au/SuperStreamStandard",

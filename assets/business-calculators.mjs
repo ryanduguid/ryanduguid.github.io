@@ -681,3 +681,4 @@ export { deferredTax, deferredTaxResult, deferredTaxFormInput, deferredTaxInputs
   DEFERRED_TAX_MISMATCH } from './deferred-tax.mjs';
 export { esic, esicResult, esicFormInput, esicInputsText, esicFigures, ESIC_YEARS } from './esic.mjs';
 export { residentialVacancyFee, rvfResult, rvfFormInput, rvfInputsText, rvfFigures, RVF_YEARS } from './residential-vacancy-fee.mjs';
+export { portableLslLevy, plslResult, plslFormInput, plslInputsText, plslFigures, PLSL_YEARS } from './portable-lsl-levy.mjs';

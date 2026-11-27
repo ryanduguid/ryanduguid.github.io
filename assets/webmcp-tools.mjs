@@ -11,6 +11,7 @@ import { casualOvertimeTool } from './webmcp-casual-overtime.mjs';
 import { contractorEmployeeTool } from './webmcp-contractor-employee.mjs';
 import { esicTool, vacancyFeeTool } from './webmcp-esic-vacancy.mjs';
 import { paydayCashflowTool } from './webmcp-payday-cashflow.mjs';
+import { portableLslLevyTool } from './webmcp-portable-lsl-levy.mjs';
 import { taxInvoiceTools } from './webmcp-tax-invoice.mjs';
 import {
   concessionalCatchUpTool, fhssTool, governmentSuperTool, lumpSumArrearsTool, studyLoanTool, workExpensesTool,
@@ -567,7 +568,7 @@ const fuelTaxCreditsTool = (fuelTaxCredits) => tool({
  *   | 'deferredTax' | 'DEFERRED_TAX_YEARS' | 'soleTraderCompany' | 'SOLE_TRADER_COMPANY_YEARS' | 'casualOvertime'
  *   | 'contractorEmployee' | 'CONTRACTOR_YEARS' | 'paydayCashflow' | 'taxInvoice' | 'TREATMENTS' | 'MAX_LINES'
  *   | 'trustStreaming' | 'TRUST_STREAMING_ROWS'
- *   | 'esic' | 'ESIC_YEARS' | 'residentialVacancyFee' | 'RVF_YEARS'>} calculate */
+ *   | 'esic' | 'ESIC_YEARS' | 'residentialVacancyFee' | 'RVF_YEARS' | 'portableLslLevy' | 'PLSL_YEARS'>} calculate */
 export function calculatorTools(calculate) {
   return {
     gst: gstTool(calculate.gst),
@@ -592,6 +593,7 @@ export function calculatorTools(calculate) {
     ...taxInvoiceTools(TOOL_KIT, calculate),
     esic: esicTool(TOOL_KIT, calculate),
     'residential-vacancy-fee': vacancyFeeTool(TOOL_KIT, calculate),
+    'portable-lsl-levy': portableLslLevyTool(TOOL_KIT, calculate),
   };
 }
 

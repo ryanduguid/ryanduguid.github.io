@@ -642,3 +642,5 @@ const rvfFee: string = calculate.residentialVacancyFee({}).amounts.vacancy_fee_p
 void esicOffset;
 void esicMet;
 void rvfFee;
+const plslLevy: string = calculate.portableLslLevy({}).amounts.levy;
+void plslLevy;
