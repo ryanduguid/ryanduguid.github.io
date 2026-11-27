@@ -1514,6 +1514,7 @@ const SHARED = [
   'scripts/rd-tax-offset-engine-differential.json',
   'scripts/blackhole-expenditure-engine-differential.json',
   'scripts/company-tax-statement-engine-differential.json',
+  'scripts/s40-880-company-statement-edge-cases.json',
   'scripts/gst-adjustments-engine-differential.json',
   'scripts/deferred-tax-engine-differential.json',
   'scripts/ato-penalties-interest-engine-differential.json',
