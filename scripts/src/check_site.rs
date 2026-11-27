@@ -87,9 +87,14 @@ pub const CHECKS: &[Check] = &[
     Check::External(&["node", "--test", "scripts/rate-tables.test.mjs"]),
     Check::Tests(&["effective_life"]),
     Check::External(&["node", "--test", "scripts/depreciation-rates.test.mjs"]),
-    Check::External(&["node", "--test", "scripts/individual-results-branches.test.mjs"]),
+    Check::External(&[
+        "node",
+        "--test",
+        "scripts/individual-results-branches.test.mjs",
+    ]),
     Check::External(&["node", "--test", "scripts/fhss-work-pcg-branches.test.mjs"]),
     Check::External(&["node", "--test", "scripts/page-dom.test.mjs"]),
+    Check::External(&["node", "--test", "scripts/webmcp-branches.test.mjs"]),
 ];
 
 /// The steps before the checked tree exists, in order, around the Jekyll build.
