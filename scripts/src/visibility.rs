@@ -872,3 +872,28 @@ pub fn run(root: &Path, args: &[String]) -> Result<u8> {
     ))?;
     Ok(0)
 }
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    fn parsed(args: &[&str]) -> std::result::Result<Args, u8> {
+        parse(&args.iter().map(|a| (*a).to_owned()).collect::<Vec<_>>())
+    }
+
+    #[test]
+    fn parse_takes_an_unambiguous_abbreviation_as_its_option() {
+        let args = parsed(&["--sum", "a.json"]).ok().unwrap();
+        assert!(matches!(args.mode, Mode::Summary(ref names) if names == &["a.json"]));
+        assert!(matches!(
+            parsed(&["--templ"]).ok().unwrap().mode,
+            Mode::Template
+        ));
+    }
+
+    #[test]
+    fn parse_exits_for_help_and_refuses_an_unknown_short_option() {
+        assert_eq!(parsed(&["-h"]).err(), Some(0));
+        assert_eq!(parsed(&["-x"]).err(), Some(2));
+    }
+}
