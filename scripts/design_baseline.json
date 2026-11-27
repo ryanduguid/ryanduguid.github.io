@@ -228,7 +228,7 @@
       "1ee789e07f991caadaf17f3e165e8bc60550a06242fe627a485241855184f7b5"
     ],
     "tools/business-calculators/index.html": [
-      "017c5417aec4fa67cac2cd5aee9d90d5bf40f8378532c09cf3038cbc263bc7d0"
+      "dbba8486378a122ca1d46bc6593ef5d71956c88d7c481932c6a8da3564f99644"
     ],
     "tools/business-calculators/land-tax/index.html": [
       "90b1d2897a81b87c05cb1a74bb0937f468ac5e1806fa0b19603b5fff589b9e09"
@@ -440,7 +440,7 @@
   },
   "protected_files": {
     "robots.txt": "18d6a7d73dbde21fcae1ba0ac8ccd5750ced144637be01d142ea5dc16ee96a9d",
-    "sitemap.xml": "0a3bedb9335e4c0d6baaed5fef6d1849b9676f44103b4d6b4fb3be24691c9152"
+    "sitemap.xml": "507a6c6d4c71766e55980690db1d3bcacf9a626af8403a54eead6ddee63cce70"
   },
   "protected_main_links": {
     "rates/cents-per-kilometre/index.html": [
