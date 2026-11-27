@@ -100,6 +100,7 @@ test('every calculator tool is read-only, refuses unknown inputs and has its own
     'calculate_land_tax', 'calculate_termination_payment', 'calculate_transfer_duty',
     'calculate_rd_tax_offset', 'calculate_gst_adjustments', 'calculate_deferred_tax', 'calculate_sole_trader_vs_company', 'calculate_trust_streaming',
     'calculate_casual_overtime_pay', 'calculate_contractor_employee', 'calculate_payday_super_cashflow', 'check_tax_invoice',
+    'calculate_esic_tax_offset', 'calculate_residential_vacancy_fee',
     'calculate_decline_in_value', 'calculate_coal_lsl_levy']);
   for (const t of all) {
     assert.equal(t.annotations.readOnlyHint, true, t.name);
@@ -2289,6 +2290,32 @@ test('contractor against employee tool works the page default, section 12(3) and
   await assert.rejects(tool.execute({ ...base, incomeYear: '2020-21' }), /incomeYear/);
   await assert.rejects(tool.execute({ ...base, annualLeaveWeeks: '50', otherLeaveWeeks: '2' }), /fewer than 52 weeks/);
   await assert.rejects(tool.execute({ ...base, awardRate: '30' }), /awardRate is not an input of this tool/);
+});
+
+test('the ESIC and vacancy fee tools return their page examples and refuse what their pages refuse', async () => {
+  const esic = tools.esic;
+  const base = { incomeYear: '2025-26', investor: 'individual', amountPaid: '100000', disclosureExemption: true, incorporatedYear: '2024-25',
+    totalExpensesPreviousYear: '300000', assessableIncomePreviousYear: '20000', innovationItems: [1, 6] };
+  const r = await esic.execute(base);
+  assert.deepEqual([r.taxOffset, r.innovationPoints, r.entitled, r.modifiedCgtTreatment, r.source],
+    ['20000.00', 125, true, true, 'https://duguid.com.au/tools/business-calculators/esic/']);
+  const limited = await esic.execute({ ...base, disclosureExemption: false, otherCompaniesPaid: '0', otherCompaniesExempt: false, amountReceivable: '0' });
+  assert.deepEqual([limited.taxOffset, limited.tests.at(-1).met], ['0.00', false]);
+  await assert.rejects(esic.execute({ ...base, innovationItems: [9] }), /innovationItems/);
+  await assert.rejects(esic.execute({ ...base, extra: 1 }), /extra is not an input of this tool/);
+  const { innovationItems: _items, ...noItems } = base;
+  assert.equal((await esic.execute(noItems)).innovationPoints, 0);
+  const fee = tools['residential-vacancy-fee'];
+  const rvf = { incomeYear: '2025-26', vacancyYearStart: '2025-08-01', heldFullVacancyYear: true, residentiallyOccupiedDays: 100,
+    returnLodgedOnTime: true, acquisitionBasis: 'notifiable_action', ownership: 'sole', consideration: '1500000', dwellingKind: 'new_or_near_new',
+    applicationDate: '2025-05-01' };
+  const v = await fee.execute(rvf);
+  assert.deepEqual([v.vacancyFeePayable, v.liabilityStatus, v.returnDueDate, v.rates.vacancy_fee_multiplier, v.source],
+    ['59000.00', 'liable_vacant', '2026-08-30', '2', 'https://duguid.com.au/tools/business-calculators/residential-vacancy-fee/']);
+  const exempt = await fee.execute({ ...rvf, exemption: 'substantial_repairs_or_renovations', ownership: 'tenants_in_common', ownershipShare: '0.5' });
+  assert.deepEqual([exempt.vacancyFeePayable, exempt.applicationFeeBase, exempt.liable], ['0.00', '14750.00', false]);
+  await assert.rejects(fee.execute({ ...rvf, applicationFeePayable: '13200' }), /not both/);
+  await assert.rejects(fee.execute({ ...rvf, residentiallyOccupiedDays: 400 }), /residentiallyOccupiedDays/);
 });
 
 // The tax invoice page's example (GSTR 2013/1 example 2), a mixed invoice by the taxable supply rule, an RCTI and refusals.

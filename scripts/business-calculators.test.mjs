@@ -5,6 +5,7 @@ import assert from 'node:assert/strict';
 import { readdirSync, readFileSync } from 'node:fs';
 import test from 'node:test';
 import * as calculations from '../assets/business-calculators.mjs';
+import * as aa from '../assets/aa-port.mjs';
 import { DIVISION_296_LIABILITY } from '../assets/division-296.mjs';
 import { PAYROLL_TAX_2026_27 } from '../assets/payroll-tax.mjs';
 import { gst, businessUse, margin, breakEven, hourlyRate, variance, financeSchedule, interestByIncomeYear,
@@ -7634,6 +7635,103 @@ test('contractor against employee refuses what it does not work', () => {
   assert.throws(() => ce({ hours: '0' }), /hours worked/);
 });
 
+// The ESIC tax offset and residential vacancy fee pages port the esic and residential-vacancy-fee commands of
+// australian-accounting; every case the commands' tests and the seeded sweep recorded must agree.
+const differential = (name) => JSON.parse(readFileSync(new URL(`./${name}-engine-differential.json`, import.meta.url), 'utf8'));
+const portChecked = {
+  esic: (r) => ({ esic: r.esic, innovation_points: r.innovation_points, entitled: r.entitled, modified_cgt_treatment: r.modified_cgt_treatment,
+    tests: r.tests.map((t) => [t.test, t.met]) }),
+  'residential-vacancy-fee': (r) => ({ ...Object.fromEntries(['vacancy_year_start', 'vacancy_year_end', 'days_in_vacancy_year', 'return_required',
+    'return_due_date', 'record_retention_until', 'liable', 'liability_status', 'fee_basis', 'exemption_applied'].map((k) => [k, r[k]])),
+  ban_note: r.established_dwelling_ban_note !== null }),
+};
+for (const [name, engine] of [['esic', calculations.esic], ['residential-vacancy-fee', calculations.residentialVacancyFee]]) {
+  test(`${name} agrees with the ${name} command on every recorded case`, () => {
+    const { cases } = differential(name);
+    assert.ok(cases.length >= 170);
+    for (const { source, call, refused, message, period, amounts, rates, checked } of cases) {
+      if (refused) {
+        assert.throws(() => engine(structuredClone(call)), { code: refused, message }, source);
+        continue;
+      }
+      const r = engine(structuredClone(call));
+      assert.deepEqual([r.period, r.amounts, r.rates, portChecked[name](r)], [period, amounts, rates, checked], source); // eslint-disable-line security/detect-object-injection -- name is one of the 2 pages
+    }
+  });
+}
+
+test('the ESIC page keeps the sign of a nil amount and words its refusals', () => {
+  const form = { paid: '100000', receivable: '', noncash: '0', expenses3: '0', expenses: '300000', income: '20000', grant: '0', clawback: '0',
+    items: '1, 6', elsewhere: '0', others: '0', carried: '0', year: '2025-26', investor: 'individual', incorporated: '2024-25', registered: 'none',
+    principles: 'no', listed: 'no', foreign: 'no', affiliate: 'no', ess: 'no', thirty: 'no', disclosure: 'yes', elsewhereExempt: 'no' };
+  const page = (change) => calculations.esicResult((name) => ({ ...form, ...change })[name] ?? '', dollars);
+  assert.deepEqual(page({}).rows[page({}).principal], ['Tax offset', '$20,000.00']);
+  assert.deepEqual(page({ expenses: '1000000.01' }).rows.at(-1), ['Test not met', 'total expenses of $1000000.01 in the previous income year, limit $1,000,000']);
+  const elsewhere = calculations.esicFormInput((name) => ({ ...form, disclosure: 'no', receivable: '500' })[name] ?? '');
+  assert.deepEqual([elsewhere.other_companies_paid, elsewhere.other_companies_exempt, elsewhere.amount_receivable], ['0', false, '500']);
+  assert.throws(() => page({ items: '1, x' }), /innovation test items as distinct numbers/);
+  assert.throws(() => page({ paid: '1.005' }), /from \$0 to \$1,000,000,000,000/);
+  assert.throws(() => page({ incorporated: '2030-31' }), { code: 'esic.incorporation_after_year' });
+  const periods = [[null, 'None'], [true, 'True'], [false, 'False'], [2025, '2025'], ['2015-16', "'2015-16'"]].map(([year, shown]) => [
+    () => calculations.esic({ ...calculations.esicFormInput((name) => form[name] ?? ''), year }), `Unsupported period ${shown}; supported: 2016-17,`]);
+  for (const [run, start] of periods) assert.throws(run, (e) => e.code === 'period.unsupported' && e.message.startsWith(start), start);
+  const call = calculations.esicFormInput((name) => form[name] ?? '');
+  assert.equal(calculations.esic({ ...call, amount_paid: '-0', non_cash_benefit: '-0' }).amounts.tax_offset, '-0.00');
+  assert.equal(calculations.esic({ ...call, innovation_items: [6, 7] }).innovation_points, 50);
+  assert.equal(calculations.esic({ ...call, incorporated_year: '2021-22', expenses_three_prior_years: '1000000' }).tests[0].met, true);
+  assert.equal(calculations.esic({ ...call, assessable_income_previous_year: '200000' }).tests[2].met, true);
+  assert.throws(() => calculations.esic({ ...call, amount_paid: '50000', amount_receivable: '1', disclosure_exemption: false, other_companies_paid: '0',
+    other_companies_exempt: true }), { code: 'esic.retail_limit_unsettled' });
+  assert.equal(calculations.esicFormInput((name) => ({ ...form, others: '' })[name] ?? '').other_offsets, '0');
+  assert.match(calculations.esicInputsText({ ...call, innovation_items: [] }, dollars), /; no innovation items$/);
+  assert.throws(() => calculations.esic({ ...call, amount_paid: '1'.repeat(8193) }), { code: 'input.decimal_too_long', message: 'amount_paid: decimal input exceeds 8192 bytes' });
+});
+
+test('the shared decimal and date helpers write exponents as Python does and end a period of months on the day before', () => {
+  assert.deepEqual([aa.decText({ s: false, c: 1n, e: 3 }), aa.decText({ s: true, c: 12n, e: -9 })], ['1E+3', '-1.2E-8']);
+  assert.equal(aa.parseDay(5), null);
+  assert.deepEqual(['2025-01-31', '2025-01-15'].map((day) => aa.formatDay(aa.monthsEnd(aa.parseDay(day), 1))), ['2025-02-28', '2025-02-14']);
+});
+
+test('the residential vacancy fee page builds the call each fee route needs and words its refusals', () => {
+  const form = { start: '2025-08-01', days: '100', fee: '', consideration: '1500000', applied: '2025-05-01', share: '', year: '2025-26', held: 'yes',
+    lodged: 'yes', exemption: '', basis: 'notifiable_action', ownership: 'sole', waiver: 'none', from: 'schedule', kind: 'new_or_near_new' };
+  const call = (change) => calculations.rvfFormInput((name) => ({ ...form, ...change })[name] ?? '');
+  const page = (change) => calculations.rvfResult((name) => ({ ...form, ...change })[name] ?? '', dollars);
+  assert.deepEqual(page({}).rows[page({}).principal], ['Vacancy fee payable', '$59,000.00']);
+  assert.equal(call({ waiver: 'full', start: '2023-08-01', year: '2023-24' }).dwelling_kind, undefined);
+  assert.equal(call({ waiver: 'full' }).consideration, undefined);
+  assert.equal(call({ ownership: 'tenants_in_common', share: '0.5' }).ownership_share, '0.5');
+  assert.equal(page({ held: 'no' }).rows.length, 5);
+  assert.match(calculations.rvfInputsText(call({ held: 'no', lodged: 'no', exemption: 'medical_or_residential_care', waiver: 'full', ownership: 'tenants_in_common', share: '0.5' }), dollars),
+    /not held all year; return late; medical or residential care; notified, tenants in common; application fee waived; new or near-new dwelling notified 2025-05-01; share 0.5/);
+  assert.equal(call({ days: '1.5' }).residentially_occupied_days, '1.5');
+  const fee = (change) => calculations.residentialVacancyFee(call(change));
+  assert.equal(fee({ consideration: '2000000' }).rates.tier_multiple, '1');
+  assert.equal(fee({ consideration: '1000000000000' }).amounts.whole_property_application_fee, '1171600.00');
+  assert.equal(fee({ ownership: 'tenants_in_common', share: '0.12345' }).amounts.application_fee_base, '3641.78');
+  assert.equal(fee({ lodged: 'no' }).liability_status, 'deemed_liable_late_return');
+  assert.throws(() => page({ days: '400' }), /whole number no more than the days/);
+  assert.throws(() => page({ consideration: 'abc' }), /as a number/);
+  assert.throws(() => page({ basis: 'other_exemption_certificate' }), { code: 'residential_vacancy_fee.application_fee_invalid' });
+  assert.deepEqual(call({ from: 'stated', fee: ' 500 ' }).application_fee_payable, '500');
+  const waived = call({ waiver: 'full' });
+  const { application_date: _date, ...undated } = waived;
+  assert.throws(() => calculations.residentialVacancyFee(undated), { code: 'residential_vacancy_fee.application_date_unsupported' });
+  assert.throws(() => calculations.residentialVacancyFee({ ...waived, application_fee_payable: '100' }),
+    { code: 'residential_vacancy_fee.application_fee_invalid', message: 'Omit application_fee_payable when application_fee_waiver is full.' });
+  assert.match(calculations.residentialVacancyFee(call({ waiver: 'full', basis: 'no_notice_order' })).steps[0].authority, /^Fees Regulations 2020 s 46\(b\)/);
+  assert.throws(() => calculations.residentialVacancyFee({ ...call({ waiver: 'full', start: '2023-08-01', year: '2023-24' }), application_date: '2023-01-01' }),
+    { code: 'residential_vacancy_fee.application_fee_invalid' });
+});
+
+Object.assign(INPUTS, { esicFigures: (x) => calculations.esicInputsText(x, dollars), rvfFigures: (x) => calculations.rvfInputsText(x, dollars) });
+Object.assign(ENGINE_LABELS, {
+  esicFigures: { offsetBase: (v) => `amount for the issue ${dollars(v)}`, taxOffset: (v) => `tax offset ${dollars(v)}`, points: (v) => `${v} innovation points` },
+  rvfFigures: { applicationFeeBase: (v) => `application fee basis ${dollars(v)}`, vacancyFee: (v) => `vacancy fee payable ${dollars(v)}` },
+});
+Object.assign(FORM_CALLS, { esicFigures: (f) => [calculations.esicFormInput((name) => f[name] ?? '')],
+  rvfFigures: (f) => [calculations.rvfFormInput((name) => f[name] ?? '')] });
 // The tax invoice generator: GST Act s 29-70(1) (Compilation No. 96, 1 January 2026), the ATO's 'Tax invoices'
 // (last updated 18 September 2026), GSTR 2013/1 paragraphs 17 to 38 and the Recipient Created Tax Invoice
 // Determination 2023, all read 26 November 2026.
