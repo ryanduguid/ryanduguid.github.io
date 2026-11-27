@@ -7870,6 +7870,8 @@ test('portable LSL levy refuses as the command does and keeps its rounding', () 
     [{ ...base, extra: 1 }, 'input.field_unknown'], [without('jurisdiction'), 'input.missing_field'],
     [{ ...base, ordinary_wages: 'x'.repeat(8193) }, 'input.decimal_too_long'], [{ ...base, ordinary_wages: '1e3' }, 'input.decimal_unreadable'],
     [{ ...base, ordinary_wages: 'Infinity' }, 'input.amount_invalid'], [{ ...base, ordinary_wages: 5 }, 'input.amount_invalid'],
+    [{ ...base, ordinary_wages: [] }, 'input.amount_invalid'], [{ ...base, ordinary_wages: {} }, 'input.amount_invalid'],
+    [{ ...base, ordinary_wages: `${String.fromCharCode(0xfeff)}100` }, 'input.decimal_unreadable'],
     [{ ...base, ordinary_wages: '1.005' }, 'input.amount_invalid'], [{ ...base, ordinary_wages: '-1' }, 'input.amount_invalid'],
     [{ ...base, ordinary_wages: '1000000000000.01' }, 'input.amount_invalid'], [{ ...base, scope_confirmed: 'true' }, 'scope.not_confirmed'],
     [{ ...base, year: '2027-28' }, 'period.unsupported'], [{ ...base, jurisdiction: 'NSW' }, 'portable_lsl_levy.jurisdiction_invalid'],
@@ -7894,6 +7896,7 @@ test('portable LSL levy refuses as the command does and keeps its rounding', () 
     { lsl_levy: '701.00', training_levy: '200.00', whs_levy: '250.00', levy: '1151.00' });
   assert.equal(plsl({ ...base, ordinary_wages: '-0' }).amounts.levy, '-0.00');
   assert.equal(plsl({ ...base, ordinary_wages: ' 00012.30 ' }).amounts.levy, '0.22');
+  assert.equal(plsl({ ...base, ordinary_wages: `${String.fromCharCode(0x3000, 0x85)}100${String.fromCharCode(0x1c)}` }).amounts.levy, '1.80');
   assert.equal(plsl({ ...base, jurisdiction: 'nsw', scheme: 'community_services', year: '2025-26' }).rates.rate, '0.013');
   assert.equal(plsl({ ...base, jurisdiction: 'nsw', scheme: 'community_services' }).rates.rate, '0.017');
   const tas = (onTime) => plsl({ ...tasBase, paid_on_time: onTime });

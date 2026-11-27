@@ -30,9 +30,21 @@ function refuse(code, message) {
 const PLAIN = /^-?\d+(?:\.\d+)?$/; // eslint-disable-line security/detect-unsafe-regex -- anchored, with no repetition over overlapping characters: linear
 const SPECIAL = /^[+-]?(?:inf|infinity|s?nan\d*)$/i;
 
+/** Python's str.isspace() code points: unlike JavaScript's trim, U+FEFF is not space, and U+001C to U+001F and U+0085 are. */
+const SPACE = new Set([9, 10, 11, 12, 13, 0x1c, 0x1d, 0x1e, 0x1f, 0x20, 0x85, 0xa0, 0x1680, 0x2000, 0x2001, 0x2002, 0x2003, 0x2004, 0x2005, 0x2006,
+  0x2007, 0x2008, 0x2009, 0x200a, 0x2028, 0x2029, 0x202f, 0x205f, 0x3000]);
+
+/** Python's str.strip(). @param {string} text */
+function strip(text) {
+  let [start, end] = [0, text.length];
+  while (start < end && SPACE.has(text.charCodeAt(start))) start += 1;
+  while (end > start && SPACE.has(text.charCodeAt(end - 1))) end -= 1;
+  return text.slice(start, end);
+}
+
 /** The command's reading of decimal text; Infinity and NaN read but are not finite. @param {string} text */
 function parseDec(text) {
-  const t = text.trim();
+  const t = strip(text);
   if (SPECIAL.test(t)) return { finite: false };
   if (!PLAIN.test(t)) return null;
   const [whole, fraction = ''] = t.replace('-', '').split('.');
@@ -105,7 +117,7 @@ function readCall(call) {
 /** The engine's `money`: a finite decimal from 0 to 1e12 with at most 2 decimal places. @param {unknown} value @returns {Dec} */
 function money(value) {
   const v = /** @type {any} */ (value);
-  if (!v || typeof v !== 'object' || v.finite === false || cmp(v, ZERO) < 0 || cmp(v, d('1000000000000')) > 0 || v.e < -2) {
+  if (typeof v?.c !== 'bigint' || cmp(v, ZERO) < 0 || cmp(v, d('1000000000000')) > 0 || v.e < -2) {
     refuse('input.amount_invalid', 'Amounts must be finite non-negative Decimals, at most 2dp and 1e12.');
   }
   return v;
@@ -285,7 +297,7 @@ export function portableLslLevy(call) {
   const v = readCall(call);
   if (v.get('scope_confirmed') !== true) refuse('scope.not_confirmed', 'Establish all stated scope conditions before calculating.');
   const year = v.get('year');
-  if (typeof year !== 'string' || !PLSL_YEARS.includes(year)) refuse('period.unsupported', `Unsupported period; supported: ${[...PLSL_YEARS].reverse().join(', ')}.`);
+  if (typeof year !== 'string' || !PLSL_YEARS.includes(year)) refuse('period.unsupported', `Unsupported period ${JSON.stringify(year)}; supported: ${[...PLSL_YEARS].reverse().join(', ')}.`);
   const [jurisdiction, scheme] = [v.get('jurisdiction'), v.get('scheme')];
   if (typeof jurisdiction !== 'string' || !JURISDICTIONS.includes(jurisdiction)) {
     refuse('portable_lsl_levy.jurisdiction_invalid', 'jurisdiction must be cth, nsw, vic, qld, sa, wa, act, tas or nt.');
