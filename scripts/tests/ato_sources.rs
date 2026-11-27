@@ -1808,11 +1808,8 @@ printf ']' >> "$out/index.json"
 
 #[cfg(unix)]
 fn fake_nodriver(name: &str) -> tempfile::TempDir {
-    use std::os::unix::fs::PermissionsExt;
     let bin = tempfile::tempdir().unwrap();
-    let path = bin.path().join(name);
-    std::fs::write(&path, FAKE_NODRIVER).unwrap();
-    std::fs::set_permissions(&path, std::fs::Permissions::from_mode(0o755)).unwrap();
+    common::write_script(&bin.path().join(name), FAKE_NODRIVER);
     bin
 }
 

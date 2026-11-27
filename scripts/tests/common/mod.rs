@@ -318,6 +318,29 @@ impl Drop for SavedFile {
     }
 }
 
+/// Writes `text` to `path` as an executable script without this process ever holding the
+/// file open for writing. A test thread that spawns a process whilst another thread holds
+/// such a handle passes it to the child until the child execs, and running the script
+/// in that window fails with ETXTBSY ('Text file busy'). `/bin/sh` writes it instead.
+#[cfg(unix)]
+pub fn write_script(path: &Path, text: &str) {
+    use std::io::Write;
+    use std::process::{Command, Stdio};
+    let mut child = Command::new("/bin/sh")
+        .args(["-c", r#"cat > "$1" && chmod 755 "$1""#, "sh"])
+        .arg(path)
+        .stdin(Stdio::piped())
+        .spawn()
+        .unwrap();
+    child
+        .stdin
+        .take()
+        .unwrap()
+        .write_all(text.as_bytes())
+        .unwrap();
+    assert!(child.wait().unwrap().success(), "{}", path.display());
+}
+
 pub fn expect_failure(label: &str, failures: &[String], expected: &str) {
     assert!(
         failures.iter().any(|f| f.contains(expected)),
