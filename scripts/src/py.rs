@@ -1171,4 +1171,15 @@ mod edge_tests {
             assert_eq!(Date::fromisoformat(text), None, "{text}");
         }
     }
+
+    #[test]
+    fn a_power_of_two_tie_keeps_the_shortest_digits_that_round_trip() {
+        // 2**-24 is 5.9604644775390625e-08 exactly; the even 16-digit neighbour
+        // ...062 lies below it, past the half gap to the next lower double.
+        assert_eq!(
+            shortest_digits(2f64.powi(-24)),
+            ("5960464477539063".into(), -7)
+        );
+        assert_eq!(float_repr(2f64.powi(-24)), "5.960464477539063e-08");
+    }
 }
