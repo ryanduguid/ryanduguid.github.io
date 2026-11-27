@@ -7412,6 +7412,103 @@ test('the deferred tax form sends the rows with a name or an amount, in order', 
   assert.deepEqual(loss.rows.at(-1), ['Average effective tax rate', '0%']);
 });
 
+// The S8 pages port australian-accounting commands: foreign-resident-withholding (TAA 1953 Sch 1 ss 14-200 to 14-235),
+// and solomons-sword's partnership-net-income (ITAA 1936 ss 90 to 92) and trust-loss-tests (ITAA 1936 Sch 2F), read 27 November 2026.
+const S8_MAIN = /^ryanduguid\/australian-accounting at 4df634b /;
+const s8Fixture = (file) => JSON.parse(readFileSync(new URL(`./${file}`, import.meta.url), 'utf8'));
+
+test('foreign resident capital gains withholding agrees with the foreign-resident-withholding command on every recorded case', () => {
+  const { engine, cases } = s8Fixture('foreign-resident-withholding-engine-differential.json');
+  const authorities = s8Fixture('foreign-resident-withholding-authorities.json');
+  assert.match(engine, S8_MAIN);
+  assert.ok(cases.length >= 600);
+  assert.ok(cases.filter((c) => c.source.startsWith('AA test')).length >= 300);
+  for (const { source, call, refused, message, ...want } of cases) {
+    if (refused) {
+      assert.throws(() => calculations.foreignResidentWithholding(call), { code: refused, message }, source);
+      continue;
+    }
+    const r = calculations.foreignResidentWithholding(call);
+    assert.deepEqual(r.authorities, authorities, source);
+    const { authorities: _, ...got } = r;
+    assert.deepEqual(got, want, source);
+  }
+});
+
+for (const [slug, run] of [['partnership-net-income', 'partnershipNetIncome'], ['trust-loss-tests', 'trustLossTests']]) {
+  test(`${slug} agrees with the solomons-sword command on every recorded case`, () => {
+    const { engine, cases } = s8Fixture(`${slug}-engine-differential.json`);
+    assert.match(engine, S8_MAIN);
+    assert.ok(cases.length >= 340);
+    assert.ok(cases.filter((c) => c.source.startsWith('AA test')).length >= 40);
+    for (const { source, call, refused, result } of cases) {
+      if (refused) {
+        assert.throws(() => calculations[run](call), { message: refused }, source);
+        continue;
+      }
+      assert.deepEqual(calculations[run](call), result, source);
+    }
+  });
+}
+
+// The S8 pages' boundary rows: the form's call, how the page writes it, and the figures each row shows.
+const s8Aud = (value) => value.toLocaleString('en-AU', { style: 'currency', currency: 'AUD' });
+Object.assign(INPUTS, { frcgwFigures: (x) => calculations.frcgwInputsText(x, s8Aud), partnershipNetIncome: (x) => calculations.partnershipInputsText(x, s8Aud),
+  trustLossTests: (x) => calculations.trustLossInputsText(x) });
+Object.assign(ENGINE_LABELS, {
+  frcgwFigures: { withholdingBase: (v) => `withholding base ${dollars(v)}`, amountPayable: (v) => `amount to pay the ATO ${dollars(v)}`,
+    nilReason: (v) => (v === null ? 'withholding applies' : `nothing to withhold: ${v}`) },
+  partnershipNetIncome: { deductions_counted: (v) => `deductions counted ${dollars(Number(v))}`, net_income: (v) => `net income ${dollars(Number(v))}`,
+    partnership_loss: (v) => `partnership loss ${dollars(Number(v))}` },
+  trustLossTests: { deductible: (v) => (v === true ? 'prior-year loss deductible' : v === false ? 'prior-year loss not deductible' : 'deductibility not established') },
+});
+Object.assign(FORM_CALLS, { frcgwFigures: (f) => [calculations.frcgwFormInput((name) => f[name] ?? '')],
+  partnershipNetIncome: (f) => [calculations.partnershipFormInput((name) => f[name] ?? '')], trustLossTests: (f) => [calculations.trustLossFormInput((name) => f[name] ?? '')] });
+
+test('the S8 pages put their refusals in the page’s words', () => {
+  const frcgwForm = { date: '2026-03-15', asset: 'taxable_australian_real_property', 'market-value': '800000', price: '800000', option: '800001', exclusion: 'none',
+    'class-nil': 'no', 'vendor-1-interest': '1', 'vendor-1-document': 'none' };
+  assert.throws(() => calculations.frcgwResult((name) => frcgwForm[name] ?? '', s8Aud), { message: 'Enter an option fee no more than the purchase price.' });
+  assert.throws(() => calculations.frcgwResult((name) => ({ ...frcgwForm, option: '0', 'sale-price': '880000', 'vendor-1-document': 'variation', 'vendor-1-rate': '0.05',
+    'vendor-1-maximum': '850000' })[name] ?? '', s8Aud), /whether the maximum includes GST/);
+  const frcgw = calculations.frcgwResult((name) => ({ ...frcgwForm, option: '0', 'vendor-1-document': 'variation', 'vendor-1-rate': '0.07', 'vendor-1-maximum': '900000' })[name] ?? '', s8Aud);
+  assert.match(frcgw.inputs, / at 7% up to \$900,000\.00$/);
+  const partnership = { year: '2026', 'assessable-income': '1000', deductions: '0', scope: 'none', australian: 'no', 'partner-1-name': 'A', 'partner-1-interest': '60',
+    'partner-1-residency': 'non_resident', 'partner-2-name': 'B', 'partner-2-interest': '30', 'partner-2-residency': 'resident' };
+  assert.throws(() => calculations.partnershipResult((name) => partnership[name] ?? '', s8Aud), /choose Yes for all the income being from Australian sources/);
+  assert.throws(() => calculations.partnershipResult((name) => ({ ...partnership, australian: 'yes' })[name] ?? '', s8Aud),
+    { message: 'Enter partner interests that total 100%; these total 90%.' });
+  assert.throws(() => calculations.trustLossResult((name) => ({ year: '2026', 'loss-year': '2026', kind: 'fixed', excepted: 'none' })[name] ?? 'unknown'),
+    { message: 'Choose a loss year earlier than the income year deducting it.' });
+});
+
+test('the S8 pages work their own examples from the form', () => {
+  const aud = (value) => value.toLocaleString('en-AU', { style: 'currency', currency: 'AUD' });
+  const frcgw = calculations.frcgwResult((name) => ({ date: '2026-03-15', asset: 'taxable_australian_real_property', 'market-value': '1200000', price: '1200000',
+    option: '0', 'sale-price': '', exclusion: 'none', 'class-nil': 'no', 'vendor-1-interest': '50', 'vendor-1-document': 'none',
+    'vendor-2-interest': '50', 'vendor-2-document': 'variation', 'vendor-2-rate': '0.05', 'vendor-2-maximum': '1250000' })[name] ?? '', aud);
+  assert.deepEqual(frcgw.rows[frcgw.principal], ['Amount to pay the ATO at settlement', '$120,000.00']);
+  assert.throws(() => calculations.frcgwResult((name) => ({ date: '2026-03-15', 'vendor-1-interest': '' })[name] ?? '', aud), /at least one vendor/);
+  const partnership = calculations.partnershipResult((name) => ({ year: '2026', 'assessable-income': '1000', deductions: '1500', scope: 'none', australian: 'yes',
+    'partner-1-name': 'A', 'partner-1-interest': '50', 'partner-1-residency': 'resident', 'partner-2-name': 'B', 'partner-2-interest': '50',
+    'partner-2-residency': 'resident' })[name] ?? '', aud);
+  assert.deepEqual(partnership.rows.slice(2), [['Partnership loss (s 90)', '$500.00'], ['A (50%): share of the loss to deduct', '$250.00'], ['B (50%): share of the loss to deduct', '$250.00']]);
+  const trust = calculations.trustLossResult((name) => ({ year: '2026', 'loss-year': '2023', kind: 'non_fixed', excepted: 'family_trust', injection: 'unknown' })[name] ?? 'unknown');
+  assert.deepEqual(trust.rows.at(-1), ['Prior-year loss deductible under Schedule 2F', 'Not established']);
+  assert.match(trust.note, /income injection test/);
+});
+
+test('exact decimals read what the command reads, and plain decimals are digits with at most one point between digits', async () => {
+  const { parse, isPlainDecimal } = await import('../assets/exact-decimal.mjs');
+  const read = (text) => { const x = parse(text); return x && `${x.neg ? '-' : ''}${x.coef}e${x.exp}${x.special ?? ''}`; };
+  assert.deepEqual(['1', '+1.50', '-.5', '5.', '1e3', '1.5E-2', ' 7 ', '000.100'].map(read), ['1e0', '150e-2', '-5e-1', '5e0', '1e3', '15e-3', '7e0', '100e-3']);
+  assert.deepEqual(['', '.', '+', '-', 'e5', '1e', '1e+', '1e5e5', '1..2', '1.2.3', '+-1', '--1', '1_0', '１', 'x'].map(read), Array(15).fill(null));
+  assert.equal(read('-Infinity'), '-0e0inf');
+  assert.equal(read('NaN12'), '0e0nan');
+  assert.deepEqual(['0', '12', '1.5', '10.25'].map(isPlainDecimal), [true, true, true, true]);
+  assert.deepEqual(['', '.', '.5', '5.', '1.2.3', '-1', '1e3', ' 1', '１'].map(isPlainDecimal), Array(9).fill(false));
+});
+
 // The casual and overtime pay page: its example and sources, then the rules it applies. Hand-worked figures; the rules
 // are SGAA s 6(1) and s 17A(2) (Compilation No. 78), SGR 2009/2 paras 22, 27, 35, 41 and 42 and draft LCR 2026/D1
 // paras 63 and 64, read 26 November 2026.

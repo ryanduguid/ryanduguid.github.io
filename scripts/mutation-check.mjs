@@ -75,6 +75,9 @@ const leaseEngine = { ...business, file: 'assets/lease.mjs' };
 const ftc = { ...business, file: 'assets/fuel-tax-credits.mjs' };
 const pools = { ...business, file: 'assets/depreciation-pools.mjs' };
 const rdOffset = { ...business, file: 'assets/rd-tax-offset.mjs' };
+const frcgw = { ...business, file: 'assets/foreign-resident-withholding.mjs' };
+const partnershipEngine = { ...business, file: 'assets/partnership-net-income.mjs' };
+const trustLosses = { ...business, file: 'assets/trust-loss-tests.mjs' };
 const casualOt = { ...business, file: 'assets/casual-overtime.mjs' };
 const contractor = { ...business, file: 'assets/contractor-employee.mjs' };
 const invoice = { ...business, file: 'assets/tax-invoice.mjs' };
@@ -1162,6 +1165,18 @@ const MUTATIONS = [
   { ...rdOffset, name: 'R&D deduction amount not subtracted', find: 'const income = offset - adjusted[6] - deduction;', replace: 'const income = offset - adjusted[6];' },
   { ...rdOffset, name: 'R&D clawback income over the offset year rate', find: 'ratioCents((income < 0n ? -income : income), presentRate * 1000n)', replace: 'ratioCents((income < 0n ? -income : income), e.rate * 1000n)' },
   { ...rdOffset, name: 'R&D clawback below the threshold allowed', find: 'if (clawback !== 0n && e.notional - clawback < THRESHOLD) {', replace: 'if (false) {' },
+  { ...frcgw, name: "FRCGW 15% from 2025", find: "const FIFTEEN_FROM = '2025-01-01';", replace: "const FIFTEEN_FROM = '2026-01-01';" },
+  { ...frcgw, name: "FRCGW option fee not taken off the base", find: "const base = sub(costBase, option);", replace: "const base = costBase;" },
+  { ...frcgw, name: "FRCGW $750,000 threshold inclusive", find: "cmp(marketValue, d(threshold)) < 0", replace: "cmp(marketValue, d(threshold)) <= 0" },
+  { ...frcgw, name: "FRCGW clearance certificate withholds", find: "x.kind === 'clearance_certificate' ? [d('0'), 'clearance certificate: nil']", replace: "x.kind === 'clearance_certificate' ? [full, 'clearance certificate: nil']" },
+  { ...frcgw, name: "FRCGW variation applies above its maximum", find: "cmp(salePrice, /** @type {any} */ (x.maximum)) > 0 ? [full,", replace: "false ? [full," },
+  { ...frcgw, name: "FRCGW rounding cent not shared", find: "if (cmp(left, d('0')) <= 0) break;", replace: "break;" },
+  { ...partnershipEngine, name: "Partnership excluded deductions counted", find: "const counted = sub(deductions, excluded);", replace: "const counted = deductions;" },
+  { ...partnershipEngine, name: "Partnership left-over cent dropped", find: "    if (isZero(left)) break;\n    parts[i] = add(parts[i], cent);", replace: "    break;\n    parts[i] = add(parts[i], cent);" },
+  { ...partnershipEngine, name: "Partnership non-resident allowed without Australian income", find: "if (residency === 'non_resident' && australian !== true) {", replace: "if (false) {" },
+  { ...trustLosses, name: "Trust pattern test at 50% passes", find: "results.push(cmp(total, d('50')) > 0);", replace: "results.push(cmp(total, d('50')) >= 0);" },
+  { ...trustLosses, name: "Trust income injection applies to a super fund", find: "const exempt = para === 's 272-100(b)' ||", replace: "const exempt = false &&" },
+  { ...trustLosses, name: "Trust absent individual not counted at nil", find: "const p = other.get(name) ?? d('0');", replace: "const p = other.get(name) ?? d('100');" },
   { ...contractor, name: 'Contractor labour of exactly half counted as principally', find: 'const principally = 2 * labour > fee;', replace: 'const principally = 2 * labour >= fee;' },
   { ...contractor, name: 'Contractor right to delegate ignored', find: 'personal: !e.delegate,', replace: 'personal: true,' },
   { ...contractor, name: 'Contractor result contract ignored', find: 'notResult: !e.result,', replace: 'notResult: true,' },
@@ -1427,6 +1442,10 @@ const SHARED = [
   'scripts/luxury-car-tax-engine-differential.json',
   'scripts/depreciation-pools-engine-differential.json',
   'scripts/rd-tax-offset-engine-differential.json',
+  'scripts/foreign-resident-withholding-engine-differential.json',
+  'scripts/foreign-resident-withholding-authorities.json',
+  'scripts/partnership-net-income-engine-differential.json',
+  'scripts/trust-loss-tests-engine-differential.json',
   'scripts/gst-adjustments-engine-differential.json',
   'scripts/deferred-tax-engine-differential.json',
   'scripts/ato-penalties-interest-engine-differential.json',

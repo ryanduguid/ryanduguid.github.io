@@ -99,6 +99,7 @@ test('every calculator tool is read-only, refuses unknown inputs and has its own
     'calculate_fbt_expense_payment', 'calculate_fbt_loan', 'calculate_fbt_meal_entertainment', 'calculate_fbt_property',
     'calculate_land_tax', 'calculate_termination_payment', 'calculate_transfer_duty',
     'calculate_rd_tax_offset', 'calculate_gst_adjustments', 'calculate_deferred_tax', 'calculate_sole_trader_vs_company', 'calculate_trust_streaming',
+    'calculate_foreign_resident_withholding', 'calculate_partnership_net_income', 'check_trust_loss_tests',
     'calculate_casual_overtime_pay', 'calculate_contractor_employee', 'calculate_payday_super_cashflow', 'check_tax_invoice',
     'calculate_decline_in_value', 'calculate_coal_lsl_levy']);
   for (const t of all) {
@@ -2237,6 +2238,33 @@ test('transfer balance tool runs transfer, charge and release modes and refuses 
   await assert.rejects(tool.execute({
     calculation: 'transfer', events: [{ date: '2017-08-02', kind: 'new_income_stream', amount: '1600000' }], toDate: '2019-12-31', extra: 1,
   }), /extra is not an input of this tool/);
+});
+
+test('S8 tools return their page examples and refuse what their pages refuse', async () => {
+  const frcgw = tools['foreign-resident-withholding'];
+  const sale = { acquisitionDate: '2026-03-15', asset: 'taxable_australian_real_property', marketValue: '1200000', costBaseFirstElement: '1200000',
+    vendors: [{ interest: '50', document: 'none' }, { interest: '50', document: 'variation', rate: '0.05', maximumPrice: '1250000' }] };
+  const r = await frcgw.execute(sale);
+  assert.deepEqual([r.amountPayable, r.rate, r.incomeYear, r.source], ['120000.00', '0.15', '2025-26', 'https://duguid.com.au/tools/business-calculators/foreign-resident-withholding/']);
+  assert.equal((await frcgw.execute({ ...sale, acquisitionDate: '2024-06-01', marketValue: '700000' })).nilReason.startsWith('excluded transaction: market value under $750,000'), true);
+  await assert.rejects(frcgw.execute({ ...sale, acquisitionDate: '2017-06-30' }), /Unsupported period/);
+  await assert.rejects(frcgw.execute({ ...sale, extra: 1 }), /extra is not an input of this tool/);
+  const partnership = tools['partnership-net-income'];
+  const p = await partnership.execute({ incomeYear: '2025-26', assessableIncome: '250000', deductions: '130000', excludedDeductions: '10000',
+    partners: [{ name: 'Alex', residency: 'resident', interestPercentage: '50' }, { name: 'Sam', residency: 'resident', interestPercentage: '30' },
+      { name: 'Jo', residency: 'resident', interestPercentage: '20' }] });
+  assert.deepEqual([p.netIncome, p.partners.map((x) => x.assessable_income)], ['130000.00', ['65000.00', '39000.00', '26000.00']]);
+  await assert.rejects(partnership.execute({ incomeYear: '2025-26', assessableIncome: '1', deductions: '0', partners: [{ name: 'A', residency: 'non_resident', interestPercentage: '100' }] }),
+    /non-resident partner/);
+  await assert.rejects(partnership.execute({ incomeYear: '2025-26', assessableIncome: '1', deductions: '0', outOfScope: 'foreign_hybrid',
+    partners: [{ name: 'A', residency: 'resident', interestPercentage: '100' }] }), /foreign hybrid limited partnership/);
+  const trust = tools['trust-loss-tests'];
+  const t = await trust.execute({ incomeYear: '2025-26', lossYear: 2023, trustKind: 'non_fixed', incomeDistributedInIncomeYearOr2MonthsAfter: 'yes',
+    incomeDistributedIn6EarlierYears: 'yes', previouslyFailedPatternTest: 'no', individualsHadOver50PercentStake: 'no', groupBeganToControl: 'no',
+    incomeInjectionScheme: 'no', capitalDistributedInIncomeYearOr2MonthsAfter: 'no',
+    testYearDistributions: { income: [[{ individual: 'Ann', percent: '60' }], [{ individual: 'Ann', percent: '55' }]], capital: [[{ individual: 'Ann', percent: '51' }]] } });
+  assert.deepEqual([t.deductible, t.patternOfDistributionsWorking.income.total], [true, '55']);
+  await assert.rejects(trust.execute({ incomeYear: '2025-26', lossYear: 2026, trustKind: 'fixed' }), /must be earlier than financial_year/);
 });
 
 test('casual and overtime pay tool returns the page example, Payday Super and quarterly rules, leave loading and refusals', async () => {

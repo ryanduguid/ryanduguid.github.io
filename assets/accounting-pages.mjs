@@ -596,6 +596,15 @@ function initialiseCalculators([calculate, fieldErrors, fbtForms, { individualRe
           case 'rd-tax-offset':
             result = calculate.rdTaxOffsetResult(value, aud);
             break;
+          case 'foreign-resident-withholding':
+            result = calculate.frcgwResult(value, aud);
+            break;
+          case 'partnership-net-income':
+            result = calculate.partnershipResult(value, aud);
+            break;
+          case 'trust-loss-tests':
+            result = calculate.trustLossResult(value);
+            break;
           case 'contractor-employee':
             result = calculate.contractorEmployeeResult(value, aud);
             break;
