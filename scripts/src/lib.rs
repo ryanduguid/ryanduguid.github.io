@@ -48,6 +48,7 @@ pub mod rates_register;
 pub mod release_record;
 pub mod review_generated;
 pub mod schema_vocab;
+pub mod search_console;
 pub mod seo_core;
 pub mod serve_site;
 pub mod site_contracts;
