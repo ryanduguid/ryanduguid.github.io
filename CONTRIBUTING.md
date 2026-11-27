@@ -583,7 +583,10 @@ changelog edit, and regenerate `llms-full.txt` with `site-tools build_llms_full
 --write` when a page's main text or `llms.txt` changes. That command also writes
 each page's entry to `index.txt` beside it (the Machine view fetches that file)
 and copies the canonical `llms.txt` to `.well-known/llms.txt`; do not edit those
-copies by hand.
+copies by hand. Each section part stays within 96,000 bytes; a page longer than
+that, such as the changelog, continues in the next numbered part of its section,
+cut after a whole line outside any fenced block, and the part index lists it again
+with '(continued)'.
 
 `.github/review-generated.json` lists the generated files that a pre-merge review
 may omit, because its build reproduces them and the `--check` runs in CI fail when
