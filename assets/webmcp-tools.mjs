@@ -47,7 +47,7 @@ const PATTERNS = {
 /**
  * @typedef {{type: 'string' | 'boolean' | 'integer' | 'array' | 'object', description?: string,
  *   pattern?: string, enum?: string[], minimum?: number, maximum?: number, maxItems?: number,
- *   items?: Schema, properties?: Record<string, Schema>, required?: string[],
+ *   minLength?: number, maxLength?: number, items?: Schema, properties?: Record<string, Schema>, required?: string[],
  *   additionalProperties?: false}} Schema
  */
 
