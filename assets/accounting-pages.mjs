@@ -596,6 +596,12 @@ function initialiseCalculators([calculate, fieldErrors, fbtForms, { individualRe
           case 'contractor-employee':
             result = calculate.contractorEmployeeResult(value, aud);
             break;
+          case 'endorsement-review':
+            result = calculate.endorsementReviewResult(value);
+            break;
+          case 'abn-acn-check':
+            result = calculate.identifierCheckResult(value);
+            break;
           case 'fuel-tax-credits':
             result = calculate.fuelTaxCreditsResult(value, aud);
             break;

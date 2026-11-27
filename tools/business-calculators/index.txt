@@ -8,9 +8,9 @@ Source: https://duguid.com.au/tools/business-calculators/
 
 Sixty free calculators that run in your browser with the formula, assumptions and primary source beside the inputs. No sign-up; inputs stay on your device.
 
-Published 11 September 2026. Last checked 26 November 2026, the newest of the calculators’ source checks.
+Published 11 September 2026. Last checked 27 November 2026, the newest of the calculators’ source checks.
 
-Search 60 calculators
+Search 62 calculators
 
 ## Pricing, planning and loans
 
@@ -92,6 +92,8 @@ Search 60 calculators
 - Wine equalisation tax calculator WET on a tax period’s wholesale sales, retail sales, own use and sales under quote, the producer rebate within the year’s $350,000 or $400,000 cap, and labels 1C and 1D.
 - Business days calculator Business days between 2 dates, or the date a number of business days on or back, with each state’s public holidays for 2026 and 2027.
 - ASIC fees calculator ASIC’s 2026-27 fees and late fee tiers.
+- DGR and charity endorsement review The ATO’s endorsement review worksheets for a deductible gift recipient or an income tax exempt charity: still entitled, action needed or not entitled, with the notice the law requires.
+- ABN and ACN check digit checker Whether an ABN or ACN passes its published check digit test, as arithmetic on the page: nothing is looked up, and a pass does not show the number is registered.
 
 See also 18 individual tax calculators, depreciation rates and effective lives, 2026-27 BAS due dates and 100 accounting questions.
 
@@ -159,6 +161,8 @@ Planning estimates in AUD. Confirm tax treatment, liability amounts and dates se
 - Wine equalisation tax calculator: https://duguid.com.au/tools/business-calculators/wine-equalisation-tax/
 - Business days calculator: https://duguid.com.au/tools/business-calculators/business-days/
 - ASIC fees calculator: https://duguid.com.au/tools/business-calculators/asic-fees/
+- DGR and charity endorsement review: https://duguid.com.au/tools/business-calculators/endorsement-review/
+- ABN and ACN check digit checker: https://duguid.com.au/tools/business-calculators/abn-acn-check/
 - 18 individual tax calculators: https://duguid.com.au/tools/individual-tax/
 - depreciation rates and effective lives: https://duguid.com.au/tools/depreciation-rates/
 - 2026-27 BAS due dates: https://duguid.com.au/tools/bas-due-dates/
