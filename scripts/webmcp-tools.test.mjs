@@ -73,7 +73,9 @@ const levy = levyTools({ computeEntry, levyCents }).levy;
 
 test('each business calculator tool is keyed by the form that registers it', () => {
   for (const key of Object.keys(tools)) {
-    const form = readFileSync(new URL(`../_includes/calculators/${key}.html`, import.meta.url), 'utf8');
+    // The share parcels form sits on the CGT page, so its markup is a part, not a calculator page of its own.
+    const folder = key === 'cgt-parcels' ? '' : 'calculators/';
+    const form = readFileSync(new URL(`../_includes/${folder}${key}.html`, import.meta.url), 'utf8');
     assert.ok(form.includes(`<form class="calculator-split" data-calculator="${key}">`)
       || form.includes(`<form class="calculator-split" data-calculator="${key}" `)
       || form.includes(`<form data-calculator="${key}">`), key);
@@ -1698,7 +1700,7 @@ test('every calculator include in _includes/calculators has a registered WebMCP 
     .map((name) => name.slice(0, -5))
     .sort();
   const registered = [...Object.keys(tools), ...Object.keys(individual)].sort();
-  assert.deepEqual(registered, slugs);
+  assert.deepEqual(registered.filter((slug) => slug !== 'cgt-parcels'), slugs);
   assert.equal(registered.length + 2, 81);
 });
 
