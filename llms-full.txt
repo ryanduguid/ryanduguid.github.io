@@ -14734,6 +14734,84 @@ Planning estimate. Confirm residency and the dates you count separately.
 
 ---
 
+# Employee share scheme (ESS) discount tax calculator
+
+Source: https://duguid.com.au/tools/individual-tax/ess-discount/
+
+> Work out the taxable discount on employee shares and rights for 2020-21 to 2026-27: upfront or deferred, the $1,000 reduction and the start-up concession.
+
+# Employee share scheme discount calculator
+
+The taxable discount on employee shares and rights, 2020-21 to 2026-27.
+
+Published 27 November 2026. Last checked 27 November 2026.
+
+JavaScript is required for interactive calculations. The formula, assumptions and source links remain available below.
+
+One employee share scheme interest
+
+Income year2026-27 2025-26 2024-25 2023-24 2022-23 2021-22 2020-21 InterestShares Rights (options) to acquire shares Day acquired Amount you paid for them Market value when acquired
+
+Enter totals for the parcel. For rights valued by the regulations’ tables, leave the market value blank and give the terms below.
+
+Rights only
+
+Total exercise price Market value of the shares the rights may acquire Last exercise day Value the rights atTheir market value The regulations’ tables (unlisted rights) Scheme states Subdivision 83A-C appliesNo Yes
+
+Scheme and personal conditions
+
+Acquired because of your employmentYes No Scheme offers only ordinary shares, or rights to themYes No Employer’s main business is not share tradingYes No Held 3 years or until you leave (s 83A-45(4))Yes No You hold no more than 10% of the companyYes No Offered on a non-discriminatory basisYes No Shares: offered to at least 75% of permanent employeesYes No Real risk of forfeitureNo Yes Acquired by salary sacrifice (s 83A-105(4))No Yes
+
+Start-up concession (s 83A-33)
+
+Claim the start-up concessionNo Yes Company is unlistedYes No Incorporated less than 10 years beforeYes No Aggregated turnover Employer is an Australian residentYes No
+
+Deferred taxing point (Subdivision 83A-C)
+
+Day the restrictions and forfeiture risk ended Rights: day exercised Rights: day the resulting shares’ restrictions ended Acquired before 1 July 2022: day employment ended Day disposed of Cost base Deferred taxing point Market value at that point
+
+Fill these in when the interest is deferred: leave a day blank if it has not happened, and leave the day employment ended blank while you are still employed. The calculator works out the taxing point and asks for the value on that day when it falls in the year.
+
+Income test for the $1,000 reduction (s 83A-35)
+
+Taxable income Reportable fringe benefits Reportable super contributions Total net investment loss
+
+Calculate
+
+Fictional example: the first boundary case below. Change the inputs and calculate your own. Inputs: 2025-26; share acquired 2025-09-01 for $0.00, worth $2,500.00. Discount on the interest $2,500.00 Treatment Taxed upfront, eligible for the reduction (s 83A-25) Upfront discounts eligible for the reduction (label D) $2,500.00 Other upfront discounts (label E) $0.00 Deferred discounts (label F) $0.00 Less the reduction (s 83A-35) $1,000.00 Assessable discount for 2025-26 (label B) $1,500.00 Amounts are rounded to the cent.
+
+## How the employee share scheme discount calculator works
+
+An employee share scheme discount is the market value of the shares or rights when you acquired them less what you paid. Division 83A of the Income Tax Assessment Act 1997 includes it in your assessable income in one of 3 ways. Most discounts are taxed upfront, in the year you acquired the interest (s 83A-25). If the scheme meets the conditions for the $1,000 reduction and your income for the test is $180,000 or less, s 83A-35 takes up to $1,000 off the upfront discounts that qualify. An eligible start-up concession reduces the amount to nil (s 83A-33).
+
+Tax is deferred (Subdivision 83A-C) where there is a real risk of forfeiture, where up to $5,000 of shares a year are acquired by salary sacrifice, or for rights whose scheme says so. Then the amount is the market value at the deferred taxing point less the cost base, in the year of that point: the earliest of the restrictions ending, 15 years, and for interests acquired before 1 July 2022 the end of your employment, moved to a disposal within 30 days after it. An unlisted right can be valued by the regulations’ tables. The result shows the amounts for question 12 of your return: labels D, E, F and B.
+
+## What the employee share scheme discount calculator does not cover
+
+The calculator does not take interests acquired before 1 July 2015, foreign employment or foreign or temporary residents, or the capital gains tax on a later disposal. It never values a share: enter market values from your employer’s statement or a valuation. The form takes one interest; the WebMCP tool takes up to 50, with forfeited interests and the regulations’ value at a taxing point. Confirm the amounts with your employee share scheme statement and a registered tax agent.
+
+## Boundary cases
+
+Each row is a test: scripts/individual-tax.test.mjs runs this calculator on these fictional inputs and fails if the result differs from the one shown.
+
+Boundary cases: Employee share scheme discount calculator
+
+Case | Inputs | Result
+$2,500 of shares for nothing under a scheme meeting the reduction’s conditions: $1,000 off, $1,500 assessable (the form’s example) | 2025-26, share acquired 2025-09-01 worth $2,500.00 | Labels D $2,500.00, E $0.00, F $0.00, reduction $1,000.00, B $1,500.00
+The same shares with $180,000.01 for the income test: no reduction (s 83A-35(2)(b)) | 2025-26, share acquired 2025-09-01 worth $2,500.00 | Labels D $2,500.00, E $0.00, F $0.00, reduction $0.00, B $2,500.00
+At a real risk of forfeiture the discount waits for the taxing point: restrictions end on 1 December 2025 and a sale on 20 December moves it there (s 83A-115(3)) | 2025-26, share acquired 2025-09-01 worth $2,500.00 | Labels D $0.00, E $0.00, F $4,000.00, reduction $0.00, B $4,000.00
+A start-up’s shares at a 10% discount include nothing (s 83A-33) | 2025-26, share acquired 2025-09-01 worth $100.00 | Labels D $0.00, E $0.00, F $0.00, reduction $0.00, B $0.00
+
+One of the eighteen individual tax calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+
+Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
+
+## Links
+
+- eighteen individual tax calculators: https://duguid.com.au/tools/individual-tax/
+
+---
+
 # First home super saver (FHSS) calculator
 
 Source: https://duguid.com.au/tools/individual-tax/fhss/
