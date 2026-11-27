@@ -326,11 +326,17 @@
     "tools/individual-tax/concessional-catch-up/index.html": [
       "dacc5ccf7754b125dd9cc98ac6c025dad2daefa9082f80c8c133c58c2960a5e3"
     ],
+    "tools/individual-tax/defined-benefit-income-cap/index.html": [
+      "f3618cb3f59f5563d1a31e4481d135311d43dc243a1b195fea983747ad60650f"
+    ],
     "tools/individual-tax/division-293/index.html": [
       "0fa440f13a2f343c29f15c84365a9800f0cda8fed90f7190e84e9ff08a247d32"
     ],
     "tools/individual-tax/fhss/index.html": [
       "17dcd0204b9a84a38aab7dcd7e1270022b2fa898ce850c32dfa56c1e31723c07"
+    ],
+    "tools/individual-tax/foreign-pension-upp/index.html": [
+      "edb994f20307296ac021e29055ea0e596117864a41cbadd512f1e9b28a1106ff"
     ],
     "tools/individual-tax/government-super/index.html": [
       "28564a618992191fa1018a10a7c53c69ccb7662ead7d91e60e95151e4281782d"
@@ -359,11 +365,17 @@
     "tools/individual-tax/salary-packaging/index.html": [
       "79df2afc8bdd8a9ee82ab1c9860fa4a827d4379a96f3f60dde93430d21d93a44"
     ],
+    "tools/individual-tax/scholarship-exemption/index.html": [
+      "054996842a84098bef09e183afd79264d1b6792f2f18a8e1856a1dddbb8ee32e"
+    ],
     "tools/individual-tax/sole-trader/index.html": [
       "91e68a1a86cd5447660abf9d10dfa0b1f0c3779ff86f958dfe08d2aacb3b7fd7"
     ],
     "tools/individual-tax/study-loan/index.html": [
       "2422468bac5a44d932965ff881e3dc336c4a593ea7d1289e9815a78e80315d60"
+    ],
+    "tools/individual-tax/super-crystallisation/index.html": [
+      "fec4ee340c24ee17b8a05d961662f12853159df92fae78137f5cf4867ba1bcc0"
     ],
     "tools/individual-tax/super-projection/index.html": [
       "8512735fc9a9099b8c86203f9ce9bbc263c09534ac8f869c4d9a97b433c8e02a"
@@ -440,7 +452,7 @@
   },
   "protected_files": {
     "robots.txt": "18d6a7d73dbde21fcae1ba0ac8ccd5750ced144637be01d142ea5dc16ee96a9d",
-    "sitemap.xml": "0a3bedb9335e4c0d6baaed5fef6d1849b9676f44103b4d6b4fb3be24691c9152"
+    "sitemap.xml": "234075e833c10d2949a70a66834d4faf0050877671f5fe3ff30f25099da4c1cb"
   },
   "protected_main_links": {
     "rates/cents-per-kilometre/index.html": [
@@ -500,7 +512,7 @@
     "rates/super-guarantee/index.html": "a5d7321076de35ab9916764165ca7cdc369eef5a36ae35762be3e2ed93c6dc56"
   },
   "protected_text": {
-    "Ryan Duguid is not a registered tax or BAS agent. Nothing here is accounting, tax, legal or financial advice. Outputs are review aids for a qualified professional.": 7815,
+    "Ryan Duguid is not a registered tax or BAS agent. Nothing here is accounting, tax, legal or financial advice. Outputs are review aids for a qualified professional.": 7819,
     "Nothing here is accounting, tax, legal or financial advice. The tools are review aids for a qualified professional, not compliance determinations.": 1,
     "This site does not offer tax or BAS agent services or take requests for tax advice or lodgement.": 1
   }
