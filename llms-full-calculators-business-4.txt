@@ -277,11 +277,13 @@ JavaScript is required for interactive calculations. The formula, assumptions an
 
 Withholding from one payment to a foreign resident
 
+Payment (AUD)
+
 Income year 2026-27 2025-26 2024-25
 
 Payment Dividend Interest Royalty
 
-Payment (AUD) Franked part of a dividend (AUD) Conduit foreign income in a dividend (AUD) Treaty rate (0.15 for 15%; blank for none)
+Franked part of a dividend (AUD) Conduit foreign income in a dividend (AUD) Treaty rate (0.15 for 15%; blank for none)
 
 No withholding tax is payable (exempt) No Yes
 

@@ -12489,11 +12489,13 @@ JavaScript is required for interactive calculations. The formula, assumptions an
 
 Withholding from one payment to a foreign resident
 
+Payment (AUD)
+
 Income year 2026-27 2025-26 2024-25
 
 Payment Dividend Interest Royalty
 
-Payment (AUD) Franked part of a dividend (AUD) Conduit foreign income in a dividend (AUD) Treaty rate (0.15 for 15%; blank for none)
+Franked part of a dividend (AUD) Conduit foreign income in a dividend (AUD) Treaty rate (0.15 for 15%; blank for none)
 
 No withholding tax is payable (exempt) No Yes
 
@@ -12507,7 +12509,7 @@ Fictional example: the first boundary case below. Change the inputs and calculat
 
 ## How the non-resident withholding calculator works
 
-A payer of a dividend, interest or a royalty to a foreign resident withholds an amount under Subdivision 12-F of Schedule 1 to the Taxation Administration Act 1953 and pays it to the ATO. The calculator ports the non-resident-withholding command of australian-accounting for those 3 payments. The base is the payment, less a dividend’s franked part and conduit foreign income. Its cents are dropped and the regulation rate applied: 30% for a dividend or royalty, or the treaty rate you enter, and 10% for interest, again dropping cents (regulations 26 and 40 to 42). Section 12-300 caps the amount at the withholding tax payable less anything already withheld.
+A payer of a dividend, interest or a royalty to a foreign resident withholds an amount under Subdivision 12-F of Schedule 1 to the Taxation Administration Act 1953 and pays it to the ATO. The calculator ports the non-resident-withholding command of australian-accounting for those 3 payments. The base is the payment, less a dividend’s franked part and conduit foreign income. Its cents are dropped and the regulation rate applied: 30% for a dividend or royalty, or the treaty rate you enter, and always 10% for interest, again dropping cents; a treaty rate on interest only lowers the section 12-300 cap (regulations 26 and 40 to 42). Section 12-300 caps the amount at the withholding tax payable less anything already withheld.
 
 ## What the non-resident withholding calculator does not cover
 
@@ -12527,7 +12529,7 @@ Section 12-300 caps interest at a 5% treaty rate less $40 already withheld | 202
 
 One of the sixty business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
-Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
+Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. The payment and each withholding step drop their cents, and the section 12-300 cap rounds down to the cent.
 
 ## Links
 
