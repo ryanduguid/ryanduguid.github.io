@@ -757,12 +757,14 @@ impl PyPath {
         out
     }
 
+    #[cfg(windows)]
     pub fn is_absolute(&self) -> bool {
-        if cfg!(windows) {
-            self.anchor.len() > 2 || self.anchor.starts_with("\\\\")
-        } else {
-            !self.anchor.is_empty()
-        }
+        self.anchor.len() > 2 || self.anchor.starts_with("\\\\")
+    }
+
+    #[cfg(not(windows))]
+    pub fn is_absolute(&self) -> bool {
+        !self.anchor.is_empty()
     }
 }
 
@@ -776,14 +778,18 @@ impl std::fmt::Display for PyPath {
 pub fn resolve(path: &Path) -> PathBuf {
     let absolute = std::path::absolute(path).unwrap_or_else(|_| path.to_path_buf());
     let resolved = std::fs::canonicalize(&absolute).unwrap_or(absolute);
-    let text = resolved.to_string_lossy();
-    if let Some(rest) = text.strip_prefix(r"\\?\UNC\") {
-        PathBuf::from(format!(r"\\{rest}"))
-    } else if let Some(rest) = text.strip_prefix(r"\\?\") {
-        PathBuf::from(rest)
-    } else {
-        resolved
+    // Only Windows' canonical paths carry the verbatim prefix.
+    #[cfg(windows)]
+    {
+        let text = resolved.to_string_lossy();
+        if let Some(rest) = text.strip_prefix(r"\\?\UNC\") {
+            return PathBuf::from(format!(r"\\{rest}"));
+        }
+        if let Some(rest) = text.strip_prefix(r"\\?\") {
+            return PathBuf::from(rest);
+        }
     }
+    resolved
 }
 
 /// A `datetime.date`.
@@ -1074,5 +1080,97 @@ mod tests {
         );
         assert_eq!(PyPath::new("./a//b/.").display(), format!("a{SEP}b"));
         assert_eq!(PyPath::new("").display(), ".");
+    }
+}
+
+#[cfg(test)]
+mod edge_tests {
+    use super::*;
+
+    #[test]
+    fn an_ignorecase_literal_escapes_punctuation_and_folds_letters() {
+        let pattern = regex::Regex::new(&format!("^{}$", ignorecase_literal("a.b"))).unwrap();
+        assert!(pattern.is_match("A.b"));
+        assert!(!pattern.is_match("AxB"));
+    }
+
+    #[test]
+    fn a_prefix_longer_than_the_text_is_the_whole_text() {
+        assert_eq!(prefix_chars("ab", 5), "ab");
+    }
+
+    #[test]
+    fn repr_writes_an_unprintable_astral_character_as_a_long_escape() {
+        assert_eq!(repr_str("\u{f0000}"), "'\\U000f0000'");
+    }
+
+    #[test]
+    fn int_refuses_non_ascii_letters_long_literals_and_too_many_digits() {
+        assert_eq!(
+            parse_int("1\u{e9}", 10),
+            Err("invalid literal for int() with base 10: '1\u{e9}'".into())
+        );
+        let long = "x".repeat(250);
+        assert_eq!(
+            parse_int(&long, 10),
+            Err(format!(
+                "invalid literal for int() with base 10: '{}'",
+                "x".repeat(200)
+            ))
+        );
+        assert_eq!(
+            parse_int(&"1".repeat(INT_MAX_STR_DIGITS + 1), 10),
+            Err(int_digits_error(INT_MAX_STR_DIGITS + 1))
+        );
+    }
+
+    #[test]
+    fn float_reads_a_plus_sign_and_a_bare_fraction_and_refuses_an_empty_exponent() {
+        assert_eq!(parse_float("+1.5"), Ok(1.5));
+        assert_eq!(parse_float("-.5"), Ok(-0.5));
+        assert_eq!(
+            parse_float("1e"),
+            Err("could not convert string to float: '1e'".into())
+        );
+    }
+
+    #[test]
+    fn an_os_error_without_an_os_code_prints_as_itself() {
+        let error = io::Error::other("disk on fire");
+        assert_eq!(oserror_str(&error, "f", OsStyle::Native), "disk on fire");
+        assert_eq!(strip_os_suffix("plain message"), "plain message");
+    }
+
+    #[cfg(not(windows))]
+    #[test]
+    fn posix_keeps_a_double_slash_anchor_and_an_absolute_join_replaces_the_path() {
+        let path = PyPath::new("//srv/a");
+        assert_eq!(path.display(), "//srv/a");
+        assert_eq!(format!("{path}"), "//srv/a");
+        assert!(path.is_absolute());
+        assert_eq!(PyPath::new("a/b").join("/etc").display(), "/etc");
+    }
+
+    #[test]
+    fn every_ordinal_round_trips_through_its_date() {
+        for ordinal in 1..=MAX_DATE.ordinal() {
+            assert_eq!(
+                Date::from_ordinal(ordinal).map(|d| d.ordinal()),
+                Some(ordinal)
+            );
+        }
+    }
+
+    #[test]
+    fn iso_dates_refuse_mixed_separators_year_zero_and_out_of_range_weeks() {
+        for text in [
+            "2026-W01x",
+            "2026-01x01",
+            "0000-W01-1",
+            "2026-W54",
+            "2026-W01-8",
+        ] {
+            assert_eq!(Date::fromisoformat(text), None, "{text}");
+        }
     }
 }
