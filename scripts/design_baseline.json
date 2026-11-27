@@ -200,6 +200,9 @@
     "tools/business-calculators/fixed-fee/index.html": [
       "b58b8e866b88bdf3791c8485dd5a9679bf982f24ce705ff357c6478cebf1ad9a"
     ],
+    "tools/business-calculators/foreign-resident-withholding/index.html": [
+      "5ea06c0de7495a9f390c9b0220471d5bee9c8ee8da1213ba2f08005cfe3baf9c"
+    ],
     "tools/business-calculators/foreign-surcharge/index.html": [
       "d36fd67557eb7b44b59ebf6c05527ef7202bc4f82a457aa123642939a741953a"
     ],
@@ -228,7 +231,7 @@
       "1ee789e07f991caadaf17f3e165e8bc60550a06242fe627a485241855184f7b5"
     ],
     "tools/business-calculators/index.html": [
-      "017c5417aec4fa67cac2cd5aee9d90d5bf40f8378532c09cf3038cbc263bc7d0"
+      "dbba8486378a122ca1d46bc6593ef5d71956c88d7c481932c6a8da3564f99644"
     ],
     "tools/business-calculators/land-tax/index.html": [
       "90b1d2897a81b87c05cb1a74bb0937f468ac5e1806fa0b19603b5fff589b9e09"
@@ -250,6 +253,9 @@
     ],
     "tools/business-calculators/objection-deadline/index.html": [
       "dcab5352be0982423e6e11cacecd9470e3a531468a34a6db716c40ff237e308a"
+    ],
+    "tools/business-calculators/partnership-net-income/index.html": [
+      "299e26353f8d4c9cac7f2f82c42fe8d1c606356984c2231dc20427355fdec3b4"
     ],
     "tools/business-calculators/payg-instalments/index.html": [
       "53bdce1e630ba7b97a352724618a68773c9fa941b0c4afb52464ce86f2b42e14"
@@ -292,6 +298,9 @@
     ],
     "tools/business-calculators/transfer-duty/index.html": [
       "c868e04100902a2addc3c4481999fc36a8e8022dc7a688b129349623f0068140"
+    ],
+    "tools/business-calculators/trust-loss-tests/index.html": [
+      "69bde47a8c41db778d0261534575510d0bf1d84a83a5e88fb2ef5a6ce83d5892"
     ],
     "tools/business-calculators/unused-leave/index.html": [
       "7b49ac5c7805a39f463b9638dc30c54bb4bda8a27d1d875b134d29e53301827a"
@@ -440,7 +449,7 @@
   },
   "protected_files": {
     "robots.txt": "18d6a7d73dbde21fcae1ba0ac8ccd5750ced144637be01d142ea5dc16ee96a9d",
-    "sitemap.xml": "0a3bedb9335e4c0d6baaed5fef6d1849b9676f44103b4d6b4fb3be24691c9152"
+    "sitemap.xml": "1278fb728c714459b581dc79733b712065efd7ac46d17927a5084ba194c19de9"
   },
   "protected_main_links": {
     "rates/cents-per-kilometre/index.html": [
@@ -500,7 +509,7 @@
     "rates/super-guarantee/index.html": "a5d7321076de35ab9916764165ca7cdc369eef5a36ae35762be3e2ed93c6dc56"
   },
   "protected_text": {
-    "Ryan Duguid is not a registered tax or BAS agent. Nothing here is accounting, tax, legal or financial advice. Outputs are review aids for a qualified professional.": 7815,
+    "Ryan Duguid is not a registered tax or BAS agent. Nothing here is accounting, tax, legal or financial advice. Outputs are review aids for a qualified professional.": 7818,
     "Nothing here is accounting, tax, legal or financial advice. The tools are review aids for a qualified professional, not compliance determinations.": 1,
     "This site does not offer tax or BAS agent services or take requests for tax advice or lodgement.": 1
   }

@@ -79,10 +79,10 @@ An exercised option: the option fee comes off the base | Contract 2026-01-10; ta
 Every vendor gave a clearance certificate | Contract 2026-03-15; taxable Australian real property, market value $1,200,000.00, purchase price $1,200,000.00; vendor 1: interest 50, a clearance certificate; vendor 2: interest 50, a clearance certificate | Withholding base $1,200,000.00, amount to pay the ATO $0.00, nothing to withhold: every vendor gave a clearance certificate: s 14-210(1) applies to none (s 14-210(2))
 A variation whose maximum sale price is below the sale price gives the full rate | Contract 2026-03-15; taxable Australian real property, market value $1,200,000.00, purchase price $1,200,000.00; vendor 1: interest 1, a notice of variation at 5% up to $1,000,000.00 | Withholding base $1,200,000.00, amount to pay the ATO $180,000.00, withholding applies
 
-One of the fifty-eight business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the sixty business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
 
 ## Links
 
-- fifty-eight business calculators: https://duguid.com.au/tools/business-calculators/
+- sixty business calculators: https://duguid.com.au/tools/business-calculators/

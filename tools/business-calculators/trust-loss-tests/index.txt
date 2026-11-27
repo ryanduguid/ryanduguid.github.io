@@ -77,10 +77,10 @@ A fixed trust that passed the 50% stake test | 2025-26; a fixed trust deducting 
 A family trust with the income injection question unanswered | 2025-26; a non-fixed trust deducting a tax loss from 2022-23; excepted trust: family trust | Deductibility not established
 A deceased estate: outside every test, including income injection | 2025-26; a non-fixed trust deducting a tax loss from 2022-23; excepted trust: deceased estate | Prior-year loss deductible
 
-One of the fifty-eight business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the sixty business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
 
 ## Links
 
-- fifty-eight business calculators: https://duguid.com.au/tools/business-calculators/
+- sixty business calculators: https://duguid.com.au/tools/business-calculators/

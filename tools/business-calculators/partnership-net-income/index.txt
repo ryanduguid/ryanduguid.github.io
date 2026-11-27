@@ -67,10 +67,10 @@ The page’s example: $10,000 of the deductions under section 290-150 or Divisio
 Deductions above the assessable income: a partnership loss | 2025-26; assessable income $80,000.00, deductions $95,000.00; partners: Alex 50%, Sam 30%, Jo 20% | Deductions counted $95,000.00, net income $0.00, partnership loss $15,000.00
 Excluded deductions turn a loss into net income | 2025-26; assessable income $100,000.00, deductions $110,000.00 ($15,000.00 under s 290-150 or Division 36); partners: Alex 50%, Sam 30%, Jo 20% | Deductions counted $95,000.00, net income $5,000.00, partnership loss $0.00
 
-One of the fifty-eight business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the sixty business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
 
 ## Links
 
-- fifty-eight business calculators: https://duguid.com.au/tools/business-calculators/
+- sixty business calculators: https://duguid.com.au/tools/business-calculators/

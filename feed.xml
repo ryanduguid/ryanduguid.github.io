@@ -12,21 +12,21 @@
     <link href="https://duguid.com.au/changelog/#entry-121f2cb677d9d67f" />
     <id>https://duguid.com.au/changelog/#entry-121f2cb677d9d67f</id>
     <updated>2026-11-27T00:00:00Z</updated>
-    <summary>A new business calculator, foreign resident capital gains withholding, works the amount a purchaser of Australian real property or a company title interest pays the ATO at settlement for a contract from 1 July 2017 to 30 June 2027: 12.5% with the $750,000 exclusion, or 15% with no threshold from 1 January 2025, shared among up to 3 vendors with clearance certificates and notices of variation. Its WebMCP tool, calculate_foreign_resident_withholding, takes up to 50 vendors.</summary>
+    <summary>A new business calculator, foreign resident capital gains withholding, works the amount a purchaser of Australian real property or a company title interest pays the ATO at settlement for a contract from 1 July 2017 to 30 June 2027: 12.5% with the $750,000 exclusion, or 15% with no threshold from 1 January 2025. Its WebMCP tool, calculate_foreign_resident_withholding, takes up to 50 vendors.</summary>
   </entry>
   <entry>
     <title>A new business calculator, partnership net income, works a partnership’s net…</title>
     <link href="https://duguid.com.au/changelog/#entry-a9b66daa6cbbb368" />
     <id>https://duguid.com.au/changelog/#entry-a9b66daa6cbbb368</id>
     <updated>2026-11-27T00:00:00Z</updated>
-    <summary>A new business calculator, partnership net income, works a partnership’s net income or partnership loss under section 90 of the Income Tax Assessment Act 1936 for 2024-25 to 2026-27 and each partner’s share of it and of exempt and non-assessable non-exempt income under section 92. Its WebMCP tool is calculate_partnership_net_income.</summary>
+    <summary>A new business calculator, partnership net income, works a partnership’s net income or partnership loss under section 90 of the Income Tax Assessment Act 1936 for 2024-25 to 2026-27 and each partner’s shares under section 92. Its WebMCP tool is calculate_partnership_net_income.</summary>
   </entry>
   <entry>
     <title>A new business checker, trust loss tests, shows which Schedule 2F tests a fixed…</title>
     <link href="https://duguid.com.au/changelog/#entry-d326436e7f19985c" />
     <id>https://duguid.com.au/changelog/#entry-d326436e7f19985c</id>
     <updated>2026-11-27T00:00:00Z</updated>
-    <summary>A new business checker, trust loss tests, shows which Schedule 2F tests a fixed or non-fixed trust must pass to deduct a prior-year tax loss in 2024-25 to 2026-27, and whether each is passed on the facts given: the 50% stake, pattern of distributions, control and income injection tests. Its WebMCP tool is check_trust_loss_tests.</summary>
+    <summary>A new business checker, trust loss tests, shows which Schedule 2F tests a fixed or non-fixed trust must pass to deduct a prior-year tax loss in 2024-25 to 2026-27: the 50% stake, pattern of distributions, control and income injection tests. Its WebMCP tool is check_trust_loss_tests.</summary>
   </entry>
   <entry>
     <title>The depreciation register distinguishes assets with the same name, shows the…</title>
