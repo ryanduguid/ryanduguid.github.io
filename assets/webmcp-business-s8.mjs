@@ -9,8 +9,8 @@
 /** yes, no or unknown, as the command's true, false or null. @param {unknown} answer */
 const tri = (answer) => (answer === 'yes' ? true : answer === 'no' ? false : null);
 
-/** @param {ToolKit} kit @param {BusinessCalculators['foreignResidentWithholding']} run @param {readonly string[]} years */
-export function frcgwTool(kit, run, years) {
+/** @param {ToolKit} kit @param {BusinessCalculators['foreignResidentWithholding']} run */
+export function frcgwTool(kit, run) {
   const { text, choice, record, tool, CALCULATORS } = kit;
   const vendor = record({
     interest: text('trillionCost', 'The vendor\'s interest in the asset, in any unit shared by the vendors, for example "50" for half of 100.'),
@@ -49,7 +49,6 @@ export function frcgwTool(kit, run, years) {
           ? { interest: v.interest, document: v.document, rate: v.rate ?? '', maximum_price: v.maximumPrice ?? '' } : { interest: v.interest, document: v.document })),
         exclusion: input.exclusion ?? null, class_variation_to_nil: input.classVariationToNil ?? false,
         year: `${first}-${String((first + 1) % 100).padStart(2, '0')}`, scope_confirmed: true });
-      if (!years.includes(r.period)) throw new Error('acquisitionDate is outside the years this tool covers.');
       return { incomeYear: r.period, amountPayable: r.amounts.amount_payable, withholdingBase: r.amounts.withholding_base,
         amountAtFullRate: r.amounts.amount_at_full_rate, rate: r.rates.rate, nilReason: r.nil_reason, vendors: r.vendors,
         authorities: r.authorities, currency: 'AUD', source: `${CALCULATORS}foreign-resident-withholding/` };
@@ -157,7 +156,7 @@ export function trustLossTool(kit, run) {
  * @param {Pick<BusinessCalculators, 'foreignResidentWithholding' | 'FRCGW_YEARS' | 'partnershipNetIncome' | 'trustLossTests'>} calculate */
 export function businessS8Tools(kit, calculate) {
   return {
-    'foreign-resident-withholding': frcgwTool(kit, calculate.foreignResidentWithholding, calculate.FRCGW_YEARS),
+    'foreign-resident-withholding': frcgwTool(kit, calculate.foreignResidentWithholding),
     'partnership-net-income': partnershipTool(kit, calculate.partnershipNetIncome),
     'trust-loss-tests': trustLossTool(kit, calculate.trustLossTests),
   };

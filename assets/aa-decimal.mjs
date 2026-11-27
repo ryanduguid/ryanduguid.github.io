@@ -17,14 +17,15 @@ export function lit(text) {
   return dec(BigInt(whole + fraction), -fraction.length, text.startsWith('-'));
 }
 
-/** A parsed input decimal (aa-command.mjs parseDecimal) as a D. @param {import('./aa-command.mjs').Dec} parsed @returns {D} */
-export const fromInput = (parsed) => (parsed.finite ? dec(parsed.coefficient, parsed.exponent, parsed.negative) : dec(0n));
+/** A parsed input decimal (aa-command.mjs parseDecimal) as a D. Every caller has passed it through money(), which refuses a
+ * non-finite one. @param {import('./aa-command.mjs').Dec} parsed @returns {D} */
+export function fromInput(parsed) {
+  const { coefficient, exponent, negative } = /** @type {{coefficient: bigint, exponent: number, negative: boolean}} */ (parsed);
+  return dec(coefficient, exponent, negative);
+}
 
 /** @param {D} a @param {number} e */
 const scaled = (a, e) => a.c * 10n ** BigInt(a.e - e);
-/** @param {D} a */
-const signed = (a) => (a.neg ? -a.c : a.c);
-
 /** @param {D} a @param {D} b @returns {D} */
 export function add(a, b) {
   const e = Math.min(a.e, b.e);
@@ -39,15 +40,14 @@ export const sub = (a, b) => add(a, { ...b, neg: !b.neg });
 /** @param {D} a @param {D} b @returns {D} */
 export const mul = (a, b) => dec(a.c * b.c, a.e + b.e, a.neg !== b.neg);
 
-/** An exact quotient, at the exponent nearest a.e - b.e that holds it. @param {D} a @param {D} b @returns {D} */
+/** An exact quotient, at the exponent nearest a.e - b.e that holds it. The engines divide only by 20, 100 and 200, whose
+ * only prime factors are 2 and 5, so some k of at most 3 makes the quotient exact. @param {D} a @param {D} b @returns {D} */
 export function div(a, b) {
   const neg = a.neg !== b.neg;
   if (a.c === 0n) return dec(0n, a.e - b.e, neg);
-  for (let k = 0; k < 64; k += 1) {
-    const n = a.c * 10n ** BigInt(k);
-    if (n % b.c === 0n) return dec(n / b.c, a.e - b.e - k, neg);
-  }
-  throw new Error('not an exact quotient');
+  let k = 0;
+  while ((a.c * 10n ** BigInt(k)) % b.c !== 0n) k += 1;
+  return dec((a.c * 10n ** BigInt(k)) / b.c, a.e - b.e - k, neg);
 }
 
 /** `a` at exponent `e`, rounded half up or down (towards nil). @param {D} a @param {number} e @param {'half_up' | 'down'} mode @returns {D} */
@@ -86,5 +86,3 @@ export function text(a) {
 /** An amount as the commands render one: to the cent, half up. @param {D} a */
 export const cents = (a) => text(quantize(a, -2, 'half_up'));
 
-/** The value as a JavaScript number of dollars, for the page. @param {D} a */
-export const toNumber = (a) => Number(signed(a)) * 10 ** a.e;

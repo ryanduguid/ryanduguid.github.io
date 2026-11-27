@@ -76,15 +76,12 @@ const add = (a, b) => sub(a, { c: -b.c, e: b.e });
 const mul = (a, b) => ({ c: a.c * b.c, e: a.e + b.e });
 const ZERO = { c: 0n, e: 0 };
 
-/** Rounds `a` to exponent `e`: 'down' truncates towards zero, 'half-up' rounds half away from zero. @param {Dec} a @param {number} e @param {'down' | 'half-up'} mode @returns {Dec} */
-function quantize(a, e, mode) {
+/** `a` at exponent `e`, rounded down. Every amount rounded is at least nil (the inputs are refused below nil, the cap is floored
+ * at nil and the net payment is the payment less no more than it), and the amounts shown in cents already have at most 2 places,
+ * so only the whole-dollar and s 12-300 cap steps drop digits. @param {Dec} a @param {number} e @returns {Dec} */
+function quantize(a, e) {
   if (a.e >= e) return { c: scaled(a, e), e };
-  const unit = 10n ** BigInt(e - a.e);
-  const negative = a.c < 0n;
-  const magnitude = negative ? -a.c : a.c;
-  let q = magnitude / unit;
-  if (mode === 'half-up' && (magnitude % unit) * 2n >= unit) q += 1n;
-  return { c: negative ? -q : q, e };
+  return { c: a.c / 10n ** BigInt(e - a.e), e };
 }
 
 /** Python's str() of a Decimal. @param {Dec} a */
@@ -174,7 +171,7 @@ function treatyRate(given, max) {
 }
 
 /** TAR 2017 s 26(2) and (3): an amount under $1 is nil; cents above whole dollars are disregarded. @param {Dec} a */
-const wholeDollars = (a) => (cmp(a, { c: 1n, e: 0 }) < 0 ? ZERO : quantize(a, 0, 'down'));
+const wholeDollars = (a) => (cmp(a, { c: 1n, e: 0 }) < 0 ? ZERO : quantize(a, 0));
 
 /** @param {string} step @param {string} authority @param {Dec} value */
 const stepOf = (step, authority, value) => ({ step, authority, value: decText(value) });
@@ -194,7 +191,7 @@ function regulationWithholding(type, base, used, applied, already) {
   const regRate = type === 'interest' ? /** @type {Dec} */ (parseDec(DOMESTIC.interest)) : applied;
   const reg = wholeDollars(mul(regRate, used));
   const left = sub(mul(applied, base), already);
-  const cap = quantize(cmp(left, ZERO) < 0 ? ZERO : left, -2, 'down');
+  const cap = quantize(cmp(left, ZERO) < 0 ? ZERO : left, -2);
   return { reg, cap, withholding: cmp(cap, reg) < 0 ? cap : reg };
 }
 
@@ -234,7 +231,7 @@ export function nonResidentWithholding(call) {
 
 /** @param {Record<string, unknown>} v @param {Record<string, Dec>} amounts @param {{ domesticText: string, applied: Dec, treaty: Dec | null }} r @param {object[]} steps */
 function nrwOutput(v, amounts, r, steps) {
-  const cents = (/** @type {Dec} */ a) => decText(quantize(a, -2, 'half-up'));
+  const cents = (/** @type {Dec} */ a) => decText(quantize(a, -2));
   /** @type {Record<string, string>} */
   const rates = { domestic_rate: r.domesticText, applied_rate: v.exempt ? '0' : decText(r.applied) };
   if (r.treaty) rates.treaty_rate = decText(r.treaty);

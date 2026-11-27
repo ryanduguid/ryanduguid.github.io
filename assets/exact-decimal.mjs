@@ -46,7 +46,7 @@ export function parse(text) {
   const t = text.trim();
   const m = finiteParts(t);
   if (m) {
-    return { neg: m.neg, coef: BigInt(`${m.whole}${m.frac}` || '0'), exp: m.exp - m.frac.length };
+    return { neg: m.neg, coef: BigInt(`${m.whole}${m.frac}`), exp: m.exp - m.frac.length };
   }
   const s = /^([+-]?)(inf|infinity|nan\d*|snan\d*)$/i.exec(t);
   if (s) return { neg: s[1] === '-', coef: 0n, exp: 0, special: /inf/i.test(s[2]) ? 'inf' : 'nan' };

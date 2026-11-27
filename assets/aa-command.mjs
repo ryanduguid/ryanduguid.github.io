@@ -3,22 +3,11 @@
 
 // How the australian-accounting commands read their input, for the engines ported from them: the
 // checks in the commands' order (unknown fields, then each field in turn: missing, then a decimal
-// string too long or unreadable; then scope and the year), the amounts, flags and dates they take, and
-// Python's half up rendering of an amount to cents.
+// string too long or unreadable; then scope and the year), and the amounts, flags and dates they take.
 
 /** A refusal with the command's code. @param {string} code @param {string} message @returns {never} */
 export function refuse(code, message) {
   throw Object.assign(new Error(message), { code });
-}
-
-/** The code a call is refused with, or 'computed'. @param {() => unknown} run */
-export function codeOf(run) {
-  try {
-    run();
-  } catch (error) {
-    return /** @type {{code?: string}} */ (error).code ?? 'error';
-  }
-  return 'computed';
 }
 
 /** Python's whitespace, which the commands strip from a decimal before reading it. */
@@ -109,9 +98,6 @@ export function money(dec, message = 'Amounts must be finite non-negative Decima
   return cents;
 }
 
-/** An amount inside a list's object, a decimal string of at most 32 characters. @param {unknown} value @param {string} message */
-export const itemMoney = (value, message) => money(typeof value === 'string' && value.length <= 32 ? parseDecimal(value) : null, message);
-
 /** A yes or no answer. @param {unknown} value @param {string} name @returns {boolean} */
 export function flag(value, name) {
   if (typeof value !== 'boolean') refuse('input.flag_invalid', `${name} must be a boolean.`);
@@ -122,7 +108,7 @@ const DAYS = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
 /** @param {number} y */
 const leap = (y) => (y % 4 === 0 && y % 100 !== 0) || y % 400 === 0;
 /** @param {number} y @param {number} m */
-export const monthDays = (y, m) => (m === 2 && leap(y) ? 29 : DAYS[m - 1] ?? 31);
+export const monthDays = (y, m) => (m === 2 && leap(y) ? 29 : /** @type {number} */ (DAYS[m - 1]));
 
 /** A YYYY-MM-DD date from 1900 to 2100 as a day number (days since 1 January 1970), or null. @param {unknown} text */
 export function parseDate(text) {
@@ -156,23 +142,4 @@ export function addMonths(day, months) {
   const index = y * 12 + (m - 1) + months;
   const [ny, nm] = [Math.floor(index / 12), (index % 12) + 1];
   return Date.UTC(ny, nm - 1, Math.min(d, monthDays(ny, nm))) / 86400000;
-}
-
-/** The last day of a period of `months` months starting on `day` (Acts Interpretation Act 1901 s 2G(2)).
- * @param {number} day @param {number} months */
-export function monthsEnd(day, months) {
-  const same = addMonths(day, months);
-  return civil(same)[2] === civil(day)[2] ? same - 1 : same;
-}
-
-/** 1 July of `first`, as a day number. @param {number} first */
-export const yearStart = (first) => Date.UTC(first, 6, 1) / 86400000;
-
-/** `n` units of 10^-`places` dollars as cents text, rounded half away from zero; a negative amount keeps its
- * sign when it rounds to nil, as Python's Decimal does ('-0.00'). @param {bigint} n @param {number} [places] */
-export function shownCents(n, places = 2) {
-  const scale = 10n ** BigInt(places - 2);
-  const abs = n < 0n ? -n : n;
-  const cents = (2n * abs + scale) / (2n * scale);
-  return `${n < 0n ? '-' : ''}${cents / 100n}.${String(cents % 100n).padStart(2, '0')}`;
 }
