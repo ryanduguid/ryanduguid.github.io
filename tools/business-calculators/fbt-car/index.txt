@@ -18,7 +18,7 @@ Valuation method Statutory formula Operating cost, elected, with log book record
 
 Operating costs include deemed depreciation and deemed interest for a car the employer owns, or the lease charges for a leased car.
 
-Calculate Fictional example: the first boundary case below. Change the inputs and calculate your own. Inputs: statutory formula, cost price $60,000.00, later non-business accessories $0.00, first held on or after 1 April 2022, 182 days of 365 available for private use, employee contributions $1,000.00, Type 1 gross-up 2.0802. Base value $60,000.00 Statutory formula taxable value $4,983.56 Taxable value $4,983.56 Grossed-up taxable value $10,366.80 FBT at 47% $4,872.40
+Calculate Fictional example: the first boundary case below. Change the inputs and calculate your own. Inputs: statutory formula, cost price $60,000.00, later non-business accessories $0.00, first held on or after 1 April 2022, 182 days of 365 available for private use, employee contributions $1,000.00, Type 1 gross-up. Base value $60,000.00 Statutory formula taxable value $4,983.56 Taxable value $4,983.56 Grossed-up taxable value $10,366.88 FBT at 47% $4,872.43
 
 ## How the FBT car calculator works
 
@@ -26,7 +26,7 @@ The FBT car calculator values one car’s fringe benefits for the FBT year from 
 
 Under the operating cost method, the taxable value is the year’s operating costs times the private use share, 100% less the business use percentage, less contributions. The method applies only if the employer elected it and kept log book and odometer records; without them the business use percentage is nil. If the statutory formula gives a lower value, the calculator uses that value, as subsection 10(5) of the Act requires.
 
-The taxable value is then grossed up: at the Type 1 rate, 2.0802, if the employer, or another provider, is entitled to a GST credit for providing the car, or the Type 2 rate, 1.8868, if not, as section 2.3 of the guide’s chapter 2 sets out. FBT is 47% of the grossed-up value. The FBT return for the year ending 31 March 2026, read 15 November 2026, asks for whole dollars at each taxable value and grossed-up amount and works the FBT from the total of all benefits, so a return’s figures can differ from these by the cents.
+The taxable value is then grossed up: by the Type 1 formula in subsection 5B(1B) of the Act if the employer, or another provider, is entitled to a GST credit for providing the car, or the Type 2 formula in subsection 5B(1C) if not, as section 2.3 of the guide’s chapter 2 sets out. At the 47% FBT rate the Type 1 formula is 0.57 ÷ 0.27401 and the Type 2 formula 1 ÷ 0.53, which the ATO publishes rounded to 2.0802 and 1.8868. The calculator works them at full precision, so its value can differ by a few cents from one worked at the rounded rates. FBT is 47% of the exact grossed-up amount; each rounds half up to the cent. The FBT return for the year ending 31 March 2026, read 15 November 2026, asks for whole dollars at each amount, so a return’s figures can differ from these by the cents.
 
 Example 28 in section 7.8 of the ATO’s guide for employers takes a $60,000 car available for 182 of 365 days, with $1,000 of fuel paid by the employee. It shows $5,983 at step 4, leaving out the cents of $5,983.56, and a taxable value of $4,983; this calculator gives $4,983.56. Example 31 in section 7.9 takes $19,580 of operating costs, 75% business use and a $2,000 contribution, and gives $2,895; this calculator gives $2,895.00 when the statutory formula value is higher.
 
@@ -47,12 +47,12 @@ Each row is a test: scripts/business-calculators.test.mjs runs this calculator o
 Boundary cases: FBT car calculator
 
 Case | Inputs | Result
-The ATO’s statutory formula example 28, to the cent | Statutory formula; cost price $60,000.00, 182 of 365 days, contributions $1,000.00, gross-up 2.0802 | Statutory formula value $4,983.56, taxable value $4,983.56, grossed-up value $10,366.80, FBT $4,872.40
-The ATO’s operating cost example 31, beside a fictional $50,000 cost price | Operating cost $19,580.00 at 75% business use; cost price $50,000.00, 365 of 365 days, contributions $2,000.00, gross-up 2.0802 | Operating cost value $2,895.00, statutory formula value $8,000.00, taxable value $2,895.00
-A lower statutory value replaces the operating cost value | Operating cost $30,000.00 at 0% business use; cost price $20,000.00, 365 of 365 days, contributions $0.00, gross-up 2.0802 | Operating cost value $30,000.00, statutory formula value $4,000.00, taxable value $4,000.00
-The ATO’s example 23: a third off the cost price, none off later accessories | Statutory formula; cost price $39,000.00 plus $4,000.00 accessories, held 4 years, 365 of 365 days, contributions $0.00, gross-up 1.8868 | Base value $30,000.00, statutory formula value $6,000.00, grossed-up value $11,320.80, FBT $5,320.78
-Contributions above the value leave nil | Statutory formula; cost price $10,000.00, 365 of 365 days, contributions $3,000.00, gross-up 2.0802 | Statutory formula value $0.00, taxable value $0.00, FBT $0.00
-More days than the FBT year are refused | Statutory formula; cost price $10,000.00, 366 of 365 days, contributions $0.00, gross-up 2.0802 | Refused: enter a whole number between 0 and 365
+The ATO’s statutory formula example 28, to the cent | Statutory formula; cost price $60,000.00, 182 of 365 days, contributions $1,000.00, Type 1 gross-up | Statutory formula value $4,983.56, taxable value $4,983.56, grossed-up value $10,366.88, FBT $4,872.43
+The ATO’s operating cost example 31, beside a fictional $50,000 cost price | Operating cost $19,580.00 at 75% business use; cost price $50,000.00, 365 of 365 days, contributions $2,000.00, Type 1 gross-up | Operating cost value $2,895.00, statutory formula value $8,000.00, taxable value $2,895.00
+A lower statutory value replaces the operating cost value | Operating cost $30,000.00 at 0% business use; cost price $20,000.00, 365 of 365 days, contributions $0.00, Type 1 gross-up | Operating cost value $30,000.00, statutory formula value $4,000.00, taxable value $4,000.00
+The ATO’s example 23: a third off the cost price, none off later accessories | Statutory formula; cost price $39,000.00 plus $4,000.00 accessories, held 4 years, 365 of 365 days, contributions $0.00, Type 2 gross-up | Base value $30,000.00, statutory formula value $6,000.00, grossed-up value $11,320.75, FBT $5,320.75
+Contributions above the value leave nil | Statutory formula; cost price $10,000.00, 365 of 365 days, contributions $3,000.00, Type 1 gross-up | Statutory formula value $0.00, taxable value $0.00, FBT $0.00
+More days than the FBT year are refused | Statutory formula; cost price $10,000.00, 366 of 365 days, contributions $0.00, Type 1 gross-up | Refused: enter a whole number between 0 and 365
 A published worked example: Cleancut’s electric car, $72,000 before GST, first held and used on 1 July 2025, is exempt | Battery electric, current employee, first held and used 2025-07-01, first retail sale 2025-07-01 at $79,200.00; FBT year ending 31 March 2027 | Exempt, sale in 2025-26, threshold $91,387.00
 The ATO’s example: John’s car, held from 15 June 2022 but first used on 5 July 2022, is exempt | Battery electric, current employee, first held and used 2022-07-05, first retail sale 2022-06-15 at $60,000.00; FBT year ending 31 March 2027 | Exempt, sale in 2021-22, threshold $79,659.00
 The ATO’s example: Shelly’s car, first used on 1 April 2022, is not exempt for its later owner | Battery electric, current employee, first held and used 2022-04-01, first retail sale 2022-04-01 at $60,000.00; FBT year ending 31 March 2027 | Not exempt, sale in 2021-22, threshold $79,659.00
@@ -75,6 +75,7 @@ Planning estimates in AUD. Confirm tax treatment, liability amounts and dates se
 
 ## Links
 
+- subsection 5B(1B) of the Act: https://www.ato.gov.au/law/view/document?docid=PAC/19860039/5B
 - guide’s chapter 2: https://www.ato.gov.au/law/view/document?docid=SAV/FBTGEMP/00003
 - ATO’s guide for employers: https://www.ato.gov.au/law/view/document?docid=SAV/FBTGEMP/00008
 - announced, not yet law: https://duguid.com.au/rates/announced-not-yet-law/

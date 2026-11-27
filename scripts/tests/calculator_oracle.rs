@@ -19,7 +19,7 @@
 //! period's interest rounded half up and the last payment taking what rounding leaves, the
 //! same Division 7A interest part (the rate on the whole balance) and the same
 //! FBT rounding (each value to the cent before contributions, the gross-up and the FBT from
-//! the figure before them), so it cannot show those are the right conventions.
+//! the exact amount), so it cannot show those are the right conventions.
 //!
 //! A further 120 seeded loans, from their own seed so the 360 above are unchanged, add a
 //! balloon owed at the end of the term and payments in arrears or in advance; the oracle
@@ -349,9 +349,10 @@ struct Car {
 /// FBT, in cents. FBTAA s 9: base value x 20% x days available / days in the year, less
 /// contributions, with two-thirds of the cost price once held 4 years (s 9(2)(a)); s 10(2):
 /// operating costs less their business use share, less contributions; s 10(5): the lower of
-/// the two when the operating cost method is elected. The gross-up and the FBT rate are in
-/// ten-thousandths: 2.0802 is 20,802 and 47% is 4,700.
-fn fbt_oracle(car: Car, year_days: u64, gross_up: u64, rate: u64) -> [Option<u64>; 6] {
+/// the two when the operating cost method is elected. The gross-up is s 5B(1B) for Type 1,
+/// (rate + 10%) / ((1 - rate) x 1.1 x rate), or s 5B(1C) for Type 2, 1 / (1 - rate), exactly;
+/// the FBT rate is in ten-thousandths (47% is 4,700).
+fn fbt_oracle(car: Car, year_days: u64, type_one: bool, rate: u64) -> [Option<u64>; 6] {
     let cost = u128::from(car.cost);
     let thirds = 3 * cost - if car.reduced { cost } else { 0 } + 3 * u128::from(car.accessories);
     // Each day available adds that day's share: thirds x 20 / (300 x days in the year).
@@ -369,8 +370,14 @@ fn fbt_oracle(car: Car, year_days: u64, gross_up: u64, rate: u64) -> [Option<u64
         ))
     });
     let taxable = operating.map_or(statutory, |value| value.min(statutory));
-    let grossed = exact_half_up(taxable * u128::from(gross_up), 10_000);
-    let fbt = exact_half_up(grossed * u128::from(rate), 10_000);
+    let rate = u128::from(rate);
+    let (num, den) = if type_one {
+        ((rate + 1_000) * 10 * 10_000, 11 * rate * (10_000 - rate))
+    } else {
+        (10_000, 10_000 - rate)
+    };
+    let grossed = exact_half_up(taxable * num, den);
+    let fbt = exact_half_up(taxable * num * rate, den * 10_000);
     let cents = |value: u128| Some(u64::try_from(value).unwrap());
     [
         cents(exact_half_up(thirds, 3)),
@@ -1243,7 +1250,7 @@ fn fbt_case(rng: &mut Seeded) -> (Value, Value) {
         contribution: rng.pick(&[0, 0, small, large]),
     };
     // The FBT year ending 31 March 2027 has 365 days; Type 1 or Type 2, at 47%.
-    let gross_up = rng.pick(&[20_802, 18_868]);
+    let type_one = rng.pick(&[true, false]);
     let names = [
         "baseValue",
         "statutory",
@@ -1254,7 +1261,7 @@ fn fbt_case(rng: &mut Seeded) -> (Value, Value) {
     ];
     let expected: serde_json::Map<String, Value> = names
         .iter()
-        .zip(fbt_oracle(car, 365, gross_up, 4_700))
+        .zip(fbt_oracle(car, 365, type_one, 4_700))
         .map(|(name, figure)| {
             (
                 (*name).to_owned(),
@@ -1278,7 +1285,7 @@ fn fbt_case(rng: &mut Seeded) -> (Value, Value) {
             },
             "year": {
                 "days": "365",
-                "grossUp": format!("{}.{:04}", gross_up / 10_000, gross_up % 10_000),
+                "type": if type_one { "1" } else { "2" },
                 "fbtRate": "47",
             },
         }),
@@ -1557,14 +1564,14 @@ fn the_oracle_works_a_known_loan_and_levy_by_hand() {
         contribution: 100_000,
     };
     assert_eq!(
-        fbt_oracle(example, 365, 20_802, 4_700),
+        fbt_oracle(example, 365, true, 4_700),
         [
             Some(6_000_000),
             Some(498_356),
             None,
             Some(498_356),
-            Some(1_036_680),
-            Some(487_240)
+            Some(1_036_688),
+            Some(487_243)
         ]
     );
     // Example 31: $19,580 at 75% business use, less $2,000, is $2,895 below the statutory value.
@@ -1574,7 +1581,7 @@ fn the_oracle_works_a_known_loan_and_levy_by_hand() {
         contribution: 200_000,
         ..example
     };
-    assert_eq!(fbt_oracle(operating, 365, 20_802, 4_700)[3], Some(289_500));
+    assert_eq!(fbt_oracle(operating, 365, true, 4_700)[3], Some(289_500));
     // Example 23: a third off $39,000 and none off $4,000 of later accessories is $30,000.
     let reduced = Car {
         cost: 3_900_000,
@@ -1582,7 +1589,7 @@ fn the_oracle_works_a_known_loan_and_levy_by_hand() {
         reduced: true,
         ..example
     };
-    assert_eq!(fbt_oracle(reduced, 365, 18_868, 4_700)[0], Some(3_000_000));
+    assert_eq!(fbt_oracle(reduced, 365, false, 4_700)[0], Some(3_000_000));
     // 2.7% of $1,000.00 is $27.00; 2.7% of $0.50 is exactly 1.35 cents, so 1 cent.
     assert_eq!(levy_oracle(4 * 100_000), 2_700);
     assert_eq!(levy_oracle(4 * 50), 1);

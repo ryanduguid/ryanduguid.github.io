@@ -706,8 +706,8 @@ test('FBT car works the operating cost method at the Type 2 gross-up offline', a
   expect(await form.locator('output').evaluate((element) => element.textContent)).toBe(
     'Inputs: operating cost method, cost price $50,000.00, later non-business accessories $0.00, first held on or after 1 April 2022, '
     + '365 days of 365 available for private use, operating costs $19,580.00 at 75% business use, employee contributions $2,000.00, '
-    + 'Type 2 gross-up 1.8868. Base value: $50,000.00. Statutory formula taxable value: $8,000.00. Operating cost taxable value: $2,895.00. '
-    + 'Taxable value: $2,895.00. Grossed-up taxable value: $5,462.29. FBT at 47%: $2,567.28.');
+    + 'Type 2 gross-up. Base value: $50,000.00. Statutory formula taxable value: $8,000.00. Operating cost taxable value: $2,895.00. '
+    + 'Taxable value: $2,895.00. Grossed-up taxable value: $5,462.26. FBT at 47%: $2,567.26.');
   // A percentage limit reads as a figure, not as dollars.
   await form.getByLabel('Business use percentage, operating cost method only').fill('101');
   await form.getByRole('button', { name: 'Calculate', exact: true }).click();
@@ -774,7 +774,7 @@ test('FBT car exempts an eligible electric car and keeps its value reportable of
   await form.getByRole('button', { name: 'Calculate', exact: true }).click();
   expect(await form.locator('output').evaluate((element) => element.textContent)).toBe(
     'Inputs: statutory formula, cost price $60,000.00, later non-business accessories $0.00, first held on or after 1 April 2022, '
-    + '182 days of 365 available for private use, employee contributions $1,000.00, Type 1 gross-up 2.0802, battery electric car for a '
+    + '182 days of 365 available for private use, employee contributions $1,000.00, Type 1 gross-up, battery electric car for a '
     + 'current employee, first held and used 1 July 2026, first sold at retail 1 July 2026 at a luxury car tax value of $60,000.00 against '
     + 'the 2026-27 fuel-efficient threshold of $91,661.00, no luxury car tax on another sale or an import before the benefit. '
     + 'Provided to a current employee, s 8A(1)(a): met. A battery electric or hydrogen fuel cell electric car, s 8A(1)(b): met. '
@@ -791,7 +791,7 @@ test('FBT car exempts an eligible electric car and keeps its value reportable of
   await form.getByLabel('Plug-in hybrid electric').check();
   await form.getByRole('button', { name: 'Calculate', exact: true }).click();
   await expect(form.locator('output')).toContainText('Electric cars exemption, section 8A: does not apply.');
-  await expect(form.locator('output')).toContainText('FBT at 47%: $4,872.40.');
+  await expect(form.locator('output')).toContainText('FBT at 47%: $4,872.43.');
   // A first retail sale after the FBT year comes after every benefit in it, whatever its luxury car tax value (s 8A(1)(c)).
   await form.getByLabel('Battery electric').check();
   await form.getByLabel('Electric cars only: first retail sale').fill('2027-04-01');

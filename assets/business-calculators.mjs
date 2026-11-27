@@ -259,7 +259,7 @@ export function firstHomeDuty(value, scale, place, home) {
 /**
  * @typedef {{method: 'statutory' | 'operating', cost: string, accessories: string, reduced: boolean,
  *   days: string, costs: string, businessUse: string, contribution: string}} FbtCar
- * @typedef {{days: string, grossUp: string, fbtRate: string}} FbtYear
+ * @typedef {{days: string, type: string, fbtRate: string}} FbtYear
  */
 
 /** FBT on one car's fringe benefits for one FBT year. The statutory formula is s 9 of the
@@ -268,10 +268,12 @@ export function firstHomeDuty(value, scale, place, home) {
  * once the car has been held 4 years. The operating cost method is s 10(2), operating costs
  * × (100% − business use) less the recipient's payment, and s 10(5) keeps the statutory
  * value when it is lower. The Act prescribes no rounding: each value rounds half up to the
- * cent before the payment comes off, never below nil, and the grossed-up value and the FBT
- * round half up from the figure before them.
+ * cent before the payment comes off, never below nil. The gross-up is the formula of s 5B(1B)
+ * for Type 1 or s 5B(1C) for Type 2 at full precision, not the 4-place rates 2.0802 and
+ * 1.8868 the ATO publishes, as australian-accounting's fbt command works it; the grossed-up
+ * value and the FBT each round half up to the cent from the exact amount.
  * @param {FbtCar} car the car's figures as entered
- * @param {FbtYear} year the FBT year's days, gross-up rate and FBT rate, from the caller */
+ * @param {FbtYear} year the FBT year's days, gross-up type ('1' or '2') and FBT rate, from the caller */
 export function fbtCar(car, year) {
   if (!['statutory', 'operating'].includes(car.method)) throw new Error('Choose a valuation method.');
   if (typeof car.reduced !== 'boolean') throw new Error('Say whether the car was held for 4 years.');
@@ -290,8 +292,14 @@ export function fbtCar(car, year) {
   // charges, so nil means none were entered, not a car that cost nothing to run.
   if (operating !== null && cents(car.costs) === 0) throw new Error('Enter the car’s operating costs for the year to use the operating cost method.');
   const taxable = Math.min(statutory, operating ?? statutory);
-  const grossedUp = ratioCents(BigInt(taxable) * BigInt(Math.round(number(year.grossUp, { min: 1, max: 3, places: 4 }) * 10000)), 10000n);
-  const fbt = ratioCents(grossedUp * BigInt(Math.round(number(year.fbtRate, { min: 0.01, max: 100 }) * 100)), 10000n);
+  if (!['1', '2'].includes(year.type)) throw new Error('Choose a gross-up type.');
+  // The FBT rate in basis points, b. Type 1, (rate + 10%) / ((1 - rate) x 1.1 x rate), is
+  // 100,000 (b + 1,000) / (11 b (10,000 - b)); Type 2, 1 / (1 - rate), is 10,000 / (10,000 - b).
+  const b = BigInt(Math.round(number(year.fbtRate, { min: 0.01, max: 99.99 }) * 100));
+  const [num, den] = year.type === '1' ? [100000n * (b + 1000n), 11n * b * (10000n - b)] : [10000n, 10000n - b];
+  const exact = BigInt(taxable) * num;
+  const grossedUp = ratioCents(exact, den);
+  const fbt = ratioCents(exact * b, den * 10000n);
   return { baseValue: ratioMoney(base, 3n), statutory: statutory / 100, operating: operating === null ? null : operating / 100,
     taxableValue: taxable / 100, grossedUp: Number(grossedUp) / 100, fbt: Number(fbt) / 100 };
 }

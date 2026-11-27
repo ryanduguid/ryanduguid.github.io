@@ -344,20 +344,20 @@ function initialiseCalculators([calculate, fieldErrors, fbtForms, { individualRe
             break;
           }
           case 'fbt-car': {
-            // The gross-up comes from the checked option and the year's days and FBT rate from the
-            // form; the Node tests bind all three to the site's FBT rate table.
+            // The gross-up type comes from the checked option and the year's days and FBT rate from
+            // the form; the Node tests bind them to the site's FBT rate table.
             const type = form.querySelector('input[name="type"]:checked');
             const operating = value('method') === 'operating';
             const reduced = value('reduced') === 'yes';
             const r = calculate.fbtCar({ method: value('method'), cost: value('cost'), accessories: value('accessories'), reduced,
               days: value('days'), costs: value('costs'), businessUse: value('business-use'), contribution: value('contribution') },
-            { days: form.dataset.yearDays, grossUp: type.dataset.grossUp, fbtRate: form.dataset.fbtRate });
+            { days: form.dataset.yearDays, type: type.value, fbtRate: form.dataset.fbtRate });
             // An exempt electric car's taxable value is nil (s 8A); its value before the exemption is still reportable.
             const ev = fbtForms.fbtEvResult(form, calculate, { aud, value, money });
             const exempt = ev?.exempt === true;
             result = { inputs: `${operating ? 'operating cost method' : 'statutory formula'}, cost price ${money('cost')}, later non-business accessories ${money('accessories')}, `
               + `first held ${reduced ? 'before' : 'on or after'} 1 April 2022, ${count(value('days'), 'day')} of ${form.dataset.yearDays} available for private use, `
-              + `${operating ? `operating costs ${money('costs')} at ${value('business-use')}% business use, ` : ''}employee contributions ${money('contribution')}, Type ${type.value} gross-up ${type.dataset.grossUp}`
+              + `${operating ? `operating costs ${money('costs')} at ${value('business-use')}% business use, ` : ''}employee contributions ${money('contribution')}, Type ${type.value} gross-up`
               + `${ev ? `, ${ev.inputs}` : ''}`,
             rows: [...(ev?.rows ?? []), ['Base value', aud(r.baseValue)], ['Statutory formula taxable value', aud(r.statutory)],
               ...(operating ? [['Operating cost taxable value', aud(r.operating)]] : []),

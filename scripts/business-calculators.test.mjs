@@ -604,7 +604,7 @@ const INPUTS = {
   firstHomeDuty: (value, place, home) => `${PLACES[place]}, ${dollars(value)}, first home buyer, ${home} home`,
   fbtCar: (car, year) => `${car.method === 'operating' ? `Operating cost ${dollars(car.costs)} at ${car.businessUse}% business use; `
     : 'Statutory formula; '}cost price ${dollars(car.cost)}${car.accessories === '0' ? '' : ` plus ${dollars(car.accessories)} accessories`}`
-    + `${car.reduced ? ', held 4 years' : ''}, ${car.days} of ${year.days} days, contributions ${dollars(car.contribution)}, gross-up ${year.grossUp}`,
+    + `${car.reduced ? ', held 4 years' : ''}, ${car.days} of ${year.days} days, contributions ${dollars(car.contribution)}, Type ${year.type} gross-up`,
   pcgRisk: (a) => `${a.gateway1 && a.gateway2 ? 'Gateways passed' : `Gateway ${a.gateway1 ? 2 : 1} failed`}; entitlement `
     + `${dollars(a.entitlement)}, returned ${dollars(a.returned)}, tax ${dollars(a.tax)}`
     + `${a.factor3 ? `, remuneration ${dollars(a.remuneration)} against ${dollars(a.benchmark)}` : ''}`,
@@ -973,12 +973,12 @@ test('first home buyer duty matches the revenue offices’ figures either side o
   assert.throws(() => duty('500000.50', 'AU-NSW'), { message: 'Enter a whole number between 1 and 1000000000.' });
 });
 
-// The FBT car form passes the checked option's gross-up and the form's days and FBT rate; the
-// FBT car test below binds those to this row of the table.
+// The FBT car form passes the checked option's gross-up type and the form's days and FBT rate;
+// the FBT car test below binds those, and each option's published rate, to this row of the table.
 const fbtRow = readFileSync(new URL('../rates/fbt-rate/fbt-rates.csv', import.meta.url), 'utf8')
   .trim().split(/\r?\n/).map((line) => line.split(',')).find(([ending]) => ending === '2027-03-31');
 const fbtDays = String((Date.parse(fbtRow[0]) - Date.parse(`${Number(fbtRow[0].slice(0, 4)) - 1}${fbtRow[0].slice(4)}`)) / 86400000);
-const fbtYear = { 1: { days: fbtDays, grossUp: fbtRow[2], fbtRate: fbtRow[1] }, 2: { days: fbtDays, grossUp: fbtRow[3], fbtRate: fbtRow[1] } };
+const fbtYear = { 1: { days: fbtDays, type: '1', fbtRate: fbtRow[1] }, 2: { days: fbtDays, type: '2', fbtRate: fbtRow[1] } };
 // ATO, 'Fringe benefits tax – a guide for employers', chapter 7 (current document 22 November 2024),
 // read 15 November 2026: https://www.ato.gov.au/law/view/document?docid=SAV/FBTGEMP/00008
 // Example 28: '$60,000 × 0.2 = $12,000', '2,184,000 ÷ 365 = $5,983', '$5,983 - $1,000 = $4,983'.
@@ -997,14 +997,31 @@ test('FBT car values agree with the ATO guide’s worked examples', () => {
   assert.equal(example23.baseValue, 39000 - 13000 + 4000);
 });
 
-// Worked by hand: $4,983.56 × 2.0802 = $10,366.801512, so $10,366.80, and 47% of that is $4,872.396,
-// so $4,872.40. An operating cost of 1 cent at 50% business use is exactly half a cent, so 1 cent.
-test('FBT car values, gross-up and FBT round half up from the figure before them', () => {
+// Worked by hand from FBTAA s 5B(1B): $4,983.56 × 0.57 ÷ 0.27401 = $10,366.8803..., so $10,366.88,
+// and 47% of the exact amount is $4,872.4337..., so $4,872.43 (2.0802 would give $10,366.80 and
+// $4,872.40). An operating cost of 1 cent at 50% business use is exactly half a cent, so 1 cent.
+test('FBT car values round half up; the gross-up and FBT follow s 5B(1B) and (1C) exactly', () => {
   const opening = calculations.fbtCar(fbtInputs({ cost: '60000', days: '182', contribution: '1000' }), fbtYear[1]);
-  assert.deepEqual([opening.grossedUp, opening.fbt], [10366.8, 4872.4]);
+  assert.deepEqual([opening.grossedUp, opening.fbt], [10366.88, 4872.43]);
   const half = calculations.fbtCar(fbtInputs({ method: 'operating', cost: '1000', costs: '0.01', businessUse: '50' }), fbtYear[1]);
   assert.deepEqual([half.operating, half.taxableValue], [0.01, 0.01]);
   assert.equal(calculations.fbtCar(fbtInputs({ cost: '0.01', reduced: true }), fbtYear[1]).baseValue, 0.01);
+});
+
+// Cent boundaries, each the same as australian-accounting's fbt command (reviewed in #761) gives
+// on its main at e1f5bee9. The smallest taxable values whose cent the 4-place rates get wrong:
+// $2.93 of Type 1 is 293 × 570 ÷ 274.01 = 609.503 cents, so $6.10 (2.0802 gives 609.499, $6.09),
+// FBT 286.467 cents, $2.86; $12.50 of Type 2 is 1,250 × 100 ÷ 53 = 2,358.491 cents, so $23.58
+// (1.8868 gives exactly 2,358.5, $23.59), FBT 1,108.491 cents, $11.08 ($11.09 from $23.59).
+// $2,895.00 of Type 2 is 546,226.4 cents and FBT 256,726.4 cents, where 1.8868 gives $5,462.29.
+test('FBT car grosses up by the s 5B formulas at cent boundaries, not the 4-place rates', () => {
+  const value = (cents, type) => calculations.fbtCar(fbtInputs({ method: 'operating', cost: '100000', costs: cents,
+    businessUse: '0' }), fbtYear[type]);
+  const pair = (r) => [r.grossedUp, r.fbt];
+  assert.deepEqual(pair(value('2.93', '1')), [6.1, 2.86]);
+  assert.deepEqual(pair(value('12.50', '2')), [23.58, 11.08]);
+  assert.deepEqual(pair(value('2895', '2')), [5462.26, 2567.26]);
+  assert.throws(() => calculations.fbtCar(fbtInputs({}), { ...fbtYear[1], type: '3' }), { message: 'Choose a gross-up type.' });
 });
 
 test('FBT car refuses an unknown method, a missing answer and out-of-range figures', () => {
@@ -1023,7 +1040,7 @@ test('FBT car refuses an unknown method, a missing answer and out-of-range figur
 test('FBT car rates are the rate table row for the FBT year ending 31 March 2027', () => {
   const html = readFileSync(new URL('../_includes/calculators/fbt-car.html', import.meta.url), 'utf8');
   const options = [...html.matchAll(/<input type="radio" name="type" value="(\d)" data-gross-up="([^"]+)"/g)];
-  assert.deepEqual(options.map(([, type, rate]) => [type, rate]), [['1', fbtYear[1].grossUp], ['2', fbtYear[2].grossUp]]);
+  assert.deepEqual(options.map(([, type, rate]) => [type, rate]), [['1', fbtRow[2]], ['2', fbtRow[3]]]);
   assert.ok(html.includes(`data-year-days="${fbtDays}" data-fbt-rate="${fbtRow[1]}"`));
   assert.equal(fbtDays, '365');
 });

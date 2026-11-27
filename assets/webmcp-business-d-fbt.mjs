@@ -138,7 +138,9 @@ export function fbtCarTool(kit, calculate) {
     description: 'Taxable value, grossed-up taxable value and 47% FBT in AUD for one car in the FBT year ending '
       + '31 March 2027 (365 days), by the statutory formula (s 9 FBTAA 1986, 20% flat rate with one-third base '
       + 'value reduction when first held before 1 April 2022) or operating cost method (s 10, falling back to '
-      + 'statutory formula when lower under s 10(5)), using Type 1 (2.0802) or Type 2 (1.8868) gross-up. Checks '
+      + 'statutory formula when lower under s 10(5)), grossed up by the Type 1 formula of s 5B(1B) or the Type 2 '
+      + 'formula of s 5B(1C) at full precision (grossUpRate is the ATO\'s published 4-place rate, 2.0802 or 1.8868, '
+      + 'which is not used in the arithmetic). Checks '
       + 'the s 8A electric cars exemption condition by condition for battery electric, fuel-cell and transitional '
       + 'plug-in hybrid cars (returning nil taxable value and FBT whilst reporting pre-exemption taxable value '
       + 'under s 135P(3) when exempt). Refuses mismatched operating-cost or electric-car fields.',
@@ -151,7 +153,7 @@ export function fbtCarTool(kit, calculate) {
       operatingCosts: text('cost', 'Operating cost method only: total operating costs for the year in AUD (above zero).'),
       businessUsePercent: text('percent', 'Operating cost method only: log-book business use percentage (0 to 100).'),
       employeeContribution: text('cost', 'Employee contributions for the year in AUD; "0" when omitted.'),
-      gstCreditEntitled: { type: 'boolean', description: 'true for Type 1 gross-up (2.0802, GST credit available); false for Type 2 gross-up (1.8868).' },
+      gstCreditEntitled: { type: 'boolean', description: 'true for the Type 1 gross-up (s 5B(1B), GST credit available); false for the Type 2 gross-up (s 5B(1C)).' },
       vehicleKind: choice(['other', 'battery', 'fuel-cell', 'plug-in-hybrid'], 'Kind of car; "other" when omitted.'),
       electricCar: evSchema,
     }, ['method', 'costPrice', 'daysAvailable', 'gstCreditEntitled']),
@@ -173,7 +175,7 @@ export function fbtCarTool(kit, calculate) {
           days: String(daysAvailable), costs: operatingCosts ?? '0', businessUse: businessUsePercent ?? '0',
           contribution: employeeContribution,
         },
-        { days: FBT_CAR_YEAR.days, grossUp, fbtRate: FBT_CAR_YEAR.fbtRate },
+        { days: FBT_CAR_YEAR.days, type: gstCreditEntitled ? '1' : '2', fbtRate: FBT_CAR_YEAR.fbtRate },
       );
       const ev = isEv ? calculate.fbtEvExemption(buildEvFacts(vehicleKind, electricCar), { ended: FBT_CAR_YEAR.ended }) : null;
       return formatCarResult(r, ev, { method, operating, gstCreditEntitled, grossUp }, dollars, `${CALCULATORS}fbt-car/`);
