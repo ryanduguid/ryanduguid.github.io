@@ -2402,6 +2402,10 @@ test('the Division 296 page opens on the result its calculation gives for the fo
 // https://www.ato.gov.au/tax-rates-and-codes/division-7a-benchmark-interest-rate: '2027 | 8.77%',
 // '2026 | 8.37%', '2025 | 8.77%', '2024 | 8.27%', '2023 | 4.77%', '2022 | 4.52%', each income year
 // ending 30 June.
+// The portable LSL levy page's boundary cases (its tests are at the end of this file).
+Object.assign(INPUTS, { plslFigures: (x) => calculations.plslInputsText(x, dollars) });
+Object.assign(ENGINE_LABELS, { plslFigures: { levy: (v) => `levy payable ${dollars(v)}` } });
+Object.assign(FORM_CALLS, { plslFigures: (f) => [calculations.plslFormInput((name) => f[name] ?? '')] });
 const { DIV7A_PUBLISHED_RATES } = await import('../assets/div7a.mjs');
 const div7aScheduleHtml = readFileSync(new URL('../_includes/calculators/div7a-schedule.html', import.meta.url), 'utf8');
 const scheduleLoan = { made: '2022-10-01', amount: '100000', term: '7', assumedRate: '8.77', repayments: '', marginalRate: '',
@@ -7926,3 +7930,84 @@ test('trust streaming refuses inputs it cannot settle', () => {
   // Trust income below nil with net income above it: nobody is entitled and the trustee is assessed on it all.
   assert.equal(calculations.trustStreaming({ ...trustZero, other_trust_income: '-50', other_net_income: '100' }).trustee.assessable, 100);
 });
+
+// The portable LSL levy page ports the states part of the portable-lsl-levy command of australian-accounting; every
+// recorded case (the command's own test calls and a seeded sweep) must agree, and each refusal the command makes.
+test('portable LSL levy agrees with the portable-lsl-levy command on every recorded case', () => {
+  const { cases } = JSON.parse(readFileSync(new URL('./portable-lsl-levy-engine-differential.json', import.meta.url), 'utf8'));
+  assert.ok(cases.length >= 350);
+  for (const { source, call, refused, period, amounts, rates, jurisdiction, scheme, basis, authority_board: board } of cases) {
+    if (refused) {
+      assert.throws(() => calculations.portableLslLevy(structuredClone(call)), { code: refused }, source);
+      continue;
+    }
+    const r = calculations.portableLslLevy(structuredClone(call));
+    assert.deepEqual([r.period, r.amounts, r.rates, r.jurisdiction, r.scheme, r.basis, r.authority_board],
+      [period, amounts, rates, jurisdiction, scheme, basis, board], source);
+  }
+});
+
+test('portable LSL levy refuses as the command does and keeps its rounding', () => {
+  const plsl = calculations.portableLslLevy;
+  const base = { jurisdiction: 'vic', scheme: 'security', year: '2026-27', scope_confirmed: true, ordinary_wages: '1000' };
+  const without = (key) => Object.fromEntries(Object.entries(base).filter(([k]) => k !== key));
+  const tasBase = { ...base, jurisdiction: 'tas', scheme: 'construction' };
+  const refusals = [
+    [{ ...base, extra: 1 }, 'input.field_unknown'], [without('jurisdiction'), 'input.missing_field'],
+    [{ ...base, ordinary_wages: 'x'.repeat(8193) }, 'input.decimal_too_long'], [{ ...base, ordinary_wages: '1e3' }, 'input.decimal_unreadable'],
+    [{ ...base, ordinary_wages: 'Infinity' }, 'input.amount_invalid'], [{ ...base, ordinary_wages: 5 }, 'input.amount_invalid'],
+    [{ ...base, ordinary_wages: [] }, 'input.amount_invalid'], [{ ...base, ordinary_wages: {} }, 'input.amount_invalid'],
+    [{ ...base, ordinary_wages: `${String.fromCharCode(0xfeff)}100` }, 'input.decimal_unreadable'],
+    [{ ...base, ordinary_wages: '1.005' }, 'input.amount_invalid'], [{ ...base, ordinary_wages: '-1' }, 'input.amount_invalid'],
+    [{ ...base, ordinary_wages: '1000000000000.01' }, 'input.amount_invalid'], [{ ...base, scope_confirmed: 'true' }, 'scope.not_confirmed'],
+    [{ ...base, year: '2027-28' }, 'period.unsupported'], [{ ...base, jurisdiction: 'NSW' }, 'portable_lsl_levy.jurisdiction_invalid'],
+    [{ ...base, scheme: null }, 'portable_lsl_levy.scheme_invalid'], [{ ...base, jurisdiction: 'cth', scheme: 'coal' }, 'portable_lsl_levy.scheme_unavailable'],
+    [{ ...base, scheme: 'coal' }, 'portable_lsl_levy.scheme_unavailable'], [{ ...base, jurisdiction: 'wa' }, 'portable_lsl_levy.scheme_unavailable'],
+    [{ ...base, branch: 'base_rate' }, 'portable_lsl_levy.branch_field_mismatch'], [{ ...base, project_cost: '1' }, 'portable_lsl_levy.branch_field_mismatch'],
+    [{ ...base, year: '2025-26' }, 'portable_lsl_levy.scheme_year_unsupported'], [without('ordinary_wages'), 'input.missing_field'],
+    [tasBase, 'input.missing_field'], [{ ...tasBase, paid_on_time: 'yes' }, 'input.flag_invalid'],
+    [{ ...tasBase, paid_on_time: true, project_cost: '1' }, 'portable_lsl_levy.branch_field_mismatch'],
+  ];
+  for (const [call, code] of refusals) assert.throws(() => plsl(call), { code }, JSON.stringify(call).slice(0, 120));
+  const project = (j, more) => plsl({ jurisdiction: j, scheme: 'construction', year: '2026-27', scope_confirmed: true, ...more });
+  assert.throws(() => project('nt', { project_cost: '5000000000.01' }), { code: 'portable_lsl_levy.project_cost_above_tier' });
+  assert.throws(() => project('nsw', { project_cost: '300000', partial_exemption: true }), { code: 'portable_lsl_levy.exemption_unsupported' });
+  assert.throws(() => project('qld', { project_cost: '300000', partial_exemption: 1 }), { code: 'input.flag_invalid' });
+  assert.throws(() => project('nsw', { project_cost: '300000', ordinary_wages: '1' }), { code: 'portable_lsl_levy.branch_field_mismatch' });
+  assert.throws(() => project('nsw', {}), { code: 'input.missing_field' });
+  const levy = (j, cost) => project(j, { project_cost: cost }).amounts.levy;
+  assert.deepEqual([levy('nsw', '250399'), levy('nsw', '249999.99'), levy('nt', '1000500'), levy('nt', '1001500.01'), levy('nt', '999999.99'), levy('qld', '149999.99')],
+    ['625.00', '0.00', '1000.00', '1002.00', '0.00', '0.00']);
+  assert.deepEqual(project('qld', { project_cost: '200400', partial_exemption: false }).amounts,
+    { lsl_levy: '701.00', training_levy: '200.00', whs_levy: '250.00', levy: '1151.00' });
+  assert.equal(plsl({ ...base, ordinary_wages: '-0' }).amounts.levy, '-0.00');
+  assert.equal(plsl({ ...base, ordinary_wages: ' 00012.30 ' }).amounts.levy, '0.22');
+  assert.equal(plsl({ ...base, ordinary_wages: `${String.fromCharCode(0x3000, 0x85)}100${String.fromCharCode(0x1c)}` }).amounts.levy, '1.80');
+  assert.equal(plsl({ ...base, jurisdiction: 'nsw', scheme: 'community_services', year: '2025-26' }).rates.rate, '0.013');
+  assert.equal(plsl({ ...base, jurisdiction: 'nsw', scheme: 'community_services' }).rates.rate, '0.017');
+  const tas = (onTime) => plsl({ ...tasBase, paid_on_time: onTime });
+  assert.deepEqual([tas(true).amounts.levy, tas(false).amounts.levy, tas(false).authority_board], ['18.00', '25.00', 'TasBuild (Tasmania)']);
+});
+
+test('the portable LSL levy page builds its call from the form and words its refusals', () => {
+  const form = { amount: '500000', jurisdiction: 'vic', scheme: 'community_services', year: '2026-27', onTime: 'yes', exemption: 'no' };
+  const page = (change) => calculations.plslResult((name) => ({ ...form, ...change })[name] ?? '', dollars);
+  const call = (change) => calculations.plslFormInput((name) => ({ ...form, ...change })[name] ?? '');
+  const vic = page({});
+  assert.deepEqual([vic.rows[vic.principal], vic.rows[2], vic.rows.length], [['Levy payable', '$8,250.00'], ['Rate', '1.65%'], 4]);
+  const qld = page({ jurisdiction: 'qld', scheme: 'construction', amount: '150000' });
+  assert.deepEqual(qld.rows.slice(1, 4), [['Levied on', 'The cost of the building or construction work'], ['Rate', '0.575% in 3 parts'], ['No levy below', '$150,000.00']]);
+  assert.deepEqual(qld.rows[qld.principal], ['Levy payable', '$862.00']);
+  assert.deepEqual(call({ jurisdiction: 'nt', scheme: 'construction', exemption: 'yes', amount: ' ' }),
+    { jurisdiction: 'nt', scheme: 'construction', year: '2026-27', scope_confirmed: true, project_cost: '0', partial_exemption: true });
+  const text = (change) => calculations.plslInputsText(call(change), dollars);
+  assert.equal(text({ jurisdiction: 'tas', scheme: 'construction' }), '2026-27; Tasmania construction; ordinary wages $500,000.00; paid on time');
+  assert.equal(text({ jurisdiction: 'tas', scheme: 'construction', onTime: 'no' }), '2026-27; Tasmania construction; ordinary wages $500,000.00; not paid on time');
+  assert.equal(text({ jurisdiction: 'nsw', scheme: 'construction', exemption: 'yes' }), '2026-27; New South Wales construction; project cost $500,000.00; partial exemption');
+  assert.throws(() => page({ jurisdiction: 'nsw', scheme: 'security' }), /no portable long service leave scheme for that industry/);
+  assert.throws(() => page({ amount: '1.005' }), /from \$0 to \$1,000,000,000,000/);
+  assert.throws(() => page({ amount: 'abc' }), /as a number/);
+  assert.throws(() => page({ year: '2025-26' }), { code: 'portable_lsl_levy.scheme_year_unsupported' });
+  assert.deepEqual(calculations.plslFigures(call({})), { levy: 8250 });
+});
+

@@ -8,6 +8,13 @@
   <updated>2026-11-27T00:00:00Z</updated>
   <author><name>Ryan Duguid</name></author>
   <entry>
+    <title>A new business calculator, portable LSL levy, works the portable long service…</title>
+    <link href="https://duguid.com.au/changelog/#entry-0ada7198bd29dd62" />
+    <id>https://duguid.com.au/changelog/#entry-0ada7198bd29dd62</id>
+    <updated>2026-11-27T00:00:00Z</updated>
+    <summary>A new business calculator, portable LSL levy, works the portable long service leave levy in each state and territory for construction, community services, contract cleaning and security, with each board’s rate, threshold and rounding. Its WebMCP tool is calculate_portable_lsl_levy.</summary>
+  </entry>
+  <entry>
     <title>The depreciation register distinguishes assets with the same name, shows the…</title>
     <link href="https://duguid.com.au/changelog/#entry-812e9c722d31e872" />
     <id>https://duguid.com.au/changelog/#entry-812e9c722d31e872</id>

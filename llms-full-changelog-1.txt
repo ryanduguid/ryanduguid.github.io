@@ -21,6 +21,7 @@ What changed and when, across this site and the tagged tool releases. Dates are 
 ## Site
 
 Date | Change
+27 November 2026 | A new business calculator, portable LSL levy, works the portable long service leave levy in each state and territory for construction, community services, contract cleaning and security, with each board’s rate, threshold and rounding. Its WebMCP tool is calculate_portable_lsl_levy.
 27 November 2026 | The depreciation register distinguishes assets with the same name, shows the dates recorded against asset group headings and links directly to sections of long tables. The work expenses and rental property calculators now label telephone expenses as dollar amounts.
 27 November 2026 | The Markdown editions of calculators now preserve the instructions shown when JavaScript is off, including the link to the depreciation register data file.
 27 November 2026 | Reference tables now carry names for screen readers. Calculator fields and reference pages have more space between headings, instructions and tables. The depreciation register identifies the industry or asset group on links that share a name. Each indexed page also has a Markdown edition at index.md.
@@ -285,6 +286,7 @@ Published 30 August 2026. Last reviewed 24 November 2026.
 ## Links
 
 - Follow this changelog as an Atom feed: https://duguid.com.au/feed.xml
+- portable LSL levy: https://duguid.com.au/tools/business-calculators/portable-lsl-levy/
 - depreciation register: https://duguid.com.au/tools/depreciation-rates/
 - depreciation register data file: https://duguid.com.au/tools/depreciation-rates/effective-life.json
 - sole trader against company: https://duguid.com.au/tools/business-calculators/sole-trader-company/
@@ -395,7 +397,3 @@ Published 30 August 2026. Last reviewed 24 November 2026.
 - ato-benchmark-compare/v0.1.9: https://github.com/ryanduguid/australian-accounting/releases/tag/ato-benchmark-compare/v0.1.9
 - payday-super-checker/v0.1.7: https://github.com/ryanduguid/australian-accounting/releases/tag/payday-super-checker/v0.1.7
 - review-ready-gate/v0.1.7: https://github.com/ryanduguid/accounting-review-pipeline/releases/tag/review-ready-gate/v0.1.7
-- div7a-loan-review/v0.1.4: https://github.com/ryanduguid/australian-accounting/releases/tag/div7a-loan-review/v0.1.4
-- solomons-sword/v0.1.7: https://github.com/ryanduguid/australian-accounting/releases/tag/solomons-sword/v0.1.7
-- the-exchequer-tally/v0.1.6: https://github.com/ryanduguid/australian-accounting/releases/tag/the-exchequer-tally/v0.1.6
-- v0.2.1: https://github.com/ryanduguid/australian-accounting-skills/releases/tag/v0.2.1

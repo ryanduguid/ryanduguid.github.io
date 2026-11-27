@@ -14,11 +14,11 @@ Source: https://duguid.com.au/tools/business-calculators/
 
 # Business calculators
 
-Sixty-three free calculators that run in your browser with the formula, assumptions and primary source beside the inputs. No sign-up; inputs stay on your device.
+Sixty-four free calculators that run in your browser with the formula, assumptions and primary source beside the inputs. No sign-up; inputs stay on your device.
 
 Published 11 September 2026. Last checked 26 November 2026, the newest of the calculators’ source checks.
 
-Search 63 calculators
+Search 64 calculators
 
 ## Pricing, planning and loans
 
@@ -80,6 +80,7 @@ Search 63 calculators
 - SGC and Payday Super calculator When a Payday Super contribution is due, how many days late it was, and one employee’s super guarantee charge, each step cited.
 - Payday Super cashflow calculator Each payday’s super guarantee due date under Payday Super against the old quarterly date, and the peak extra working capital for a quarter of 2026-27.
 - Long service leave calculator One employee’s long service leave under each state and territory’s Act: the leave to take now, or the weeks payable when employment ends for a given reason and their value, each step cited.
+- Portable LSL levy calculator An employer’s or project owner’s portable long service leave levy in each state and territory: construction, community services, contract cleaning and security, with each board’s rate, threshold and rounding.
 - Workers compensation premium calculator A 2026-27 premium from the declared wages and the insurer’s rate under each state and territory’s scheme, with GST, duty and the actual wages adjustment, each step cited.
 - Super lump sum tax The components of a super lump sum and the most tax each part can bear, for members and death benefits, 2020-21 to 2026-27.
 - Redundancy and ETP withholding The tax-free part of a genuine redundancy payment and the amount to withhold from an ETP under Schedule 11, for 2026-27.
@@ -156,6 +157,7 @@ Planning estimates in AUD. Confirm tax treatment, liability amounts and dates se
 - SGC and Payday Super calculator: https://duguid.com.au/tools/business-calculators/sgc-payday/
 - Payday Super cashflow calculator: https://duguid.com.au/tools/business-calculators/payday-cashflow/
 - Long service leave calculator: https://duguid.com.au/tools/business-calculators/long-service-leave/
+- Portable LSL levy calculator: https://duguid.com.au/tools/business-calculators/portable-lsl-levy/
 - Workers compensation premium calculator: https://duguid.com.au/tools/business-calculators/workers-compensation/
 - Super lump sum tax: https://duguid.com.au/tools/business-calculators/super-benefit-tax/
 - Redundancy and ETP withholding: https://duguid.com.au/tools/business-calculators/termination-payment/

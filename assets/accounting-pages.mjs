@@ -590,6 +590,9 @@ function initialiseCalculators([calculate, fieldErrors, fbtForms, { individualRe
           case 'depreciation-pools':
             result = calculate.depreciationPoolsResult(value, aud);
             break;
+          case 'portable-lsl-levy':
+            result = calculate.plslResult(value, aud);
+            break;
           case 'casual-overtime':
             result = calculate.casualOvertimeResult(value, aud);
             break;

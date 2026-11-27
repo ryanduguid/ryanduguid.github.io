@@ -52,13 +52,13 @@
       <header class="article-header site-shell">
         <nav class="article-crumb" aria-label="Breadcrumb"><ol><li><a href="/">Home</a></li><li><a href="/tools/">Tools</a></li><li aria-current="page">Business calculators</li></ol></nav>
         <h1>Business calculators</h1>
-        <p class="lead-note">Sixty-three free calculators that run in your browser with the formula, assumptions and primary source beside the inputs. No sign-up; inputs stay on your device.</p>
+        <p class="lead-note">Sixty-four free calculators that run in your browser with the formula, assumptions and primary source beside the inputs. No sign-up; inputs stay on your device.</p>
         {% assign checked = "" %}{% for calculator in site.data.calculator_cases %}{% if calculator[1].checked and calculator[1].checked > checked %}{% assign checked = calculator[1].checked %}{% endif %}{% endfor %}
         <p class="page-meta">Published 11 September 2026. Last checked <time datetime="{{ checked }}">{{ checked | date: "%-d %B %Y" }}</time>, the newest of the calculators’ source checks.</p>
       </header>
       <div class="site-shell accounting-content">
         <form class="tool-filter" id="calc-filter" role="search" aria-label="Filter business calculators">
-          <label class="field" for="calc-search">Search 63 calculators<input type="search" id="calc-search" name="q" autocomplete="off" placeholder="e.g. stamp duty, FBT, CGT, payroll tax, GST" /></label>
+          <label class="field" for="calc-search">Search 64 calculators<input type="search" id="calc-search" name="q" autocomplete="off" placeholder="e.g. stamp duty, FBT, CGT, payroll tax, GST" /></label>
           <p id="calc-count" class="field-note" role="status"></p>
         </form>
         <h2>Pricing, planning and loans</h2>
@@ -121,6 +121,7 @@
           <li id="sgc-payday"><a class="collection-entry__title" href="/tools/business-calculators/sgc-payday/">SGC and Payday Super calculator</a> When a Payday Super contribution is due, how many days late it was, and one employee’s super guarantee charge, each step cited.</li>
           <li id="payday-cashflow"><a class="collection-entry__title" href="/tools/business-calculators/payday-cashflow/">Payday Super cashflow calculator</a> Each payday’s super guarantee due date under Payday Super against the old quarterly date, and the peak extra working capital for a quarter of 2026-27.</li>
           <li id="long-service-leave"><a class="collection-entry__title" href="/tools/business-calculators/long-service-leave/">Long service leave calculator</a> One employee’s long service leave under each state and territory’s Act: the leave to take now, or the weeks payable when employment ends for a given reason and their value, each step cited.</li>
+          <li id="portable-lsl-levy"><a class="collection-entry__title" href="/tools/business-calculators/portable-lsl-levy/">Portable LSL levy calculator</a> An employer’s or project owner’s portable long service leave levy in each state and territory: construction, community services, contract cleaning and security, with each board’s rate, threshold and rounding.</li>
           <li id="workers-compensation"><a class="collection-entry__title" href="/tools/business-calculators/workers-compensation/">Workers compensation premium calculator</a> A 2026-27 premium from the declared wages and the insurer’s rate under each state and territory’s scheme, with GST, duty and the actual wages adjustment, each step cited.</li>
           <li id="super-benefit-tax"><a class="collection-entry__title" href="/tools/business-calculators/super-benefit-tax/">Super lump sum tax</a> The components of a super lump sum and the most tax each part can bear, for members and death benefits, 2020-21 to 2026-27.</li>
           <li id="termination-payment"><a class="collection-entry__title" href="/tools/business-calculators/termination-payment/">Redundancy and ETP withholding</a> The tax-free part of a genuine redundancy payment and the amount to withhold from an ETP under Schedule 11, for 2026-27.</li>
@@ -161,7 +162,7 @@
       "description": "Calculate GST, margins, loans, Division 7A, FBT, payroll tax, land tax, transfer duty, PAYG instalments, fixed fees and 13-week cash flow in your browser.",
       "inLanguage": "en-AU",
       "datePublished": "2026-09-11",
-      "dateModified": "2026-11-26",
+      "dateModified": "2026-11-27",
       "license": "https://duguid.com.au/privacy/#licences",
       "isPartOf": {
         "@id": "https://duguid.com.au/#website"
