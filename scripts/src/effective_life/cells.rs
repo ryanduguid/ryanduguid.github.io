@@ -277,3 +277,41 @@ pub(super) fn data_row(cells: &[Node<'_, '_>], texts: &[String]) -> Result<Row> 
         last_updated,
     })
 }
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    fn with_cell<T>(xml: &str, read: impl Fn(Node<'_, '_>) -> T) -> T {
+        let document = roxmltree::Document::parse(xml).unwrap();
+        read(document.root_element())
+    }
+
+    #[test]
+    fn an_empty_cell_without_a_paragraph_is_not_nested() {
+        assert_eq!(with_cell("<td> </td>", depth), Ok(0));
+    }
+
+    #[test]
+    fn a_blank_span_that_is_not_an_inline_block_adds_no_nesting() {
+        let cell = r#"<td><p><span style="width:7pt"> </span><span>Pumps</span></p></td>"#;
+        assert_eq!(with_cell(cell, depth), Ok(0));
+    }
+
+    #[test]
+    fn raised_text_without_a_slash_is_not_a_fraction() {
+        let cell = r#"<td><p><span>6</span><span style="vertical-align:super">1</span></p></td>"#;
+        assert_eq!(
+            with_cell(cell, life),
+            Err("life 6 has raised or lowered text and no fraction".to_owned())
+        );
+    }
+
+    #[test]
+    fn a_year_that_is_not_four_digits_is_refused() {
+        assert_eq!(
+            iso_date("1 Jul 208"),
+            Err("date 1 Jul 208 is not a day, month and year".to_owned())
+        );
+    }
+}
