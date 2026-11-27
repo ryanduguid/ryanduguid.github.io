@@ -67,10 +67,10 @@ Exempt entity control under $20 million turnover: non-refundable | 2024-25; noti
 The ATO’s feedstock example: a clawback leaving $13,000 is refused | 2024-25; notional deductions $22,000.00, aggregated turnover $10,000,000.00, a base rate entity, total expenses $0.00; feedstock revenue $9,000.00 and expenditure $10,000.00, a base rate entity in the present year | Refused: with a clawback amount, the notional deductions or the adjusted total is under $20,000: section 355-100(2) then limits the adjusted offset to research service provider and CRC expenditure, but neither section 355-450 nor the ATO says how the clawback reduces that expenditure, and the ATO’s feedstock example applies the full rate below $20,000; this calculator does not choose between them
 2020-21 is refused: the earlier rates and clawback rules | 2020-21; notional deductions $100,000.00, aggregated turnover $10,000,000.00, a base rate entity, total expenses $0.00 | Refused: choose an income year from 2021-22 to 2026-27. Income years starting before 1 July 2021 used the earlier R&D offset rates, cap and clawback rules, replaced by Act No. 92 of 2020 (Sch 4 item 14, Sch 5 item 56(3)); this calculator does not hold them
 
-One of the sixty business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the sixty-two business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
 
 ## Links
 
-- sixty business calculators: https://duguid.com.au/tools/business-calculators/
+- sixty-two business calculators: https://duguid.com.au/tools/business-calculators/

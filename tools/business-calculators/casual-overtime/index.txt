@@ -75,7 +75,7 @@ Above the $62,500 quarterly maximum contribution base is refused | payday 30 Jun
 A casual loading and paid annual leave together are refused | payday 10 July 2026; base rate $30.00 an hour; casual loading 25%; 10 ordinary hours; 8 hours of annual leave | Refused: a casual employee’s loading is paid instead of paid leave: enter either a casual loading or hours of paid annual leave, not both
 A payday before 1 July 2025 is refused | payday 30 June 2025; base rate $30.00 an hour; 38 ordinary hours | Refused: enter a payday from 1 July 2025 to 30 June 2027, the paydays this calculator holds the 12% super guarantee and maximum contribution base for
 
-One of the sixty business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the sixty-two business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
 
@@ -84,4 +84,4 @@ Planning estimates in AUD. Confirm tax treatment, liability amounts and dates se
 - pay guides: https://www.fairwork.gov.au/pay-and-wages/minimum-wages/pay-guides
 - Pay and Conditions Tool: https://calculate.fairwork.gov.au/
 - SGC and Payday Super calculator: https://duguid.com.au/tools/business-calculators/sgc-payday/
-- sixty business calculators: https://duguid.com.au/tools/business-calculators/
+- sixty-two business calculators: https://duguid.com.au/tools/business-calculators/

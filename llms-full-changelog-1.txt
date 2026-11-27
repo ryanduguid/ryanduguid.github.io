@@ -21,6 +21,8 @@ What changed and when, across this site and the tagged tool releases. Dates are 
 ## Site
 
 Date | Change
+27 November 2026 | A new business calculator, the DGR and charity endorsement review, works through the ATO’s 3 endorsement review worksheets for a deductible gift recipient or an income tax exempt charity and says whether the entity is still entitled, needs to act or is no longer entitled, with the provision behind each answer and the notice the law requires. It checks nothing against a register, and agrees with the australian-accounting endorsement-review command on 107 cases.
+27 November 2026 | A new business calculator, the ABN and ACN check digit checker, applies the published check digit test of ABN Lookup or ASIC to the digits entered. It checks the format only: it calls no register, and a valid check digit does not show that the number was issued, is active or is registered for GST. It agrees with the australian-accounting identifier checks on 13,512 cases.
 27 November 2026 | The depreciation register distinguishes assets with the same name, shows the dates recorded against asset group headings and links directly to sections of long tables. The work expenses and rental property calculators now label telephone expenses as dollar amounts.
 27 November 2026 | The Markdown editions of calculators now preserve the instructions shown when JavaScript is off, including the link to the depreciation register data file.
 27 November 2026 | Reference tables now carry names for screen readers. Calculator fields and reference pages have more space between headings, instructions and tables. The depreciation register identifies the industry or asset group on links that share a name. Each indexed page also has a Markdown edition at index.md.
@@ -282,6 +284,8 @@ Published 30 August 2026. Last reviewed 24 November 2026.
 ## Links
 
 - Follow this changelog as an Atom feed: https://duguid.com.au/feed.xml
+- DGR and charity endorsement review: https://duguid.com.au/tools/business-calculators/endorsement-review/
+- ABN and ACN check digit checker: https://duguid.com.au/tools/business-calculators/abn-acn-check/
 - depreciation register: https://duguid.com.au/tools/depreciation-rates/
 - depreciation register data file: https://duguid.com.au/tools/depreciation-rates/effective-life.json
 - sole trader against company: https://duguid.com.au/tools/business-calculators/sole-trader-company/
