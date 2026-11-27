@@ -1876,7 +1876,8 @@ for (const id of CALCULATORS) {
     // A page that asks the reader to confirm its scope is answered first, as a reader would.
     const scope = form.locator('select[name="scope"]');
     if (await scope.count()) await scope.selectOption('yes');
-    await form.getByRole('button', { name: 'Calculate', exact: true }).click();
+    // The verdict pages name their button for what it does: Review and Check.
+    await form.getByRole('button', { name: /^(Calculate|Review|Check)$/ }).click();
     await expect(output.locator('.result-example')).toHaveCount(0);
     // The cash result also names week 1's first day, which the page sets to today.
     const calculated = await output.evaluate((element) => element.textContent);
