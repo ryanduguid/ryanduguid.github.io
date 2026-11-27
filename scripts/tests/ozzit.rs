@@ -742,3 +742,187 @@ fn restored_section_rows_are_published() {
     assert!(debt.contains("<li>Debt opening balance</li>"));
     assert!(debt.contains("<li>Opening Balance</li>"));
 }
+
+#[test]
+fn an_undocumented_hash_falls_back_to_the_published_release() {
+    let root = inputs();
+    let mut published = None;
+    edit_release(root.path(), |ozzit| {
+        published = ozzit
+            .get("published")
+            .and_then(|p| p.get("asset_sha256"))
+            .cloned();
+        let version = ozzit
+            .get("published")
+            .unwrap()
+            .get("version")
+            .unwrap()
+            .clone();
+        let documented = member(ozzit, "documented");
+        if let Json::Object(pairs) = documented {
+            pairs.retain(|(k, _)| k != "asset_sha256");
+        }
+        *member(documented, "version") = version;
+    });
+    let (_, sha256) = documented_release(root.path()).unwrap();
+    assert!(sha256.py_eq(&published.unwrap()));
+}
+
+#[test]
+fn a_missing_index_names_its_path() {
+    let root = inputs();
+    std::fs::remove_file(root.path().join(index_csv())).unwrap();
+    let error = load_index(root.path()).unwrap_err();
+    assert!(
+        error.contains(&format!("ozzit-functions-{}.csv", tag())),
+        "{error}"
+    );
+}
+
+#[test]
+fn a_duplicated_index_row_is_rejected() {
+    let root = inputs();
+    let path = root.path().join(index_csv());
+    let text = std::fs::read_to_string(&path).unwrap();
+    let first_row = text.lines().nth(1).unwrap().to_owned();
+    std::fs::write(&path, format!("{}\n{first_row}\n", text.trim_end())).unwrap();
+    assert!(render_error(root.path()).contains("must be unique"));
+}
+
+#[test]
+fn malformed_example_and_case_fields_are_rejected() {
+    let edits: [(&str, Json, &str); 4] = [
+        (
+            "title",
+            Json::Int(5.into()),
+            "AttributeError: 'int' object has no attribute 'replace'",
+        ),
+        ("function", Json::Int(5.into()), "KeyError: 5"),
+        ("id", Json::Array(Vec::new()), "unhashable"),
+        (
+            "formula",
+            Json::Str("=oz.Other()".into()),
+            "matching native Excel",
+        ),
+    ];
+    for (field, value, expected) in edits {
+        let root = inputs();
+        let mut examples = load(root.path(), EXAMPLES);
+        *member(item(&mut examples, 0), field) = value;
+        save(root.path(), EXAMPLES, &examples);
+        let error = render_error(root.path());
+        assert!(error.contains(expected), "{field}: {error}");
+    }
+    let root = inputs();
+    let mut record = load(root.path(), &native_record());
+    *member(item(member(&mut record, "cases"), 0), "id") = Json::Array(Vec::new());
+    save(root.path(), &native_record(), &record);
+    assert!(render_error(root.path()).contains("unhashable"));
+}
+
+#[test]
+fn a_non_ascii_digit_count_is_refused_like_int() {
+    let root = inputs();
+    std::fs::write(
+        root.path().join(COUNT_PAGES[0]),
+        "<p>all \u{663} named formulas</p>",
+    )
+    .unwrap();
+    let error = count_failures(root.path()).unwrap_err();
+    assert!(
+        error.contains("invalid literal for int() with base 10"),
+        "{error}"
+    );
+}
+
+#[test]
+fn the_command_names_stale_module_pages_undeclared_outputs_and_unwritable_files() {
+    use site_tools::ozzit_reference::run;
+    let s = |args: &[&str]| args.iter().map(|a| (*a).to_owned()).collect::<Vec<_>>();
+    let root = inputs();
+    assert_eq!(run(root.path(), &s(&["--write"])).unwrap(), 0);
+    assert_eq!(run(root.path(), &s(&["--check"])).unwrap(), 0);
+    // A stale module page is named by its path under tools/.
+    let pages = site_tools::ozzit_functions::render_pages(root.path()).unwrap();
+    let (rel, _) = pages
+        .iter()
+        .find(|(rel, _)| rel.starts_with("tools/"))
+        .unwrap();
+    std::fs::write(root.path().join(rel), "stale").unwrap();
+    assert_eq!(run(root.path(), &s(&["--check"])).unwrap(), 1);
+    assert_eq!(run(root.path(), &s(&["--write"])).unwrap(), 0);
+    // An output the generated-files declaration leaves out fails the check.
+    std::fs::create_dir_all(root.path().join(".github")).unwrap();
+    std::fs::write(
+        root.path().join(".github/review-generated.json"),
+        r#"{"paths": []}"#,
+    )
+    .unwrap();
+    assert_eq!(run(root.path(), &s(&["--check"])).unwrap(), 1);
+    // A write that fails stops the command.
+    let output = root.path().join("_includes/ozzit-reference.html");
+    let mut permissions = std::fs::metadata(&output).unwrap().permissions();
+    permissions.set_readonly(true);
+    std::fs::set_permissions(&output, permissions).unwrap();
+    assert!(run(root.path(), &s(&["--write"])).is_err());
+}
+
+/// Edit the copied function reference as JSON.
+fn edit_reference(root: &Path, edit: impl FnOnce(&mut serde_json::Value)) {
+    let path = root.join(function_reference());
+    let mut document: serde_json::Value =
+        serde_json::from_str(&std::fs::read_to_string(&path).unwrap()).unwrap();
+    edit(&mut document);
+    std::fs::write(&path, document.to_string()).unwrap();
+}
+
+fn pages_error(root: &Path) -> String {
+    site_tools::ozzit_functions::render_pages(root).expect_err("the pages must be refused")
+}
+
+/// An edit of the function reference and the error it must cause.
+type ReferenceEdit = (fn(&mut serde_json::Value), &'static str);
+
+#[test]
+fn a_function_reference_out_of_shape_is_refused() {
+    let edits: [ReferenceEdit; 3] = [
+        (|d| d["format"] = "other".into(), "format must be"),
+        (
+            |d| {
+                d["modules"].as_array_mut().unwrap().pop();
+            },
+            "modules",
+        ),
+        (
+            |d| d["modules"].as_array_mut().unwrap().swap(0, 1),
+            "modules out of order",
+        ),
+    ];
+    for (edit, expected) in edits {
+        let root = inputs();
+        edit_reference(root.path(), edit);
+        let error = pages_error(root.path());
+        assert!(error.contains(expected), "{expected}: {error}");
+    }
+    let root = inputs();
+    let path = root.path().join(index_csv());
+    let text = std::fs::read_to_string(&path).unwrap();
+    let first_row = text.lines().nth(1).unwrap().to_owned();
+    std::fs::write(&path, format!("{}\n{first_row}\n", text.trim_end())).unwrap();
+    assert!(pages_error(root.path()).contains("is listed more than once in the index"));
+}
+
+#[test]
+fn plain_help_lines_run_together_and_empty_extra_rows_are_dropped() {
+    let root = inputs();
+    edit_reference(root.path(), |d| {
+        let function = &mut d["modules"][0]["functions"][0];
+        function["parameters"] = serde_json::json!([{"name": "x", "text": "first\nsecond"}]);
+        function["extra"] =
+            serde_json::json!([{"heading": "More", "rows": [{}, {"text": "only row"}]}]);
+    });
+    let pages = site_tools::ozzit_functions::render_pages(root.path()).unwrap();
+    let html: String = pages.into_iter().map(|(_, html)| html).collect();
+    assert!(html.contains("first second"));
+    assert!(html.contains("<li>only row</li>"));
+}
