@@ -199,7 +199,7 @@ function initialiseCalculators([calculate, fieldErrors, fbtForms, { individualRe
       if (csv) download(csv, 'cash-forecast.csv', 'text/csv;charset=utf-8');
     });
     if (csvDownload) csvDownload.addEventListener('click', () => {
-      if (csv) download(csv, csvDownload.dataset.csv, 'text/csv;charset=utf-8');
+      if (csv) download(csv, csvDownload.dataset.csv, csvDownload.dataset.type ?? 'text/csv;charset=utf-8');
     });
 
     // Each table's rows: a label cell, then figures; a table the result has no rows for stays hidden.
@@ -578,6 +578,9 @@ function initialiseCalculators([calculate, fieldErrors, fbtForms, { individualRe
           case 'sgc-payday':
             result = calculate.sgcPaydayResult(value, aud);
             break;
+          case 'payday-cashflow':
+            result = calculate.paydayCashflowResult(value, aud);
+            break;
           case 'cgt':
             result = calculate.cgtResult(value, (name) => form.elements.namedItem(name).checked, aud);
             break;
@@ -598,6 +601,13 @@ function initialiseCalculators([calculate, fieldErrors, fbtForms, { individualRe
             break;
           case 'contractor-employee':
             result = calculate.contractorEmployeeResult(value, aud);
+            break;
+          case 'tax-invoice':
+            result = calculate.taxInvoiceResult(value, aud);
+            showTables(result.tables);
+            // The download is the invoice itself, a page to print or save as PDF.
+            csv = result.html; // eslint-disable-line xss/no-mixed-html -- the invoice file is downloaded, never inserted into this page
+            csvDownload.disabled = false;
             break;
           case 'fuel-tax-credits':
             result = calculate.fuelTaxCreditsResult(value, aud);
@@ -698,6 +708,10 @@ function initialiseCalculators([calculate, fieldErrors, fbtForms, { individualRe
             break;
           case 'deferred-tax':
             result = calculate.deferredTaxResult(value, aud);
+            showTables(result.tables);
+            break;
+          case 'trust-streaming':
+            result = calculate.trustStreamingResult(value, aud);
             showTables(result.tables);
             break;
           case 'asic-fees':

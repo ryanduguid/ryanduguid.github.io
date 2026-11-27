@@ -52,13 +52,13 @@
       <header class="article-header site-shell">
         <nav class="article-crumb" aria-label="Breadcrumb"><ol><li><a href="/">Home</a></li><li><a href="/tools/">Tools</a></li><li aria-current="page">Business calculators</li></ol></nav>
         <h1>Business calculators</h1>
-        <p class="lead-note">Sixty free calculators that run in your browser with the formula, assumptions and primary source beside the inputs. No sign-up; inputs stay on your device.</p>
+        <p class="lead-note">Sixty-three free calculators that run in your browser with the formula, assumptions and primary source beside the inputs. No sign-up; inputs stay on your device.</p>
         {% assign checked = "" %}{% for calculator in site.data.calculator_cases %}{% if calculator[1].checked and calculator[1].checked > checked %}{% assign checked = calculator[1].checked %}{% endif %}{% endfor %}
         <p class="page-meta">Published 11 September 2026. Last checked <time datetime="{{ checked }}">{{ checked | date: "%-d %B %Y" }}</time>, the newest of the calculators’ source checks.</p>
       </header>
       <div class="site-shell accounting-content">
         <form class="tool-filter" id="calc-filter" role="search" aria-label="Filter business calculators">
-          <label class="field" for="calc-search">Search 60 calculators<input type="search" id="calc-search" name="q" autocomplete="off" placeholder="e.g. stamp duty, FBT, CGT, payroll tax, GST" /></label>
+          <label class="field" for="calc-search">Search 63 calculators<input type="search" id="calc-search" name="q" autocomplete="off" placeholder="e.g. stamp duty, FBT, CGT, payroll tax, GST" /></label>
           <p id="calc-count" class="field-note" role="status"></p>
         </form>
         <h2>Pricing, planning and loans</h2>
@@ -105,6 +105,7 @@
           <li id="deferred-tax"><a class="collection-entry__title" href="/tools/business-calculators/deferred-tax/">Deferred tax calculator</a> A company’s AASB 112 tax effect worksheet: deferred tax liability and asset, the movement, current tax and the reconciliation.</li>
           <li id="salary-dividend"><a class="collection-entry__title" href="/tools/business-calculators/salary-dividend/">Salary against dividends calculator</a> A company owner’s salary and super guarantee against fully franked dividends for 2021-22 to 2026-27: the cash and super kept after tax, and the split that keeps the most.</li>
           <li id="sole-trader-company"><a class="collection-entry__title" href="/tools/business-calculators/sole-trader-company/">Sole trader against company calculator</a> One business profit taxed as a sole trader, with the small business income tax offset, and through a company paying a salary, super guarantee and fully franked dividends, for 2021-22 to 2026-27: each structure’s total tax.</li>
+          <li id="trust-streaming"><a class="collection-entry__title" href="/tools/business-calculators/trust-streaming/">Trust streaming calculator</a> A discretionary trust’s net income shared by present entitlement, with capital gains and franked distributions streamed to the beneficiaries specifically entitled, and the trustee’s 45% tax under section 99A.</li>
         </ul>
         <h2>Capital gains tax</h2>
         <ul class="calculator-list">
@@ -118,6 +119,7 @@
           <li id="contractor-employee"><a class="collection-entry__title" href="/tools/business-calculators/contractor-employee/">Contractor against employee calculator</a> The cost to a business and the take-home pay of the same person engaged as an employee or as a contractor, and when section 12(3) still makes the super guarantee payable.</li>
           <li id="cash"><a class="collection-entry__title" href="/tools/business-calculators/cash/">13-week cash forecast</a> Weekly closing cash from opening cash, receipts and payments, with one delayed receipt and a funding gap against a buffer. Save, load and export as CSV.</li>
           <li id="sgc-payday"><a class="collection-entry__title" href="/tools/business-calculators/sgc-payday/">SGC and Payday Super calculator</a> When a Payday Super contribution is due, how many days late it was, and one employee’s super guarantee charge, each step cited.</li>
+          <li id="payday-cashflow"><a class="collection-entry__title" href="/tools/business-calculators/payday-cashflow/">Payday Super cashflow calculator</a> Each payday’s super guarantee due date under Payday Super against the old quarterly date, and the peak extra working capital for a quarter of 2026-27.</li>
           <li id="long-service-leave"><a class="collection-entry__title" href="/tools/business-calculators/long-service-leave/">Long service leave calculator</a> One employee’s long service leave under each state and territory’s Act: the leave to take now, or the weeks payable when employment ends for a given reason and their value, each step cited.</li>
           <li id="workers-compensation"><a class="collection-entry__title" href="/tools/business-calculators/workers-compensation/">Workers compensation premium calculator</a> A 2026-27 premium from the declared wages and the insurer’s rate under each state and territory’s scheme, with GST, duty and the actual wages adjustment, each step cited.</li>
           <li id="super-benefit-tax"><a class="collection-entry__title" href="/tools/business-calculators/super-benefit-tax/">Super lump sum tax</a> The components of a super lump sum and the most tax each part can bear, for members and death benefits, 2020-21 to 2026-27.</li>
@@ -136,6 +138,7 @@
         <ul class="calculator-list">
           <li id="payg-instalments"><a class="collection-entry__title" href="/tools/business-calculators/payg-instalments/">PAYG instalments calculator</a> The quarterly PAYG instalment from the notified amount, a varied amount, instalment income times the rate, or a varied rate with its credit.</li>
           <li id="objection-deadline"><a class="collection-entry__title" href="/tools/business-calculators/objection-deadline/">Objection deadline checker</a> The last day to object to an income tax or FBT assessment, an amended assessment or another ATO decision, with the weekend rule.</li>
+          <li id="tax-invoice"><a class="collection-entry__title" href="/tools/business-calculators/tax-invoice/">Tax invoice generator</a> A printable tax invoice or RCTI made in your browser and checked against section 29-70 of the GST Act: GST at one-eleventh with the rounding rules, the ABN check digit and the $1,000 recipient rule.</li>
           <li id="fuel-tax-credits"><a class="collection-entry__title" href="/tools/business-calculators/fuel-tax-credits/">Fuel tax credit calculator</a> A business’s fuel tax credits at the ATO’s rate for each day since 1 July 2022, by fuel and use, with label 7D and the small claimant methods.</li>
           <li id="luxury-car-tax"><a class="collection-entry__title" href="/tools/business-calculators/luxury-car-tax/">Luxury car tax calculator</a> Luxury car tax, its adjustments and refunds for 2019-20 to 2026-27.</li>
           <li id="wine-equalisation-tax"><a class="collection-entry__title" href="/tools/business-calculators/wine-equalisation-tax/">Wine equalisation tax calculator</a> WET on a tax period’s wholesale sales, retail sales, own use and sales under quote, the producer rebate within the year’s $350,000 or $400,000 cap, and labels 1C and 1D.</li>

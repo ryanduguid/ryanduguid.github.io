@@ -12,7 +12,7 @@
   },
   "json_ld": {
     "about/index.html": [
-      "02aa09ec79f08e66feb8b071a927c07aa4e5f4b248e88654d397fc645ddb74fa"
+      "e45ccf35f171c240b95741725a46e9b4576093b83b4ee57dd34158722ebdf3c0"
     ],
     "changelog/index.html": [
       "2f99cacd968d0cce8b2c3be85df980d2ded4206f071d2663f2c82c23816fd1b2"
@@ -39,7 +39,7 @@
       "3c1604e9daed736e19910e5339f54086500888b4704379eeead8622996cd0385"
     ],
     "index.html": [
-      "151590eb2e0927afbd658d37cb88b8655b33ef3bd59c300c24d61ef6a09e6759"
+      "22186ca076349cf2298adad5e9a08b0d19b8136f30c8f63e1eb31ad2c69ac66d"
     ],
     "privacy/index.html": [
       "dabe19f4f720b7d61a2993c85ad4ea6f5ba29a4f6109f90a3b9267b611902a15"
@@ -153,7 +153,7 @@
       "ec639067667e6f56119264fb033dc4c9e15683696d89f7adc715d1778f250773"
     ],
     "tools/business-calculators/cgt/index.html": [
-      "1347db93b0f541230b212cbebf6d41a11384895ff1130506a86d6a6709c217a1"
+      "a934b17de422b0e83b4539fa4da83a7efe5059f75a6b9f0c9a003150a5b3c70e"
     ],
     "tools/business-calculators/company-tax/index.html": [
       "7f1f2296cde2493c9d8685d9dc7eeea5adf9d79886f6d0a4c5b92ec2de556617"
@@ -228,7 +228,7 @@
       "1ee789e07f991caadaf17f3e165e8bc60550a06242fe627a485241855184f7b5"
     ],
     "tools/business-calculators/index.html": [
-      "dbba8486378a122ca1d46bc6593ef5d71956c88d7c481932c6a8da3564f99644"
+      "017c5417aec4fa67cac2cd5aee9d90d5bf40f8378532c09cf3038cbc263bc7d0"
     ],
     "tools/business-calculators/land-tax/index.html": [
       "90b1d2897a81b87c05cb1a74bb0937f468ac5e1806fa0b19603b5fff589b9e09"
@@ -250,6 +250,9 @@
     ],
     "tools/business-calculators/objection-deadline/index.html": [
       "dcab5352be0982423e6e11cacecd9470e3a531468a34a6db716c40ff237e308a"
+    ],
+    "tools/business-calculators/payday-cashflow/index.html": [
+      "8c1abe456d5d873968f8947c198c568622b981494e0619411457404c3084c6e2"
     ],
     "tools/business-calculators/payg-instalments/index.html": [
       "53bdce1e630ba7b97a352724618a68773c9fa941b0c4afb52464ce86f2b42e14"
@@ -287,11 +290,17 @@
     "tools/business-calculators/super-benefit-tax/index.html": [
       "43025e01fc00922d799fda63d3e34838119ed949926ade7a2cc59dd92171eb9a"
     ],
+    "tools/business-calculators/tax-invoice/index.html": [
+      "613bc525c8be0bb0ee5505fb0ed0ec4dac3e2330d6f1b2b7ae7d1ec51d7acb81"
+    ],
     "tools/business-calculators/termination-payment/index.html": [
       "b055a3fecec1e12e11404b465cc1031bccc9254058bbd4566e22509430287508"
     ],
     "tools/business-calculators/transfer-duty/index.html": [
       "c868e04100902a2addc3c4481999fc36a8e8022dc7a688b129349623f0068140"
+    ],
+    "tools/business-calculators/trust-streaming/index.html": [
+      "3a39a5a633c8bc503cbc2aec53241fef23637a0f1075ae47563adf653f95a43a"
     ],
     "tools/business-calculators/unused-leave/index.html": [
       "7b49ac5c7805a39f463b9638dc30c54bb4bda8a27d1d875b134d29e53301827a"
@@ -440,7 +449,7 @@
   },
   "protected_files": {
     "robots.txt": "18d6a7d73dbde21fcae1ba0ac8ccd5750ced144637be01d142ea5dc16ee96a9d",
-    "sitemap.xml": "507a6c6d4c71766e55980690db1d3bcacf9a626af8403a54eead6ddee63cce70"
+    "sitemap.xml": "9753aa3b671f3de50329d797054991c643b55002de70d8ab5ddf7771b250e95e"
   },
   "protected_main_links": {
     "rates/cents-per-kilometre/index.html": [
@@ -500,7 +509,7 @@
     "rates/super-guarantee/index.html": "a5d7321076de35ab9916764165ca7cdc369eef5a36ae35762be3e2ed93c6dc56"
   },
   "protected_text": {
-    "Ryan Duguid is not a registered tax or BAS agent. Nothing here is accounting, tax, legal or financial advice. Outputs are review aids for a qualified professional.": 7815,
+    "Ryan Duguid is not a registered tax or BAS agent. Nothing here is accounting, tax, legal or financial advice. Outputs are review aids for a qualified professional.": 7818,
     "Nothing here is accounting, tax, legal or financial advice. The tools are review aids for a qualified professional, not compliance determinations.": 1,
     "This site does not offer tax or BAS agent services or take requests for tax advice or lodgement.": 1
   }
