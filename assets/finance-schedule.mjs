@@ -145,6 +145,16 @@ function scheduleCents(amount, balloon, payment, count, rate, advance, most) {
   return { rows, balloonRow: balloon ? { opening: left, payment: balloon, interest: balloon - left, closing: 0n } : null };
 }
 
+/** What `count` payments and `balloon` at the end of the last period are worth at the start,
+ * discounted at `rate`, in cents rounded half up, with no limit on the balloon.
+ * @param {bigint} payment @param {number} count @param {PeriodRate} rate @param {boolean} advance @param {bigint} balloon */
+export function presentValue(payment, count, rate, advance, balloon) {
+  if (rate.num === 0n) return payment * BigInt(count) + balloon;
+  const growth = (rate.den + rate.num) ** BigInt(count);
+  const scale = rate.den ** BigInt(count);
+  return ratioCents(payment * (advance ? rate.den + rate.num : rate.den) * (growth - scale) + balloon * scale * rate.num, rate.num * growth);
+}
+
 /** The amount financed, in cents, that `count` payments and the balloon are worth at `rate`: the
  * balloon in cents, or as `share` hundredths of 1% of the amount itself when `share` is not null.
  * @param {bigint} payment @param {number} count @param {PeriodRate} rate @param {boolean} advance
@@ -155,8 +165,7 @@ function amountFinanced(payment, count, rate, advance, share, balloon) {
   const scale = rate.den ** BigInt(count);
   let amount;
   if (share === null) {
-    amount = rate.num === 0n ? payment * BigInt(count) + balloon
-      : ratioCents(payment * k * (growth - scale) + balloon * scale * rate.num, rate.num * growth);
+    amount = presentValue(payment, count, rate, advance, balloon);
   } else {
     // amount = payments' worth / (1 - share x v^n), as the balloon is a share of the amount.
     if (rate.num === 0n && share === 10000n) throw new Error('At nil interest a 100% balloon leaves the payments nothing to repay, so no amount fits.');
