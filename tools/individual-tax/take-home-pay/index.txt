@@ -26,6 +26,12 @@ Salary sacrificed to super each pay period (dollars and cents) Do you have a stu
 
 Did you have private patient hospital cover all year? Yes No
 
+## Withholding under another schedule
+
+For 2024-25 to 2026-27, the calculator can also work the amount to withhold from one payment under another schedule, beside the year’s result.
+
+Also work out withholding under another schedule? No, Schedule 1 only Daily or casual pay (tax table for daily and casual workers) Schedule 2: horticulture or shearing Schedule 3: actors, variety artists and other entertainers Schedule 4: a return to work payment Schedule 6: an annuity Schedule 9: a senior or pensioner Schedule 10: a payment under a voluntary agreement Schedule 14: an extra amount the payee asked for in writing Schedule 15: a working holiday maker A supplier who quoted no ABN
+
 Use dated earnings for super
 
 For one employer with super paid on top, enter one payment per line as date, gross salary before sacrifice and earnings for super. Separate the 3 entries with spaces, for example 2026-06-25 3000.00 2500.00. Use ordinary time earnings through 2025-26 and qualifying earnings from 2026-27. Gross payments must add up to the salary for the year. For an extra pay, enter the total salary and sacrifice for the year.
@@ -40,7 +46,7 @@ Calculate Fictional example: the first boundary case below. Change the inputs an
 
 The take-home pay calculator takes one salary for a year, month, fortnight or week and works out the year’s income tax, offsets, Medicare levy, any Medicare levy surcharge and any study or training loan repayment on it. Salary sacrificed to super comes off first. From 2026-27 it also takes off the standard deduction of up to $1,000 for work-related expenses. It then gives what is left for the year, a month, a fortnight and a week, and an estimate of employer super guarantee. Supply dated earnings to calculate super using the applicable quarters or paydays. Employer super goes to a fund and is separate from take-home pay.
 
-Those take-home amounts are the year’s tax spread evenly: the year’s net amount divided by 12, 26 and 52. They are not the amounts an employer withholds each pay. For a weekly, fortnightly or monthly pay, the calculator also works the PAYG amount withheld from one pay under the year’s Schedule 1, and Schedule 8 with a study loan, and the year’s withholding less the year’s tax, which is the refund or amount owing when the tax return is assessed. Withholding does not allow for the low and middle income tax offset, so in 2021-22 the offset comes back as part of the refund: $3,000 a fortnight has $670 withheld each pay and $1,543 back. For working holiday makers, who are withheld from under another schedule, use the ATO’s tax withheld calculator.
+Those take-home amounts are the year’s tax spread evenly: the year’s net amount divided by 12, 26 and 52. They are not the amounts an employer withholds each pay. For a weekly, fortnightly or monthly pay, the calculator also works the PAYG amount withheld from one pay under the year’s Schedule 1, and Schedule 8 with a study loan, and the year’s withholding less the year’s tax, which is the refund or amount owing when the tax return is assessed. Withholding does not allow for the low and middle income tax offset, so in 2021-22 the offset comes back as part of the refund: $3,000 a fortnight has $670 withheld each pay and $1,543 back. For other payments, choose another schedule: the calculator then also works the amount to withhold from one payment under the tax table for daily and casual workers, Schedule 2 (horticulture and shearing), 3 (performers), 4 (return to work payments), 6 (annuities), 9 (seniors and pensioners), 10 (voluntary agreements), 14 (an extra amount the payee asked for), 15 (working holiday makers) or the no ABN rule, for 2024-25 to 2026-27. Each is a port of the matching australian-accounting command, checked against it as the sources below say.
 
 The example on arrival is 2025-26, before the standard deduction: on $75,000 the Medicare levy is $1,500, as the ATO’s example of Matthew on What is the Medicare levy gives. In 2026-27 the same salary is $74,000 of taxable income.
 
@@ -50,7 +56,8 @@ When the salary includes super, the calculator splits it: at 12%, a package of $
 
 The tax and PAYG estimates assume one employer, a salary paid evenly over the full year and no other income, deductions or offsets. Dated super can use irregular payments that add up to the year’s gross salary.
 
-- separate tax or withholding treatment for overtime, bonuses, allowances or leave loading. PAYG estimates use 52 weekly or 26 fortnightly pays and omit withholding under scales 1, 5 and 6, withholding for working holiday makers, offsets claimed in a withholding declaration and Medicare levy variations;
+- separate tax or withholding treatment for overtime, bonuses, allowances or leave loading. PAYG estimates use 52 weekly or 26 fortnightly pays and omit withholding under scales 1, 5 and 6, offsets claimed in a withholding declaration and Medicare levy variations;
+- in the other schedules option, which refuses rather than guesses: payments before 2024-25, a dependants’ Medicare levy adjustment or 53 or 27 pays under Schedules 6 and 14, offsets or a levy adjustment under Schedule 9, a foreign resident with a TFN under Schedule 3 or the daily table, Pacific Australia Labour Mobility workers, a voluntary agreement not in force or without an ABN, and whether the payment belongs under the schedule;
 - 2025-26 withholding with a study loan that mixes the 2 Schedule 8s: the year’s withholding and refund take the one from 24 September 2025 for every pay, and the component before that date is shown beside it;
 - work-related deductions you claim, which reduce the standard deduction dollar for dollar except those section 25-130(3) disregards, such as professional association fees;
 - salary sacrifice of anything but super, reportable fringe benefits, excess concessional contributions or Division 293 tax;
@@ -86,7 +93,7 @@ Above the cap and in Division 293 | 2026-27, Australian resident, $260,000 a yea
 2021-22 fortnightly: withholding leaves the low and middle income tax offset to the return | 2021-22, Australian resident, $3,000 a fortnight plus super | Take-home $62,123.00 a year, $2,389.35 a fortnight; super $7,800.00; withheld $670.00 a pay, refund $1,543.00
 2025-26 fortnightly with a study loan: Schedule 8 from 24 September 2025 | 2025-26, Australian resident, $3,000 a fortnight plus super, study loan | Take-home $60,602.00 a year, $2,330.85 a fortnight; super $9,360.00; withheld $672.00 a pay, refund $74.00
 
-One of the eighteen individual tax calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the nineteen individual tax calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 ## Common questions
 
@@ -96,7 +103,7 @@ Yes. From 1 July 2025 the general super guarantee rate is 12%, and earlier years
 
 ### Which PAYG withholding schedules does it use?
 
-The take-home pay calculator applies the ATO’s Schedule 1 and Schedule 8 coefficients for weekly, fortnightly and monthly pay periods from 2021-22 to 2026-27.
+The take-home pay calculator applies the ATO’s Schedule 1 and Schedule 8 coefficients for weekly, fortnightly and monthly pay periods from 2021-22 to 2026-27. For 2024-25 to 2026-27 it can also work one payment under the daily and casual table, Schedule 2, 3, 4, 6, 9, 10, 14 or 15, or the no ABN rule.
 
 ## Related
 
@@ -108,10 +115,9 @@ Planning estimates in AUD. Confirm tax treatment, liability amounts and dates se
 
 ## Links
 
-- tax withheld calculator: https://www.ato.gov.au/calculators-and-tools/tax-withheld-calculator
 - What is the Medicare levy: https://www.ato.gov.au/individuals-and-families/medicare-and-private-health-insurance/medicare-levy/what-is-the-medicare-levy
 - income tax calculator: https://duguid.com.au/tools/individual-tax/income-tax/
 - Simple tax calculator: https://www.ato.gov.au/calculators-and-tools/tax-return-simple-tax-calculator
-- eighteen individual tax calculators: https://duguid.com.au/tools/individual-tax/
+- nineteen individual tax calculators: https://duguid.com.au/tools/individual-tax/
 - PAYG withholding coefficients: https://duguid.com.au/rates/payg-withholding/
 - Super guarantee rate history: https://duguid.com.au/rates/super-guarantee/

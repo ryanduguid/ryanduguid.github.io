@@ -11,6 +11,8 @@ mod cli_and_io;
 mod commands;
 #[path = "cov/node_edges.rs"]
 mod node_edges;
+#[path = "cov/part_b4.rs"]
+mod part_b4;
 #[path = "cov/pass2_contracts.rs"]
 mod pass2_contracts;
 #[path = "cov/pass2_runtime.rs"]
