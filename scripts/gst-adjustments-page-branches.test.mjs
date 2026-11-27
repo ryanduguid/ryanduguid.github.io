@@ -11,15 +11,15 @@ import { readFileSync } from 'node:fs';
 import { gstAdjustment, gstAdjustmentsResult, gstFormInput, gstInputsText } from '../assets/gst-adjustments-page.mjs';
 import { aud, formReader } from './form-fields.mjs';
 
-const HTML = readFileSync(new URL('../_includes/calculators/gst-adjustments.html', import.meta.url), 'utf8');
-const page = (/** @type {Record<string, string>} */ changes) => gstAdjustmentsResult(formReader(HTML, changes), aud);
+const FORM = readFileSync('_includes/calculators/gst-adjustments.html', 'utf8');
+const page = (/** @type {Record<string, string>} */ changes) => gstAdjustmentsResult(formReader(FORM, changes), aud);
 const shown = (/** @type {Record<string, string>} */ changes) => {
   const r = page(changes);
   return { rows: r.rows, principal: r.principal };
 };
 
 test('a worksheet the form does not offer reads as the creditable purpose worksheet', () => {
-  assert.equal(gstFormInput(formReader(HTML, { worksheet: 'nonsense' })).worksheet, 'creditable-purpose');
+  assert.equal(gstFormInput(formReader(FORM, { worksheet: 'nonsense' })).worksheet, 'creditable-purpose');
   assert.throws(() => gstAdjustment('nonsense', {}), { code: 'input.field_unknown', message: /nonsense is not a worksheet/ });
 });
 
@@ -40,7 +40,7 @@ test('a period past the last adjustment period, or after a Division 132 disposal
 });
 
 test('a tax period length that is not a number of months passes as written, and the command refuses it', () => {
-  assert.equal(gstFormInput(formReader(HTML, { 'cp-months': 'x' })).input.tax_period_months, 'x');
+  assert.equal(gstFormInput(formReader(FORM, { 'cp-months': 'x' })).input.tax_period_months, 'x');
   assert.throws(() => page({ 'cp-months': 'x' }), { code: 'gst_creditable_purpose_change.tax_period_unsupported' });
 });
 
@@ -53,7 +53,7 @@ test('an entity neither small nor in business gives its turnover and the optiona
     + 'not paying by instalments, not with annual tax periods, election not made, GST $100.00, creditable purpose 10%, not for input taxed '
     + 'supplies 80%, consideration provided 50%, not a car, not reduced credit');
   assert.match(r.note, /^The entity is not eligible to make an annual apportionment election \(GST Act s 131-5\)/);
-  const input = gstFormInput(formReader(HTML, { worksheet: 'annual-apportionment', 'aa-elected': 'no' })).input;
+  const input = gstFormInput(formReader(FORM, { worksheet: 'annual-apportionment', 'aa-elected': 'no' })).input;
   assert.equal(gstAdjustment('annual-apportionment', input).outcome, 'eligible, no election');
 });
 
@@ -94,7 +94,7 @@ test('bad debts: a supplier’s taxable proportion, a recipient’s recovery and
   const unqualified = page({ worksheet: 'bad-debt', 'bd-qualifies': 'no', 'bd-event': 'written_off' });
   assert.deepEqual(unqualified.rows, [['Decreasing adjustment', 'None under Division 21']]);
   assert.equal(unqualified.note, 'Division 21 gives no adjustment on these facts');
-  const input = gstFormInput(formReader(HTML, { worksheet: 'bad-debt', 'bd-qualifies': 'no', 'bd-event': 'written_off' })).input;
+  const input = gstFormInput(formReader(FORM, { worksheet: 'bad-debt', 'bd-qualifies': 'no', 'bd-event': 'written_off' })).input;
   assert.deepEqual([gstAdjustment('bad-debt', input).outcome, gstAdjustment('bad-debt', input).amount], ['no adjustment', null]);
 });
 

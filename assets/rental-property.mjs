@@ -141,7 +141,7 @@ function decimalInput(value, key) {
     refuse('input.amount_invalid', 'Amounts must be finite non-negative Decimals, at most 2dp and 1e12.');
   }
   if (new TextEncoder().encode(value).length > 8192) refuse('input.decimal_too_long', `${key}: decimal input exceeds 8192 bytes`);
-  const parts = /^(-?)(\d+)(?:\.(\d+))?$/.exec(value.trim());
+  const parts = /^(-?)(\d+)(?:\.(\d+))?$/.exec(value.trim()); // eslint-disable-line security/detect-unsafe-regex -- anchored, with no repetition over overlapping characters: linear
   if (!parts) refuse('input.decimal_unreadable', `${key} must be a decimal number.`);
   const c = BigInt(parts[2] + (parts[3] ?? ''));
   return [parts[1] ? -c : c, -(parts[3] ?? '').length];

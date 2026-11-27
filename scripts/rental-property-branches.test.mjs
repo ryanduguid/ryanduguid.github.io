@@ -70,7 +70,7 @@ test('an unknown or missing input, no borrowing input and a s 26-50 answer that 
   refused({ section_26_50_applies: 'no' }, 'input.flag_invalid');
 });
 
-const HTML = readFileSync(new URL('../_includes/calculators/rental-property.html', import.meta.url), 'utf8');
+const FORM = readFileSync('_includes/calculators/rental-property.html', 'utf8');
 const SOLD = { disposed: '2026-03-31', days: '200',
   'works-cost-1': '100000', 'works-kind-1': 'building', 'works-began-1': '1978-01-01', 'works-first-1': '1979-01-01',
   'works-cost-2': '50000', 'works-kind-2': 'structural_improvement', 'works-began-2': '2010-01-01', 'works-first-2': '2010-06-01',
@@ -78,7 +78,7 @@ const SOLD = { disposed: '2026-03-31', days: '200',
   'asset-pool-1': 'no' };
 
 test('a property sold in the year with a pre-1979 building, a structural improvement and a private use asset', () => {
-  const r = rentalPropertyResult(formReader(HTML, SOLD), aud);
+  const r = rentalPropertyResult(formReader(FORM, SOLD), aud);
   assert.ok(r.inputs.includes('; held from 20 July 2025 to 31 March 2026; 200 days let or available;'), r.inputs);
   const rows = new Map(r.tables.deductions);
   assert.equal(rows.get('Asset 1: decline in value $500.00, nil under s 40-27'), '$0.00');
@@ -89,7 +89,7 @@ test('a property sold in the year with a pre-1979 building, a structural improve
 });
 
 test('a building begun from 18 July 1985 to 15 September 1987 is written off at 4%', () => {
-  const r = rentalPropertyResult(formReader(HTML, { ...SOLD, 'works-began-1': '1986-01-01', 'works-first-1': '1986-06-01' }), aud);
+  const r = rentalPropertyResult(formReader(FORM, { ...SOLD, 'works-began-1': '1986-01-01', 'works-first-1': '1986-06-01' }), aud);
   const label = r.tables.deductions.find(([name]) => name.startsWith('Capital works 1:'));
   assert.deepEqual(label, ['Capital works 1: building begun 1 January 1986, 4% for 200 days, $0.00 undeducted', '$0.00']);
   assert.ok(!r.note.includes('Capital works 1 is nil'), r.note);
