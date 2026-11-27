@@ -36,6 +36,9 @@ import { pensionMinimum, pensionMinimumFormInput, pensionMinimumResult } from '.
 import './pension-minimum.test.mjs';
 import { residencyDays, residencyDaysResult, residencyFormPresence } from '../assets/residency-days.mjs';
 import './residency-days.test.mjs';
+import { lodgmentFormInput, lodgmentRequired, lodgmentRequiredResult } from '../assets/lodgment-required.mjs';
+import './lodgment-required.test.mjs';
+import './withholding-schedules.test.mjs';
 import { ENGINES as SUPER_ENGINES, FORM_CALLS as SUPER_FORM_CALLS, INPUTS as SUPER_INPUTS, OUTPUTS as SUPER_OUTPUTS } from './super-income-cases.mjs';
 import { dbIncomeCapResult } from '../assets/defined-benefit-income-cap.mjs';
 import { foreignPensionResult } from '../assets/foreign-pension-upp.mjs';
@@ -65,6 +68,10 @@ const engines = { taxEstimate, takeHomePay, studyLoanRepayment, soleTraderSetAsi
   residencyDaysCases: (...call) => {
     const r = residencyDays(...call);
     return { days_in_australia: r.tests.days_in_australia, days_needed: r.tests.days_needed, exception_applies: r.visitor, days_183: r.tests.days_183 };
+  },
+  lodgmentRequiredCases: (input) => {
+    const r = lodgmentRequired(input);
+    return { lodgment_required: r.lodgment_required, required_by: r.required_by, exceptions_applied: r.exceptions_applied, due_date: r.due_date };
   } };
 Object.assign(engines, SUPER_ENGINES);
 const shownCases = JSON.parse(readFileSync(new URL('../_data/individual_tax_cases.json', import.meta.url), 'utf8'));
@@ -118,6 +125,11 @@ const INPUTS = {
     + `${f.proposed_repayment ? `, proposed ${dollars(f.proposed_repayment)}` : ''}`,
   residencyDaysCases: (year, presence, outside, intends) => `${year}, ${presence.map((p) => `${p.from} to ${p.to}`).join(', ')}`
     + `${outside ? ', usual abode outside Australia' : ''}${intends ? ', intends to take up residence' : ''}`,
+  lodgmentRequiredCases: (f) => `${f.year}, ${f.residency.status === 'part_year' ? `resident ${f.residency.months} months` : f.residency.status === 'none' ? 'not resident' : 'resident all year'}, `
+    + `taxable income ${dollars(f.taxable_income)}${f.triggers.length ? `, ${f.triggers.join(', ')}` : ''}`
+    + `${f.under_18 ? `, under 18 with ${dollars(f.under_18.income_excluding_work)} not from work` : ''}`
+    + `${f.listed_payment ? `, listed payment${f.listed_payment.other_assessable_income ? ' and other income' : ''}` : ''}`
+    + `${f.sapto ? `, SAPTO ${f.sapto.category} rebate income ${dollars(f.sapto.rebate_income)}` : ''}`,
   governmentSuperAmounts: (f) => `${f.year}, assessable income ${whole(f.assessable_income)}`
     + (f.taxable_income === f.assessable_income ? '' : `, taxable income ${whole(f.taxable_income)}`)
     + (f.business_deductions === '0' ? '' : `, business deductions ${whole(f.business_deductions)}`)
@@ -197,6 +209,8 @@ const OUTPUTS = {
     + `${r.proposed_repayment ? `; paid before 1 June ${dollars(r.accumulated_debt_if_paid_before_1_june)}, `
       + `after ${dollars(r.accumulated_debt_if_paid_on_or_after_1_june)}` : ''}`,
   residencyDaysCases: (r) => `${r.days_in_australia} days, ${r.days_needed} needed${r.exception_applies ? ', exception applies' : ''}: ${r.days_183 ? 'met' : 'not met'}`,
+  lodgmentRequiredCases: (r) => (r.lodgment_required ? `Required by ${r.required_by.join(', ')}, due ${r.due_date}`
+    : `Not required${r.exceptions_applied.length ? `: ${r.exceptions_applied.join(', ')} applies` : ''}`),
   governmentSuperAmounts: (r) => `Co-contribution ${dollars(r.amounts.co_contribution_paid)}, LISTO ${dollars(r.amounts.listo_paid)}`
     + (r.amounts.spouse_contribution_offset === undefined ? '' : `, spouse offset ${dollars(r.amounts.spouse_contribution_offset)}`),
   fhssAmounts: (r) => `Maximum release ${dollars(r.maximum_release_amount)}, assessable ${dollars(r.assessable_fhss_released_amount)}, `
@@ -256,7 +270,7 @@ const formDefaults = (html) => {
   const fields = {};
   for (const [tag] of html.matchAll(/<input\b[^>]*>/g)) {
     const name = tag.match(/\bname="([^"]+)"/)?.[1];
-    if (name && /\btype="radio"/.test(tag) && !/\bchecked\b/.test(tag)) continue;
+    if (name && /\btype="(?:radio|checkbox)"/.test(tag) && !/\bchecked\b/.test(tag)) continue;
     if (name) fields[name] = tag.match(/\bvalue="([^"]*)"/)?.[1];
   }
   for (const [, name, text] of html.matchAll(/<textarea\b[^>]*\bname="([^"]+)"[^>]*>([\s\S]*?)<\/textarea>/g)) {
@@ -280,6 +294,7 @@ const FORM_CALLS = {
   pensionMinimumAmounts: (f) => [pensionMinimumFormInput((name) => f[name] ?? '')],
   helpIndexationAmounts: (f) => [helpIndexationFormInput((name) => f[name] ?? '')],
   residencyDaysCases: (f) => [f.year, residencyFormPresence((name) => f[name] ?? ''), f['usual-abode-outside'] === 'yes', f['intends-residence'] === 'yes'],
+  lodgmentRequiredCases: (f) => [lodgmentFormInput((name) => f[name] ?? '', (name) => Object.hasOwn(f, name))],
   fhssAmounts: (f) => {
     const fixture = fhssExampleFields(f);
     return [Object.fromEntries(Object.entries(fhssFormFacts(name => fixture[name] ?? '')).filter(([, value]) => value !== ''))];
@@ -763,6 +778,7 @@ for (const page of Object.keys(shownCases)) {
       : page === 'transfer-balance' ? transferBalanceResult(value, aud)
       : page === 'pension-minimum' ? pensionMinimumResult(value, aud)
       : page === 'residency-days' ? residencyDaysResult(value)
+      : page === 'lodgment-required' ? lodgmentRequiredResult(value, (name) => Object.hasOwn(fields, name))
       : page === 'defined-benefit-income-cap' ? dbIncomeCapResult(value)
       : page === 'foreign-pension-upp' ? foreignPensionResult(value)
       : page === 'scholarship-exemption' ? scholarshipResult(value)
@@ -775,6 +791,19 @@ for (const page of Object.keys(shownCases)) {
     assert.equal(result.note, example[4]);
   });
 }
+
+test('the take-home and salary packaging results word a study loan, no cover and Type 1 benefits', () => {
+  const aud = (value) => value.toLocaleString('en-AU', { style: 'currency', currency: 'AUD' });
+  const reader = (page, changes) => {
+    const fields = { ...formDefaults(readFileSync(new URL(`../_includes/calculators/${page}.html`, import.meta.url), 'utf8')), ...changes };
+    return (name) => fields[name] ?? '';
+  };
+  const takeHome = individualResult('take-home-pay', reader('take-home-pay', { 'study-loan': 'yes', cover: 'no' }), aud);
+  assert.match(takeHome.inputs, /, with a study or training loan, no private hospital cover$/);
+  // Type 1 benefits gross up at 2.0802 under s 5B(1F) of the FBTAA: $1,000 is $2,080 to the dollar.
+  const packaged = individualResult('salary-packaging', reader('salary-packaging', { 'type-one': '1000' }), aud);
+  assert.deepEqual(packaged.rows.find(([label]) => label.startsWith('Type 1')), ['Type 1 benefits grossed up under s 5B(1F), to the dollar', '$2,080.00']);
+});
 
 test('a form that is not an individual tax calculator gets no result, whatever its name', () => {
   for (const kind of ['gst', 'constructor', 'toString', '__proto__']) {
@@ -864,11 +893,26 @@ test('salary packaging gives the FBT in the ATO’s worked example', () => {
 });
 
 test('salary packaging rounds each grossed-up total to the dollar against the cap', () => {
-  assert.equal(pack({ typeTwo: '15900.20' }).excess, 0);
-  assert.equal(pack({ typeTwo: '15900.21' }).fbt, 0.47);
-  assert.equal(pack({ employer: 'hospital', typeTwo: '9009.96' }).excess, 0);
-  assert.equal(pack({ employer: 'hospital', typeTwo: '9010.23' }).excess, 1);
+  assert.equal(pack({ typeTwo: '15900.26' }).excess, 0);
+  assert.equal(pack({ typeTwo: '15900.27' }).fbt, 0.47);
+  assert.equal(pack({ employer: 'hospital', typeTwo: '9010.26' }).excess, 0);
+  assert.equal(pack({ employer: 'hospital', typeTwo: '9010.27' }).excess, 1);
   assert.equal(pack({ typeOne: '1000' }).grossedTypeOne, 2080);
+});
+
+// FBTAA s 5B(1F) and (1G), read on the ATO legal database 26 November 2026: Type 1 benefits are grossed
+// up by (FBT rate + GST rate) / ((1 - FBT rate) x (1 + GST rate) x FBT rate) and Type 2 by
+// 1 / (1 - FBT rate), not by the 4-place 2.0802 and 1.8868 the ATO publishes.
+test('salary packaging grosses up by the s 5B formulas, not the 4-place rates', () => {
+  // $15,900.21 / 0.53 = $30,000.396: within the cap. At 1.8868 it was $30,000.516, so $30,001 and $0.47 of FBT.
+  const within = pack({ typeTwo: '15900.21' });
+  assert.deepEqual([within.grossedTypeTwo, within.excess, within.fbt], [30000, 0, 0]);
+  // $15,900.27 / 0.53 = $30,000.509, the first cent over.
+  assert.deepEqual([pack({ typeTwo: '15900.27' }).grossedTypeTwo, pack({ typeTwo: '15900.26' }).grossedTypeTwo], [30001, 30000]);
+  // Type 1: $1,000.14 x 0.57 / 0.27401 = $2,080.507, so $2,081, where 2.0802 gives $2,080.491, so $2,080.
+  assert.equal(pack({ typeOne: '1000.14' }).grossedTypeOne, 2081);
+  // The room left takes Type 2 benefits at 53 cents in each grossed-up dollar.
+  assert.equal(pack({ typeTwo: '2000' }).roomTypeTwo, 13899.78);
 });
 
 test('salary packaging lets up to $5,000 of meal entertainment over the cap and no more', () => {

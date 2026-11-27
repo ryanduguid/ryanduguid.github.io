@@ -313,15 +313,16 @@ function effectiveRate(a, start, costs) {
 /** Present value at monthly rate `k` of `flows` after time `tau` (in periods). @param {{t: number, payment: number}[]} flows @param {number} k @param {number} tau */
 const presentValue = (flows, k, tau) => flows.filter((f) => f.t > tau).reduce((sum, f) => sum + f.payment / (1 + k) ** (f.t - tau), 0);
 
-/** The time, in periods of a loan's grid, of `day`. @param {string} start @param {{t: number, date: string}[]} flows @param {number} day */
+/** The time, in periods of a loan's grid, of `day`, or null when no payment falls after it.
+ * @param {string} start @param {{t: number, date: string}[]} flows @param {number} day */
 function periodsTo(start, flows, day) {
   let previous = /** @type {number} */ (dayOf(start));
   for (const f of flows) {
     const to = /** @type {number} */ (dayOf(f.date));
-    if (day <= to) return f.t - 1 + (day - previous) / (to - previous);
+    if (day < to) return f.t - 1 + (day - previous) / (to - previous);
     previous = to;
   }
-  return flows.length;
+  return null;
 }
 
 /** @typedef {{monthly: number, flows: {t: number, date: string, payment: number, interest: number}[], net: number, amount: number}} Rate */
@@ -344,6 +345,10 @@ function refinancing(a, t, earlier, old) {
   const received = a.lender_fees_received === undefined ? 0n : moneyCents(a.lender_fees_received);
   const rate = effectiveRate(a, t.from, 0);
   const tau = periodsTo(earlier.from, old.flows, /** @type {number} */ (dayOf(t.from)));
+  // With no payment of loan k left, it was settled by its payments (para 3.3.1): there is nothing to compare.
+  if (tau === null) {
+    refuse('accounting.refinanced_loan_paid', `Loan ${k}’s last payment falls on or before this loan’s start, so none of its cash flows remain for the 10% test of AASB 9 para B3.3.6. Check loan ${k}’s payments and the date it is repaid.`);
+  }
   const before = presentValue(old.flows, old.monthly, tau);
   const after = presentValue(rate.flows, old.monthly, 0) + Number(paid - received) / 100;
   const change = Math.abs(after - before) / before;

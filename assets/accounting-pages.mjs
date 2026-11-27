@@ -58,13 +58,14 @@ function renderResult(output, result) {
 
 const forms = [...document.querySelectorAll('form[data-calculator]')];
 function initialiseCalculators([calculate, fieldErrors, fbtForms, { individualResult, engines }, fhssMod, workExpensesMod, transferBalanceMod,
-  pensionMinimumMod, governmentSuperMod, residencyDaysMod, dbIncomeCapMod, foreignPensionMod, scholarshipMod, crystallisationMod, helpIndexationMod]) {
+  pensionMinimumMod, governmentSuperMod, residencyDaysMod, lodgmentMod, dbIncomeCapMod, foreignPensionMod, scholarshipMod, crystallisationMod, helpIndexationMod]) {
   const { fhssResult } = fhssMod;
   const { workExpensesResult } = workExpensesMod;
   const { transferBalanceResult } = transferBalanceMod;
   const { pensionMinimumResult } = pensionMinimumMod;
   const { governmentSuperResult } = governmentSuperMod;
   const { residencyDaysResult } = residencyDaysMod;
+  const { lodgmentRequiredResult } = lodgmentMod;
   const { dbIncomeCapResult } = dbIncomeCapMod;
   const { foreignPensionResult } = foreignPensionMod;
   const { scholarshipResult } = scholarshipMod;
@@ -80,7 +81,7 @@ function initialiseCalculators([calculate, fieldErrors, fbtForms, { individualRe
   // A failed import or registration leaves the form itself untouched; the warning keeps the cause.
   if (modelContext?.registerTool) import('./webmcp-tools.mjs').then(async ({
     calculatorTools, individualTaxTools, fhssTools, workExpensesTools, governmentSuperTools, pensionMinimumTools,
-    transferBalanceTools, residencyDaysTools, dbIncomeCapTools, foreignPensionTools, scholarshipTools, crystallisationTools, helpIndexationTools,
+    transferBalanceTools, residencyDaysTools, lodgmentRequiredTools, dbIncomeCapTools, foreignPensionTools, scholarshipTools, crystallisationTools, helpIndexationTools,
   }) => {
     const tools = {
       ...calculatorTools(calculate),
@@ -91,6 +92,7 @@ function initialiseCalculators([calculate, fieldErrors, fbtForms, { individualRe
       ...(pensionMinimumMod.pensionMinimum ? pensionMinimumTools(pensionMinimumMod) : {}),
       ...(governmentSuperMod.governmentSuperAmounts ? governmentSuperTools(governmentSuperMod) : {}),
       ...(residencyDaysMod.residencyDays ? residencyDaysTools(residencyDaysMod) : {}),
+      ...(lodgmentMod.lodgmentRequired ? lodgmentRequiredTools(lodgmentMod) : {}),
       ...(dbIncomeCapMod.definedBenefitIncomeCap ? dbIncomeCapTools(dbIncomeCapMod) : {}),
       ...(foreignPensionMod.foreignPensionUpp ? foreignPensionTools(foreignPensionMod) : {}),
       ...(scholarshipMod.scholarshipExemption ? scholarshipTools(scholarshipMod) : {}),
@@ -519,12 +521,14 @@ function initialiseCalculators([calculate, fieldErrors, fbtForms, { individualRe
             const income = decision === 'assessment' || decision === 'amended';
             const amended = decision === 'amended' || decision === 'amended-fbt';
             const years = income && value('group') === '2' ? 2 : 4;
-            const r = calculate.objectionDeadline(decision, value('group'), value('notice'), value('first'));
+            const r = calculate.objectionDeadline(decision, value('group'), value('notice'), value('first'), value('amended'));
             const kind = { assessment: 'income tax assessment', amended: 'amended income tax assessment', fbt: 'FBT assessment',
               'amended-fbt': 'amended FBT assessment', other: 'other decision' }[decision];
             result = { inputs: `${kind}, ${income ? `${years === 2 ? 'item 1, 2, 3 or 3A applies (2 years)' : 'no item 1, 2, 3 or 3A (4 years)'}, ` : ''}`
-              + `notice given ${longDate(value('notice'))}${amended ? `, first assessment’s notice given ${longDate(value('first'))}` : ''}`,
-            rows: [...(amended ? [['60 days after the amended notice', dayAndDate(r.amendedEnds)], [`${years} years after the first notice`, dayAndDate(r.firstEnds)]] : []),
+              + `notice given ${longDate(value('notice'))}${amended ? `, notice of the assessment amended given ${longDate(value('amended'))}, `
+                + `first assessment’s notice given ${longDate(value('first'))}` : ''}`,
+            rows: [...(amended ? [['60 days after the amended notice', dayAndDate(r.amendedEnds)],
+              [`${years} years after ${years === 2 ? 'notice of the assessment amended' : 'the first assessment’s notice'}`, dayAndDate(r.originalEnds)]] : []),
               [`Period ends, ${r.rule}`, dayAndDate(r.periodEnds)],
               ['Last day to lodge, under subsection 36(2) of the Acts Interpretation Act 1901', dayAndDate(r.lastDay)]],
             note: 'If that day is a public holiday where the objection is lodged, or the office is closed all day, it may be lodged on the next day that is not a Saturday, Sunday or holiday. '
@@ -773,6 +777,9 @@ function initialiseCalculators([calculate, fieldErrors, fbtForms, { individualRe
           case 'help-indexation':
             result = helpIndexationResult(value, aud);
             break;
+          case 'lodgment-required':
+            result = lodgmentRequiredResult(value, (name) => form.elements.namedItem(name).checked);
+            break;
           default: result = individualResult(form.dataset.calculator, value, aud) ?? fbtForms.fbtBenefitResult(form, calculate, { aud, value, money });
         }
         renderResult(output, result);
@@ -805,6 +812,7 @@ function loadCalculators(retryForm) {
     forms.some((f) => f.dataset.calculator === 'pension-minimum') ? import(`./pension-minimum.mjs${suffix}`) : {}, // eslint-disable-line no-unsanitized/method -- a fixed same-origin module path with this page's cache suffix
     forms.some((f) => f.dataset.calculator === 'government-super') ? import(`./government-super-result.mjs${suffix}`) : {}, // eslint-disable-line no-unsanitized/method -- a fixed same-origin module path with this page's cache suffix
     forms.some((f) => f.dataset.calculator === 'residency-days') ? import(`./residency-days.mjs${suffix}`) : {}, // eslint-disable-line no-unsanitized/method -- a fixed same-origin module path with this page's cache suffix
+    forms.some((f) => f.dataset.calculator === 'lodgment-required') ? import(`./lodgment-required.mjs${suffix}`) : {}, // eslint-disable-line no-unsanitized/method -- a fixed same-origin module path with this page's cache suffix
     forms.some((f) => f.dataset.calculator === 'defined-benefit-income-cap') ? import(`./defined-benefit-income-cap.mjs${suffix}`) : {}, // eslint-disable-line no-unsanitized/method -- a fixed same-origin module path with this page's cache suffix
     forms.some((f) => f.dataset.calculator === 'foreign-pension-upp') ? import(`./foreign-pension-upp.mjs${suffix}`) : {}, // eslint-disable-line no-unsanitized/method -- a fixed same-origin module path with this page's cache suffix
     forms.some((f) => f.dataset.calculator === 'scholarship-exemption') ? import(`./scholarship-exemption.mjs${suffix}`) : {}, // eslint-disable-line no-unsanitized/method -- a fixed same-origin module path with this page's cache suffix

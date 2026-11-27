@@ -393,8 +393,10 @@ const sixtyDaysAfter = (day) => new Date(day.getTime() + 60 * DAY);
  *   item 1, 2, 3 or 3A, '4' otherwise; not read for other decisions
  * @param {string} notice the day notice of the decision was given or served
  * @param {string} first for an amended assessment, the day notice of the first assessment for the year was given
- * @returns {{rule: string, periodEnds: string, lastDay: string, amendedEnds: string | null, firstEnds: string | null}} */
-export function objectionDeadline(decision, group, notice, first) {
+ * @param {string} [amended] for an amended assessment, the day notice of the assessment it amends was
+ *   given: the first assessment, or an earlier amended one
+ * @returns {{rule: string, periodEnds: string, lastDay: string, amendedEnds: string | null, originalEnds: string | null}} */
+export function objectionDeadline(decision, group, notice, first, amended = '') {
   if (!['assessment', 'amended', 'fbt', 'amended-fbt', 'other'].includes(decision)) throw new Error('Choose the decision objected to.');
   const income = decision === 'assessment' || decision === 'amended';
   if (income && group !== '2' && group !== '4') throw new Error('Choose whether item 1, 2, 3 or 3A applies.');
@@ -406,23 +408,26 @@ export function objectionDeadline(decision, group, notice, first) {
   /** @type {string | null} */
   let amendedEnds = null;
   /** @type {string | null} */
-  let firstEnds = null;
+  let originalEnds = null;
   if (decision === 'amended' || decision === 'amended-fbt') {
-    // Subsections (1B) and (1BA): the later of 60 days after the amended notice and the
-    // original period after the first assessment's notice (subsection (1C)).
+    // Subsections (1B) and (1BA): the later of 60 days after the amended notice and the original
+    // period after notice of the assessment amended. Subsection (1C) counts (1B)'s from the first
+    // assessment's notice where the assessment had been amended before; it does not reach (1BA).
+    const amendedDay = noticeDay(amended);
     const firstDay = noticeDay(first);
-    if (firstDay.getTime() > day.getTime()) throw new Error('The first assessment’s notice cannot be later than the amended one.');
-    const amended = sixtyDaysAfter(day);
-    const original = yearsAfter(firstDay, years);
-    amendedEnds = isoDay(amended);
-    firstEnds = isoDay(original);
+    if (amendedDay.getTime() > day.getTime()) throw new Error('The notice of the assessment amended cannot be later than the amended assessment’s.');
+    if (firstDay.getTime() > amendedDay.getTime()) throw new Error('The first assessment’s notice cannot be later than the notice of the assessment amended.');
+    const sixty = sixtyDaysAfter(day);
+    const original = yearsAfter(years === 2 ? amendedDay : firstDay, years);
+    amendedEnds = isoDay(sixty);
+    originalEnds = isoDay(original);
     rule = years === 2 ? 'subsection 14ZW(1BA)' : 'subsection 14ZW(1B)';
-    periodEnds = amended.getTime() > original.getTime() ? amended : original;
+    periodEnds = sixty.getTime() > original.getTime() ? sixty : original;
   }
   // s 36(2): a Saturday or Sunday moves to the next day that is not one.
   const weekday = periodEnds.getUTCDay();
   const lastDay = new Date(periodEnds.getTime() + (weekday === 6 ? 2 : weekday === 0 ? 1 : 0) * DAY);
-  return { rule, periodEnds: isoDay(periodEnds), lastDay: isoDay(lastDay), amendedEnds, firstEnds };
+  return { rule, periodEnds: isoDay(periodEnds), lastDay: isoDay(lastDay), amendedEnds, originalEnds };
 }
 
 /** @typedef {'amount' | 'varied-amount' | 'rate' | 'varied-rate'} InstalmentMethod

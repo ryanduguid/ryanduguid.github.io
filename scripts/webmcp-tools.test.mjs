@@ -7,7 +7,7 @@ import * as calculate from '../assets/business-calculators.mjs';
 import { readFileSync, readdirSync } from 'node:fs';
 import {
   calculatorTools, depreciationTools, fhssTools, governmentSuperTools, individualTaxTools, levyTools, ozzitTools,
-  pensionMinimumTools, residencyDaysTools, transferBalanceTools, workExpensesTools,
+  lodgmentRequiredTools, pensionMinimumTools, residencyDaysTools, transferBalanceTools, workExpensesTools,
   crystallisationTools, dbIncomeCapTools, foreignPensionTools, scholarshipTools, helpIndexationTools,
 } from '../assets/webmcp-tools.mjs';
 import { DB_INCOME_CAP_YEARS, definedBenefitIncomeCap } from '../assets/defined-benefit-income-cap.mjs';
@@ -20,6 +20,7 @@ import { workExpenses, workExpensesYears } from '../assets/work-expenses-result.
 import { governmentSuperAmounts, governmentSuperYears } from '../assets/government-super-result.mjs';
 import { PENSION_MINIMUM_YEARS, pensionMinimum } from '../assets/pension-minimum.mjs';
 import { MAX_PERIODS, RESIDENCY_YEARS, residencyDays } from '../assets/residency-days.mjs';
+import { LODGMENT_YEARS, STATED, lodgmentRequired } from '../assets/lodgment-required.mjs';
 import { HELP_INDEXATION_YEARS, MAX_ENTRIES, helpIndexation } from '../assets/help-indexation.mjs';
 import { ATO_TABLE_5, CHARGE_YEARS, RELEASE_YEARS, excessContributions } from '../assets/excess-contributions.mjs';
 import { TBA_KINDS, TBA_YEARS, dayOf, label, transferBalance, yearOf } from '../assets/transfer-balance.mjs';
@@ -471,6 +472,7 @@ const individual = {
   ...pensionMinimumTools({ pensionMinimum, PENSION_MINIMUM_YEARS }),
   ...transferBalanceTools({ ATO_TABLE_5, CHARGE_YEARS, RELEASE_YEARS, TBA_KINDS, TBA_YEARS, dayOf, excessContributions, label, transferBalance, yearOf }),
   ...residencyDaysTools({ MAX_PERIODS, RESIDENCY_YEARS, residencyDays }),
+  ...lodgmentRequiredTools({ LODGMENT_YEARS, STATED, lodgmentRequired }),
   ...dbIncomeCapTools({ DB_INCOME_CAP_YEARS, definedBenefitIncomeCap }),
   ...foreignPensionTools({ FOREIGN_PENSION_YEARS, foreignPensionUpp }),
   ...scholarshipTools({ SCHOLARSHIP_YEARS, PAYMENT_TYPES, COMMONWEALTH_PAYMENTS, scholarshipExemption }),
@@ -485,7 +487,7 @@ test('each individual tax tool is keyed by the form that registers it and is rea
     'calculate_concessional_catch_up', 'calculate_bonus_withholding', 'calculate_salary_packaging',
     'calculate_novated_lease', 'calculate_fhss_release', 'calculate_work_expenses',
     'calculate_government_super_amounts', 'calculate_pension_minimum', 'calculate_transfer_balance',
-    'calculate_residency_days', 'calculate_defined_benefit_income_cap', 'calculate_foreign_pension_upp',
+    'calculate_residency_days', 'check_lodgment_required', 'calculate_defined_benefit_income_cap', 'calculate_foreign_pension_upp',
     'check_scholarship_exemption', 'calculate_super_crystallisation', 'calculate_help_indexation']);
   for (const [key, t] of Object.entries(individual)) {
     const form = readFileSync(new URL(`../_includes/calculators/${key}.html`, import.meta.url), 'utf8');
@@ -1092,17 +1094,29 @@ test('margin and markup tool returns the page worked example, null on zero base 
 test('objection deadline tool returns the page worked example, checks amended assessments and refuses mismatched or unknown inputs', async () => {
   const tool = tools['objection-deadline'];
   const r = await tool.execute({ decision: 'assessment', reviewPeriodYears: '2', noticeDate: '2026-11-18' });
-  assert.deepEqual([r.rule, r.periodEnds, r.lastDay, r.amendedEnds, r.firstEnds, r.source],
+  assert.deepEqual([r.rule, r.periodEnds, r.lastDay, r.amendedEnds, r.originalEnds, r.source],
     ['subparagraph 14ZW(1)(aa)(i)', '2028-11-18', '2028-11-20', null, null, 'https://duguid.com.au/tools/business-calculators/objection-deadline/']);
   assert.doesNotThrow(() => JSON.stringify(r));
-  const amended = await tool.execute({ decision: 'amended', reviewPeriodYears: '2', noticeDate: '2026-11-18', firstNoticeDate: '2025-11-18' });
-  assert.deepEqual([amended.rule, amended.amendedEnds, amended.firstEnds], ['subsection 14ZW(1BA)', '2027-01-17', '2027-11-18']);
+  const amended = await tool.execute({ decision: 'amended', reviewPeriodYears: '2', noticeDate: '2026-11-18', amendedNoticeDate: '2025-11-18',
+    firstNoticeDate: '2025-11-18' });
+  assert.deepEqual([amended.rule, amended.amendedEnds, amended.originalEnds], ['subsection 14ZW(1BA)', '2027-01-17', '2027-11-18']);
+  // A second amendment: (1BA) counts from the assessment amended, (1B) through (1C) from the first.
+  const again = { decision: 'amended', noticeDate: '2028-06-01', amendedNoticeDate: '2028-01-10', firstNoticeDate: '2024-03-01' };
+  const two = await tool.execute({ ...again, reviewPeriodYears: '2' });
+  assert.deepEqual([two.rule, two.originalEnds, two.periodEnds], ['subsection 14ZW(1BA)', '2030-01-10', '2030-01-10']);
+  const four = await tool.execute({ ...again, reviewPeriodYears: '4' });
+  assert.deepEqual([four.rule, four.originalEnds, four.periodEnds], ['subsection 14ZW(1B)', '2028-03-01', '2028-07-31']);
+  await assert.rejects(tool.execute({ decision: 'amended', reviewPeriodYears: '2', noticeDate: '2026-11-18', firstNoticeDate: '2025-11-18' }),
+    /amendedNoticeDate is required/);
   await assert.rejects(tool.execute({ decision: 'assessment', noticeDate: '2026-11-18' }), /reviewPeriodYears is required/);
   await assert.rejects(tool.execute({ decision: 'fbt', reviewPeriodYears: '4', noticeDate: '2026-11-18' }), /reviewPeriodYears applies only/);
   await assert.rejects(tool.execute({ decision: 'assessment', reviewPeriodYears: '2', noticeDate: '2026-11-18', firstNoticeDate: '2025-11-18' }),
     /firstNoticeDate applies only/);
   await assert.rejects(tool.execute({ decision: 'ruling', noticeDate: '2026-11-18' }), /decision does not match/);
   await assert.rejects(tool.execute({ decision: 'other', noticeDate: '2026-11-18', state: 'NSW' }), /state is not an input of this tool/);
+  // An FBT assessment takes no review period: paragraph 14ZW(1)(aaa) gives 4 years after the notice.
+  const fbt = await tool.execute({ decision: 'fbt', noticeDate: '2026-11-18' });
+  assert.deepEqual([fbt.rule, fbt.periodEnds, fbt.lastDay], ['paragraph 14ZW(1)(aaa)', '2030-11-18', '2030-11-18']);
 });
 
 test('budget variance tool returns the page worked example, supports negative values and refuses invalid or unknown inputs', async () => {
@@ -1739,7 +1753,7 @@ test('every calculator include in _includes/calculators has a registered WebMCP 
     .sort();
   const registered = [...Object.keys(tools), ...Object.keys(individual)].sort();
   assert.deepEqual(registered, slugs);
-  assert.equal(registered.length + 2, 83);
+  assert.equal(registered.length + 2, 84);
 });
 
 test('business days tool returns the page worked example, matches holiday JSON and refuses mismatched or invalid inputs', async () => {
@@ -2423,4 +2437,42 @@ test('ABN and ACN tool checks the digits only and never establishes registration
   await assert.rejects(tool.execute({ identifier: 'abn', number: GOOD.replaceAll(' ', '-') }), /number does not match/);
   await assert.rejects(tool.execute({ identifier: 'tfn', number: GOOD }), /identifier does not match/);
   await assert.rejects(tool.execute({ identifier: 'abn', number: '1'.repeat(41) }), /number does not match/);
+});
+
+test('lodgment tool applies the threshold, the exceptions and the due date, and refuses 2026-27', async () => {
+  const tool = individual['lodgment-required'];
+  const base = { incomeYear: '2025-26', residency: 'whole_year', dividendsAndFrankingCredits: '0' };
+  const under = await tool.execute({ ...base, taxableIncome: '18200' });
+  assert.deepEqual([under.lodgmentRequired, under.requiredBy, under.dueDate, under.source],
+    [false, [], null, 'https://duguid.com.au/tools/individual-tax/lodgment-required/']);
+  const over = await tool.execute({ ...base, taxableIncome: '18200.01' });
+  assert.deepEqual([over.lodgmentRequired, over.requiredBy, over.dueDate, over.instrument.id],
+    [true, ['subparagraph 6(3)(a)(i)'], '2026-10-31', 'F2026L00618']);
+  assert.doesNotThrow(() => JSON.stringify(over));
+  // 2021-22 Notice: a listed payment with taxable income under $21,885 relieves Table B.
+  const listed = await tool.execute({ ...base, incomeYear: '2021-22', taxableIncome: '21884.99', listedPaymentOtherAssessableIncome: true });
+  assert.deepEqual([listed.lodgmentRequired, listed.exceptionsApplied], [false, ['Table K item (1)']]);
+  const part = await tool.execute({ ...base, residency: 'part_year', monthsResident: 5, taxableIncome: '15439.01', conditions: ['business'] });
+  assert.deepEqual(part.requiredBy, ['paragraph 6(2)(f)', 'subparagraph 6(3)(a)(ii)']);
+  await assert.rejects(tool.execute({ ...base, incomeYear: '2026-27', taxableIncome: '1' }), /incomeYear does not match/);
+  await assert.rejects(tool.execute({ ...base, taxableIncome: '1', childSupportParent: true }), /separate instrument for parents/);
+  await assert.rejects(tool.execute({ ...base, taxableIncome: '1', conditions: ['lottery'] }), /conditions does not match/);
+  await assert.rejects(tool.execute({ ...base, taxableIncome: '1', scopeConfirmed: false }), /Establish all stated scope conditions/);
+  await assert.rejects(tool.execute({ ...base, taxableIncome: '1', resides: true }), /resides is not an input of this tool/);
+  // The australian-accounting 1.4.0 release: a non-resident with income taxable in Australia lodges under paragraph 6(3)(b), and
+  // in 2022-23 a minor's $500 of other income requires a return under Table A item (9).
+  const none = await tool.execute({ ...base, residency: 'none', taxableAustralianIncome: true, taxableIncome: '1000' });
+  assert.deepEqual(none.requiredBy, ['paragraph 6(3)(b)']);
+  const minor = await tool.execute({ ...base, incomeYear: '2022-23', taxableIncome: '1000', under18IncomeExcludingWork: '500' });
+  assert.deepEqual(minor.requiredBy, ['Table A item (9)']);
+  // Each optional group reaches the command in its own shape.
+  const groups = await tool.execute({ ...base, taxableIncome: '1000', studyLoanIncome: '70000',
+    workingHolidayMaker: { otherAssessableIncome: true, taxableIncomeExcludingRemainders: '1000' }, sapto: { rebateIncome: '40000', category: 'single' } });
+  const direct = lodgmentRequired({ residency: { status: 'whole_year' }, taxable_income: '1000', dividends_and_franking_credits: '0', under_18: null,
+    triggers: [], study_loan: { income: '70000' }, working_holiday_maker: { other_assessable_income: true, taxable_income_excluding_remainders: '1000' },
+    listed_payment: null, sapto: { rebate_income: '40000', category: 'single' }, child_support_parent: false, year: '2025-26', scope_confirmed: true });
+  assert.deepEqual(groups.steps, direct.steps);
+  // The working holiday maker and SAPTO groups each add their exception's step, paragraph 7(1)(f) and subsection 7(3).
+  assert.deepEqual(groups.steps.slice(2).map((s) => s.step.split(':')[0]), ['Paragraph 7(1)(f)', 'Subsection 7(3)']);
+  assert.match(groups.steps[3].finding, /^rebate income \$40000 against less than \$34919: does not apply$/);
 });

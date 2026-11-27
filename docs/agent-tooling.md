@@ -48,8 +48,8 @@ on the 63 business calculator pages,
 `calculate_bonus_withholding`, `calculate_salary_packaging`, `calculate_novated_lease`, `project_super_balance`,
 `calculate_fhss_release`, `calculate_work_expenses`, `calculate_government_super_amounts`,
 `calculate_pension_minimum`, `calculate_transfer_balance`, `calculate_residency_days`,
-`calculate_defined_benefit_income_cap`, `calculate_foreign_pension_upp`, `check_scholarship_exemption`, `calculate_super_crystallisation`
-and `calculate_help_indexation` on the 18
+`check_lodgment_required`, `calculate_defined_benefit_income_cap`, `calculate_foreign_pension_upp`,
+`check_scholarship_exemption`, `calculate_super_crystallisation` and `calculate_help_indexation` on the 19
 individual tax calculator pages, `calculate_decline_in_value` on the depreciation rates page and
 `calculate_coal_lsl_levy` on the Coal LSL levy calculator.
 `assets/accounting-pages.mjs`, `assets/depreciation-calculator-page.mjs` and
@@ -63,7 +63,7 @@ pattern, range or list, or a name the schema does not declare, rather than
 converting it. `scripts/webmcp-tools.test.mjs` covers each tool, with a refused
 input for each, and the WebMCP tests in `tests/browser/calculator.spec.mjs`
 cover registration on the GST, Division 7A, long service leave, fuel tax credit, borrowing expenses, depreciation rates and
-Coal LSL pages; `tests/browser/individual-tax.spec.mjs` covers the 18 individual tax pages.
+Coal LSL pages; `tests/browser/individual-tax.spec.mjs` covers the 19 individual tax pages.
 
 The 6 Ozzit module pages offer a second read-only tool, `ozzit_function`, through
 `assets/ozzit-tools.mjs`. It looks up one formula by name in the published

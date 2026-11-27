@@ -712,6 +712,21 @@ fn live_refresh_against_stubbed_sources() {
         (FOUND, "0.2.2".to_owned())
     );
 
+    // Each claim alone is checked against its own field only.
+    for (claim, meta) in [
+        ("active", r#"{"status": "active", "isLatest": false}"#),
+        ("latest", r#"{"status": "deprecated", "isLatest": true}"#),
+    ] {
+        let mut alone = mcp.clone();
+        *at(&mut alone, &["published", "registry_status"]) = s(claim);
+        let answer = with_meta(Some(meta));
+        assert_eq!(
+            probe(&mut stub(|_| Ok(answer.clone())), &alone)["registry"],
+            (FOUND, "0.2.2".to_owned()),
+            "{claim}"
+        );
+    }
+
     // A mistyped claim is inconclusive live.
     for claim in [
         s("active, lastest"),
