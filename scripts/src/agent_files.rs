@@ -880,7 +880,7 @@ mod tests {
 
     #[test]
     fn verify_live_counts_unpublished_names_in_registry_order() {
-        let root = live_root("live");
+        let root = live_root("live-counts");
         let asked = std::cell::RefCell::new(Vec::new());
         let status = |url: &str| {
             asked.borrow_mut().push(url.to_owned());
