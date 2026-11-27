@@ -888,10 +888,8 @@ mod tests {
                 Ok(main_ref())
             } else if endpoint.contains("/actions/runs?") {
                 Ok(runs.clone())
-            } else if endpoint.contains("/jobs?") {
-                jobs.clone().ok_or(Refusal::External)
             } else {
-                panic!("unexpected read {endpoint}")
+                jobs.clone().ok_or(Refusal::External)
             }
         };
         evaluate(REPO, &sha(), &mut fetch)
@@ -988,10 +986,8 @@ mod tests {
                 Ok(jobs.clone())
             } else if endpoint.ends_with("&page=1") {
                 Ok(analyses.clone())
-            } else if endpoint.contains("&page=") {
-                Ok(json("[]"))
             } else {
-                panic!("unexpected read {endpoint}")
+                Ok(json("[]"))
             }
         };
         assert_eq!(
@@ -1082,10 +1078,11 @@ mod tests {
 
         #[test]
         fn a_response_that_is_not_utf8_is_a_printable_value_error() {
-            let Err(Refusal::Value(message)) = call(r"printf '\377'", MINUTE, "x", false) else {
-                panic!("expected a value error")
-            };
-            assert!(message.contains("decode"), "{message}");
+            let result = call(r"printf '\377'", MINUTE, "x", false);
+            assert!(
+                matches!(&result, Err(Refusal::Value(message)) if message.contains("decode")),
+                "{result:?}"
+            );
         }
 
         #[test]

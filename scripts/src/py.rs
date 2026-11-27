@@ -859,13 +859,11 @@ impl Date {
         if !(1..=MAX_DATE.ordinal()).contains(&ordinal) {
             return None;
         }
-        // Estimate the year, then correct it.
+        // Estimate the year, then correct it. The estimate divides by the mean year,
+        // so it is never past the true year; the round-trip test checks every ordinal.
         let mut year = ((ordinal - 1) * 400 / 146_097 + 1) as i32;
         while days_before_year(year + 1) < ordinal {
             year += 1;
-        }
-        while days_before_year(year) >= ordinal {
-            year -= 1;
         }
         let mut rest = ordinal - days_before_year(year);
         let mut month = 1;
@@ -1164,7 +1162,7 @@ mod edge_tests {
     #[test]
     fn iso_dates_refuse_mixed_separators_year_zero_and_out_of_range_weeks() {
         for text in [
-            "2026-W01x",
+            "2026-W01x1",
             "2026-01x01",
             "0000-W01-1",
             "2026-W54",

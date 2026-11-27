@@ -1157,8 +1157,10 @@ mod tests {
                 .clone()
         }
 
+        /// The text answer to `url`, served as bytes.
         fn bytes(&mut self, url: &str) -> std::result::Result<Vec<u8>, LiveError> {
-            panic!("unexpected read {url}")
+            self.json(url)
+                .map(|served| served.as_str().unwrap_or_default().as_bytes().to_vec())
         }
     }
 
@@ -1183,13 +1185,12 @@ mod tests {
             .unwrap()
             .port();
         // The listener is dropped, so nothing accepts on the port.
-        let Err(LiveError::Error(kind, message)) =
-            Network.bytes(&format!("http://127.0.0.1:{port}/"))
-        else {
-            panic!("expected a URL error")
-        };
-        assert_eq!(kind, "URLError");
-        assert!(message.starts_with("<urlopen error "), "{message}");
+        let result = Network.bytes(&format!("http://127.0.0.1:{port}/"));
+        assert!(
+            matches!(&result, Err(LiveError::Error(kind, message))
+                if kind == "URLError" && message.starts_with("<urlopen error ")),
+            "{result:?}"
+        );
     }
 
     #[test]
@@ -1303,6 +1304,21 @@ mod tests {
         assert_eq!(
             recorded_release_exists(&mut live, &component(r#""1.0.0""#)),
             Ok(MISSING.into())
+        );
+    }
+
+    #[test]
+    fn a_served_asset_of_another_size_has_changed() {
+        let url = "https://example.com/a.zip";
+        let mut live = Fake(vec![(url.into(), Ok(Json::Str("abc".into())))]);
+        let published = json(&format!(r#"{{"download_url": "{url}", "asset_bytes": 4}}"#));
+        assert_eq!(
+            live_asset(&mut live, &published),
+            Ok(Some(found(
+                "asset",
+                CHANGED,
+                "3 bytes, record says 4".into()
+            )))
         );
     }
 
