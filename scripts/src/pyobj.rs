@@ -160,3 +160,25 @@ pub fn set(values: Vec<Json>) -> Result<Vec<Json>> {
 pub fn set_eq(a: &[Json], b: &[Json]) -> bool {
     a.len() == b.len() && a.iter().all(|x| b.iter().any(|y| x.py_eq(y)))
 }
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn subscript_names_the_key_type_as_python_does() {
+        let text = Json::str_obj("ab");
+        let error = subscript(&text, &Json::str_obj("x")).unwrap_err();
+        assert!(error.starts_with("TypeError: "), "{error}");
+        assert!(
+            error.ends_with(" indices must be integers, not 'str'"),
+            "{error}"
+        );
+        let list = Json::Array(vec![Json::Null]);
+        let error = subscript(&list, &Json::Null).unwrap_err();
+        assert!(
+            error.ends_with(" indices must be integers or slices, not NoneType"),
+            "{error}"
+        );
+    }
+}
