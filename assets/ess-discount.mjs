@@ -112,7 +112,7 @@ function sacrificeYears(all, assessed) {
   const unsettled = [];
   all.forEach((i, n) => {
     const year = incomeYear(i.acquired);
-    const a = assessed[n];
+    const a = /** @type {Assessed | null} */ (assessed.at(n));
     if (i.held === null || a === null) unsettled.push(year);
     else if (sacrificed(i, a)) totals.set(year, add(totals.get(year) ?? ZERO, i.held.value));
     else if (i.held.conditions.realRisk && wholeValue(i.held, a)
@@ -256,7 +256,7 @@ export function essDiscount(input) {
   /** @type {Totals} */
   const totals = { eligible: ZERO, other: ZERO, deferred: ZERO, startUp: ZERO, excluded: new Map() };
   const rows = all.map((i, n) => {
-    const a = assessed[n];
+    const a = /** @type {Assessed | null} */ (assessed.at(n));
     if (i.held === null || a === null) return forfeitedRow(i, totals);
     return heldRow(i, year, a, sacrificed(i, a) && years.get(incomeYear(i.acquired)) === true, totals);
   });

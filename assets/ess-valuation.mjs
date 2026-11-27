@@ -50,10 +50,10 @@ function tableRate(calculation, row) {
   if (cmp(calculation, int(50)) < 0) return ['s 83A-315.05 step 2', int(0)];
   if (cmp(calculation, int(110)) < 0) {
     const column = COLUMNS.findIndex((top) => cmp(calculation, lit(top)) <= 0);
-    return ['s 83A-315.08', percent(TABLE[row][column])];
+    return ['s 83A-315.08', percent(/** @type {string} */ (/** @type {string[]} */ (TABLE.at(row)).at(column)))];
   }
   const excess = quantize(sub(calculation, int(110)), 0, 'down');
-  const [base, additional] = BASE[row];
+  const [base, additional] = /** @type {string[]} */ (BASE.at(row));
   return ['s 83A-315.09', add(percent(base), mul(excess, percent(additional)))];
 }
 
@@ -84,7 +84,7 @@ export function rightValue(share, exercise, day, last, acquired) {
   const intrinsic = sub(share, exercise);
   const value = cmp(tabled, intrinsic) > 0 ? tabled : intrinsic;
   return [value, {
-    rule, calculation_percentage: str(calculation), exercise_period_months_up_to: PERIODS[row],
+    rule, calculation_percentage: str(calculation), exercise_period_months_up_to: PERIODS.at(row),
     intrinsic_value: shown(intrinsic), table_value: shown(tabled), value: shown(value),
   }];
 }

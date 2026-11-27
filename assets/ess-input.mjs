@@ -22,8 +22,8 @@ const SPACE = new Set([...'\t\n\v\f\r\x1c\x1d\x1e\x1f \x85\xa0\u1680\u2028\u2029
 function pyStrip(text) {
   const chars = [...text];
   let [from, to] = [0, chars.length];
-  while (from < to && SPACE.has(chars[from])) from += 1;
-  while (to > from && SPACE.has(chars[to - 1])) to -= 1;
+  while (from < to && SPACE.has(/** @type {string} */ (chars.at(from)))) from += 1;
+  while (to > from && SPACE.has(/** @type {string} */ (chars.at(to - 1)))) to -= 1;
   return chars.slice(from, to).join('');
 }
 
