@@ -4,9 +4,9 @@ Source: https://duguid.com.au/tools/business-calculators/blackhole-expenditure/
 
 > Section 40-880 business capital expenditure: a fifth a year over 5 income years, start-up costs at once, another entity’s business and the exclusions.
 
-# Blackhole expenditure calculator
+# Blackhole expenditure
 
-Section 40-880 deductions by income year.
+Section 40-880 deductions: a fifth a year or at once, 2020-21 to 2027-28.
 
 Published 26 November 2026. Last checked 26 November 2026.
 
@@ -84,7 +84,7 @@ The calculator does not decide whether an outlay is capital, whether an exclusio
 
 Each row is a test: scripts/business-calculators.test.mjs runs this calculator on these fictional inputs and fails if the result differs from the one shown.
 
-Boundary cases: Blackhole expenditure calculator
+Boundary cases: Blackhole expenditure
 
 Case | Inputs | Result
 The page’s example: $10,000 at 80% spread from 2023-24 and a $2,500 start-up cost deducted at once | 2025-26; item 1: $10,000.00 incurred in 2023-24 for your business, 80% taxable purpose; item 2: $2,500.00 incurred in 2025-26 for a proposed business, 100% taxable purpose, a start-up cost | Deduction $4,100.00, deductible expenditure $10,500.00, left for later years $3,200.00
