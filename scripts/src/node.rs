@@ -328,19 +328,66 @@ fn wait_unless(
     timeout: Option<std::time::Duration>,
     stop: impl Fn() -> bool,
 ) -> Option<std::process::ExitStatus> {
+    match poll(|| child.try_wait(), timeout, stop) {
+        Polled::Exited(status) => Some(status),
+        Polled::Stopped => {
+            let _ = child.kill();
+            let _ = child.wait();
+            None
+        }
+        Polled::Failed => None,
+    }
+}
+
+/// How [`poll`] ended.
+#[derive(Debug, PartialEq)]
+enum Polled {
+    Exited(std::process::ExitStatus),
+    /// `stop` held or the deadline passed; the child is still running.
+    Stopped,
+    /// `try_wait` failed, so the child cannot be waited for.
+    Failed,
+}
+
+/// Calls `try_wait` every 20 ms until it gives a status or fails, `stop` holds or `timeout` passes.
+fn poll(
+    mut try_wait: impl FnMut() -> io::Result<Option<std::process::ExitStatus>>,
+    timeout: Option<std::time::Duration>,
+    stop: impl Fn() -> bool,
+) -> Polled {
     let deadline = timeout.map(|t| std::time::Instant::now() + t);
     loop {
-        match child.try_wait() {
-            Ok(Some(status)) => return Some(status),
+        match try_wait() {
+            Ok(Some(status)) => return Polled::Exited(status),
             Ok(None) if stop() || deadline.is_some_and(|d| std::time::Instant::now() >= d) => {
-                let _ = child.kill();
-                let _ = child.wait();
-                return None;
+                return Polled::Stopped;
             }
             Ok(None) => std::thread::sleep(std::time::Duration::from_millis(20)),
-            Err(_) => return None,
+            Err(_) => return Polled::Failed,
         }
     }
+}
+
+/// Reads `pipe` to its end, past interrupted reads, until a read fails or `total` (shared
+/// with the other pipe) passes [`MAX_BUFFER`]; returns what it read.
+fn drain(pipe: &mut dyn io::Read, total: &std::sync::atomic::AtomicUsize) -> Vec<u8> {
+    use std::sync::atomic::Ordering::SeqCst;
+    let mut kept = Vec::new();
+    let mut chunk = [0; 65_536];
+    loop {
+        match pipe.read(&mut chunk) {
+            Ok(0) => break,
+            Ok(read) => {
+                kept.extend_from_slice(&chunk[..read]);
+                if total.fetch_add(read, SeqCst) + read > MAX_BUFFER {
+                    break;
+                }
+            }
+            Err(e) if e.kind() == io::ErrorKind::Interrupted => {}
+            Err(_) => break,
+        }
+    }
+    kept
 }
 
 /// `spawnSync`'s default `maxBuffer`: more than this on stdout and stderr together
@@ -370,24 +417,7 @@ pub fn capture(
     let total = Arc::new(AtomicUsize::new(0));
     let collect = |mut pipe: Box<dyn Read + Send>| {
         let total = Arc::clone(&total);
-        std::thread::spawn(move || {
-            let mut kept = Vec::new();
-            let mut chunk = [0; 65_536];
-            loop {
-                match pipe.read(&mut chunk) {
-                    Ok(0) => break,
-                    Ok(read) => {
-                        kept.extend_from_slice(&chunk[..read]);
-                        if total.fetch_add(read, SeqCst) + read > MAX_BUFFER {
-                            break;
-                        }
-                    }
-                    Err(e) if e.kind() == io::ErrorKind::Interrupted => {}
-                    Err(_) => break,
-                }
-            }
-            kept
-        })
+        std::thread::spawn(move || drain(&mut *pipe, &total))
     };
     let out = collect(Box::new(child.stdout.take().expect("piped stdout")));
     let err = collect(Box::new(child.stderr.take().expect("piped stderr")));
@@ -520,4 +550,46 @@ pub fn fetch_failure(error: &ureq::Error) -> (&'static str, Option<String>) {
         other => other.to_string(),
     };
     ("fetch failed", Some(code))
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+    use std::sync::atomic::AtomicUsize;
+
+    /// Gives `reads` in turn, then fails with `end`.
+    struct Script {
+        reads: Vec<io::Result<&'static [u8]>>,
+        end: io::ErrorKind,
+    }
+
+    impl io::Read for Script {
+        fn read(&mut self, buf: &mut [u8]) -> io::Result<usize> {
+            if self.reads.is_empty() {
+                return Err(self.end.into());
+            }
+            let bytes = self.reads.remove(0)?;
+            buf[..bytes.len()].copy_from_slice(bytes);
+            Ok(bytes.len())
+        }
+    }
+
+    #[test]
+    fn a_pipe_is_read_past_interruptions_and_kept_up_to_a_failed_read() {
+        let mut pipe = Script {
+            reads: vec![Ok(b"ab"), Err(io::ErrorKind::Interrupted.into()), Ok(b"cd")],
+            end: io::ErrorKind::BrokenPipe,
+        };
+        let total = AtomicUsize::new(0);
+        assert_eq!(drain(&mut pipe, &total), b"abcd");
+        assert_eq!(total.into_inner(), 4);
+    }
+
+    #[test]
+    fn a_child_that_cannot_be_waited_for_ends_the_wait_unstopped() {
+        let failed = poll(|| Err(io::ErrorKind::Other.into()), None, || false);
+        assert_eq!(failed, Polled::Failed);
+        let stopped = poll(|| Ok(None), None, || true);
+        assert_eq!(stopped, Polled::Stopped);
+    }
 }
