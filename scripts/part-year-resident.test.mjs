@@ -92,6 +92,12 @@ export const partYearFormTests = (incomeTaxPage, html) => {
     const full = incomeTaxPage({ year: '2025-26', income: '60000', fringe: '0', uncovered: '0', withheld: '0' });
     assert.equal(row(full, 'Tax-free threshold'), undefined);
     assert.throws(() => incomeTaxPage({ residency: 'part-year', phi: 'yes' }), /part-year resident/);
+    // An eligible pensioner keeps the full $18,200 threshold (the first test above).
+    const pensioner = incomeTaxPage({ year: '2025-26', residency: 'part-year', income: '60000', fringe: '0', uncovered: '365', withheld: '0',
+      'part-year-months': '9', 'non-resident-days': '106', 'eligible-pensioner': 'yes' });
+    assert.equal(row(pensioner, 'Tax-free threshold'), '$18,200.00');
+    assert.match(pensioner.inputs, /9 months as a resident and 106 days not, an eligible pensioner/);
+    assert.throws(() => incomeTax('20000', '2025-26', 'part-year', { months: 6, nonResidentDays: 0 }), /eligible pensioner/);
     assert.ok(html.includes(`personal-tax-estimate on ${partYearFixture.cases.length} part-year cases`));
   });
 };

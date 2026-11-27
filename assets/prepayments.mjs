@@ -147,7 +147,7 @@ export function prepayments(call) {
   const whole = f.minus && !f.expenditure ? '-0.00' : shownCents(f.expenditure);
   const shown = f.excluded ? null : period;
   return { year, treatment: id, deductionNow: Number(apportioned ? shownCents(now) : shownCents(f.expenditure)),
-    deductionLater: Number(shownCents(f.expenditure - now)), authority: PREPAYMENT_AUTHORITIES.get(id) ?? '',
+    deductionLater: Number(shownCents(f.expenditure - now)), authority: /** @type {string} */ (PREPAYMENT_AUTHORITIES.get(id)),
     amounts: { expenditure: whole, deduction_expenditure_year: apportioned ? shownCents(now) : whole,
       deduction_later_years: shownCents(f.expenditure - now) },
     rates: { excluded_below: '1000', longest_period_months: String(MAX_MONTHS) }, schedule,

@@ -2425,3 +2425,26 @@ test('SMSF tax, trading stock, prepaid expenses and alcohol excise tools return 
   await assert.rejects(tools['alcohol-excise'].execute({ financialYear: '2026-27', lines: [{ date: '2026-09-01', product: 'wine',
     volumeLitres: '1', strengthPercent: '12' }] }), /product/);
 });
+
+test('the S5 tools pass each optional input to their commands', async () => {
+  // s 70-45(1): each item at its elected method, an item's missing values left to the command; s 70-35(3): a decrease is deductible.
+  const stock = await tools['trading-stock'].execute({ incomeYear: '2025-26', entity: 'small_business_entity', openingValue: '40000', items: [
+    { cost: '100', method: 'cost' }, { marketSellingValue: '50', replacementValue: '60', method: 'replacement_value' },
+    { cost: '30', marketSellingValue: '20', replacementValue: '25', method: 'obsolescence', obsolescenceValue: '5' }] });
+  assert.deepEqual([stock.items.map((item) => item.value), stock.stocktakeValue, stock.deduction], [['100.00', '60.00', '5.00'], '165.00', '39835.00']);
+  // s 82KZM(1)(ba): an individual's non-business expenditure for no more than 12 months is deductible when incurred.
+  const prepaid = await tools.prepayments.execute({ incomeYear: '2025-26', taxpayer: 'other', individual: true, businessExpenditure: false,
+    chose82kzmd: false, expenditure: '24000', incurred: '2026-03-01', serviceStart: '2026-03-01', serviceEnd: '2027-02-28' });
+  assert.deepEqual([prepaid.treatment, prepaid.deductionThisYear], ['twelve_month_rule', '24000.00']);
+  // A manufacturer from 1 August 2026 has 334 days' share of the $400,000 cap; duty already paid is refunded on application.
+  const excise = await tools['alcohol-excise'].execute({ financialYear: '2026-27', manufacturerFrom: '2026-08-01', dutyPaid: true,
+    remissionUsedThisYear: '0', lines: [{ date: '2026-10-15', product: 'spirit', volumeLitres: '400', strengthPercent: '40', remission: true }] });
+  assert.deepEqual([excise.rates.remission_cap, excise.amounts.refund, excise.netDuty], ['366027.39', '17624.00', '0.00']);
+  await assert.rejects(tools['alcohol-excise'].execute({ financialYear: '2026-27', lines: [{ date: '2026-09-01', product: 'beer',
+    volumeLitres: '5000', strengthPercent: '4.8', containerLitres: '50', colour: 'amber' }] }), /colour is not an input/);
+  // s 302-60: a death benefit lump sum to a dependant is tax free, so no age is worked out.
+  const dependant = await tools['super-benefit-tax'].execute({ calculation: 'withholding', incomeYear: '2026-27', paymentDate: '2026-10-01',
+    recipient: 'death_benefits_dependant', benefit: '300000', interestValue: '300000', interestTaxFreeComponent: '30000', untaxedElement: '0',
+    tfnProvided: true, foreignResident: false });
+  assert.deepEqual([dependant.withholding, 'age' in dependant], ['0.00', false]);
+});

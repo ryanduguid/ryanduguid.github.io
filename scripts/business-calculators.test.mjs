@@ -8409,6 +8409,7 @@ test('the S5 and leave engines refuse and show edges as their commands do', () =
   assert.equal(leave({ plan_assets: 'no' }), 'input.flag_invalid');
   assert.equal(code(() => calculations.leaveProvisions({ year: '2025-26' })), 'input.missing_field');
   assert.equal(leave({}, { zeta: 1, beta: 2 }), 'leave_provisions.line_invalid');
+  assert.equal(leave({}, { alpha: 1, omega: 2 }), 'leave_provisions.line_invalid');
   assert.match(calculations.leaveInputsText({ year: '2025-26', lines: [leaveLine] }, s5Aud), /, can defer settlement$/);
   assert.equal(calculations.leaveInputsText({ year: '2025-26' }, s5Aud), '2025-26; ');
 });

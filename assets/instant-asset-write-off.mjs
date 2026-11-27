@@ -54,12 +54,9 @@ function decimal(key, value) {
   return { c: parts[1] === '-' ? -c : c, e: Number(parts[4] ?? 0) - (parts[3] ?? '').length };
 }
 
-/** `a` scaled to `places` decimal places, when exact. @param {Dec} a @param {number} places */
-const scaledTo = (a, places) => (a.e >= -places ? a.c * 10n ** BigInt(a.e + places) : null);
-
 /** An amount in cents: finite, nil or more, at most 2 places and $1,000,000,000,000. @param {Dec | null | undefined} v */
 function money(v) {
-  const cents = v && v.e >= -2 ? scaledTo(v, 2) : null;
+  const cents = v && v.e >= -2 ? v.c * 10n ** BigInt(v.e + 2) : null;
   if (cents === null || cents < 0n || cents > 100000000000000n) refuse('input.amount_invalid', 'Enter the cost as an amount of 0 or more with no more than 2 decimal places.');
   return cents;
 }

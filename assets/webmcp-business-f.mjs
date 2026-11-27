@@ -178,7 +178,7 @@ export function alcoholExciseTool(kit, alcoholExcise, years) {
         ['labelledStrengthPercent', 'labelled_strength_percent'], ['containerLitres', 'container_litres'], ['pressurisedSystem', 'pressurised_system'],
         ['brewOnPremises', 'brew_on_premises'], ['remission', 'remission']]);
       const lines = /** @type {Record<string, unknown>[]} */ (input.lines).map((x) => Object.fromEntries(Object.entries(x)
-        .map(([k, v]) => [keys.get(k) ?? k, v])));
+        .map(([k, v]) => [/** @type {string} */ (keys.get(k)), v])));
       /** @type {Record<string, unknown>} */
       const call = { lines, year: input.financialYear, scope_confirmed: input.scopeConfirmed ?? true };
       if (lines.some((x) => x.remission === true)) {
