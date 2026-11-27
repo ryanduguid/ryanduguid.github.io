@@ -24,7 +24,7 @@
 <label><input type="radio" name="super" value="excluded" checked /> No, super is paid on top</label>
 <label><input type="radio" name="super" value="included" /> Yes, it is a package including super guarantee</label>
 </fieldset>
-<label class="field" for="take-home-sacrifice">Salary sacrificed to super each pay period (dollars and cents)<input enterkeyhint="done" id="take-home-sacrifice" name="sacrifice" type="number" inputmode="decimal" min="0" max="1000000000" step="0.01" value="0" required /></label>
+<label class="field" for="take-home-sacrifice">Salary sacrificed to super each pay period (dollars and cents)<input enterkeyhint="next" id="take-home-sacrifice" name="sacrifice" type="number" inputmode="decimal" min="0" max="1000000000" step="0.01" value="0" required /></label>
 <fieldset><legend>Do you have a study or training loan, such as HELP?</legend>
 <label><input type="radio" name="study-loan" value="no" checked /> No</label>
 <label><input type="radio" name="study-loan" value="yes" /> Yes</label>
@@ -54,7 +54,7 @@
 <fieldset data-show-field="withholding-schedule" data-show-values="daily sch2 sch3 sch4 sch6 sch9 sch10 sch14 sch15 noabn" hidden disabled><legend>The payment for that schedule</legend>
 <div class="form-grid">
 <p class="field-note" id="take-home-ws-payment-help">The income year and residency above apply; the pay period applies to Schedules 6, 9, 14 and 15, which take a week, fortnight or month. The payment is the day’s earnings for daily or casual pay, one performance’s earnings for Schedule 3, the whole payment for Schedules 4 and 10 and a supplier without an ABN, and the earnings or payment for the pay period otherwise. These schedules are worked for 2024-25 to 2026-27.</p>
-<label class="field" for="take-home-ws-payment">Payment (dollars and cents)<input id="take-home-ws-payment" name="ws-payment" type="number" inputmode="decimal" min="0" max="1000000000" step="0.01" value="1000" aria-describedby="take-home-ws-payment-help" required /></label>
+<label class="field" for="take-home-ws-payment">Payment (dollars and cents)<input enterkeyhint="next" id="take-home-ws-payment" name="ws-payment" type="number" inputmode="decimal" min="0" max="1000000000" step="0.01" value="1000" aria-describedby="take-home-ws-payment-help" required /></label>
 </div>
 </fieldset>
 <fieldset data-show-field="withholding-schedule" data-show-values="daily sch2 sch3 sch4 sch6 sch14 sch15" hidden disabled><legend>The payee’s declaration</legend>
@@ -75,7 +75,7 @@
 </fieldset>
 <fieldset data-show-field="withholding-schedule" data-show-values="daily sch3 sch6 sch14" hidden disabled><legend>Tax offsets</legend>
 <div class="form-grid">
-<label class="field" for="take-home-ws-offsets">Tax offsets claimed on the payee’s Withholding declaration for the year (dollars and cents)<input id="take-home-ws-offsets" name="ws-offsets" type="number" inputmode="decimal" min="0" max="1000000000" step="0.01" value="0" required /></label>
+<label class="field" for="take-home-ws-offsets">Tax offsets claimed on the payee’s Withholding declaration for the year (dollars and cents)<input enterkeyhint="next" id="take-home-ws-offsets" name="ws-offsets" type="number" inputmode="decimal" min="0" max="1000000000" step="0.01" value="0" required /></label>
 </div>
 </fieldset>
 <fieldset data-show-field="withholding-schedule" data-show-values="sch6 sch9 sch14" hidden disabled><legend>Medicare levy exemption</legend>
@@ -89,14 +89,14 @@
 </fieldset>
 <fieldset data-show-field="withholding-schedule" data-show-values="sch3" hidden disabled><legend>Performances</legend>
 <div class="form-grid">
-<label class="field" for="take-home-ws-week">Performances in the week<input id="take-home-ws-week" name="ws-week" type="number" inputmode="numeric" min="1" max="1000" step="1" value="1" required /></label>
-<label class="field" for="take-home-ws-day">Performances on the day paid for<input id="take-home-ws-day" name="ws-day" type="number" inputmode="numeric" min="1" max="1000" step="1" value="1" required /></label>
+<label class="field" for="take-home-ws-week">Performances in the week<input enterkeyhint="next" id="take-home-ws-week" name="ws-week" type="number" inputmode="numeric" min="1" max="1000" step="1" value="1" required /></label>
+<label class="field" for="take-home-ws-day">Performances on the day paid for<input enterkeyhint="next" id="take-home-ws-day" name="ws-day" type="number" inputmode="numeric" min="1" max="1000" step="1" value="1" required /></label>
 </div>
 </fieldset>
 <fieldset data-show-field="withholding-schedule" data-show-values="sch6" hidden disabled><legend>The annuity</legend>
 <div class="form-grid">
-<label class="field" for="take-home-ws-deductible">Deductible amount of the annuity for the income year (dollars and cents)<input id="take-home-ws-deductible" name="ws-deductible" type="number" inputmode="decimal" min="0" max="1000000000" step="0.01" value="0" required /></label>
-<label class="field" for="take-home-ws-instalments">Instalments in the income year<input id="take-home-ws-instalments" name="ws-instalments" type="number" inputmode="numeric" min="1" max="366" step="1" value="12" required /></label>
+<label class="field" for="take-home-ws-deductible">Deductible amount of the annuity for the income year (dollars and cents)<input enterkeyhint="next" id="take-home-ws-deductible" name="ws-deductible" type="number" inputmode="decimal" min="0" max="1000000000" step="0.01" value="0" required /></label>
+<label class="field" for="take-home-ws-instalments">Instalments in the income year<input enterkeyhint="next" id="take-home-ws-instalments" name="ws-instalments" type="number" inputmode="numeric" min="1" max="366" step="1" value="12" required /></label>
 </div>
 </fieldset>
 <fieldset data-show-field="withholding-schedule" data-show-values="sch9" hidden disabled><legend>The senior or pensioner</legend>
@@ -111,13 +111,13 @@
 </fieldset>
 <fieldset data-show-field="withholding-schedule" data-show-values="sch10 noabn" hidden disabled><legend>GST</legend>
 <div class="form-grid">
-<label class="field" for="take-home-ws-gst">GST included in the payment (dollars and cents)<input id="take-home-ws-gst" name="ws-gst" type="number" inputmode="decimal" min="0" max="1000000000" step="0.01" value="0" required /></label>
+<label class="field" for="take-home-ws-gst">GST included in the payment (dollars and cents)<input enterkeyhint="next" id="take-home-ws-gst" name="ws-gst" type="number" inputmode="decimal" min="0" max="1000000000" step="0.01" value="0" required /></label>
 </div>
 </fieldset>
 <fieldset data-show-field="withholding-schedule" data-show-values="sch10" hidden disabled><legend>The voluntary agreement</legend>
 <div class="form-grid">
 <p class="field-note" id="take-home-ws-cir-help">For a voluntary agreement in force that quotes the payee’s ABN. Leave the rate blank if the payee has not told you a Commissioner’s instalment rate.</p>
-<label class="field" for="take-home-ws-cir">Commissioner’s instalment rate (per cent, optional)<input id="take-home-ws-cir" name="ws-cir" type="text" inputmode="decimal" pattern="\d+(\.\d+)?" aria-describedby="take-home-ws-cir-help" /></label>
+<label class="field" for="take-home-ws-cir">Commissioner’s instalment rate (per cent, optional)<input enterkeyhint="next" id="take-home-ws-cir" name="ws-cir" type="text" inputmode="decimal" pattern="\d+(\.\d+)?" aria-describedby="take-home-ws-cir-help" /></label>
 <fieldset><legend>Does the agreement say that rate applies even below 20%?</legend>
 <label><input type="radio" name="ws-cir-applies" value="yes" /> Yes</label>
 <label><input type="radio" name="ws-cir-applies" value="no" checked /> No</label>
@@ -126,7 +126,7 @@
 </fieldset>
 <fieldset data-show-field="withholding-schedule" data-show-values="sch14" hidden disabled><legend>The agreed amount</legend>
 <div class="form-grid">
-<label class="field" for="take-home-ws-additional">Additional amount to withhold each pay (dollars and cents)<input id="take-home-ws-additional" name="ws-additional" type="number" inputmode="decimal" min="0" max="1000000000" step="0.01" value="50" required /></label>
+<label class="field" for="take-home-ws-additional">Additional amount to withhold each pay (dollars and cents)<input enterkeyhint="next" id="take-home-ws-additional" name="ws-additional" type="number" inputmode="decimal" min="0" max="1000000000" step="0.01" value="50" required /></label>
 </div>
 </fieldset>
 <fieldset data-show-field="withholding-schedule" data-show-values="sch15" hidden disabled><legend>The working holiday maker</legend>
@@ -135,12 +135,12 @@
 <label><input type="radio" name="ws-registered" value="yes" checked /> Yes</label>
 <label><input type="radio" name="ws-registered" value="no" /> No</label>
 </fieldset>
-<label class="field" for="take-home-ws-before">Payments to them earlier in the income year (dollars and cents)<input id="take-home-ws-before" name="ws-before" type="number" inputmode="decimal" min="0" max="1000000000" step="0.01" value="0" required /></label>
+<label class="field" for="take-home-ws-before">Payments to them earlier in the income year (dollars and cents)<input enterkeyhint="next" id="take-home-ws-before" name="ws-before" type="number" inputmode="decimal" min="0" max="1000000000" step="0.01" value="0" required /></label>
 </div>
 </fieldset>
 <fieldset data-show-field="withholding-schedule" data-show-values="noabn" hidden disabled><legend>The supply</legend>
 <div class="form-grid">
-<label class="field" for="take-home-ws-supply">All payments for the supply, excluding GST (dollars and cents)<input id="take-home-ws-supply" name="ws-supply" type="number" inputmode="decimal" min="0" max="1000000000" step="0.01" value="1000" required /></label>
+<label class="field" for="take-home-ws-supply">All payments for the supply, excluding GST (dollars and cents)<input enterkeyhint="done" id="take-home-ws-supply" name="ws-supply" type="number" inputmode="decimal" min="0" max="1000000000" step="0.01" value="1000" required /></label>
 </div>
 </fieldset>
 <details>

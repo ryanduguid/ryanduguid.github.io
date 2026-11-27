@@ -12,12 +12,12 @@
 <label><input type="radio" name="year" value="2020-21" /> 2020-21</label>
 </fieldset>
 <label class="field" for="lodgment-required-residency">Your residency in the year<select name="residency" id="lodgment-required-residency" aria-describedby="lodgment-required-residency-note"><option value="whole_year" selected>Resident all year</option><option value="part_year">Resident for part of the year</option><option value="none">Not resident at any time</option></select></label>
-<label class="field" for="lodgment-required-taxable-income">Taxable income (AUD)<input id="lodgment-required-taxable-income" name="taxable-income" type="number" inputmode="decimal" min="0" max="1000000000000" step=".01" value="15000" /></label>
-<label class="field" for="lodgment-required-dividends">Dividends and franking credits (AUD)<input id="lodgment-required-dividends" name="dividends" type="number" inputmode="decimal" min="0" max="1000000000000" step=".01" value="0" /></label>
+<label class="field" for="lodgment-required-taxable-income">Taxable income (AUD)<input enterkeyhint="next" id="lodgment-required-taxable-income" name="taxable-income" type="number" inputmode="decimal" min="0" max="1000000000000" step=".01" value="15000" /></label>
+<label class="field" for="lodgment-required-dividends">Dividends and franking credits (AUD)<input enterkeyhint="next" id="lodgment-required-dividends" name="dividends" type="number" inputmode="decimal" min="0" max="1000000000000" step=".01" value="0" /></label>
 </div>
-<p class="field-note" id="lodgment-required-residency-note">Your residency is your answer; the 183-day residency day count checks one test.</p>
+<p class="field-note" id="lodgment-required-residency-note">Your residency is your answer; the <a href="/tools/individual-tax/residency-days/">183-day residency day count</a> checks one test.</p>
 <fieldset data-show-field="residency" data-show-values="part_year" hidden disabled><legend class="visually-hidden">Part-year resident</legend><div class="form-grid">
-<label class="field" for="lodgment-required-months">Months resident, counting the first and last<input id="lodgment-required-months" name="months" type="number" inputmode="numeric" min="1" max="12" step="1" value="6" /></label>
+<label class="field" for="lodgment-required-months">Months resident, counting the first and last<input enterkeyhint="next" id="lodgment-required-months" name="months" type="number" inputmode="numeric" min="1" max="12" step="1" value="6" /></label>
 </div></fieldset>
 <fieldset data-show-field="residency" data-show-values="none" hidden disabled><legend class="visually-hidden">Not a resident</legend><div class="form-grid">
 <label class="field" for="lodgment-required-taxable-australian-income">Income taxable in Australia, other than excluded withholding payments<select name="taxable-australian-income" id="lodgment-required-taxable-australian-income"><option value="no">No</option><option value="yes" selected>Yes</option></select></label>
@@ -45,10 +45,10 @@
 <label class="field" for="lodgment-required-study-loan">A study or training loan debt on 1 June before the year<select name="study-loan" id="lodgment-required-study-loan"><option value="no" selected>No</option><option value="yes">Yes</option></select></label>
 </div>
 <fieldset data-show-field="under-18" data-show-values="yes" hidden disabled><legend class="visually-hidden">Under 18</legend><div class="form-grid">
-<label class="field" for="lodgment-required-under-18-income">Income other than for work you did (AUD)<input id="lodgment-required-under-18-income" name="under-18-income" type="number" inputmode="decimal" min="0" max="1000000000000" step=".01" value="0" /></label>
+<label class="field" for="lodgment-required-under-18-income">Income other than for work you did (AUD)<input enterkeyhint="next" id="lodgment-required-under-18-income" name="under-18-income" type="number" inputmode="decimal" min="0" max="1000000000000" step=".01" value="0" /></label>
 </div></fieldset>
 <fieldset data-show-field="study-loan" data-show-values="yes" hidden disabled><legend class="visually-hidden">Study loan</legend><div class="form-grid">
-<label class="field" for="lodgment-required-study-loan-income">Income, including foreign income (AUD)<input id="lodgment-required-study-loan-income" name="study-loan-income" type="number" inputmode="decimal" min="0" max="1000000000000" step=".01" value="0" /></label>
+<label class="field" for="lodgment-required-study-loan-income">Income, including foreign income (AUD)<input enterkeyhint="next" id="lodgment-required-study-loan-income" name="study-loan-income" type="number" inputmode="decimal" min="0" max="1000000000000" step=".01" value="0" /></label>
 </div></fieldset>
 <fieldset><legend>Exceptions</legend>
 <div class="form-grid">
@@ -59,13 +59,13 @@
 </div>
 <fieldset data-show-field="whm" data-show-values="yes" hidden disabled><legend class="visually-hidden">Working holiday maker</legend><div class="form-grid">
 <label class="field" for="lodgment-required-whm-other">Any other assessable income<select name="whm-other" id="lodgment-required-whm-other"><option value="no" selected>No</option><option value="yes">Yes</option></select></label>
-<label class="field" for="lodgment-required-whm-taxable">Taxable income without super or ETP remainders (AUD)<input id="lodgment-required-whm-taxable" name="whm-taxable" type="number" inputmode="decimal" min="0" max="1000000000000" step=".01" value="15000" /></label>
+<label class="field" for="lodgment-required-whm-taxable">Taxable income without super or ETP remainders (AUD)<input enterkeyhint="next" id="lodgment-required-whm-taxable" name="whm-taxable" type="number" inputmode="decimal" min="0" max="1000000000000" step=".01" value="15000" /></label>
 </div></fieldset>
 <fieldset data-show-field="listed" data-show-values="yes" hidden disabled><legend class="visually-hidden">Listed payment</legend><div class="form-grid">
 <label class="field" for="lodgment-required-listed-other">Any other assessable income<select name="listed-other" id="lodgment-required-listed-other"><option value="no" selected>No</option><option value="yes">Yes</option></select></label>
 </div></fieldset>
 <fieldset data-show-field="sapto" data-show-values="yes" hidden disabled><legend class="visually-hidden">Seniors and pensioners tax offset</legend><div class="form-grid">
-<label class="field" for="lodgment-required-sapto-rebate">Rebate income (AUD)<input id="lodgment-required-sapto-rebate" name="sapto-rebate" type="number" inputmode="decimal" min="0" max="1000000000000" step=".01" value="30000" /></label>
+<label class="field" for="lodgment-required-sapto-rebate">Rebate income (AUD)<input enterkeyhint="done" id="lodgment-required-sapto-rebate" name="sapto-rebate" type="number" inputmode="decimal" min="0" max="1000000000000" step=".01" value="30000" /></label>
 <label class="field" for="lodgment-required-sapto-category">Your situation<select name="sapto-category" id="lodgment-required-sapto-category"><option value="single" selected>Single, widowed or separated</option><option value="apart">Apart due to illness or a nursing home</option><option value="together">Living together</option></select></label>
 </div></fieldset>
 </fieldset>
