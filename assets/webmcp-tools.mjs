@@ -12,6 +12,7 @@ import { contractorEmployeeTool } from './webmcp-contractor-employee.mjs';
 import { paydayCashflowTool } from './webmcp-payday-cashflow.mjs';
 import { taxInvoiceTools } from './webmcp-tax-invoice.mjs';
 import { businessS1Tools } from './webmcp-business-s1.mjs';
+import { businessCohortFTools } from './webmcp-business-f.mjs';
 import {
   concessionalCatchUpTool, fhssTool, governmentSuperTool, lumpSumArrearsTool, studyLoanTool, workExpensesTool,
 } from './webmcp-individual-more.mjs';
@@ -567,7 +568,9 @@ const fuelTaxCreditsTool = (fuelTaxCredits) => tool({
  *   | 'deferredTax' | 'DEFERRED_TAX_YEARS' | 'soleTraderCompany' | 'SOLE_TRADER_COMPANY_YEARS' | 'casualOvertime'
  *   | 'contractorEmployee' | 'CONTRACTOR_YEARS' | 'paydayCashflow' | 'taxInvoice' | 'TREATMENTS' | 'MAX_LINES'
  *   | 'trustStreaming' | 'TRUST_STREAMING_ROWS'
- *   | 'instantAssetWriteOff' | 'IAWO_YEARS' | 'leaveProvisions' | 'LEAVE_YEARS'>} calculate */
+ *   | 'instantAssetWriteOff' | 'IAWO_YEARS' | 'leaveProvisions' | 'LEAVE_YEARS'
+ *   | 'smsfTax' | 'SMSF_YEARS'
+ *   | 'tradingStock' | 'TRADING_STOCK_YEARS' | 'prepayments' | 'PREPAYMENT_YEARS' | 'alcoholExcise' | 'ALCOHOL_YEARS'>} calculate */
 export function calculatorTools(calculate) {
   return {
     gst: gstTool(calculate.gst),
@@ -591,6 +594,7 @@ export function calculatorTools(calculate) {
     'payday-cashflow': paydayCashflowTool(TOOL_KIT, calculate.paydayCashflow),
     ...taxInvoiceTools(TOOL_KIT, calculate),
     ...businessS1Tools(TOOL_KIT, calculate),
+    ...businessCohortFTools(TOOL_KIT, calculate),
   };
 }
 

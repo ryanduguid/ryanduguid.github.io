@@ -1,0 +1,64 @@
+# Prepaid expenses calculator: 12-month rule and apportionment
+
+Source: https://duguid.com.au/tools/business-calculators/prepayments/
+
+> When a prepayment is deductible: excluded expenditure under $1,000, the 12-month rule, or apportioned by days of the eligible service period.
+
+# Prepaid expenses calculator
+
+When a prepaid amount is deductible, for expenditure incurred 2020-21 to 2026-27.
+
+Published 26 November 2026. Last checked 22 November 2026.
+
+JavaScript is required for interactive calculations. The formula, assumptions and source links remain available below.
+
+One prepaid amount and when it is deductible
+
+Expenditure (AUD) Day incurred First day of the services paid for Last day of the services paid for Day the agreement was entered into
+
+Income year the expenditure is incurred in 2026-27 2025-26 2024-25 2023-24 2022-23 2021-22 2020-21
+
+The taxpayer A small business entity (turnover under $10 million) An entity with turnover under $50 million Another taxpayer, such as an individual or a larger business
+
+The taxpayer is an individual No Yes
+
+Incurred in carrying on a business Yes No
+
+Excluded expenditure (section 82KZL(1)) No, or only by being under $1,000 Required by a law or a court order Salary or wages under a contract of service
+
+A small or medium business has chosen to apply section 82KZMD No Yes
+
+Section 82KZME applies to the agreement (a tax shelter arrangement) No Yes
+
+Calculate
+
+Enter the amount and the dates of the services it pays for. The eligible service period starts on the later of the first service day and the day incurred, and runs for at most 10 years.
+
+Fictional example: the first boundary case below. Change the inputs and calculate your own. Inputs: 2025-26; another taxpayer; $24,000.00 business expenditure incurred 2026-03-01 for services from 2026-03-01 to 2027-02-28. Expenditure $24,000.00 Eligible service period, 2026-03-01 to 2027-02-28 365 days Deduction in 2025-26 $8,021.92 Deduction in 2026-27 (243 days) $15,978.08 Apportioned by days of the service period in each year (sections 82KZMA and 82KZMD).
+
+## How the prepaid expenses calculator works
+
+The calculator works out when one prepaid amount, incurred in an income year from 2020-21 to 2026-27, is deductible under Subdivision H of Division 3 of Part III. Excluded expenditure, being less than $1,000, required by a law or court order, or salary or wages, is deductible in full when incurred, as is expenditure for a thing wholly done by the end of the year. The eligible service period starts on the later of the first service day and the day incurred and runs for at most 10 years. A small business entity or an entity with turnover under $50 million that has not chosen section 82KZMD, and an individual’s non-business expenditure, deduct the amount in full when the period is no longer than 12 months and ends by the end of the next income year (the 12-month rule). Otherwise the amount is apportioned by the days of the period in each income year, on the running total of days and rounded to the cent there, so the years add up to the expenditure.
+
+## What the prepaid expenses calculator does not cover
+
+The calculator does not decide whether the expenditure is deductible at all, whether a law or contract requires it, or whether section 82KZME applies to an agreement: you state those facts. It refuses an agreement entered into on or before 11 November 1999, which may carry earlier rules, and expenditure incurred before 1 July 2020. It does not cover a later disposal or change of the agreement, or the other rules for a tax shelter arrangement. Results are planning estimates: check them against your records and the ATO’s guidance.
+
+## Boundary cases
+
+Each row is a test: scripts/business-calculators.test.mjs runs this calculator on these fictional inputs and fails if the result differs from the one shown.
+
+Boundary cases: Prepaid expenses calculator
+
+Case | Inputs | Result
+A larger business’s 12 months of services from 1 March: apportioned by days | 2025-26; another taxpayer; $24,000.00 business expenditure incurred 2026-03-01 for services from 2026-03-01 to 2027-02-28 | Deduction in the expenditure year $8,021.92, deduction in later years $15,978.08
+A small business entity: the 12-month rule allows it all now | 2025-26; a small business entity; $24,000.00 business expenditure incurred 2026-03-01 for services from 2026-03-01 to 2027-02-28 | Deduction in the expenditure year $24,000.00, deduction in later years $0.00
+An individual’s non-business prepayment for 2 years: apportioned | 2025-26; an individual; $3,000.00 non-business expenditure incurred 2026-03-01 for services from 2026-03-01 to 2028-02-29 | Deduction in the expenditure year $500.68, deduction in later years $2,499.32
+
+One of the fifty-eight business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+
+Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
+
+## Links
+
+- fifty-eight business calculators: https://duguid.com.au/tools/business-calculators/

@@ -817,6 +817,15 @@ Object.assign(ENGINE_LABELS, { trustStreaming: { netIncome: 'net income', truste
   ...Object.fromEntries([1, 2, 3, 4].flatMap((n) => [['Division6', 'Division 6 share'], ['AttributableGain', 'attributable gain'],
     ['ExtraCapitalGain', 'extra capital gain'], ['AttributableFranked', 'attributable franked distribution'], ['FrankingCredit', 'franking credit'],
     ['Assessable', 'assessable']].map(([field, words]) => [`b${n}${field}`, `beneficiary ${n} ${words}`]))) } });
+// The SMSF tax, trading stock, prepaid expenses and alcohol excise pages' rows (their tests are at the end of this file).
+Object.assign(INPUTS, { smsfTax: (x) => calculations.smsfInputsText(x, (value) => value.toLocaleString('en-AU', { style: 'currency', currency: 'AUD' })),
+  tradingStock: (x) => calculations.tradingStockInputsText(x, (value) => value.toLocaleString('en-AU', { style: 'currency', currency: 'AUD' })),
+  prepayments: (x) => calculations.prepaymentsInputsText(x, (value) => value.toLocaleString('en-AU', { style: 'currency', currency: 'AUD' })),
+  alcoholExcise: (x) => calculations.alcoholInputsText(x, (value) => value.toLocaleString('en-AU', { style: 'currency', currency: 'AUD' })) });
+Object.assign(ENGINE_LABELS, { smsfTax: { taxableIncome: 'taxable income', taxPayable: 'tax payable', amountDue: 'amount due or refundable' },
+  tradingStock: { closingValue: 'closing value', assessableIncrease: 'assessable increase', deduction: 'deduction' },
+  prepayments: { deductionNow: 'deduction in the expenditure year', deductionLater: 'deduction in later years' },
+  alcoholExcise: { exciseDuty: 'excise duty', netDuty: 'net duty' } });
 
 for (const [page, { function: name, peer, rows }] of Object.entries(shownCases)) {
   if (peer) {
@@ -1293,6 +1302,11 @@ Object.assign(FORM_CALLS, { paydayCashflow: (f) => [{ quarter: f.quarter, cycle:
   earnings: f.earnings }] });
 
 Object.assign(FORM_CALLS, { trustStreaming: (f) => [calculations.trustStreamingFormInput((name) => f[name] ?? '')] });
+
+Object.assign(FORM_CALLS, { smsfTax: (f) => [calculations.smsfFormInput((name) => f[name] ?? '')],
+  tradingStock: (f) => [calculations.tradingStockFormInput((name) => f[name] ?? '')],
+  prepayments: (f) => [calculations.prepaymentsFormInput((name) => f[name] ?? '')],
+  alcoholExcise: (f) => [calculations.alcoholFormInput((name) => f[name] ?? '')] });
 
 for (const [page, { function: name, rows: [first] }] of Object.entries(shownCases)) {
   test(`${page} opens on its first boundary case as the fictional example`, () => {
@@ -7983,4 +7997,129 @@ test('the leave provisions form drops blank lines and sends a short-term line wi
   assert.equal(provisionsCode({ ...base, lines: [] }), 'leave_provisions.line_invalid');
   assert.equal(provisionsCode({ ...base, year: '2019-20' }), 'period.unsupported');
   assert.equal(provisionsCode({ ...base, lines: [{ ...input.lines[1], discount_rate: '0.0000001' }] }), 'leave_provisions.line_invalid');
+});
+
+// The SMSF tax, trading stock, prepaid expenses and alcohol excise pages: ports of australian-accounting's smsf-tax,
+// trading-stock, prepayments and alcohol-excise commands, checked against the commands' release build on every input
+// their tests give them and 300 seeded cases each.
+// A refusal where a result is expected fails as an assertion, so a mutant that refuses is caught, not invalid.
+const s5Run = (run, note) => {
+  try {
+    return run();
+  } catch (error) {
+    return assert.fail(`${note}: refused with ${error.code}`);
+  }
+};
+const s5Code = (run) => {
+  try {
+    run();
+  } catch (error) {
+    return error.code;
+  }
+  return 'computed';
+};
+
+const s5Shown = {
+  'smsf-tax': (r) => ({ period: r.year, amounts: r.amounts, rates: r.rates }),
+  'trading-stock': (r) => ({ period: r.year, amounts: r.amounts, rates: r.rates, items: r.items, simplified_available: r.simplifiedAvailable,
+    simplified_chosen: r.simplifiedChosen }),
+  prepayments: (r) => ({ period: r.year, amounts: r.amounts, rates: r.rates, treatment: r.treatment, schedule: r.schedule,
+    eligible_service_period: r.eligible_service_period }),
+  'alcohol-excise': (r) => ({ period: r.year, amounts: r.amounts, rates: r.rates,
+    return_lines: r.return_lines.map(({ notices, ...line }) => (assert.ok(notices.length), line)),
+    ...(r.part_year_cap ? { part_year_cap: r.part_year_cap } : {}) }),
+};
+const s5Engines = { 'smsf-tax': calculations.smsfTax, 'trading-stock': calculations.tradingStock, prepayments: calculations.prepayments,
+  'alcohol-excise': calculations.alcoholExcise };
+for (const [command, tests, total, refusals] of [['smsf-tax', 91, 391, 103], ['trading-stock', 49, 349, 193], ['prepayments', 77, 377, 168],
+  ['alcohol-excise', 102, 402, 113]]) {
+  test(`the ${command} page agrees with the australian-accounting command on every differential case`, () => {
+    const { engine, cases } = JSON.parse(readFileSync(new URL(`./${command}-engine-differential.json`, import.meta.url), 'utf8'));
+    assert.match(engine, /at e1f5bee /);
+    assert.equal(cases.filter((c) => c.source.startsWith('AA test')).length, tests);
+    assert.equal(cases.length, total);
+    let refused = 0;
+    for (const { source, call, refused: code, ...want } of cases) {
+      if (code) {
+        refused += 1;
+        assert.equal(s5Code(() => s5Engines[command](call)), code, source);
+        continue;
+      }
+      const got = s5Shown[command](s5Run(() => s5Engines[command](call), source));
+      assert.deepEqual(JSON.parse(JSON.stringify(got)), want, source);
+      assert.deepEqual(Object.keys(got.amounts), Object.keys(want.amounts), source);
+    }
+    assert.equal(refused, refusals);
+  });
+}
+
+test('the SMSF tax page rounds the actuary’s proportion as the command does, and refuses as it does', () => {
+  const base = shownCases['smsf-tax'].rows[0].call[0];
+  const smsf = (more) => calculations.smsfTax({ ...base, ...more });
+  // floor(120,000 x 0.33333...) with the product first rounded to 40 digits: 40,000 for 41 threes, 39,999 for fewer.
+  assert.equal(smsf({ exempt_proportion: `0.${'9'.repeat(45)}` }).amounts.exempt_current_pension_income, '120000.00');
+  assert.equal(smsf({ exempt_proportion: `0.${'9'.repeat(20)}` }).amounts.exempt_current_pension_income, '119999.00');
+  assert.equal(smsf({ net_non_arms_length_income: '10000', general_expense_non_arms_length_income: '0.01' }).amounts.tax_on_taxable_income, '25800.00');
+  assert.equal(smsf({ payg_instalments: '20558.99', refundable_offsets: '0', newly_registered: true }).amounts.amount_due_or_refundable, '1259.01');
+  assert.deepEqual([smsf({ wound_up: true }).amounts.levy_adjustment_wound_up, smsf({ wound_up: true, newly_registered: true }).amounts.levy_adjustment_wound_up],
+    ['259.00', '0.00']);
+  for (const [more, code] of [[{ complying_fund: false }, 'smsf_tax.non_complying'], [{ australian_superannuation_fund: false }, 'smsf_tax.foreign_fund'],
+    [{ deductions: '8000.50' }, 'input.amount_not_whole_dollars'], [{ exempt_proportion: '1.01' }, 'smsf_tax.proportion_invalid'],
+    [{ no_tfn_contributions: '60001' }, 'smsf_tax.part_exceeds_total'], [{ segregated_pension_income: '1', disregarded_small_fund_assets: true },
+      'smsf_tax.disregarded_small_fund_assets'], [{ year: '2019-20' }, 'period.unsupported'], [{ levy: '259' }, 'input.field_unknown']]) {
+    assert.equal(s5Code(() => smsf(more)), code, code);
+  }
+});
+
+test('the trading stock page applies the $5,000 choice and the $50 million entity from 2021-22', () => {
+  const base = shownCases['trading-stock'].rows[0].call[0];
+  const stock = (more) => calculations.tradingStock({ ...base, ...more });
+  assert.equal(s5Run(() => stock({ opening_value: '39000', simplified_choice: true }), 'the $5,000 limit').amounts.estimate_difference, '5000.00');
+  assert.equal(s5Code(() => stock({ opening_value: '39000.01', simplified_choice: true })), 'trading_stock.simplified_unavailable');
+  assert.equal(stock({ entity: 'medium_business_entity', opening_value: '36000', simplified_choice: true, year: '2021-22' }).deduction, 0);
+  assert.equal(s5Code(() => stock({ entity: 'medium_business_entity', opening_value: '36000', simplified_choice: true, year: '2020-21' })),
+    'trading_stock.simplified_unavailable');
+  assert.deepEqual(stock({ items: [{ cost: '10', market_selling_value: '10', replacement_value: '9', method: 'lowest' }] }).items[0],
+    { item: 1, method: 'replacement_value', value: '9.00' });
+  assert.equal(s5Code(() => stock({ items: [{ cost: '10', market_selling_value: '10', replacement_value: '9', method: 'obsolescence',
+    obsolescence_value: '9' }] })), 'trading_stock.obsolescence_not_below');
+  assert.equal(s5Code(() => stock({ items: [{ cost: null, market_selling_value: '10', replacement_value: '9', method: 'cost' }] })),
+    'trading_stock.value_missing');
+});
+
+test('the prepaid expenses page applies the 12-month rule, the $1,000 exclusion and the 10-year cap', () => {
+  const base = shownCases.prepayments.rows[0].call[0];
+  const pay = (more) => calculations.prepayments({ ...base, ...more });
+  assert.equal(pay({ expenditure: '999.99' }).treatment, 'excluded_expenditure');
+  assert.equal(pay({ expenditure: '1000' }).treatment, 'apportioned_82kzmd');
+  assert.equal(pay({ taxpayer: 'small_business_entity' }).treatment, 'twelve_month_rule');
+  assert.equal(pay({ taxpayer: 'small_business_entity', service_end: '2027-03-01' }).treatment, 'apportioned_82kzm');
+  assert.equal(pay({ taxpayer: 'small_business_entity', service_end: '2026-06-30' }).treatment, 'done_in_year');
+  const long = pay({ service_end: '2040-02-28' });
+  assert.deepEqual([long.eligible_service_period.end, long.schedule.length, long.schedule.reduce((sum, row) => sum + Number(row.deduction) * 100, 0)],
+    ['2036-02-29', 11, 2400000]);
+  assert.equal(s5Code(() => pay({ chose_82kzmd: true })), 'prepayments.choice_unavailable');
+  assert.equal(s5Code(() => pay({ agreement_date: '1999-11-11' })), 'prepayments.agreement_before_cutoff');
+  assert.equal(s5Code(() => pay({ incurred: '2026-07-01' })), 'prepayments.dates_invalid');
+});
+
+test('the alcohol excise page classifies beer by strength and container and caps the remission', () => {
+  const line = { date: '2026-09-01', product: 'beer', volume_litres: '1000', strength_percent: '4.8' };
+  const duty = (more, extra = {}) => calculations.alcoholExcise({ lines: [{ ...line, ...more }], year: '2026-27', scope_confirmed: true, ...extra });
+  const sub = (more) => s5Run(() => duty(more), 'beer container').return_lines[0].subitem;
+  assert.deepEqual([sub({ container_litres: '48.001' }), sub({ container_litres: '48', pressurised_system: true }),
+    sub({ container_litres: '48', pressurised_system: false }), sub({ container_litres: '7.999' }), sub({ brew_on_premises: true })],
+  ['1.11', '1.11', '1.10', '1.10', '1.16']);
+  assert.deepEqual([sub({ strength_percent: '3', container_litres: '1' }), sub({ strength_percent: '3.5', container_litres: '1' })], ['1.1', '1.5']);
+  // 1,000 x (4.8 - 1.15) / 100 = 36.5 litres of alcohol at $65.03.
+  assert.equal(duty({ container_litres: '1' }).amounts.excise_duty, '2373.59');
+  const spirit = { date: '2026-09-01', product: 'spirit', volume_litres: '1000000', strength_percent: '40', remission: true };
+  const capped = calculations.alcoholExcise({ lines: [spirit], year: '2026-27', scope_confirmed: true, remission_used_this_year: '0' });
+  assert.deepEqual([capped.amounts.remission, capped.amounts.over_cap], ['400000.00', '43660000.00']);
+  const late = calculations.alcoholExcise({ lines: [spirit], year: '2026-27', scope_confirmed: true, remission_used_this_year: '0',
+    manufacturer_from: '2026-08-01' });
+  assert.deepEqual([late.rates.remission_cap, late.part_year_cap], ['366027.39', { manufacturer_from: '2026-08-01', eligible_days: 334 }]);
+  assert.equal(s5Code(() => duty({ product: 'wine' })), 'alcohol_excise.not_excisable');
+  assert.equal(s5Code(() => duty({ container_litres: '1', date: '2027-02-01' })), 'alcohol_excise.rate_unpublished');
+  assert.equal(s5Code(() => duty({ container_litres: '1' }, { duty_paid: true })), 'input.field_unknown');
 });

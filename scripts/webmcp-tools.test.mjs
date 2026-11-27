@@ -101,6 +101,7 @@ test('every calculator tool is read-only, refuses unknown inputs and has its own
     'calculate_rd_tax_offset', 'calculate_gst_adjustments', 'calculate_deferred_tax', 'calculate_sole_trader_vs_company', 'calculate_trust_streaming',
     'calculate_casual_overtime_pay', 'calculate_contractor_employee', 'calculate_payday_super_cashflow', 'check_tax_invoice',
     'calculate_instant_asset_write_off', 'calculate_leave_provisions',
+    'calculate_smsf_tax', 'calculate_trading_stock', 'calculate_prepayments', 'calculate_alcohol_excise',
     'calculate_decline_in_value', 'calculate_coal_lsl_levy']);
   for (const t of all) {
     assert.equal(t.annotations.readOnlyHint, true, t.name);
@@ -2392,4 +2393,30 @@ test('trust streaming tool returns the ATO Lang Trust example and the trustee’
     /kind does not match/);
   await assert.rejects(tool.execute({ otherTrustIncome: '100', otherNetIncome: '100', beneficiaries: [{ kind: 'individual', presentEntitlement: '101' }] }),
     /cannot exceed the trust/);
+});
+
+test('SMSF tax, trading stock, prepaid expenses and alcohol excise tools return their pages’ examples and refuse bad input', async () => {
+  const smsf = await tools['smsf-tax'].execute({ incomeYear: '2025-26', assessableContributions: '60000', unsegregatedIncome: '120000',
+    exemptProportion: '0.25', deductions: '8000', refundableOffsets: '3000', paygInstalments: '2000' });
+  assert.deepEqual([smsf.taxableIncome, smsf.taxPayable, smsf.amountDueOrRefundable, smsf.returnLabels.amount_due_or_refundable, smsf.source],
+    ['142000.00', '18300.00', '16559.00', 'S', 'https://duguid.com.au/tools/business-calculators/smsf-tax/']);
+  await assert.rejects(tools['smsf-tax'].execute({ incomeYear: '2025-26', deductions: '8000.50' }), /whole dollars/);
+  const stock = await tools['trading-stock'].execute({ incomeYear: '2025-26', entity: 'small_business_entity', openingValue: '40000',
+    items: [{ cost: '25000', marketSellingValue: '28000', replacementValue: '26000', method: 'cost' },
+      { cost: '12000', marketSellingValue: '9000', replacementValue: '11500', method: 'lowest' }] });
+  assert.deepEqual([stock.closingValue, stock.deduction, stock.simplifiedAvailable, stock.items[1].method],
+    ['34000.00', '6000.00', false, 'market_selling_value']);
+  await assert.rejects(tools['trading-stock'].execute({ incomeYear: '2025-26', entity: 'small_business_entity', openingValue: '40000',
+    items: [{ cost: '1', method: 'fifo' }] }), /method/);
+  const prepaid = await tools.prepayments.execute({ incomeYear: '2025-26', taxpayer: 'other', businessExpenditure: true, expenditure: '24000',
+    incurred: '2026-03-01', serviceStart: '2026-03-01', serviceEnd: '2027-02-28' });
+  assert.deepEqual([prepaid.treatment, prepaid.deductionThisYear, prepaid.deductionLaterYears, prepaid.eligibleServicePeriod.days],
+    ['apportioned_82kzmd', '8021.92', '15978.08', 365]);
+  const excise = await tools['alcohol-excise'].execute({ financialYear: '2026-27', lines: [
+    { date: '2026-09-01', product: 'beer', volumeLitres: '5000', strengthPercent: '4.8', containerLitres: '50' },
+    { date: '2026-10-15', product: 'spirit', volumeLitres: '400', strengthPercent: '40', remission: true }] });
+  assert.deepEqual([excise.exciseDuty, excise.netDuty, excise.amounts.remission, excise.returnLines.map((line) => line.subitem)],
+    ['25542.67', '7918.67', '17624.00', ['1.11', '3.10']]);
+  await assert.rejects(tools['alcohol-excise'].execute({ financialYear: '2026-27', lines: [{ date: '2026-09-01', product: 'wine',
+    volumeLitres: '1', strengthPercent: '12' }] }), /product/);
 });
