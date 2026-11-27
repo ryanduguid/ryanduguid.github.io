@@ -1890,3 +1890,130 @@ fn origin_boundary_compares_scheme_host_and_port_value() {
         strings(&external)
     );
 }
+
+#[test]
+fn repository_payload_that_is_not_an_object_or_lacks_archived_is_refused() {
+    let harness = Harness::new(vec![ok(200, "", "[]")]);
+    assert_eq!(
+        harness.run(|c| c.fetch_repository_archived("Ozzit")),
+        Err("'list' object has no attribute 'get'".into())
+    );
+    let harness = Harness::new(vec![ok(200, "", r#"{"full_name": "ryanduguid/Ozzit"}"#)]);
+    assert_eq!(
+        harness.run(|c| c.fetch_repository_archived("Ozzit")),
+        Err("GitHub API returned no archived flag for Ozzit".into())
+    );
+}
+
+#[test]
+fn retired_names_fail_and_depreciation_pages_keep_their_dashes() {
+    let dir = tempfile::tempdir().unwrap();
+    let plain = dir.path().join("index.html");
+    std::fs::write(&plain, "<p>CharlesHenryWickens \u{2014} gone</p>").unwrap();
+    let quoted = dir
+        .path()
+        .join("tools/depreciation-rates/asset/example/index.html");
+    std::fs::create_dir_all(quoted.parent().unwrap()).unwrap();
+    std::fs::write(&quoted, "<p>Plant \u{2014} and \u{2013} equipment</p>").unwrap();
+    let harness = Harness::new(vec![]);
+    let (plain_failures, quoted_failures) = harness.with(dir.path().to_path_buf(), |c| {
+        (
+            c.check_file(&plain, true).unwrap(),
+            c.check_file(&quoted, true).unwrap(),
+        )
+    });
+    assert_eq!(
+        plain_failures,
+        [
+            "index.html: retired repository name: CharlesHenryWickens",
+            "index.html: em dash present"
+        ]
+    );
+    assert!(quoted_failures.is_empty(), "{quoted_failures:?}");
+}
+
+#[test]
+fn own_repositories_are_named_once_in_first_use_order() {
+    let targets = strings(&[
+        "https://github.com/ryanduguid/Ozzit/blob/v1/a.txt",
+        "https://example.com/",
+        "https://github.com/ryanduguid/Ozzit",
+        "https://github.com/ryanduguid/aus-accounting-mcp",
+    ]);
+    assert_eq!(
+        site_tools::check_links::own_repositories(&targets),
+        strings(&["Ozzit", "aus-accounting-mcp"])
+    );
+}
+
+#[test]
+fn summary_reports_refusals_and_warnings_with_annotations_on_ci() {
+    use site_tools::check_links::summary;
+    let refusals = strings(&["a.html: https://www.ato.gov.au/x -> HTTP 403"]);
+    let warnings = strings(&["b.html: https://example.com/ timed out"]);
+    let (text, code) = summary(&refusals, &warnings, true, &[], false);
+    assert_eq!(code, 0);
+    assert_eq!(
+        text,
+        "\n1 source(s) refused the runner; check each in a browser:\n  REFUSED a.html: https://www.ato.gov.au/x -> HTTP 403\n::warning title=Refused the runner::a.html: https://www.ato.gov.au/x -> HTTP 403\n\n1 transient failure(s) reported as warnings:\n  WARN b.html: https://example.com/ timed out\n::warning title=Transient link failure::b.html: https://example.com/ timed out\n\nno other failures\n"
+    );
+    let (text, code) = summary(&refusals, &[], false, &strings(&["c.html: bad"]), false);
+    assert_eq!(code, 1);
+    assert!(text.contains("  REFUSED a.html") && !text.contains("::warning"));
+    assert!(
+        text.ends_with("\n1 failure(s):\n  FAIL c.html: bad\n"),
+        "{text}"
+    );
+    assert_eq!(
+        summary(&[], &[], false, &[], false),
+        ("\nall clear\n".into(), 0)
+    );
+}
+
+#[test]
+fn prefetch_keeps_at_most_three_requests_in_flight_to_one_host() {
+    use site_tools::check_links::{Clock, Opened, Opener, prefetch};
+    use std::sync::Arc;
+    use std::sync::atomic::{AtomicUsize, Ordering};
+
+    struct Slow {
+        now: Arc<AtomicUsize>,
+        most: Arc<AtomicUsize>,
+    }
+    impl Opener for Slow {
+        fn open(&mut self, url: &str, _: &[(&str, String)]) -> Result<Opened, NetError> {
+            let current = self.now.fetch_add(1, Ordering::SeqCst) + 1;
+            self.most.fetch_max(current, Ordering::SeqCst);
+            std::thread::sleep(std::time::Duration::from_millis(40));
+            self.now.fetch_sub(1, Ordering::SeqCst);
+            Ok(Opened {
+                status: 200,
+                url: url.into(),
+                body: Vec::new(),
+            })
+        }
+    }
+    struct Still;
+    impl Clock for Still {
+        fn sleep(&mut self, _: f64) {}
+        fn now(&mut self) -> f64 {
+            0.0
+        }
+    }
+    let now = Arc::new(AtomicUsize::new(0));
+    let most = Arc::new(AtomicUsize::new(0));
+    let transport = || {
+        (
+            Box::new(Slow {
+                now: now.clone(),
+                most: most.clone(),
+            }) as Box<dyn Opener>,
+            Box::new(Still) as Box<dyn Clock>,
+        )
+    };
+    let urls: Vec<String> = (0..7).map(|n| format!("https://example.com/{n}")).collect();
+    let dir = tempfile::tempdir().unwrap();
+    let fetched = prefetch(dir.path(), urls.clone(), &transport);
+    assert_eq!(fetched.len(), urls.len());
+    assert_eq!(most.load(Ordering::SeqCst), 3);
+}
