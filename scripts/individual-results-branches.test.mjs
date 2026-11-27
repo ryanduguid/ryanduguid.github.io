@@ -6,10 +6,17 @@
 // contribution.
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
+import { readFileSync } from 'node:fs';
 import { individualResult } from '../assets/individual-tax-results.mjs';
 import { aud, formReader, openingFields } from './form-fields.mjs';
 
-const result = (page, changes) => individualResult(page, formReader(page, changes), aud);
+const FORMS = new Map([
+  ['take-home-pay', readFileSync('_includes/calculators/take-home-pay.html', 'utf8')],
+  ['bonus-withholding', readFileSync('_includes/calculators/bonus-withholding.html', 'utf8')],
+  ['division-293', readFileSync('_includes/calculators/division-293.html', 'utf8')],
+  ['concessional-catch-up', readFileSync('_includes/calculators/concessional-catch-up.html', 'utf8')],
+]);
+const result = (page, changes) => individualResult(page, formReader(FORMS.get(page), changes), aud);
 const row = (r, label) => r.rows.find(([name]) => name === label)?.[1];
 const money = (text) => Number(text.replace(/[$,]/g, ''));
 
@@ -95,7 +102,7 @@ test('Division 293 notes an excess, an unused cap that cannot carry forward and 
 
 test('a proposed catch-up contribution shows the contributions and excess with it', () => {
   const r = result('concessional-catch-up', { proposed: '5000' });
-  assert.equal(row(r, 'Contributions with the proposed one'), aud(money(row(r, 'Concessional cap available')) + 5000));
+  assert.equal(row(r, 'Contributions with the proposed one'), aud(Number(openingFields(FORMS.get('concessional-catch-up')).get('concessional')) + 5000));
   assert.equal(row(r, 'Excess with the proposed contribution'), '$5,000.00');
   assert.match(r.inputs, /, proposed \$5,000\.00, earlier years/);
 });

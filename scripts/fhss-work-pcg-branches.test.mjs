@@ -55,7 +55,7 @@ test('FHSS contribution estimates refuse dates, amounts and rows it cannot count
     { code: 'fhss.determination_requested_invalid' });
 });
 
-const fhssForm = (changes) => formReader('fhss', { scope: 'yes', 'withholding-basis': 'unable', 'debt-offset': '0', transition: '',
+const fhssForm = (changes) => formReader(readFileSync('_includes/calculators/fhss.html', 'utf8'), { scope: 'yes', 'withholding-basis': 'unable', 'debt-offset': '0', transition: '',
   mode: 'estimate', 'determination-date': '2024-12-15', 'determination-requested': '2024-12-01', deductions: '', ...changes });
 
 test('the FHSS estimate form lists each contribution and the eligible contribution limits', () => {
@@ -77,7 +77,7 @@ test('the FHSS estimate form refuses a line without a date, amount and kind, and
   assert.throws(() => fhssResult(fhssForm({ contributions: 'x'.repeat(600001) }), aud), { message: 'Contributions is too long.' });
 });
 
-const work = (changes) => workExpensesResult(formReader('work-expenses', { scope: 'yes', ...changes }), aud);
+const work = (changes) => workExpensesResult(formReader(readFileSync('_includes/calculators/work-expenses.html', 'utf8'), { scope: 'yes', ...changes }), aud);
 
 test('cents per kilometre counts only the first 5,000 business kilometres', () => {
   const capped = work({ method: 'car_cents_per_kilometre', 'business-kilometres': '6000', owned: 'yes' });
@@ -102,16 +102,15 @@ test('self-education not connected to current employment is not deductible', () 
   assert.match(r.note, /^Not deductible: when incurred you were not employed/);
 });
 
-const pcgHtml = readFileSync(new URL('../_includes/calculators/pcg-2021-4-allocation.html', import.meta.url), 'utf8');
-const pcgYear = (name) => {
-  const [, scale, baseRate, companyRate] = pcgHtml.match(new RegExp(`name="year" value="${name}" data-scale="([^"]+)" data-base-rate="([^"]+)" data-company-rate="([^"]+)"`));
-  return { name, scale, baseRate, companyRate };
-};
+const pcgForm = readFileSync('_includes/calculators/pcg-2021-4-allocation.html', 'utf8');
+// Each year radio's data, as assets/accounting-pages.mjs passes the checked one.
+const pcgYear = (year) => [...pcgForm.matchAll(/name="year" value="([^"]+)" data-scale="([^"]+)" data-base-rate="([^"]+)" data-company-rate="([^"]+)"/g)]
+  .map(([, name, scale, baseRate, companyRate]) => ({ name, scale, baseRate, companyRate })).find(({ name }) => name === year);
 const percent = (share) => (share === null ? 'none' : `${(share * 100).toFixed(2)}%`);
 const allocation = (changes) => {
   const none = Object.fromEntries(Array.from({ length: 5 }, (_, i) => [[`kind-${i + 1}`, 'none'], [`firm-${i + 1}`, '0'],
     [`deductions-${i + 1}`, '0'], [`other-${i + 1}`, '0']]).flat());
-  return pcgAllocationResult(formReader('pcg-2021-4-allocation', { ...none, ...changes }), pcgYear('2020-21'), aud, percent);
+  return pcgAllocationResult(formReader(pcgForm, { ...none, ...changes }), pcgYear('2020-21'), aud, percent);
 };
 
 test('the PCG allocation scores all 3 factors against a benchmark', () => {

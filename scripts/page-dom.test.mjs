@@ -13,7 +13,7 @@ import { toTabSeparated } from '../assets/rate-tables.mjs';
 class Element {
   constructor(tag, document) {
     Object.assign(this, { tag, document, attributes: new Map(), children: [], parent: null, id: '', className: '',
-      textContent: '', listeners: {} });
+      textContent: '', listeners: new Map() });
   }
   getAttribute(name) { return this.attributes.has(name) ? this.attributes.get(name) : null; }
   setAttribute(name, value) { this.attributes.set(name, String(value)); }
@@ -36,7 +36,7 @@ class Element {
     return null;
   }
   matches(selector) { return selector === this.tag || selector === `.${this.className}`; }
-  addEventListener(type, listener) { this.listeners[type] = listener; }
+  addEventListener(type, listener) { this.listeners.set(type, listener); }
   get all() { return this.children.flatMap((child) => [child, ...child.all]); }
 }
 
@@ -110,7 +110,7 @@ test('the first invalid control gets the error and the focus; a valid form passe
 });
 
 /** A rate table in its scrolling region, with row headers, and the page's clipboard. */
-const ratePage = async (headers, { region = true, clipboard } = {}) => {
+const ratePage = async (load, headers, { region = true, clipboard } = {}) => {
   const document = new Document();
   const table = document.createElement('table');
   table.className = 'rate-figures';
@@ -134,7 +134,7 @@ const ratePage = async (headers, { region = true, clipboard } = {}) => {
   document.querySelectorAll = (selector) => (selector === 'table.rate-figures' ? [table] : []);
   globalThis.document = document;
   Object.defineProperty(globalThis, 'navigator', { value: { clipboard }, configurable: true, writable: true });
-  await import(`../assets/rate-tables.mjs?page=${Math.random()}`);
+  await load();
   delete globalThis.document;
   const wrap = document.all.find((node) => node.className === 'copy-wrap');
   return { document, ths, wrap, button: wrap?.children.find((node) => node.tag === 'button'),
@@ -142,7 +142,7 @@ const ratePage = async (headers, { region = true, clipboard } = {}) => {
 };
 
 test('only the first row in force today is marked', async () => {
-  const { ths } = await ratePage(['2000-01', '1 July 2000 onwards', '1 July 2001 onwards'], { clipboard: { writeText: async () => {} } });
+  const { ths } = await ratePage(() => import('../assets/rate-tables.mjs?marked'), ['2000-01', '1 July 2000 onwards', '1 July 2001 onwards'], { clipboard: { writeText: async (text) => text } });
   assert.deepEqual(ths.map((th) => th.children.map((child) => [child.className, child.textContent])),
     [[], [['rate-current', 'In force today']], []]);
   assert.equal(ths[1].textContent, '1 July 2000 onwards ');
@@ -150,15 +150,15 @@ test('only the first row in force today is marked', async () => {
 
 test('Copy for Excel copies the table without the in-force label and says so', async () => {
   const copied = [];
-  const { wrap, button, status } = await ratePage(['2000-01', '1 July 2000 onwards'], { clipboard: { writeText: async (text) => { copied.push(text); } } });
+  const { wrap, button, status } = await ratePage(() => import('../assets/rate-tables.mjs?copied'), ['2000-01', '1 July 2000 onwards'], { clipboard: { writeText: async (text) => { copied.push(text); } } });
   assert.equal(wrap.children[0].className, 'table-scroll', 'the region moves inside the wrapper');
   assert.equal(button.textContent, 'Copy for Excel');
   assert.equal(button.getAttribute('aria-label'), 'Copy for Excel: super guarantee rates');
   assert.equal(status.getAttribute('role'), 'status');
-  const click = button.listeners.click();
+  const click = button.listeners.get('click')();
   assert.equal(status.textContent, 'Copying table...');
   assert.equal(button.getAttribute('aria-disabled'), 'true');
-  await button.listeners.click();
+  await button.listeners.get('click')();
   await click;
   assert.deepEqual(copied, [toTabSeparated([['Income year', 'Rate'], ['2000-01', '11.5%'], ['1 July 2000 onwards', '11.5%']])],
     'a second click whilst copying is ignored');
@@ -167,14 +167,14 @@ test('Copy for Excel copies the table without the in-force label and says so', a
 });
 
 test('a refused clipboard write points to the CSV download', async () => {
-  const { button, status } = await ratePage(['2000-01'], { clipboard: { writeText: async () => { throw new Error('denied'); } } });
-  await button.listeners.click();
+  const { button, status } = await ratePage(() => import('../assets/rate-tables.mjs?refused'), ['2000-01'], { clipboard: { writeText: async () => { throw new Error('denied'); } } });
+  await button.listeners.get('click')();
   assert.equal(status.textContent, 'Copy unavailable. Download the CSV below instead.');
   assert.equal(button.getAttribute('aria-disabled'), null);
 });
 
 test('no copy control without a scrolling region or a clipboard', async () => {
-  assert.equal((await ratePage(['2000-01'], { region: false, clipboard: { writeText: async () => {} } })).wrap, undefined);
-  assert.equal((await ratePage(['2000-01'], { clipboard: undefined })).wrap, undefined);
-  assert.equal((await ratePage(['2000-01'], { clipboard: { writeText: 'no' } })).wrap, undefined);
+  assert.equal((await ratePage(() => import('../assets/rate-tables.mjs?no-region'), ['2000-01'], { region: false, clipboard: { writeText: async (text) => text } })).wrap, undefined);
+  assert.equal((await ratePage(() => import('../assets/rate-tables.mjs?no-clipboard'), ['2000-01'], { clipboard: undefined })).wrap, undefined);
+  assert.equal((await ratePage(() => import('../assets/rate-tables.mjs?no-write'), ['2000-01'], { clipboard: { writeText: 'no' } })).wrap, undefined);
 });
