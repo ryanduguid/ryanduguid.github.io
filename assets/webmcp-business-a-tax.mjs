@@ -74,7 +74,7 @@ export function luxuryCarTaxTool(kit, luxuryCarTax, lctYears, lctThresholds) {
   const lineSchema = record({
     kind: choice(['sale', 'importation', 'price_adjustment', 'change_of_use_increasing', 'change_of_use_decreasing', 'refund'],
       'Line type: "sale", "importation", "price_adjustment", "change_of_use_increasing", "change_of_use_decreasing" or "refund".'),
-    suppliedIn: choice(supplyYears, 'Supply financial year (2012-13 to incomeYear): required for price_adjustment and change_of_use_increasing; optional for refund.'),
+    suppliedIn: choice(supplyYears, 'Supply financial year (2012-13 to incomeYear): required for price_adjustment, change_of_use_increasing and refund.'),
     luxuryCarTaxValue: text('cost', 'Luxury car tax value in AUD (sale, importation, change_of_use_increasing).'),
     correctedLuxuryCarTaxValue: text('cost', 'Corrected luxury car tax value in AUD (price_adjustment).'),
     fuelConsumptionLitresPer100km: text('percent', 'Combined fuel consumption rating in L/100 km (0 to 100, up to 2 decimals); omit for no rating on car lines.'),
