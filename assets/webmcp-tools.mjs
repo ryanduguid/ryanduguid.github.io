@@ -9,6 +9,8 @@ import { businessCohortDTools } from './webmcp-business-d.mjs';
 import { businessCohortETools } from './webmcp-business-e.mjs';
 import { casualOvertimeTool } from './webmcp-casual-overtime.mjs';
 import { contractorEmployeeTool } from './webmcp-contractor-employee.mjs';
+import { paydayCashflowTool } from './webmcp-payday-cashflow.mjs';
+import { taxInvoiceTools } from './webmcp-tax-invoice.mjs';
 import {
   concessionalCatchUpTool, fhssTool, governmentSuperTool, lumpSumArrearsTool, studyLoanTool, workExpensesTool,
 } from './webmcp-individual-more.mjs';
@@ -562,7 +564,8 @@ const fuelTaxCreditsTool = (fuelTaxCredits) => tool({
  *   | 'fbtLoan' | 'fbtMealEntertainment' | 'fbtProperty' | 'landTaxYear' | 'terminationPayment' | 'transferDuty'
  *   | 'rdTaxOffset' | 'RD_YEARS' | 'gstAdjustment' | 'percentFraction' | 'GST_WORKSHEETS' | 'GST_ADJUSTMENT_YEARS'
  *   | 'deferredTax' | 'DEFERRED_TAX_YEARS' | 'soleTraderCompany' | 'SOLE_TRADER_COMPANY_YEARS' | 'casualOvertime'
- *   | 'contractorEmployee' | 'CONTRACTOR_YEARS'>} calculate */
+ *   | 'contractorEmployee' | 'CONTRACTOR_YEARS' | 'paydayCashflow' | 'taxInvoice' | 'TREATMENTS' | 'MAX_LINES'
+ *   | 'trustStreaming' | 'TRUST_STREAMING_ROWS'>} calculate */
 export function calculatorTools(calculate) {
   return {
     gst: gstTool(calculate.gst),
@@ -583,6 +586,8 @@ export function calculatorTools(calculate) {
     ...businessCohortETools(TOOL_KIT, calculate),
     'casual-overtime': casualOvertimeTool(TOOL_KIT, calculate.casualOvertime),
     'contractor-employee': contractorEmployeeTool(TOOL_KIT, calculate),
+    'payday-cashflow': paydayCashflowTool(TOOL_KIT, calculate.paydayCashflow),
+    ...taxInvoiceTools(TOOL_KIT, calculate),
   };
 }
 

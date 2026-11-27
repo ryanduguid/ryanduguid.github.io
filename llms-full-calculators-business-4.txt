@@ -90,7 +90,7 @@ One payer’s 2 contracts, 74% paid for a result, are 100% from one payer | Sole
 A payer entered in 2 rows is one source and one unrelated client | Sole trader; payers $50.00 (offer), $30.00 (offer; same payer as payer 1), $20.00 (offer) | Subsection 87-15(3), not a personal services business unless a determination is in force, so Division 85 applies, largest payer 80.00%, 2 unrelated by public offer
 An agent’s payments are checked before a determination settles the question | Sole trader; determination in force; payers $100.00; agent, $100.01 commission of $100.00 | Refused: enter the principal’s payments and the part of them that is commission or performance fees
 
-One of the sixty business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the sixty-three business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 ## Related
 
@@ -102,7 +102,7 @@ Planning estimates in AUD. Confirm tax treatment, liability amounts and dates se
 
 ## Links
 
-- sixty business calculators: https://duguid.com.au/tools/business-calculators/
+- sixty-three business calculators: https://duguid.com.au/tools/business-calculators/
 - PCG 2021/4 risk scorer: https://duguid.com.au/tools/business-calculators/pcg-2021-4/
 - Sole trader tax set-aside calculator: https://duguid.com.au/tools/individual-tax/sole-trader/
 - Companies and trusts questions: https://duguid.com.au/tools/accounting-questions/company-compliance/
@@ -186,7 +186,7 @@ Above the $62,500 quarterly maximum contribution base is refused | payday 30 Jun
 A casual loading and paid annual leave together are refused | payday 10 July 2026; base rate $30.00 an hour; casual loading 25%; 10 ordinary hours; 8 hours of annual leave | Refused: a casual employee’s loading is paid instead of paid leave: enter either a casual loading or hours of paid annual leave, not both
 A payday before 1 July 2025 is refused | payday 30 June 2025; base rate $30.00 an hour; 38 ordinary hours | Refused: enter a payday from 1 July 2025 to 30 June 2027, the paydays this calculator holds the 12% super guarantee and maximum contribution base for
 
-One of the sixty business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the sixty-three business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
 
@@ -195,7 +195,7 @@ Planning estimates in AUD. Confirm tax treatment, liability amounts and dates se
 - pay guides: https://www.fairwork.gov.au/pay-and-wages/minimum-wages/pay-guides
 - Pay and Conditions Tool: https://calculate.fairwork.gov.au/
 - SGC and Payday Super calculator: https://duguid.com.au/tools/business-calculators/sgc-payday/
-- sixty business calculators: https://duguid.com.au/tools/business-calculators/
+- sixty-three business calculators: https://duguid.com.au/tools/business-calculators/
 
 ---
 
@@ -241,7 +241,7 @@ Case | Inputs | Result
 A month’s share rounds half up | Wages $51.30, super $0.00, other $0.00 | Annual $51.30, monthly $4.28
 Annual costs add before spreading | Wages $80,000.00, super $9,600.00, other $1,000.00 | Annual $90,600.00, monthly $7,550.00
 
-One of the sixty business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the sixty-three business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 ## Related
 
@@ -255,7 +255,7 @@ Planning estimates in AUD. Confirm tax treatment, liability amounts and dates se
 
 - super guarantee rate: https://duguid.com.au/rates/super-guarantee/
 - Staff cost checklist: https://duguid.com.au/tools/accounting-questions/payroll-super/#q50
-- sixty business calculators: https://duguid.com.au/tools/business-calculators/
+- sixty-three business calculators: https://duguid.com.au/tools/business-calculators/
 - Payroll tax calculator: https://duguid.com.au/tools/business-calculators/payroll-tax/
 - Workers compensation premium calculator: https://duguid.com.au/tools/business-calculators/workers-compensation/
 
@@ -363,7 +363,7 @@ The small business income tax offset and own super of $10,000 | 2026-27; 38 hour
 Own super above the concessional cap with the super guarantee: refused | 2026-27; 38 hours a week; salary $100,000.00, 4 weeks annual leave, 0% loading, 0 weeks other leave; payroll tax 5.45% with super, workers compensation 1.5% without super; contractor $70.00 an hour, non-labour $0.00, expenses $2,000.00, own super $20,000.00, GST registered, credit claimed; with the person, no delegation, not for a result; contractor not in payroll tax, not in workers compensation, no small business offset; hospital cover, no study loan | Refused: enter the contractor’s own super so that it and any super guarantee total no more than the 2026-27 concessional contributions cap of $32,500: excess contributions are not worked here
 Leave of 52 weeks: refused | 2026-27; 38 hours a week; salary $100,000.00, 50 weeks annual leave, 0% loading, 2 weeks other leave; payroll tax 5.45% with super, workers compensation 1.5% without super; contractor $70.00 an hour, non-labour $0.00, expenses $2,000.00, own super $0.00, GST registered, credit claimed; with the person, no delegation, not for a result; contractor not in payroll tax, not in workers compensation, no small business offset; hospital cover, no study loan | Refused: enter leave of fewer than 52 weeks in all
 
-One of the sixty business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the sixty-three business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
 
@@ -373,7 +373,7 @@ Planning estimates in AUD. Confirm tax treatment, liability amounts and dates se
 - personal services income checker: https://duguid.com.au/tools/business-calculators/psi-determination/
 - payroll tax calculator: https://duguid.com.au/tools/business-calculators/payroll-tax/
 - workers compensation calculator: https://duguid.com.au/tools/business-calculators/workers-compensation/
-- sixty business calculators: https://duguid.com.au/tools/business-calculators/
+- sixty-three business calculators: https://duguid.com.au/tools/business-calculators/
 
 ---
 
@@ -448,7 +448,7 @@ Case | Inputs | Result
 A receipt delayed past week 13 stays visible as deferred | Opening -$50.00, buffer $100.00, $1,000.00 received in week 13, $600.00 of it delayed 1 week | Closing $350.00, minimum -$50.00, funding $150.00, deferred $600.00
 A receipt delayed into week 13 is not deferred | Opening -$50.00, buffer $100.00, $1,000.00 received in week 12, $600.00 of it delayed 1 week | Closing $950.00, minimum -$50.00, funding $150.00, deferred $0.00
 
-One of the sixty business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate. Use Save inputs to download a local scenario file, then Load inputs to resume it.
+One of the sixty-three business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate. Use Save inputs to download a local scenario file, then Load inputs to resume it.
 
 ## Related
 
@@ -462,7 +462,7 @@ Planning estimates in AUD. Confirm tax treatment, liability amounts and dates se
 
 - business.gov.au: cash flow: https://business.gov.au/finance/cash-flow/set-up-a-cash-flow-statement
 - Lumbridge cash flow case: https://duguid.com.au/examples/profit-vs-cash-flow/
-- sixty business calculators: https://duguid.com.au/tools/business-calculators/
+- sixty-three business calculators: https://duguid.com.au/tools/business-calculators/
 - Cash flow questions: https://duguid.com.au/tools/accounting-questions/cash-flow/
 - 2026-27 BAS due dates: https://duguid.com.au/tools/bas-due-dates/
 
@@ -518,7 +518,7 @@ An amended assessment takes the later of its 2 dates | Amended income tax assess
 An FBT assessment allows 4 years | FBT assessment, notice 15 November 2026 | Paragraph 14ZW(1)(aaa), period ends Friday 15 November 2030, last day Friday 15 November 2030
 A first notice after the amended notice is refused | Amended FBT assessment, notice 1 July 2026, first notice 2 July 2026 | Refused: the first assessment’s notice cannot be later than the amended one
 
-One of the sixty business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the sixty-three business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 ## Related
 
@@ -530,7 +530,7 @@ Planning estimates in AUD. Confirm tax treatment, liability amounts and dates se
 
 ## Links
 
-- sixty business calculators: https://duguid.com.au/tools/business-calculators/
+- sixty-three business calculators: https://duguid.com.au/tools/business-calculators/
 - ATO penalties and interest calculator: https://duguid.com.au/tools/business-calculators/ato-penalties-interest/
 - Business days calculator: https://duguid.com.au/tools/business-calculators/business-days/
 - 2026-27 BAS due dates: https://duguid.com.au/tools/bas-due-dates/
@@ -593,7 +593,7 @@ A new rate at T2 does not decide the credit | Varied rate from estimated tax $80
 A first instalment with earlier instalments is refused | Varied amount, instalment 1; estimated tax $8,000.00, earlier instalments $1,000.00, credits $0.00 | Refused: the first instalment of the year has no earlier instalments
 A credit for the second instalment is refused | Varied amount, instalment 2; estimated tax $8,000.00, earlier instalments $2,000.00, credits $500.00 | Refused: the first and second instalments of the year add back no credits
 
-One of the sixty business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the sixty-three business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 ## Related
 
@@ -605,7 +605,7 @@ Planning estimates in AUD. Confirm tax treatment, liability amounts and dates se
 
 ## Links
 
-- sixty business calculators: https://duguid.com.au/tools/business-calculators/
+- sixty-three business calculators: https://duguid.com.au/tools/business-calculators/
 - 2026-27 BAS due dates: https://duguid.com.au/tools/bas-due-dates/
 - GST and BAS questions: https://duguid.com.au/tools/accounting-questions/gst-bas/
 - Sole trader tax set-aside calculator: https://duguid.com.au/tools/individual-tax/sole-trader/
@@ -704,7 +704,7 @@ A death benefit to a death benefits dependant is tax free (section 302-60) | 202
 Other lump sums in the same year share the low rate cap, which the page does not take | 2021-22; member; paid 1 October 2021; lump sum $1,500.00 from an interest of $1,500.00 with $0.00 tax free; untaxed element $500.00; born 1 January 1963; no service before 1 July 1983; low rate cap used $224,999.99; other lump sums this year; untaxed plan cap used $0.00 | Refused: other lump sums received in the same income year at or above preservation age and under 60 share the year’s low rate cap left, the taxed element first whatever the order of payment (ITAA 1997 ss 301-20(3) and 301-105(5) and (6)), which this calculator does not take; with none of the cap left they do not change the result
 2027-28’s untaxed plan cap is not yet published | 2027-28; member; paid 1 October 2027; lump sum $300,000.00 from an interest of $300,000.00 with $30,000.00 tax free; untaxed element $80,000.00; born 1 May 1964; no service before 1 July 1983; untaxed plan cap used $0.00 | Refused: choose an income year from 2020-21 to 2026-27; the untaxed plan cap for 2027-28 is not yet published
 
-One of the sixty business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the sixty-three business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 ## Related
 
@@ -718,7 +718,7 @@ Planning estimates in AUD. Confirm tax treatment, liability amounts and dates se
 
 - australian-accounting: https://github.com/ryanduguid/australian-accounting
 - redundancy and ETP withholding calculator: https://duguid.com.au/tools/business-calculators/termination-payment/
-- sixty business calculators: https://duguid.com.au/tools/business-calculators/
+- sixty-three business calculators: https://duguid.com.au/tools/business-calculators/
 - Super projection calculator: https://duguid.com.au/tools/individual-tax/super-projection/
 - Division 296 tax calculator: https://duguid.com.au/tools/business-calculators/division-296/
 
@@ -775,7 +775,7 @@ Born a day later, still under preservation age | Redundancy payment $0.00 after 
 Withholding of exactly $8.50 rounds up to the next dollar | Redundancy payment $0.00 after 0 years, other code R $0.00, code O $50.00, other payments $0.00, born 30 June 1960 | Withheld from code O $9.00, total withheld $9.00
 Part years of service are refused | Redundancy payment $48,000.00 after 5.5 years, other code R $0.00, code O $0.00, other payments $0.00, born 1 August 1996 | Refused: enter a whole number between 0 and 150
 
-One of the sixty business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the sixty-three business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 ## Related
 
@@ -788,7 +788,7 @@ Planning estimates in AUD. Confirm tax treatment, liability amounts and dates se
 ## Links
 
 - Schedule 11: https://www.ato.gov.au/tax-rates-and-codes/payg-withholding-schedule-11-tax-table-for-employment-termination-payments
-- sixty business calculators: https://duguid.com.au/tools/business-calculators/
+- sixty-three business calculators: https://duguid.com.au/tools/business-calculators/
 - Unused leave on termination: https://duguid.com.au/tools/business-calculators/unused-leave/
 - Bonus withholding calculator: https://duguid.com.au/tools/individual-tax/bonus-withholding/
 - Payroll and super questions: https://duguid.com.au/tools/accounting-questions/payroll-super/
