@@ -335,15 +335,14 @@ pub fn fetch_targets(hrefs: &[String], actions: bool) -> Vec<String> {
             continue;
         }
         // A scheme-relative link takes the site's https; a relative one stays on the site.
-        let Ok(href) = pyurl::urljoin(&format!("{SELF_ORIGIN}/"), href) else {
-            continue;
-        };
+        // urljoin and urlsplit refuse only a netloc, and the join keeps the href's netloc,
+        // which urlsplit accepted above, or takes the site's.
+        let href = pyurl::urljoin(&format!("{SELF_ORIGIN}/"), href)
+            .expect("urljoin refuses only what urlsplit refused");
         if (actions && CI_MANUAL_URLS.contains(&href.as_str())) || targets.contains(&href) {
             continue;
         }
-        let Ok(parts) = pyurl::urlsplit(&href) else {
-            continue;
-        };
+        let parts = pyurl::urlsplit(&href).expect("a joined href has an accepted netloc");
         // A malformed port is reported by the link pass, never fetched.
         if is_self_origin(&parts) == Ok(false) {
             targets.push(href);

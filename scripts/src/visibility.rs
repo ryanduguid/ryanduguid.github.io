@@ -694,7 +694,15 @@ struct Args {
 /// argparse for the exclusive `--template`, `--check [CAPTURE ...]` and
 /// `--summary [CAPTURE ...]`, and `--include-fixtures`. `Err` is the exit code.
 fn parse(args: &[String]) -> std::result::Result<Args, u8> {
-    let options = ["--template", "--check", "--summary", "--include-fixtures"];
+    parse_with(
+        args,
+        ["--template", "--check", "--summary", "--include-fixtures"],
+    )
+}
+
+/// [`parse`] recognising `options` besides `--help`; tests pass a table with a shared
+/// prefix, which the site's own does not have.
+fn parse_with(args: &[String], options: [&str; 4]) -> std::result::Result<Args, u8> {
     let error = |message: &str| {
         let _ = crate::print_text(
             &format!("{USAGE}site-tools visibility_benchmark: error: {message}\n"),
@@ -888,6 +896,28 @@ mod tests {
         assert!(matches!(
             parsed(&["--templ"]).ok().unwrap().mode,
             Mode::Template
+        ));
+    }
+
+    /// An abbreviation two options share is refused, unless it is one of them exactly.
+    #[test]
+    fn parse_refuses_an_abbreviation_two_options_share() {
+        let shared = ["--template", "--check", "--checks", "--include-fixtures"];
+        let with = |args: &[&str]| {
+            parse_with(
+                &args.iter().map(|a| (*a).to_owned()).collect::<Vec<_>>(),
+                shared,
+            )
+        };
+        assert_eq!(with(&["--che"]).err(), Some(2));
+        assert!(matches!(
+            with(&["--check", "a.json"]).ok().unwrap().mode,
+            Mode::Check(ref names) if names == &["a.json"]
+        ));
+        // The site's own table has no shared prefix, so the same abbreviation is --check.
+        assert!(matches!(
+            parsed(&["--che"]).ok().unwrap().mode,
+            Mode::Check(_)
         ));
     }
 

@@ -2017,3 +2017,21 @@ fn prefetch_keeps_at_most_three_requests_in_flight_to_one_host() {
     assert_eq!(fetched.len(), urls.len());
     assert_eq!(most.load(Ordering::SeqCst), 3);
 }
+
+/// Hrefs urlsplit refuses (a broken IPv6 literal, a netloc NFKC normalisation changes) are
+/// never fetch targets, and every href it accepts joins onto the site without an error: a
+/// scheme-relative one keeps its host, a relative one stays on the site.
+#[test]
+fn fetch_targets_skip_unsplittable_hrefs_and_join_the_rest() {
+    let hrefs = strings(&[
+        "https://[::1/",
+        "https://exa\u{2100}mple.org/",
+        "//example.org/a",
+        "page.html",
+        "https://example.net/b",
+    ]);
+    assert_eq!(
+        site_tools::check_links::fetch_targets(&hrefs, false),
+        strings(&["https://example.org/a", "https://example.net/b"])
+    );
+}
