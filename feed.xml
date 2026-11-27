@@ -8,6 +8,13 @@
   <updated>2026-11-27T00:00:00Z</updated>
   <author><name>Ryan Duguid</name></author>
   <entry>
+    <title>A new business calculator, non-resident withholding, works the amount a payer…</title>
+    <link href="https://duguid.com.au/changelog/#entry-46bd1eed207d03be" />
+    <id>https://duguid.com.au/changelog/#entry-46bd1eed207d03be</id>
+    <updated>2026-11-27T00:00:00Z</updated>
+    <summary>A new business calculator, non-resident withholding, works the amount a payer withholds from a dividend, interest or royalty paid to a foreign resident in 2024-25 to 2026-27 under Subdivision 12-F of Schedule 1 to the Taxation Administration Act 1953, with a treaty rate, franked dividends, conduit foreign income and the section 12-300 cap. Its WebMCP tool is calculate_non_resident_withholding.</summary>
+  </entry>
+  <entry>
     <title>The depreciation register distinguishes assets with the same name, shows the…</title>
     <link href="https://duguid.com.au/changelog/#entry-812e9c722d31e872" />
     <id>https://duguid.com.au/changelog/#entry-812e9c722d31e872</id>

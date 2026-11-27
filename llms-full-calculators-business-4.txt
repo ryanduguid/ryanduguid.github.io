@@ -261,6 +261,70 @@ Planning estimates in AUD. Confirm tax treatment, liability amounts and dates se
 
 ---
 
+# Non-resident withholding: dividends, interest, royalties
+
+Source: https://duguid.com.au/tools/business-calculators/non-resident-withholding/
+
+> What a payer withholds from a dividend, interest or royalty paid to a foreign resident under Subdivision 12-F: 30%, 10% or a treaty rate, capped by s 12-300.
+
+# Non-resident withholding calculator
+
+Withholding from dividends, interest and royalties paid to foreign residents.
+
+Published 27 November 2026. Last checked 27 November 2026.
+
+JavaScript is required for interactive calculations. The formula, assumptions and source links remain available below.
+
+Withholding from one payment to a foreign resident
+
+Payment (AUD)
+
+Income year 2026-27 2025-26 2024-25
+
+Payment Dividend Interest Royalty
+
+Franked part of a dividend (AUD) Conduit foreign income in a dividend (AUD) Treaty rate (0.15 for 15%; blank for none)
+
+No withholding tax is payable (exempt) No Yes
+
+Already withheld from this payment (AUD)
+
+Calculate
+
+The franked part and conduit foreign income are used only for a dividend. A treaty rate may not exceed the domestic rate: 30% for dividends and royalties, 10% for interest.
+
+Fictional example: the first boundary case below. Change the inputs and calculate your own. Inputs: 2025-26; dividend of $10,000.00; franked $5,000.00, conduit foreign income $0.00; treaty rate 15%. Withholding base $5,000.00 Payment used (whole dollars) $5,000.00 Rate applied 15% Regulation amount (whole dollars) $750.00 Amount to withhold $750.00 Net payment to the foreign resident $9,250.00 The payment and the regulation amount drop their cents; the amount withheld is no more than the withholding tax payable less any amount already withheld.
+
+## How the non-resident withholding calculator works
+
+A payer of a dividend, interest or a royalty to a foreign resident withholds an amount under Subdivision 12-F of Schedule 1 to the Taxation Administration Act 1953 and pays it to the ATO. The calculator ports the non-resident-withholding command of australian-accounting for those 3 payments. The base is the payment, less a dividend’s franked part and conduit foreign income. Its cents are dropped and the regulation rate applied: 30% for a dividend or royalty, or the treaty rate you enter, and always 10% for interest, again dropping cents; a treaty rate on interest only lowers the section 12-300 cap (regulations 26 and 40 to 42). Section 12-300 caps the amount at the withholding tax payable less anything already withheld.
+
+## What the non-resident withholding calculator does not cover
+
+The calculator does not decide whether the payee is a foreign resident, which treaty applies or its rate, whether an exemption such as section 128F applies, or whether a payment is a dividend, interest or a royalty: you enter those as given. It does not cover managed investment trust fund payments (Subdivision 12-H), casino gaming junkets, entertainment or sports payments, construction payments, foreign resident capital gains withholding, non-cash benefits or the annual report. Have a registered tax agent confirm the figures and the result.
+
+## Boundary cases
+
+Each row is a test: scripts/business-calculators.test.mjs runs this calculator on these fictional inputs and fails if the result differs from the one shown.
+
+Boundary cases: Non-resident withholding calculator
+
+Case | Inputs | Result
+The page’s example: a half-franked dividend at a 15% treaty rate | 2025-26; dividend of $10,000.00; franked $5,000.00, conduit foreign income $0.00; treaty rate 15% | Withholding base $5,000.00, amount to withhold $750.00, net payment $9,250.00
+Interest: cents dropped from the payment, then 10% | 2026-27; interest of $1,234.56; no treaty rate | Withholding base $1,234.56, amount to withhold $123.00, net payment $1,111.56
+A royalty under $1 is disregarded | 2024-25; royalty of $0.99; no treaty rate | Withholding base $0.99, amount to withhold $0.00, net payment $0.99
+Section 12-300 caps interest at a 5% treaty rate less $40 already withheld | 2026-27; interest of $1,000.00; treaty rate 5%; already withheld $40.00 | Withholding base $1,000.00, amount to withhold $10.00, net payment $950.00
+
+One of the sixty business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+
+Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. The payment and each withholding step drop their cents, and the section 12-300 cap rounds down to the cent.
+
+## Links
+
+- sixty business calculators: https://duguid.com.au/tools/business-calculators/
+
+---
+
 # Contractor against employee: cost, take-home and super
 
 Source: https://duguid.com.au/tools/business-calculators/contractor-employee/

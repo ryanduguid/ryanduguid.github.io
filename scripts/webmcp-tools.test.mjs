@@ -99,7 +99,7 @@ test('every calculator tool is read-only, refuses unknown inputs and has its own
     'calculate_fbt_expense_payment', 'calculate_fbt_loan', 'calculate_fbt_meal_entertainment', 'calculate_fbt_property',
     'calculate_land_tax', 'calculate_termination_payment', 'calculate_transfer_duty',
     'calculate_rd_tax_offset', 'calculate_gst_adjustments', 'calculate_deferred_tax', 'calculate_sole_trader_vs_company', 'calculate_casual_overtime_pay',
-    'calculate_contractor_employee',
+    'calculate_contractor_employee', 'calculate_non_resident_withholding',
     'calculate_decline_in_value', 'calculate_coal_lsl_levy']);
   for (const t of all) {
     assert.equal(t.annotations.readOnlyHint, true, t.name);
@@ -1699,7 +1699,7 @@ test('every calculator include in _includes/calculators has a registered WebMCP 
     .sort();
   const registered = [...Object.keys(tools), ...Object.keys(individual)].sort();
   assert.deepEqual(registered, slugs);
-  assert.equal(registered.length + 2, 80);
+  assert.equal(registered.length + 2, 81);
 });
 
 test('business days tool returns the page worked example, matches holiday JSON and refuses mismatched or invalid inputs', async () => {
@@ -2249,4 +2249,16 @@ test('contractor against employee tool works the page default, section 12(3) and
   await assert.rejects(tool.execute({ ...base, incomeYear: '2020-21' }), /incomeYear/);
   await assert.rejects(tool.execute({ ...base, annualLeaveWeeks: '50', otherLeaveWeeks: '2' }), /fewer than 52 weeks/);
   await assert.rejects(tool.execute({ ...base, awardRate: '30' }), /awardRate is not an input of this tool/);
+});
+
+test('the non-resident withholding tool returns its page example and refuses what its page refuses', async () => {
+  const nrw = tools['non-resident-withholding'];
+  const r = await nrw.execute({ incomeYear: '2025-26', paymentType: 'dividend', payment: '10000', frankedAmount: '5000', treatyRate: '0.15' });
+  assert.deepEqual([r.withholding, r.netPayment, r.rates.applied_rate, r.source],
+    ['750.00', '9250.00', '0.15', 'https://duguid.com.au/tools/business-calculators/non-resident-withholding/']);
+  const interest = await nrw.execute({ incomeYear: '2026-27', paymentType: 'interest', payment: '1234.56' });
+  assert.deepEqual([interest.paymentUsed, interest.withholding], ['1234.00', '123.00']);
+  await assert.rejects(nrw.execute({ incomeYear: '2025-26', paymentType: 'royalty', payment: '100', treatyRate: '0.31' }), /treaty_rate must be null/);
+  await assert.rejects(nrw.execute({ incomeYear: '2025-26', paymentType: 'interest', payment: '100', extra: 1 }), /extra is not an input of this tool/);
+  await assert.rejects(nrw.execute({ incomeYear: '2025-26', paymentType: 'interest', payment: '1000', frankedAmount: '500' }), /franked_amount is not an input for this payment_type/);
 });

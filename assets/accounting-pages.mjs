@@ -596,6 +596,9 @@ function initialiseCalculators([calculate, fieldErrors, fbtForms, { individualRe
           case 'contractor-employee':
             result = calculate.contractorEmployeeResult(value, aud);
             break;
+          case 'non-resident-withholding':
+            result = calculate.nrwResult(value, aud);
+            break;
           case 'fuel-tax-credits':
             result = calculate.fuelTaxCreditsResult(value, aud);
             break;

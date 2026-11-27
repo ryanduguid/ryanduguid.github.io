@@ -76,6 +76,7 @@ const pools = { ...business, file: 'assets/depreciation-pools.mjs' };
 const rdOffset = { ...business, file: 'assets/rd-tax-offset.mjs' };
 const casualOt = { ...business, file: 'assets/casual-overtime.mjs' };
 const contractor = { ...business, file: 'assets/contractor-employee.mjs' };
+const nrw = { ...business, file: 'assets/non-resident-withholding.mjs' };
 const gstAdjustments = { ...business, file: 'assets/gst-adjustments.mjs' };
 const deferredTaxEngine = { ...business, file: 'assets/deferred-tax.mjs' };
 const lct = { ...business, file: 'assets/luxury-car-tax.mjs' };
@@ -1153,6 +1154,12 @@ const MUTATIONS = [
   { ...rdOffset, name: 'R&D deduction amount not subtracted', find: 'const income = offset - adjusted[6] - deduction;', replace: 'const income = offset - adjusted[6];' },
   { ...rdOffset, name: 'R&D clawback income over the offset year rate', find: 'ratioCents((income < 0n ? -income : income), presentRate * 1000n)', replace: 'ratioCents((income < 0n ? -income : income), e.rate * 1000n)' },
   { ...rdOffset, name: 'R&D clawback below the threshold allowed', find: 'if (clawback !== 0n && e.notional - clawback < THRESHOLD) {', replace: 'if (false) {' },
+  { ...nrw, name: "NRW interest at the treaty rate", find: "const regRate = type === 'interest' ? /** @type {Dec} */ (parseDec(DOMESTIC.interest)) : applied;", replace: "const regRate = applied;" },
+  { ...nrw, name: "NRW cents kept in the payment", find: "const used = wholeDollars(base);", replace: "const used = base;" },
+  { ...nrw, name: "NRW franked part not taken off", find: "  return sub(payment, exemptParts);", replace: "  return payment;" },
+  { ...nrw, name: "NRW section 12-300 cap ignored", find: "withholding: cmp(cap, reg) < 0 ? cap : reg", replace: "withholding: reg" },
+  { ...nrw, name: "NRW already withheld not taken off the cap", find: "const left = sub(mul(applied, base), already);", replace: "const left = mul(applied, base);" },
+  { ...nrw, name: "NRW treaty rate above the domestic rate accepted", find: "cmp(parsed, max) <= 0", replace: "true" },
   { ...contractor, name: 'Contractor labour of exactly half counted as principally', find: 'const principally = 2 * labour > fee;', replace: 'const principally = 2 * labour >= fee;' },
   { ...contractor, name: 'Contractor right to delegate ignored', find: 'personal: !e.delegate,', replace: 'personal: true,' },
   { ...contractor, name: 'Contractor result contract ignored', find: 'notResult: !e.result,', replace: 'notResult: true,' },
@@ -1397,6 +1404,7 @@ const SHARED = [
   'scripts/rd-tax-offset-engine-differential.json',
   'scripts/gst-adjustments-engine-differential.json',
   'scripts/deferred-tax-engine-differential.json',
+  'scripts/non-resident-withholding-engine-differential.json',
   'scripts/ato-penalties-interest-engine-differential.json',
   'scripts/borrowing-expenses-engine-differential.json',
   'scripts/wine-equalisation-tax-engine-differential.json',

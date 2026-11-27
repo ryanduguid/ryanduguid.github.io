@@ -606,3 +606,5 @@ calculate.casualOvertime({ ...coInput, lines: [{ hours: '3', percent: '175', ove
 // @ts-expect-error Rates and hours are decimal text, not numbers.
 calculate.casualOvertime({ ...coInput, base_rate: 30 });
 void coSuper;
+const nrwWithheld: string = calculate.nonResidentWithholding({}).amounts.withholding;
+void nrwWithheld;
