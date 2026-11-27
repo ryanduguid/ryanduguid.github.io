@@ -1691,11 +1691,18 @@ test('PSI client labels count unrelated clients apart from payers, on every row 
   const message = /^The unrelated clients test decides the outcome/;
   assert.throws(() => psi({ payers: [row('50'), row('25', { same: 1 }), psiPayer('25')] }), { message });
   // Another test met, or 80% from one payer, settles it without labels.
-  assert.equal(psi({ payers: [row('50'), row('25', { same: 1 }), psiPayer('25')], apprentice: true }).rule, 'section 87-25');
-  assert.equal(psi({ payers: [row('50'), row('25', { same: 1 }), psiPayer('25')], premises: ALL_PREMISES }).rule, 'section 87-30');
-  assert.equal(psi({ payers: [row('80'), row('20', { same: 1 })] }).rule, 'subsection 87-15(3)');
+  const settled = (answers) => {
+    try {
+      return psi(answers).rule;
+    } catch (error) {
+      return error.message;
+    }
+  };
+  assert.equal(settled({ payers: [row('50'), row('25', { same: 1 }), psiPayer('25')], apprentice: true }), 'section 87-25');
+  assert.equal(settled({ payers: [row('50'), row('25', { same: 1 }), psiPayer('25')], premises: ALL_PREMISES }), 'section 87-30');
+  assert.equal(settled({ payers: [row('80'), row('20', { same: 1 })] }), 'subsection 87-15(3)');
   // One row won by an offer is not the case the labels settle.
-  assert.equal(psi({ payers: [row('50'), psiPayer('50', 'associate')] }).rule, 'subsection 87-15(1)');
+  assert.equal(settled({ payers: [row('50'), psiPayer('50', 'associate')] }), 'subsection 87-15(1)');
   assert.throws(() => psi({ payers: [row('50', { client: 'A' }), row('50')] }),
     { message: 'Give every payer a client label for the unrelated clients test, or none.' });
   // A blank row is not a payer, so it needs no label.
@@ -1734,10 +1741,8 @@ test('PSI agrees with the australian-accounting psi-test command on every differ
   const reached = new Set();
   for (const { case: source, call, refused, ...want } of cases) {
     reached.add(refused ?? want.rule);
-    if (refused) {
-      assert.equal(psiCode(call), refused, source);
-      continue;
-    }
+    assert.equal(psiCode(call), refused ?? null, source);
+    if (refused) continue;
     const r = calculations.psiDetermination(call);
     assert.deepEqual({ rule: r.rule, effect: r.effect.replaceAll('’', '\''), psb: r.psb, results: fixed(r.results),
       source: fixed(r.source), unrelated: r.unrelated, employment: fixed(r.employment) }, want, source);

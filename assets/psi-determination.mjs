@@ -56,25 +56,20 @@ function clientsConsistent(payers, amounts, rows) {
       throw new Error(`Payer ${i + 1}: a client label is 1 to 100 characters.`);
     }
   });
-  /** @type {Map<string, number>} */
-  const payerOf = new Map();
-  let labelled = 0;
-  let counted = 0;
-  payers.forEach(({ client }, i) => {
-    if (!amounts[i]) return;
-    counted += 1;
-    if (client !== undefined) labelled += 1;
-  });
-  if (labelled && labelled !== counted) {
+  const counted = payers.flatMap(({ client }, i) => (amounts.at(i) ? [{ client, row: rows.at(i), n: i + 1 }] : []));
+  const labelled = counted.filter(({ client }) => client !== undefined).length;
+  if (labelled && labelled !== counted.length) {
     throw new Error('Give every payer a client label for the unrelated clients test, or none.');
   }
-  payers.forEach(({ client }, i) => {
-    if (!amounts[i] || client === undefined) return;
-    if ((payerOf.get(client) ?? rows[i]) !== rows[i]) {
-      throw new Error(`Payer ${i + 1}: rows with one client label are one entity or its associates, so they are the same payer.`);
+  /** @type {Map<string, number | undefined>} */
+  const payerOf = new Map();
+  for (const { client, row, n } of counted) {
+    if (client === undefined) continue;
+    if ((payerOf.get(client) ?? row) !== row) {
+      throw new Error(`Payer ${n}: rows with one client label are one entity or its associates, so they are the same payer.`);
     }
-    payerOf.set(client, rows[i]);
-  });
+    payerOf.set(client, row);
+  }
 }
 
 /** Section 87-40: the principal's payments and the commission in them, checked whenever an agent
@@ -192,13 +187,14 @@ function businessTests({ answers, amounts, rows, agent, total, others, entity, s
  *   oneSource: boolean, steps: Array<[string, string]>}} work */
 function otherTests({ answers, amounts, rows, total, others, oneSource, steps }) {
   const { payers, premises } = answers;
-  const won = payers.flatMap(({ associate, offer }, i) => (amounts[i] && !associate && offer ? [i] : []));
-  const unrelated = new Set(won.map((i) => (payers[i].client === undefined ? `payer ${rows[i]}` : `client ${payers[i].client}`))).size;
+  const won = payers.flatMap(({ associate, offer, client }, i) => (amounts.at(i) && !associate && offer
+    ? [{ client, row: rows.at(i) }] : []));
+  const unrelated = new Set(won.map(({ client, row }) => (client === undefined ? `payer ${row}` : `client ${client}`))).size;
   const employment = share(others, total);
   const fifth = 5 * others >= total;
   const employs = fifth || answers.apprentice;
   const premisesMet = premises.times && premises.mainly && premises.exclusive && premises.private && premises.clients;
-  const labelled = won.some((i) => payers[i].client !== undefined);
+  const labelled = won.some(({ client }) => client !== undefined);
   if (unrelated < 2 && won.length >= 2 && !labelled && !oneSource && !employs && !premisesMet) {
     throw new Error('The unrelated clients test decides the outcome, and 2 or more rows won by offers are the same payer: '
       + 'give every payer a client label, one label for rows that are one entity or associates of each other '
