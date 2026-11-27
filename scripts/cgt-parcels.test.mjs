@@ -160,7 +160,7 @@ test('the command reads each input as australian-accounting does, refusing what 
     'input.decimal_unreadable', 'computed', 'input.amount_invalid', 'input.decimal_unreadable',
   ];
   assert.equal(inputs.length, want.length);
-  inputs.forEach((input, i) => assert.equal(code(() => cgtParcels(input)), want[i], JSON.stringify(input)?.slice(0, 120)));
+  inputs.forEach((input, i) => assert.equal(code(() => cgtParcels(input)), want.at(i), JSON.stringify(input)?.slice(0, 120)));
 });
 
 test('the 12 months from 28 February 2024 end on 28 February 2025, so the discount starts on 1 March', () => {
