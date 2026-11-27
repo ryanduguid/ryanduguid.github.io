@@ -36,6 +36,9 @@ fn refuses_what_python_refuses() {
         "202611-5",
         // A clock whose minutes and seconds are not parted as its hour and minutes are.
         "2026-11-24T12:3045",
+        // After the seconds only a fraction may follow.
+        "2026-11-24T12:34:56x",
+        "2026-11-24T123456x",
         // A week date's day must be a digit.
         "2026-W01-x",
         // 24:00 on a day the month does not have.
