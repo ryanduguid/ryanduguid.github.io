@@ -67,8 +67,10 @@ function refuse(code, message) {
   throw Object.assign(new Error(message), { code });
 }
 
-/** Half up for any sign. @param {bigint} n @param {bigint} d */
-const round = (n, d) => (n < 0n ? -((2n * -n + d) / (2n * d)) : (2n * n + d) / (2n * d));
+/** Half up. Every amount rounded here is nil or more: taxable values and their gross-ups, and a rebatable employer's
+ * item 16 less item 17, as the amount over the caps (item 17's base) is at least the $30,000 cap less than the
+ * grossed-up values item 16 taxes, far more than the dollar rounding of items 14A and 14B. @param {bigint} n @param {bigint} d */
+const round = (n, d) => (2n * n + d) / (2n * d);
 /** @param {bigint} c */
 export const fbtMoney = (c) => `${c < 0n ? '-' : ''}${(c < 0n ? -c : c) / 100n}.${String((c < 0n ? -c : c) % 100n).padStart(2, '0')}`;
 const sum = (/** @type {bigint[]} */ list) => list.reduce((a, b) => a + b, 0n);
@@ -140,7 +142,8 @@ function checkDays(v, kind, year) {
   const given = v.rebatable_days !== undefined || v.employer_days !== undefined;
   if (!given && kind !== 'rebatable') return null;
   if (kind !== 'rebatable') refuse('input.field_unknown', 'rebatable_days and employer_days are inputs only with employer_kind rebatable.');
-  const days = year % 4 === 0 ? 366 : 365;
+  // Each supported FBT year (FBT_RETURN_YEARS: ended 31 March 2026 and 2027) has 365 days; one ending in a leap year adds a day.
+  const days = 365;
   const [rebatable, employer] = [v.rebatable_days, v.employer_days];
   if (!Number.isInteger(employer) || !Number.isInteger(rebatable) || Number(employer) < 1 || Number(employer) > days
     || Number(rebatable) < 0 || Number(rebatable) > Number(employer)) {

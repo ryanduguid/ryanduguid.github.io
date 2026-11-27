@@ -51,7 +51,7 @@ export function fbtInputsText(x, aud) {
   const head = `FBT year ended 31 March ${x.year_ended}, ${KIND_TEXT[/** @type {'taxable'} */ (kind)]}` // eslint-disable-line security/detect-object-injection -- keys come from this module's own constant table or a checked choice
     + `${kind === 'rebatable' ? `, rebatable on ${x.rebatable_days} of ${x.employer_days} days` : ''}`
     + `${x.instalments_reported === undefined ? '' : `, instalments reported ${aud(Number(x.instalments_reported))}`}`;
-  const benefits = (x.benefits ?? []).map((/** @type {Record<string, any>} */ b) => `${b.employee} ${b.label} type ${b.gst_type.slice(-1)}`
+  const benefits = x.benefits.map((/** @type {Record<string, any>} */ b) => `${b.employee} ${b.label} type ${b.gst_type.slice(-1)}`
     + ` ${aud(Number(b.taxable_value))}${b.excluded ? ' excluded' : ''}${b.entertainment === 'salary_packaged' ? ' salary packaged entertainment' : ''}`
     + `${b.electric_car_exempt ? ` exempt electric car, ${aud(Number(b.reportable_taxable_value))} reportable` : ''}`);
   return `${head}; ${benefits.join('; ')}`;
@@ -69,7 +69,7 @@ export function fbtReturnResult(value, aud) {
   }
   for (const e of r.employees.filter((x) => Number(x.reportable) > 0)) rows.push([`${e.employee}: reportable fringe benefits amount`, a(e.reportable)]);
   const caps = r.capping;
-  for (const e of caps?.employees ?? []) rows.push([`${e.employee}: grossed-up amount over the ${a(caps?.cap ?? '0')} cap`, a(e.over)]);
+  if (caps) for (const e of caps.employees) rows.push([`${e.employee}: grossed-up amount over the ${a(caps.cap)} cap`, a(e.over)]);
   const note = r.warnings[0] ?? (r.capping ? 'Benefits each employee receives are capped as FBTAA s 5B(1E) or s 65J(2B) applies; excluded meal entertainment and car parking are disregarded'
     : 'Type 1 benefits are grossed up at 2.0802 and type 2 at 1.8868; a reportable amount appears only above $2,000 of an employee’s benefits that are not excluded');
   return { inputs: fbtInputsText(input, aud), rows, principal, note };

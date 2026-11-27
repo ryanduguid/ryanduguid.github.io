@@ -34,8 +34,9 @@ function parse(text) {
   if (!m || (m[2] === '' && (m[3] ?? '') === '')) return undefined;
   const fraction = m[3] ?? '';
   const exponent = Number(m[4] ?? '0') - fraction.length;
-  const c = BigInt(`${m[2]}${fraction}` || '0');
-  return { c: m[1] === '-' ? -c : c, e: exponent, negative: m[1] === '-', digits: (`${m[2]}${fraction}`.replace(/^0+(?=\d)/, '') || '0').length };
+  // Line 34 leaves at least one digit, and the pattern keeps the last of them.
+  const c = BigInt(`${m[2]}${fraction}`);
+  return { c: m[1] === '-' ? -c : c, e: exponent, negative: m[1] === '-', digits: `${m[2]}${fraction}`.replace(/^0+(?=\d)/, '').length };
 }
 
 /** @param {Record<string, unknown>} v @param {string} key */
@@ -114,11 +115,17 @@ function compare(x, c, e) {
   const b = c * 10n ** BigInt(e - m);
   return a < b ? -1 : a > b ? 1 : 0;
 }
-/** Python's str of a finite decimal input, for a message. @param {{c: bigint, e: number}} x */
+/** Python's str of a negative finite decimal input, for a message (the only kind corporateTax shows). @param {{c: bigint, e: number}} x */
 const show = (x) => {
   if (x.e >= 0) return `${x.c}${x.e ? `E+${x.e}` : ''}`;
-  const s = (x.c < 0n ? -x.c : x.c).toString().padStart(-x.e + 1, '0');
-  return `${x.c < 0n ? '-' : ''}${s.slice(0, s.length + x.e)}.${s.slice(s.length + x.e)}`;
+  const s = (-x.c).toString().padStart(-x.e + 1, '0');
+  return `-${s.slice(0, s.length + x.e)}.${s.slice(s.length + x.e)}`;
+};
+
+/** Python's str of a decimal input that is not finite ('inf' is 'Infinity', '-snan012' is '-sNaN12'). @param {string} raw */
+const showNonFinite = (raw) => {
+  const [, sign, infinite, signalling, payload] = /** @type {RegExpExecArray} */ (/^([+-]?)(?:(inf|infinity)|(s?)nan(\d*))$/i.exec(stripSpace(raw).replaceAll('_', '')));
+  return `${sign === '-' ? '-' : ''}${infinite ? 'Infinity' : `${signalling ? 'sNaN' : 'NaN'}${payload.replace(/^0+/, '')}`}`;
 };
 
 /**
@@ -128,9 +135,10 @@ const show = (x) => {
 /** Income Tax Rates Act 1986 ss 23(2), 23AA, 23AB: the `corporate-tax` rate for a year's three facts.
  * @param {Record<string, unknown>} v @param {number} fy @returns {Rate & {json: Record<string, unknown>}} */
 function corporateTax(v, fy) {
-  const facts = /** @type {const} */ (['aggregated_turnover', 'assessable_income', 'passive_income']).map((key) => decimal(v, key));
+  const keys = /** @type {const} */ (['aggregated_turnover', 'assessable_income', 'passive_income']);
+  const facts = keys.map((key) => decimal(v, key));
   facts.forEach((x, k) => {
-    if (x === null || x.c < 0n) fail(`${['aggregated_turnover', 'assessable_income', 'passive_income'][k]} must be a non-negative finite amount, got ${x === null ? 'a value that is not finite' : show(x)}`); // eslint-disable-line security/detect-object-injection -- k indexes a 3-element list
+    if (x === null || x.c < 0n) fail(`${keys[k]} must be a non-negative finite amount, got ${x === null ? showNonFinite(text(v, keys[k])) : show(x)}`); // eslint-disable-line security/detect-object-injection -- k indexes a 3-element list
   });
   const [turnover, assessable, passive] = /** @type {{c: bigint, e: number}[]} */ (facts);
   const gt = (/** @type {{c: bigint, e: number}} */ a, /** @type {{c: bigint, e: number}} */ b) => compare(a, b.c, b.e) > 0;

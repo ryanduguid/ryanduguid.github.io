@@ -1748,6 +1748,52 @@ test('blackhole expenditure tool returns the page example and refuses what the p
   await assert.rejects(tool.execute({ incomeYear: '2025-26', items: [{ ...example.items[0], incurredIn: '2019-20' }] }), /incurredIn does not match/);
   await assert.rejects(tool.execute({ incomeYear: '2025-26', items: [{ ...example.items[0], capital: false }] }), /capital expenditure only/);
   await assert.rejects(tool.execute({ ...example, extra: 1 }), /extra is not an input of this tool/);
+  // s 40-880(6): a right valued only for its effect on goodwill keeps s 40-880(5)(d) from excluding the item.
+  const goodwill = await tool.execute({ incomeYear: '2025-26', items: [{ ...example.items[0], exclusions: ['5(d)'], goodwillRight: true }] });
+  assert.deepEqual([goodwill.deduction, goodwill.items[0].excluded_by, goodwill.items[0].notes.length], ['1600.00', [], 1]);
+});
+
+test('company tax tool sends a chosen prior-year loss deduction to the statement', async () => {
+  const company = { turnover: '60000000', assessableIncome: '100000', passiveIncome: '0', taxableIncome: '59000', existedLastYear: true,
+    dividend: '0', frankingPercent: '0', marginalRate: '0' };
+  // s 36-17: $60,000 of income over deductions, of which the company chooses to deduct $1,000 of its $30,000 loss.
+  const r = await tools['company-tax'].execute({ ...company, returnStatement: { incomeYear: '2026-27', deductions: '40000',
+    priorYearLosses: [{ lossYear: 2024, amount: '30000', test: 'same_business' }], lossDeductionChosen: '1000' } });
+  assert.deepEqual([r.returnStatement.taxable_income.losses_deducted, r.returnStatement.calculation_statement.A], ['1000.00', '59000.00']);
+});
+
+test('FBT car tool grosses up at the type 2 rate when no GST credit was claimable', async () => {
+  const r = await tools['fbt-car'].execute({ method: 'statutory', costPrice: '60000', laterAccessories: '0', heldBefore1April2022: false,
+    daysAvailable: 182, employeeContribution: '1000', gstCreditEntitled: false });
+  assert.deepEqual([r.grossUpType, r.taxableValue], [2, '4983.56']);
+});
+
+test('FBT return and instalment tools send the engines each stated input and return their labels', async () => {
+  const ret = tools['fbt-return'];
+  const benefits = [{ employee: 'A', label: '23E', gstType: 'type_1', excluded: false, grossTaxableValue: '20000', taxableValue: '20000',
+    entertainment: 'salary_packaged' },
+  { employee: 'C', label: '23A', gstType: 'type_1', excluded: false, grossTaxableValue: '0', employeeContribution: '0', taxableValue: '0',
+    electricCarExempt: true, reportableTaxableValue: '5000' }];
+  const r = await ret.execute({ yearEnded: '2027', employerKind: 'rebatable', rebatableDays: 200, employerDays: 365, instalmentsReported: '1000', benefits });
+  const call = { year_ended: 2027, employer_kind: 'rebatable', rebatable_days: 200, employer_days: 365, instalments_reported: '1000', benefits: [
+    { employee: 'A', label: '23E', gst_type: 'type_1', excluded: false, gross_taxable_value: '20000', employee_contribution: '0', taxable_value: '20000',
+      entertainment: 'salary_packaged' },
+    { employee: 'C', label: '23A', gst_type: 'type_1', excluded: false, gross_taxable_value: '0', employee_contribution: '0', taxable_value: '0',
+      electric_car_exempt: true, reportable_taxable_value: '5000' }] };
+  const direct = calculate.fbtReturn(call);
+  assert.deepEqual([r.yearEnded, r.employerKind, r.returnLabels, r.employees, r.capping, r.currency, r.source],
+    [direct.year, direct.kind, direct.labels, direct.employees, direct.capping, 'AUD', 'https://duguid.com.au/tools/business-calculators/fbt-return/']);
+  assert.equal(r.returnLabels[20], '1000.00');
+  const { entertainment: _, ...taxableBenefit } = benefits[0];
+  const plain = await ret.execute({ yearEnded: '2026', benefits: [taxableBenefit] });
+  assert.equal(plain.employerKind, 'taxable');
+  const inst = tools['fbt-instalment'];
+  // The command's own case (tests/fbt_instalment.rs): a $8,000 estimate at quarter 2 is $4,000 due, less $5,000 already paid,
+  // so nil at 6A and $1,000 at 6B.
+  const varied = await inst.execute({ yearEnded: '2027', quarter: 2, estimatedTax: '8000.00', previousInstalments: '5000.00', previousCredits: '0', reasonCode: '31' });
+  assert.deepEqual([varied.varied, varied.activityStatementLabels], [true, { F2: '8000.00', F3: '0.00', F4: 31, '6A': '0.00', '6B': '1000.00' }]);
+  const ato = await inst.execute({ yearEnded: '2026', quarter: 1, atoInstalment: '2500' });
+  assert.deepEqual([ato.varied, ato.activityStatementLabels['6A'], ato.source], [false, '2500.00', 'https://duguid.com.au/tools/business-calculators/fbt-return/']);
 });
 
 test('company tax tool works the return statement and the 2026-27 loss carry back when asked, and checks label A', async () => {

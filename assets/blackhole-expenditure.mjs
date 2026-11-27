@@ -90,10 +90,11 @@ function decimal(value) {
   return { c: parts[1] ? -v.c : v.c, e: v.e, text: `${parts[1]}${whole}${parts[3] === undefined ? '' : `.${parts[3]}`}` };
 }
 
-/** An exact amount with at least 2 decimal places and no trailing zeros beyond them. @param {{c: bigint, e: number}} v */
+/** An exact amount with at least 2 decimal places and no trailing zeros beyond them. Every amount it writes is
+ * non-negative: an item's amount (refused below nil), its share of it at a taxable purpose from 0 to 1 and the
+ * fifths of that. @param {{c: bigint, e: number}} v */
 function exact(v) {
-  const negative = v.c < 0n;
-  const digits = (negative ? -v.c : v.c).toString();
+  const digits = v.c.toString();
   let whole;
   let fraction;
   if (v.e >= 0) {
@@ -104,7 +105,7 @@ function exact(v) {
     whole = padded.slice(0, padded.length + v.e);
     fraction = padded.slice(padded.length + v.e);
   }
-  return `${negative ? '-' : ''}${whole}.${trimZeros(fraction).padEnd(2, '0')}`;
+  return `${whole}.${trimZeros(fraction).padEnd(2, '0')}`;
 }
 
 /** @param {number} n @param {string} key @param {string} why @returns {never} */
@@ -379,7 +380,7 @@ const paragraph = (label) => {
 /** How the page writes the call. @param {{items: Record<string, any>[], year: string}} x @param {(value: number) => string} aud */
 export function blackholeInputsText(x, aud) {
   const items = x.items.map((it, k) => `item ${k + 1}: ${aud(Number(it.amount))} incurred in ${it.incurred_in} for `
-    + `${BUSINESS_WORDS[it.business] ?? it.business}${it.carried_on_by === 'another_entity' ? ' of another entity' : ''}, `
+    + `${BUSINESS_WORDS[it.business]}${it.carried_on_by === 'another_entity' ? ' of another entity' : ''}, `
     + `${fractionPercent(it.taxable_purpose)}% taxable purpose`
     + `${it.exclusions.length ? `, excluded by section 40-880${paragraph(it.exclusions[0])}` : ''}`
     + `${it.start_up_expense && it.start_up_expense !== 'neither' ? ', a start-up cost' : ''}`);
