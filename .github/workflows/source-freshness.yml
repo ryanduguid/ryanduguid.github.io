@@ -195,10 +195,16 @@ jobs:
       contents: read
     outputs:
       changed: ${{ steps.refresh.outputs.changed }}
+      patch: ${{ steps.refresh.outputs.patch }}
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           persist-credentials: false
+      # build_llms_full renders the site with Jekyll before it extracts the mirrors.
+      - uses: ruby/setup-ruby@b3aaceaef7e0ee231b499e7b5f49c03fc1d32199
+        with:
+          ruby-version: "3.3"
+          bundler-cache: true
       - uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333 # v8
         with:
           name: site-tools-release-check
@@ -219,6 +225,7 @@ jobs:
           "$tools" build_llms_full --write
           git diff --binary > "$RUNNER_TEMP/tool-releases.patch"
           git diff --stat
+          echo "patch=$(sha256sum "$RUNNER_TEMP/tool-releases.patch" | cut -d " " -f 1)" >> "$GITHUB_OUTPUT"
           echo "changed=true" >> "$GITHUB_OUTPUT"
       - uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
         if: steps.refresh.outputs.changed == 'true'
@@ -229,8 +236,54 @@ jobs:
           overwrite: true
           retention-days: 1
 
+  # Holds the refresh to what wrote it before the publish job may push it. The
+  # mirror check renders the site with Jekyll, whose gems stay out of the job that
+  # holds a write token; the publish job pushes only the patch this job checked.
+  check-tool-releases:
+    needs: [release-tools, tool-releases]
+    if: needs.tool-releases.outputs.changed == 'true'
+    timeout-minutes: 10
+    runs-on: ubuntu-24.04
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: ruby/setup-ruby@b3aaceaef7e0ee231b499e7b5f49c03fc1d32199
+        with:
+          ruby-version: "3.3"
+          bundler-cache: true
+      - uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333 # v8
+        with:
+          name: tool-releases
+          path: ${{ runner.temp }}/tool-releases
+      - uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333 # v8
+        with:
+          name: site-tools-release-check
+          path: ${{ runner.temp }}/site-tools
+      - name: Check the refresh against its generators
+        shell: bash
+        env:
+          PATCH_SHA256: ${{ needs.tool-releases.outputs.patch }}
+        run: |
+          patch="$RUNNER_TEMP/tool-releases/tool-releases.patch"
+          echo "$PATCH_SHA256  $patch" | sha256sum --check --strict
+          git worktree add --detach "$RUNNER_TEMP/base" HEAD
+          git apply --index "$patch"
+          # Paths are not content, so each changed file is held to what wrote it:
+          # the snapshot may differ from main's only in release versions, dates and
+          # commits; each stamped page must be what apply_tool_releases writes from
+          # main's copy and that snapshot; any other file must be a text mirror,
+          # which build_llms_full --check regenerates byte for byte.
+          tools="$RUNNER_TEMP/site-tools/site-tools"
+          chmod +x "$tools"
+          mapfile -t changed < <(git diff --cached --name-only --no-renames)
+          "$tools" stamp_source_freshness --verify-tool-releases "$RUNNER_TEMP/base" "${changed[@]}"
+          "$tools" build_llms_full --check
+
   publish-tool-releases:
-    needs: tool-releases
+    needs: [tool-releases, check-tool-releases]
     if: needs.tool-releases.outputs.changed == 'true'
     timeout-minutes: 5
     runs-on: ubuntu-24.04
@@ -258,6 +311,7 @@ jobs:
       - name: Open the refresh pull request
         shell: bash
         env:
+          PATCH_SHA256: ${{ needs.tool-releases.outputs.patch }}
           GH_TOKEN: ${{ steps.app-token.outputs.token }}
           RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
         run: |
@@ -267,17 +321,15 @@ jobs:
             echo "::notice::The open refresh pull request is left as it is; the first run after it merges or closes opens a fresh one."
             exit 0
           fi
+          # Only the patch check-tool-releases checked, byte for byte.
+          echo "$PATCH_SHA256  $RUNNER_TEMP/tool-releases/tool-releases.patch" | sha256sum --check --strict
           git apply --index "$RUNNER_TEMP/tool-releases/tool-releases.patch"
           # The release refresh writes only the snapshot, each tool page, the
           # tools index, the home page, the sitemap and llms.txt; build_llms_full
           # writes the text mirrors and copies llms.txt into .well-known. It
           # only rewrites files main already has, so any other change (a new,
           # deleted or retyped file) or a changed file mode is refused whatever
-          # its name: with the globs, that admits only content rewrites of the
-          # generated mirrors main tracks. Their content is checked where it
-          # can be: the pull request below runs the required checks, whose
-          # build_llms_full --check regenerates every mirror and fails on any
-          # byte it did not write, and it is never set to auto-merge.
+          # its name; check-tool-releases has checked the content.
           unexpected=$(git diff --cached --name-only --no-renames -- . \
             ':(exclude)_data/tool_releases.json' ':(exclude)index.html' ':(exclude)sitemap.xml' \
             ':(exclude)llms.txt' ':(exclude).well-known/llms.txt' ':(exclude)tools/index.html' \

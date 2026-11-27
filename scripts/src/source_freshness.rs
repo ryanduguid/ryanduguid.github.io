@@ -800,7 +800,7 @@ pub fn build_calculator_revision(host: &mut dyn Host) -> Result<(Value, String),
     Ok(revisions.pop().expect("four revisions"))
 }
 
-fn parse_object(path: &Path) -> Result<Map<String, Value>, String> {
+pub(crate) fn parse_object(path: &Path) -> Result<Map<String, Value>, String> {
     match serde_json::from_str(&node::read(path)?).map_err(|e| e.to_string())? {
         Value::Object(map) => Ok(map),
         _ => Err(format!("{}: expected a JSON object", path.display())),
@@ -941,8 +941,24 @@ fn freshness(root: &Path, args: &[String], host: &mut dyn Host) -> Result<u8, St
         host.say(HELP.trim_end(), false);
         return Ok(0);
     }
+    let usage = HELP.lines().next().unwrap_or_default();
+    if args.first().is_some_and(|a| a == "--verify-tool-releases") {
+        let [_, base, changed @ ..] = args else {
+            return Err(format!(
+                "{usage}\nsite-tools stamp_source_freshness: error: --verify-tool-releases needs BASE"
+            ));
+        };
+        let failures = crate::release_refresh::refresh_failures(root, Path::new(base), changed)?;
+        for failure in &failures {
+            host.say(failure, true);
+        }
+        if !failures.is_empty() {
+            return Ok(1);
+        }
+        host.say("the release refresh is what its generators write", false);
+        return Ok(0);
+    }
     if let Some(unknown) = args.iter().find(|a| !FLAGS.contains(&a.as_str())) {
-        let usage = HELP.lines().next().unwrap_or_default();
         return Err(format!(
             "{usage}\nsite-tools stamp_source_freshness: error: unrecognized argument {unknown}"
         ));

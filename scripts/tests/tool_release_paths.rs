@@ -19,6 +19,18 @@ const MODES: &str =
     "mode_changed=$(git diff --cached --summary --no-renames | grep ' mode change ' || true)";
 /// The test of what the 3 commands found: any one of them refuses the patch.
 const REFUSES: &str = "if [ -n \"$unexpected$not_rewritten$mode_changed\" ]; then";
+/// What check-tool-releases runs, in order: the digest, the base worktree, the patch and
+/// the content check of each changed file against what wrote it.
+const CHECKED: [&str; 6] = [
+    "echo \"$PATCH_SHA256  $patch\" | sha256sum --check --strict",
+    "git worktree add --detach \"$RUNNER_TEMP/base\" HEAD",
+    "git apply --index \"$patch\"",
+    "mapfile -t changed < <(git diff --cached --name-only --no-renames)",
+    "\"$tools\" stamp_source_freshness --verify-tool-releases \"$RUNNER_TEMP/base\" \"${changed[@]}\"",
+    "\"$tools\" build_llms_full --check",
+];
+/// The publish job's test that it holds the patch check-tool-releases checked.
+const DIGEST: &str = "echo \"$PATCH_SHA256  $RUNNER_TEMP/tool-releases/tool-releases.patch\" | sha256sum --check --strict";
 const PATHSPECS: [&str; 9] = [
     ":(exclude)_data/tool_releases.json",
     ":(exclude)index.html",
@@ -142,6 +154,58 @@ fn allow_list_is_the_reviewed_set() {
         Some(REFUSES),
         "{WORKFLOW} no longer refuses on all 3 findings"
     );
+}
+
+/// The lines of one job, trimmed, from its key to the next job's.
+fn job<'a>(text: &'a str, name: &str) -> Vec<&'a str> {
+    let key = format!("  {name}:");
+    let next_job = |line: &&str| {
+        line.starts_with("  ")
+            && !line.starts_with("   ")
+            && !line.contains('#')
+            && line.ends_with(':')
+    };
+    let mut lines = text.lines().skip_while(|line| *line != key);
+    let first = lines.next();
+    let first = first.unwrap_or_else(|| panic!("{WORKFLOW} lost the {name} job"));
+    std::iter::once(first)
+        .chain(lines.take_while(|line| !next_job(line)))
+        .map(str::trim)
+        .collect()
+}
+
+fn in_order(lines: &[&str], wanted: &[&str]) {
+    let mut last = None;
+    for command in wanted {
+        let at = lines.iter().position(|line| line == command);
+        let at = at.unwrap_or_else(|| panic!("{WORKFLOW} lost {command:?}"));
+        assert!(
+            last.is_none_or(|last| last < at),
+            "{command:?} is out of order"
+        );
+        last = Some(at);
+    }
+}
+
+/// check-tool-releases holds the patch's content to what wrote it without a write token,
+/// and the publish job pushes only the patch whose digest that job checked.
+#[test]
+fn the_published_patch_is_the_checked_one() {
+    let text = std::fs::read_to_string(repository().join(Path::new(WORKFLOW))).unwrap();
+    let check = job(&text, "check-tool-releases");
+    in_order(&check, &CHECKED);
+    assert!(
+        !check
+            .iter()
+            .any(|line| line.contains("secrets.") || line.contains("app-token")),
+        "check-tool-releases must hold no write token"
+    );
+    let publish = job(&text, "publish-tool-releases");
+    assert!(
+        publish.contains(&"needs: [tool-releases, check-tool-releases]"),
+        "the publish job must wait for the content check"
+    );
+    in_order(&publish, &[DIGEST, APPLY]);
 }
 
 /// A mode-only change to a generated file is a modification, so only the mode rule sees it.

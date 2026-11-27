@@ -46,6 +46,7 @@ pub mod pyval;
 pub mod rates_json;
 pub mod rates_register;
 pub mod release_record;
+pub mod release_refresh;
 pub mod review_generated;
 pub mod schema_vocab;
 pub mod seo_core;
