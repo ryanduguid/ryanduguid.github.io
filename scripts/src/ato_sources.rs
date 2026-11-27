@@ -967,6 +967,12 @@ pub fn run_batch_within(
             ),
         },
     };
+    read_batch_index(&out, &outcome)
+}
+
+/// The pages a finished batch left in `out`, from its index.json; `outcome` names how the
+/// batch ended, for the error when it wrote no index.
+fn read_batch_index(out: &Path, outcome: &str) -> Result<HashMap<String, Page>, String> {
     let index = out.join("index.json");
     if !index.exists() {
         return Err(format!(
