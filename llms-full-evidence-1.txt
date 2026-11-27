@@ -127,7 +127,7 @@ Install commands are under Adopt. The package, release, compatibility and licenc
 - ATO benchmarks, trust distributions and company tax: ato-benchmark-compare repository, releases and Apache License 2.0 (v0.2.2); Solomon’s Sword repository, releases and GNU Affero General Public License v3.0 or later (v1.0.0); The Exchequer Tally repository, releases and GNU Affero General Public License v3.0 or later (v1.0.0).
 - Agent skills and construction WIP: Australian Accounting Skills, releases and Apache License 2.0 (v0.8.1); Hardhat Ledger, releases and Apache License 2.0 (v0.8.1); TheWIPTally repository and Apache License 2.0 (v0.2.0).
 - Xero export and Workpaper Review Gate: xero-trial-balance-export repository, releases, release and compatibility record and MIT License (v0.1.15); Workpaper Review Gate repository, release record and GNU Affero General Public License v3.0 or later (v1.1.0).
-- Coal LSL calculator: site repository and Ryan Duguid Public Attribution Licence 1.0 (0bd409d).
+- Coal LSL calculator: site repository and Apache License 2.0 (be0f154).
 
 ## Sources and review dates
 
@@ -261,7 +261,7 @@ I publish evaluations of fixed releases on the Evaluations page. I use feedback 
 - release record: https://github.com/ryanduguid/accounting-review-pipeline/blob/main/packages/review-ready-gate/RELEASE_NOTES.md
 - GNU Affero General Public License v3.0 or later (v1.1.0): https://github.com/ryanduguid/accounting-review-pipeline/blob/review-ready-gate/v1.1.0/packages/review-ready-gate/LICENSE
 - site repository: https://github.com/ryanduguid/ryanduguid.github.io
-- Ryan Duguid Public Attribution Licence 1.0 (0bd409d): https://github.com/ryanduguid/ryanduguid.github.io/blob/0bd409dff58b08fca414d3aab027193c9385e501/LICENSE
+- Apache License 2.0 (be0f154): https://github.com/ryanduguid/ryanduguid.github.io/blob/be0f1542a47049ea0c833879eec1c48c2950bc5e/LICENSE
 - Income Tax Assessment Act 1997: https://www.legislation.gov.au/C2004A05138/latest/text
 - Regulator material: https://www.ato.gov.au/
 - accounting standards (AASB portal archived 16 October 2026): https://web.archive.org/web/20261016153419/https://standards.aasb.gov.au/
