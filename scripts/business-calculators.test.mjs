@@ -8413,3 +8413,29 @@ test('the S5 and leave engines refuse and show edges as their commands do', () =
   assert.match(calculations.leaveInputsText({ year: '2025-26', lines: [leaveLine] }, s5Aud), /, can defer settlement$/);
   assert.equal(calculations.leaveInputsText({ year: '2025-26' }, s5Aud), '2025-26; ');
 });
+
+// Checked against the australian-accounting v1.4.0 release build (leave-provisions, instant-asset-write-off and smsf-tax with
+// --refusal-json, 27 November 2026): a zero typed as '-0' keeps its sign through a product and its quantize, a total starts
+// from 0.00 so it is never '-0.00', and an amount past 40 digits is decimal.invalid_operation.
+test('the leave, write-off and SMSF engines show a negative zero and refuse 40-digit cents as their commands do', () => {
+  const lsl = { label: 'LSL', leave: 'long_service', hours: '1', hourly_rate: '1', probability: '1', settled_within_12_months: false,
+    years_to_settlement: 1, salary_growth: '0', discount_rate: '0', can_defer_settlement: true };
+  const leave = (...lines) => calculations.leaveProvisions({ lines, defined_benefit_plan: false, plan_assets: false, year: '2025-26', scope_confirmed: true });
+  const shown = (r) => r.lines.map((l) => [l.value_at_current_rate, l.projected_value, l.provision].filter(Boolean));
+  const minus = leave({ ...lsl, hourly_rate: '-0' });
+  assert.deepEqual([shown(minus), minus.amounts.total_provision, minus.amounts.non_current_provision], [[['-0.00', '-0.00', '-0.00']], '0.00', '0.00']);
+  assert.deepEqual(shown(leave({ ...lsl, probability: '-0' })), [['1.00', '1.00', '-0.00']]);
+  assert.deepEqual(shown(leave({ ...lsl, hours: '-0', hourly_rate: '-0' })), [['0.00', '0.00', '0.00']]);
+  assert.deepEqual(shown(leave({ label: 'AL', leave: 'annual', hours: '-0', hourly_rate: '5', probability: '1', settled_within_12_months: true })),
+    [['-0.00', '-0.00']]);
+  // The most hours and rate, doubling for 50 years: about 1.1 x 10^41 cents, past the command's 40 digits.
+  const most = { ...lsl, hours: '1000000000000', hourly_rate: '1000000000000', salary_growth: '1', years_to_settlement: 50 };
+  assert.equal(s5Code(() => leave(most)), 'decimal.invalid_operation');
+  assert.equal(s5Code(() => leave({ ...lsl, hours: 'abc' })), 'leave_provisions.line_invalid');
+  const asset = { entity: 'small_business_simplified', acquired: '2025-11-18', first_used: '2025-11-18', cost: '-0', taxable_use: '1',
+    year: '2025-26', scope_confirmed: true };
+  const write = (more) => Object.values(calculations.instantAssetWriteOff({ ...asset, ...more }).amounts);
+  assert.deepEqual([write({}), write({ entity: 'other' }), write({ taxable_use: '-0' })], [['-0.00', '-0.00'], ['-0.00', '0.00'], ['0.00', '0.00']]);
+  const fund = calculations.smsfTax({ ...shownCases['smsf-tax'].rows[0].call[0], no_tfn_contributions: '-0' }).amounts;
+  assert.deepEqual([fund.no_tfn_contributions_tax, fund.gross_tax], ['-0.00', '21300.00']);
+});

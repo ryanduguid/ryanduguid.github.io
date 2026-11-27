@@ -111,7 +111,9 @@ export function smsfTax(call) {
   const dollars = (/** @type {string} */ id) => Number(shownCents(/** @type {bigint} */ (steps.get(id)), 4));
   return { year, values: steps, rates: { ...RATES }, taxableIncome: dollars('taxable_income'), grossTax: dollars('gross_tax'),
     taxPayable: dollars('tax_payable'), amountDue: dollars('amount_due_or_refundable'), returnLabels: Object.fromEntries([...SMSF_LABELS].filter(([, label]) => label)),
-    amounts: Object.fromEntries([...steps].map(([id, n]) => [id, shownCents(n, 4)])) };
+    amounts: { ...Object.fromEntries([...steps].map(([id, n]) => [id, shownCents(n, 4)])),
+      // No-TFN contributions typed as '-0' (money refuses any other negative): 32% of them is '-0.00', as Python's Decimal shows it.
+      ...(field(fields, 'no_tfn_contributions').dec?.negative ? { no_tfn_contributions_tax: '-0.00' } : {}) } };
 }
 
 /** The 20 steps in order. @param {(key: string) => bigint} at @param {bigint} exemptUnsegregated

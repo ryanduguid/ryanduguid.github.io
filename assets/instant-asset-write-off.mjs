@@ -39,7 +39,7 @@ function refuse(code, message) {
   throw Object.assign(new Error(message), { code });
 }
 
-/** @typedef {{c: bigint, e: number}} Dec A decimal: coefficient times 10 to the exponent. */
+/** @typedef {{c: bigint, e: number, neg: boolean}} Dec A decimal: coefficient times 10 to the exponent; `neg` for a minus sign. */
 
 /** A decimal input as the command reads one: Python's decimal syntax, `null` for an infinity or NaN.
  * @param {string} key @param {unknown} value @returns {Dec | null | undefined} undefined for a value that is not a string */
@@ -51,7 +51,7 @@ function decimal(key, value) {
   const parts = /^([+-]?)(\d*)(?:\.(\d*))?(?:e([+-]?\d+))?$/i.exec(text); // eslint-disable-line security/detect-unsafe-regex -- anchored, and each group takes a distinct character class: linear
   if (!parts || (parts[2] + (parts[3] ?? '')) === '') refuse('input.decimal_unreadable', `${key}: enter a number in digits, such as 1250.50.`);
   const c = BigInt(`${parts[2]}${parts[3] ?? ''}`);
-  return { c: parts[1] === '-' ? -c : c, e: Number(parts[4] ?? 0) - (parts[3] ?? '').length };
+  return { c: parts[1] === '-' ? -c : c, e: Number(parts[4] ?? 0) - (parts[3] ?? '').length, neg: parts[1] === '-' };
 }
 
 /** An amount in cents: finite, nil or more, at most 2 places and $1,000,000,000,000. @param {Dec | null | undefined} v */
@@ -157,11 +157,13 @@ export function instantAssetWriteOff(input) {
   const units = cost * use.c * 10n ** BigInt(Math.max(0, use.e));
   const proportion = productCents(units, places);
   const deduction = written ? proportion : 0n;
-  const text = (/** @type {bigint} */ c) => `${c / 100n}.${String(c % 100n).padStart(2, '0')}`;
+  // A zero typed as '-0' keeps its sign through the product, as Python's Decimal shows it ('-0.00'); a deduction not written off is nil.
+  const minus = /** @type {Dec} */ (read.cost).neg !== use.neg && !proportion;
+  const text = (/** @type {bigint} */ c, /** @type {boolean} */ sign) => `${sign ? '-' : ''}${c / 100n}.${String(c % 100n).padStart(2, '0')}`;
   const warnings = written ? [] : [entity !== 'small_business_simplified' ? DIVISION_40 : year === '2020-21' ? POOL_2020_21 : POOL];
   if (FULL_EXPENSING_YEARS.includes(year)) warnings.push(IAWO_FULL_EXPENSING);
   return { year, entity, written, limit, rule, taxablePurposeCost: Number(proportion) / 100, deduction: Number(deduction) / 100,
-    amounts: { taxable_purpose_cost: text(proportion), deduction: text(deduction) },
+    amounts: { taxable_purpose_cost: text(proportion, minus), deduction: text(deduction, minus && written) },
     rates: { cost_limit: limit, cost_limit_rule: rule, written_off: String(written) }, warnings };
 }
 

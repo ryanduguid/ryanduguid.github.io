@@ -2436,6 +2436,10 @@ test('the S5 tools pass each optional input to their commands', async () => {
   const prepaid = await tools.prepayments.execute({ incomeYear: '2025-26', taxpayer: 'other', individual: true, businessExpenditure: false,
     chose82kzmd: false, expenditure: '24000', incurred: '2026-03-01', serviceStart: '2026-03-01', serviceEnd: '2027-02-28' });
   assert.deepEqual([prepaid.treatment, prepaid.deductionThisYear], ['twelve_month_rule', '24000.00']);
+  // Business expenditure left out is false, as the command takes it: a small business entity's 12-month prepayment is still deductible.
+  const smallBusiness = await tools.prepayments.execute({ incomeYear: '2025-26', taxpayer: 'small_business_entity', expenditure: '12000',
+    incurred: '2026-04-01', serviceStart: '2026-04-01', serviceEnd: '2027-03-31' });
+  assert.deepEqual([smallBusiness.treatment, smallBusiness.deductionThisYear], ['twelve_month_rule', '12000.00']);
   // A manufacturer from 1 August 2026 has 334 days' share of the $400,000 cap; duty already paid is refunded on application.
   const excise = await tools['alcohol-excise'].execute({ financialYear: '2026-27', manufacturerFrom: '2026-08-01', dutyPaid: true,
     remissionUsedThisYear: '0', lines: [{ date: '2026-10-15', product: 'spirit', volumeLitres: '400', strengthPercent: '40', remission: true }] });

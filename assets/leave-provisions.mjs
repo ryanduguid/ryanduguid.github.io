@@ -32,12 +32,15 @@ function refuse(code, message) {
 /** @param {string} why @returns {never} */
 const invalid = (why) => refuse('leave_provisions.line_invalid', why);
 
-/** @typedef {{c: bigint, e: number}} Dec A non-negative decimal: coefficient times 10 to the exponent. */
+/** @typedef {{c: bigint, e: number, neg?: boolean}} Dec A non-negative decimal: coefficient times 10 to the exponent; `neg` marks
+ * a zero typed with a minus sign, whose sign the command keeps through a product or quotient ('-0.00'). */
 
 const digits = (/** @type {bigint} */ c) => c.toString().length;
 const pow10 = (/** @type {number} */ n) => 10n ** BigInt(n);
 
 /** `c` times 10^`e` rounded half-even to 40 significant digits; `sticky` marks a non-zero remainder already dropped.
+ * A carry to 10^40 is left as 41 digits: it is the same number as 10^39 at the next exponent, and every step after
+ * reads values, not digit counts of the coefficient, so the result is the command's either way.
  * @param {bigint} c @param {number} e @param {boolean} [sticky] @returns {Dec} */
 function round(c, e, sticky = false) {
   const drop = digits(c) - PRECISION;
@@ -46,7 +49,6 @@ function round(c, e, sticky = false) {
   let q = c / unit;
   const twice = 2n * (c % unit);
   if (twice > unit || (twice === unit && (sticky || q % 2n === 1n))) q += 1n;
-  if (digits(q) > PRECISION) return { c: q / 10n, e: e + drop + 1 };
   return { c: q, e: e + drop };
 }
 
@@ -54,10 +56,12 @@ const add = (/** @type {Dec} */ a, /** @type {Dec} */ b) => {
   const e = Math.min(a.e, b.e);
   return round(a.c * pow10(a.e - e) + b.c * pow10(b.e - e), e);
 };
-const mul = (/** @type {Dec} */ a, /** @type {Dec} */ b) => round(a.c * b.c, a.e + b.e);
+/** The sign of a zero product or quotient, as Python's Decimal gives it. @param {Dec} a @param {Dec} b */
+const neg = (a, b) => !a.neg !== !b.neg;
+const mul = (/** @type {Dec} */ a, /** @type {Dec} */ b) => ({ ...round(a.c * b.c, a.e + b.e), neg: neg(a, b) });
 /** `a / b`, correctly rounded to 40 digits. @param {Dec} a @param {Dec} b */
 function div(a, b) {
-  if (a.c === 0n) return { c: 0n, e: a.e - b.e };
+  if (a.c === 0n) return { c: 0n, e: a.e - b.e, neg: neg(a, b) };
   const shift = Math.max(0, PRECISION + 2 + digits(b.c) - digits(a.c));
   const n = a.c * pow10(shift);
   return round(n / b.c, a.e - b.e - shift, n % b.c !== 0n);
@@ -80,7 +84,7 @@ function cents(v) {
     const unit = pow10(-2 - v.e);
     out = v.c / unit + (2n * (v.c % unit) >= unit ? 1n : 0n);
   }
-  if (digits(out) > PRECISION) refuse('decimal.InvalidOperation', 'The amounts are too large to work out to 40 significant digits.');
+  if (digits(out) > PRECISION) refuse('decimal.invalid_operation', 'The amounts are too large to work out to 40 significant digits.');
   return out;
 }
 
@@ -91,7 +95,7 @@ function decimal(value) {
   const parts = /^(-?)(\d+)(?:\.(\d+))?$/.exec(value.trim()); // eslint-disable-line security/detect-unsafe-regex -- anchored, with no repetition over overlapping characters: linear
   if (!parts) return null;
   const c = BigInt(parts[2] + (parts[3] ?? ''));
-  return { c: parts[1] && c !== 0n ? -c : c, e: -(parts[3] ?? '').length };
+  return { c: parts[1] && c !== 0n ? -c : c, e: -(parts[3] ?? '').length, neg: parts[1] === '-' && c === 0n };
 }
 
 /** @param {Record<string, unknown>} fields @param {string} key @param {number} n */
@@ -149,17 +153,23 @@ function line(n, value) {
   return { label: /** @type {string} */ (label), longService: fields.leave === 'long_service', hours, rate, probability, longTerm };
 }
 
+const text = (/** @type {bigint} */ c) => `${c / 100n}.${String(c % 100n).padStart(2, '0')}`;
+/** A line's amount in cents and as the command shows it, a negative zero as '-0.00'. @param {Dec} v */
+function shown(v) {
+  const c = cents(v);
+  return { c, text: `${v.neg ? '-' : ''}${text(c)}` };
+}
+
 /** One line's amounts in cents (AASB 119 paras 11 and 16, or 155, 67, 68, 72 and 83 to 87; AASB 101 para 69).
  * @param {Line} l */
 function measure(l) {
   const value = mul(l.hours, l.rate);
-  if (!l.longTerm) return { value: cents(value), projected: null, provision: cents(mul(value, l.probability)), current: true };
+  if (!l.longTerm) return { value: shown(value), projected: null, provision: shown(mul(value, l.probability)), current: true };
   const projected = mul(value, compound(l.longTerm.growth, l.longTerm.years));
   const provision = div(mul(projected, l.probability), compound(l.longTerm.discount, l.longTerm.years));
-  return { value: cents(value), projected: cents(projected), provision: cents(provision), current: !l.longTerm.canDefer };
+  return { value: shown(value), projected: shown(projected), provision: shown(provision), current: !l.longTerm.canDefer };
 }
 
-const text = (/** @type {bigint} */ c) => `${c / 100n}.${String(c % 100n).padStart(2, '0')}`;
 
 /** @typedef {{label: string, leave: string, category: string, value_at_current_rate: string, projected_value?: string,
  *   provision: string, classification: string}} LeaveLine */
@@ -189,7 +199,7 @@ export function leaveProvisions(input) {
   const all = list.map((v, i) => line(i + 1, v));
   const measured = all.map(measure);
   /** @param {(i: number) => boolean} keep @returns {bigint} */
-  const sum = (keep) => measured.reduce((/** @type {bigint} */ t, m, i) => (keep(i) ? t + m.provision : t), 0n);
+  const sum = (keep) => measured.reduce((/** @type {bigint} */ t, m, i) => (keep(i) ? t + m.provision.c : t), 0n);
   const annual = sum((i) => !all[i].longService); // eslint-disable-line security/detect-object-injection -- i indexes the lines
   const longService = sum((i) => all[i].longService); // eslint-disable-line security/detect-object-injection -- i indexes the lines
   const total = annual + longService;
@@ -198,8 +208,8 @@ export function leaveProvisions(input) {
   const lines = all.map((l, i) => {
     const m = measured[i]; // eslint-disable-line security/detect-object-injection -- i indexes the lines
     return { label: l.label, leave: l.longService ? 'long_service' : 'annual', category: l.longTerm ? 'other_long_term' : 'short_term',
-      value_at_current_rate: text(m.value), ...(m.projected !== null ? { projected_value: text(m.projected) } : {}),
-      provision: text(m.provision), classification: m.current ? 'current' : 'non_current' };
+      value_at_current_rate: m.value.text, ...(m.projected !== null ? { projected_value: m.projected.text } : {}),
+      provision: m.provision.text, classification: m.current ? 'current' : 'non_current' };
   });
   return { year, amounts: { annual_leave_provision: text(annual), long_service_leave_provision: text(longService), total_provision: text(total),
     current_provision: text(current), non_current_provision: text(nonCurrent) }, rates: {}, lines, warnings: [LEAVE_ASSUMPTIONS],
