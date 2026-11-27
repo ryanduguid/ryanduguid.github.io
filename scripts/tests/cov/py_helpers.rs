@@ -448,3 +448,36 @@ fn pyobj_pyurl_pyre_pyargs_pyval_pycsv_and_node_cover_edge_cases() {
     assert!(matches!(ended, Ended::Exited(s) if s.success()));
     assert!(String::from_utf8_lossy(&out).contains("hi"));
 }
+
+#[test]
+fn pyre_reads_class_backspace_open_counts_and_leading_flags() {
+    use site_tools::pyre::{fullmatch, re};
+    assert!(re(r"[\b]", 0).is_match("\x08"));
+    assert!(fullmatch("a{,2}", 0, "aa"));
+    assert!(!fullmatch("a{,2}", 0, "aaa"));
+    assert!(re("(?is)^a.$", 0).is_match("A\n"));
+}
+
+#[test]
+#[should_panic(expected = r"unsupported escape \q")]
+fn pyre_refuses_an_unknown_letter_escape() {
+    site_tools::pyre::translate(r"\q", 0);
+}
+
+#[test]
+#[should_panic(expected = "bad range")]
+fn pyre_refuses_a_class_range_ending_in_a_class() {
+    site_tools::pyre::translate(r"[a-\d]", 0);
+}
+
+#[test]
+#[should_panic(expected = "unsupported class escape")]
+fn pyre_refuses_a_backreference_in_a_class() {
+    site_tools::pyre::translate(r"[\1]", 0);
+}
+
+#[test]
+#[should_panic(expected = "unsupported group (?x")]
+fn pyre_refuses_a_verbose_group() {
+    site_tools::pyre::translate("(?x)a", 0);
+}
