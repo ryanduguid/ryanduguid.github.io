@@ -100,7 +100,7 @@ fn robots_lines_without_a_colon_are_skipped() {
 #[test]
 fn a_claim_that_is_not_text_normalises_to_nothing() {
     assert_eq!(core::normalise_claim(None), "");
-    assert_eq!(core::normalise_claim(Some(&Json::Int(5))), "");
+    assert_eq!(core::normalise_claim(Some(&Json::Bool(true))), "");
     assert_eq!(
         core::normalise_claim(Some(&Json::str_obj(" a \n b "))),
         "a b"
