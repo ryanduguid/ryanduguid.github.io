@@ -17,8 +17,8 @@ import { cents } from './money.mjs';
  * practitioner paid as such, the individual as a contractor, or a company, partnership or trust.
  * @typedef {'employee' | 'religious' | 'sole-trader' | 'entity'} PsiEarner
  * @typedef {{amount: string, associate: boolean, offer: boolean, result: boolean, tools: boolean,
- *   defects: boolean, same?: number}} PsiPayer one payer with its associates, or one more row of the
- *   payer in the earlier row `same` names (from 1)
+ *   defects: boolean, same?: number, client?: string}} PsiPayer one payer with its associates, or one more row of the
+ *   payer in the earlier row `same` names (from 1); `client` groups rows for the unrelated clients test
  * @typedef {{times: boolean, mainly: boolean, exclusive: boolean, private: boolean, clients: boolean}} PsiPremises
  * @typedef {{earner: PsiEarner, mainly: boolean, determination: boolean, payers: PsiPayer[], agent: boolean,
  *   commission: string, principal: string, others: string, apprentice: boolean, premises: PsiPremises}} PsiAnswers
@@ -45,6 +45,32 @@ const payerRows = (payers) => payers.reduce((/** @type {number[]} */ first, { sa
   first.push(same === undefined ? i : first[same - 1]);
   return first;
 }, []);
+
+/** Client labels (s 87-20(1)(a)), as the command checks them: over the rows with an amount, on every row or
+ * none, and one label never on 2 payers, as an entity and its associates are one payer (s 87-15(3)). Every
+ * label's form is checked first, as the command reads every row before it compares them.
+ * @param {PsiPayer[]} payers @param {number[]} amounts @param {number[]} rows */
+function clientsConsistent(payers, amounts, rows) {
+  payers.forEach(({ client }, i) => {
+    if (client !== undefined && (typeof client !== 'string' || !client.length || [...client].length > 100)) {
+      throw new Error(`Payer ${i + 1}: a client label is 1 to 100 characters.`);
+    }
+  });
+  const counted = payers.flatMap(({ client }, i) => (amounts.at(i) ? [{ client, row: rows.at(i), n: i + 1 }] : []));
+  const labelled = counted.filter(({ client }) => client !== undefined).length;
+  if (labelled && labelled !== counted.length) {
+    throw new Error('Give every payer a client label for the unrelated clients test, or none.');
+  }
+  /** @type {Map<string, number | undefined>} */
+  const payerOf = new Map();
+  for (const { client, row, n } of counted) {
+    if (client === undefined) continue;
+    if ((payerOf.get(client) ?? row) !== row) {
+      throw new Error(`Payer ${n}: rows with one client label are one entity or its associates, so they are the same payer.`);
+    }
+    payerOf.set(client, row);
+  }
+}
 
 /** Section 87-40: the principal's payments and the commission in them, checked whenever an agent
  * is entered, before any outcome. @param {PsiAnswers} answers */
@@ -80,6 +106,7 @@ export function psiDetermination(answers) {
   }
   const amounts = payers.map(({ amount }) => cents(amount));
   const rows = payerRows(payers);
+  clientsConsistent(payers, amounts, rows);
   const agent = agentPayments(answers);
   const total = amounts.reduce((sum, amount) => sum + amount, 0);
   const others = cents(answers.others);
@@ -137,7 +164,7 @@ function businessTests({ answers, amounts, rows, agent, total, others, entity, s
   steps.push(['Subsection 87-15(3): largest share of the PSI from one payer and its associates',
     `${shown(source)}, ${oneSource ? '80% or more' : 'under 80%'}`]);
 
-  const { unrelated, employment, passes } = otherTests({ answers, amounts, rows, total, others, steps });
+  const { unrelated, employment, passes } = otherTests({ answers, amounts, rows, total, others, oneSource, steps });
   const figures = { results, source, unrelated, employment };
   const division = entity ? 'Division 86 applies' : 'Division 85 applies';
   if (oneSource) {
@@ -153,16 +180,26 @@ function businessTests({ answers, amounts, rows, agent, total, others, entity, s
 }
 
 /** The other 3 tests, which count for self-assessment only under 80% from one source but are
- * still worked out: the Commissioner weighs them for a determination (s 87-15(1), note 2).
+ * still worked out: the Commissioner weighs them for a determination (s 87-15(1), note 2). Without client
+ * labels the rows of one payer count once; where that decides the outcome and 2 or more rows won by offers
+ * are one payer's, whether they are 2 clients is not known, so it refuses, as the command does.
  * @param {{answers: PsiAnswers, amounts: number[], rows: number[], total: number, others: number,
- *   steps: Array<[string, string]>}} work */
-function otherTests({ answers, amounts, rows, total, others, steps }) {
+ *   oneSource: boolean, steps: Array<[string, string]>}} work */
+function otherTests({ answers, amounts, rows, total, others, oneSource, steps }) {
   const { payers, premises } = answers;
-  const unrelated = new Set(payers.flatMap(({ associate, offer }, i) => (amounts[i] && !associate && offer ? [rows[i]] : []))).size;
+  const won = payers.flatMap(({ associate, offer, client }, i) => (amounts.at(i) && !associate && offer
+    ? [{ client, row: rows.at(i) }] : []));
+  const unrelated = new Set(won.map(({ client, row }) => (client === undefined ? `payer ${row}` : `client ${client}`))).size;
   const employment = share(others, total);
   const fifth = 5 * others >= total;
   const employs = fifth || answers.apprentice;
   const premisesMet = premises.times && premises.mainly && premises.exclusive && premises.private && premises.clients;
+  const labelled = won.some(({ client }) => client !== undefined);
+  if (unrelated < 2 && won.length >= 2 && !labelled && !oneSource && !employs && !premisesMet) {
+    throw new Error('The unrelated clients test decides the outcome, and 2 or more rows won by offers are the same payer: '
+      + 'give every payer a client label, one label for rows that are one entity or associates of each other '
+      + '(paragraph 87-20(1)(a)).');
+  }
   const tests = [
     { section: '87-20', pass: unrelated >= 2,
       label: 'Section 87-20: unrelated payers that engaged the individual or entity as a direct result of offers to the public',
@@ -200,7 +237,8 @@ export function psiDeterminationResult(value, checked, aud) {
   const payers = Array.from({ length: PSI_PAYERS }, (_, i) => ({ amount: value(`amount-${i + 1}`),
     associate: checked(`associate-${i + 1}`), offer: checked(`offer-${i + 1}`), result: checked(`result-${i + 1}`),
     tools: checked(`tools-${i + 1}`), defects: checked(`defects-${i + 1}`),
-    ...(i && value(`same-${i + 1}`) ? { same: Number(value(`same-${i + 1}`)) } : {}) }));
+    ...(i && value(`same-${i + 1}`) ? { same: Number(value(`same-${i + 1}`)) } : {}),
+    ...((value(`client-${i + 1}`) ?? '').trim() ? { client: value(`client-${i + 1}`).trim() } : {}) }));
   const premises = { times: checked('premises-times'), mainly: checked('premises-mainly'),
     exclusive: checked('premises-exclusive'), private: checked('premises-private'), clients: checked('premises-clients') };
   const answers = { earner, mainly: value('mainly') === 'yes', determination: value('determination') === 'yes', payers,
@@ -216,7 +254,7 @@ export function psiDeterminationResult(value, checked, aud) {
     if (!answers.determination) {
       payers.forEach((payer, i) => {
         if (cents(payer.amount)) {
-          inputs.push(`payer ${i + 1} ${money(payer.amount)}${payer.same ? `, same payer as payer ${payer.same}` : ''}, ticked: ${listed([[payer.associate, 'an associate'],
+          inputs.push(`payer ${i + 1} ${money(payer.amount)}${payer.same ? `, same payer as payer ${payer.same}` : ''}${payer.client ? `, client ${payer.client}` : ''}, ticked: ${listed([[payer.associate, 'an associate'],
             [payer.offer, 'won by a public offer'], [payer.result, 'paid for a result'], [payer.tools, 'tools supplied'],
             [payer.defects, 'liable for defects']])}`);
         }
