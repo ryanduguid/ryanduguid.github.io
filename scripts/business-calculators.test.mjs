@@ -14,6 +14,7 @@ import { FUEL_EFFICIENT_THRESHOLDS } from '../assets/fbt-ev-exemption.mjs';
 import { COMPANY_TAX_LAW } from '../assets/company-tax.mjs';
 import { FOREIGN_SURCHARGES } from '../assets/foreign-surcharge.mjs';
 import { BUSINESS_DAY_PLACES, BUSINESS_DAYS_COVERAGE, STATE_ONLY_HOLIDAYS } from '../assets/business-days.mjs';
+import { ENDORSEMENT_QUESTIONS } from '../assets/endorsement-review.mjs';
 
 test('finite-decimal calculations round half cents up without binary drift', () => {
   assert.equal(businessUse('20.15', '50').share, 10.08);
@@ -7958,6 +7959,7 @@ test('endorsement review refuses another worksheet, a missing, extra or non-bool
   const refused = (sheet, answers, code) => assert.throws(() => calculations.endorsementReview(sheet, answers), { code });
   refused('dgr', {}, 'endorsement_review.worksheet_invalid');
   refused('toString', {}, 'endorsement_review.worksheet_invalid');
+  refused(5, {}, 'endorsement_review.worksheet_invalid');
   const full = erAnswers('dgr_fund');
   refused('dgr_fund', { ...full, extra: true }, 'endorsement_review.answers_invalid');
   refused('dgr_fund', { ...full, receipts_correct: 'yes' }, 'endorsement_review.answers_invalid');
@@ -7965,6 +7967,13 @@ test('endorsement review refuses another worksheet, a missing, extra or non-bool
   refused('dgr_fund', null, 'endorsement_review.answers_invalid');
   const rest = Object.fromEntries(Object.entries(full).filter(([key]) => key !== 'gift_fund_maintained'));
   refused('dgr_fund', { ...rest, winding_up_clause: true }, 'endorsement_review.answers_invalid');
+});
+
+test('every worksheet question has a short name for its row heading and the inputs line', () => {
+  for (const sheet of calculations.ENDORSEMENT_WORKSHEETS) {
+    const [, answers] = calculations.endorsementFormInput((name) => (name === 'worksheet' ? sheet : 'yes'));
+    for (const key of Object.keys(answers)) assert.ok(ENDORSEMENT_QUESTIONS.has(key), `${sheet} ${key}`);
+  }
 });
 
 test('endorsement review page reads only the chosen worksheet’s questions and names each provision', () => {

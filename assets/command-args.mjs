@@ -16,9 +16,9 @@ export function refuse(code, message) {
 }
 
 /** @param {bigint} n @param {bigint} [d] @returns {Exact} */
-export const exact = (n, d = 1n) => (d < 0n ? { n: -n, d: -d } : { n, d });
+export const exact = (n, d = 1n) => ({ n, d });
 
-const digits = (/** @type {bigint} */ v) => (v < 0n ? -v : v).toString().length;
+const digits = (/** @type {bigint} */ v) => v.toString().length;
 const ten = (/** @type {number} */ k) => 10n ** BigInt(k);
 
 /** n / d rounded half to even to 40 significant digits. @param {bigint} n @param {bigint} d @returns {Exact} */
@@ -104,7 +104,7 @@ export function callFields(given, command, required, optional, decimals) {
   if (typeof given !== 'object' || given === null || Array.isArray(given)) refuse('input.not_object', 'input must be a JSON object');
   const input = new Map(Object.entries(given));
   const known = new Set([...required, ...optional]);
-  const unknown = [...input.keys()].sort((a, b) => (a < b ? -1 : a > b ? 1 : 0)).find((key) => !known.has(key));
+  const unknown = [...input.keys()].find((key) => !known.has(key));
   if (unknown !== undefined) refuse('input.field_unknown', `${unknown} is not an input of ${command}`);
   for (const key of [...required, ...optional]) {
     if (!input.has(key)) {

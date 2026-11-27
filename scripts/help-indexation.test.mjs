@@ -126,3 +126,14 @@ test('the result shows the 20% reduction only for 2025 and the timing saving onl
   assert.equal(helpIndexationResult(ask({ previous: '10000', proposed: '2000' }), aud).note, 'Paying $2,000.00 before 1 June 2026 saves $56.00 of indexation');
   assert.equal(helpIndexationResult(ask({ previous: '0', proposed: '0' }), aud).note, 'Paying $0.00 before or on or after 1 June 2026 gives the same debt');
 });
+
+// Refusal codes from the australian-accounting command (7f3c3eb release build) for the same calls.
+test('the command refuses a numeric amount or year, an entry date that is not text and an entry amount that is not a short decimal', () => {
+  const call = (more) => code(() => helpIndexation({ ...base, year: '2025-26', previous_accumulated_debt: '20000.00', ...more }));
+  assert.equal(call({ compulsory_repayments: 500 }), 'input.amount_invalid');
+  assert.equal(call({ year: 2025 }), 'period.unsupported');
+  assert.equal(call({ current_debts: [{ incurred: 20250801, amount: '1000.00' }] }), 'help_indexation.entries_invalid');
+  assert.equal(call({ current_debts: [{ incurred: '2025-08-01', amount: 1000 }] }), 'input.amount_invalid');
+  assert.equal(call({ current_debts: [{ incurred: '2025-08-01', amount: '1'.repeat(33) }] }), 'input.amount_invalid');
+  assert.equal(call({ current_debts: [{ incurred: '2025-08-01', amount: '1000.00' }] }), null);
+});

@@ -181,7 +181,7 @@ const STATUS_TEXT = new Map([
 
 /** A question's row heading: ‘Winding up clause’. @param {string} key */
 const heading = (key) => {
-  const name = ENDORSEMENT_QUESTIONS.get(key)?.[1] ?? key;
+  const name = /** @type {[string, string]} */ (ENDORSEMENT_QUESTIONS.get(key))[1];
   return name[0].toUpperCase() + name.slice(1);
 };
 
