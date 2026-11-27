@@ -98,8 +98,8 @@ test('every calculator tool is read-only, refuses unknown inputs and has its own
     'calculate_business_days', 'calculate_division_296_tax', 'calculate_fbt_car', 'calculate_fbt_car_parking',
     'calculate_fbt_expense_payment', 'calculate_fbt_loan', 'calculate_fbt_meal_entertainment', 'calculate_fbt_property',
     'calculate_land_tax', 'calculate_termination_payment', 'calculate_transfer_duty',
-    'calculate_rd_tax_offset', 'calculate_gst_adjustments', 'calculate_deferred_tax', 'calculate_sole_trader_vs_company', 'calculate_casual_overtime_pay',
-    'calculate_contractor_employee',
+    'calculate_rd_tax_offset', 'calculate_gst_adjustments', 'calculate_deferred_tax', 'calculate_sole_trader_vs_company', 'calculate_trust_streaming',
+    'calculate_casual_overtime_pay', 'calculate_contractor_employee', 'calculate_payday_super_cashflow', 'check_tax_invoice',
     'calculate_decline_in_value', 'calculate_coal_lsl_levy']);
   for (const t of all) {
     assert.equal(t.annotations.readOnlyHint, true, t.name);
@@ -1692,6 +1692,29 @@ test('workers compensation tool returns the page worked example, supports statut
 });
 
 
+// The Payday Super cashflow page's example and the ATO's example 3 weekly payday, then refusals.
+test('Payday Super cashflow tool returns the page worked example and refuses what the page refuses', async () => {
+  const tool = tools['payday-cashflow'];
+  const r = await tool.execute({ quarter: '1', payCycle: 'fortnightly', firstPayday: '2026-07-02', earningsPerPayday: '10000' });
+  assert.deepEqual([r.paydays.length, r.paydays[2], r.quarterlyDueDate, r.superGuaranteeForQuarter, r.peakExtraWorkingCapital,
+    r.peakFrom, r.peakDays, r.averageDaysEarlier, r.currency, r.source],
+  [7, { payday: '2026-07-30', superGuarantee: '1200.00', fundMustReceiveBy: '2026-08-11', dueDateDependsOnPartDayHolidays: false,
+    daysBeforeQuarterlyDueDate: 78, extraWorkingCapital: '3600.00' }, '2026-10-28', '8400.00', '8400.00', '2026-10-07', 21, '64.6',
+  'AUD', 'https://duguid.com.au/tools/business-calculators/payday-cashflow/']);
+  assert.doesNotThrow(() => JSON.stringify(r));
+  const december = await tool.execute({ quarter: '2', payCycle: 'weekly', firstPayday: '2026-10-01', earningsPerPayday: '10000' });
+  assert.deepEqual(december.paydays.filter((p) => p.payday >= '2026-12-10').map((p) => [p.fundMustReceiveBy, p.dueDateDependsOnPartDayHolidays]),
+    [['2026-12-21', false], ['2026-12-30', true], ['2027-01-07', true], ['2027-01-12', false]]);
+  await assert.rejects(tool.execute({ quarter: '1', payCycle: 'weekly', firstPayday: '2026-07-08', earningsPerPayday: '10000' }),
+    /a date in its first 7 days/);
+  await assert.rejects(tool.execute({ quarter: '1', payCycle: 'weekly', firstPayday: '2026-07-01', earningsPerPayday: 10000 }),
+    /earningsPerPayday does not match its description/);
+  await assert.rejects(tool.execute({ quarter: '5', payCycle: 'weekly', firstPayday: '2026-07-01', earningsPerPayday: '1' }),
+    /quarter does not match its description/);
+  await assert.rejects(tool.execute({ quarter: '1', payCycle: 'weekly', firstPayday: '2026-07-01', earningsPerPayday: '1', extra: 1 }),
+    /extra is not an input of this tool/);
+});
+
 test('every calculator include in _includes/calculators has a registered WebMCP tool', () => {
   const slugs = readdirSync('_includes/calculators')
     .filter((name) => name.endsWith('.html'))
@@ -1699,7 +1722,7 @@ test('every calculator include in _includes/calculators has a registered WebMCP 
     .sort();
   const registered = [...Object.keys(tools), ...Object.keys(individual)].sort();
   assert.deepEqual(registered, slugs);
-  assert.equal(registered.length + 2, 80);
+  assert.equal(registered.length + 2, 83);
 });
 
 test('business days tool returns the page worked example, matches holiday JSON and refuses mismatched or invalid inputs', async () => {
@@ -2249,4 +2272,57 @@ test('contractor against employee tool works the page default, section 12(3) and
   await assert.rejects(tool.execute({ ...base, incomeYear: '2020-21' }), /incomeYear/);
   await assert.rejects(tool.execute({ ...base, annualLeaveWeeks: '50', otherLeaveWeeks: '2' }), /fewer than 52 weeks/);
   await assert.rejects(tool.execute({ ...base, awardRate: '30' }), /awardRate is not an input of this tool/);
+});
+
+// The tax invoice page's example (GSTR 2013/1 example 2), a mixed invoice by the taxable supply rule, an RCTI and refusals.
+test('tax invoice tool returns the page example, a mixed invoice and an RCTI, and refuses what the page refuses', async () => {
+  const tool = tools['tax-invoice'];
+  const base = { supplierName: 'Example Stationery Pty Ltd', supplierAbn: '51 824 753 556', recipientName: 'Jim', issued: '2026-11-26',
+    lines: [{ description: 'Pens', quantity: '20', unitPrice: '1.10', treatment: 'taxable' },
+      { description: 'Boxes of staples', quantity: '10', unitPrice: '1.10', treatment: 'taxable' },
+      { description: 'Staplers', quantity: '4', unitPrice: '38.50', treatment: 'taxable' }] };
+  const r = await tool.execute(base);
+  assert.deepEqual([r.heading, r.totalPrice, r.gst, r.statements, r.checks.length, r.currency, r.source],
+    ['Tax invoice', '187.00', '17.00', ['Each supply is taxable. Total price includes GST.'], 7, 'AUD',
+      'https://duguid.com.au/tools/business-calculators/tax-invoice/']);
+  assert.doesNotThrow(() => JSON.stringify(r));
+  const mixed = await tool.execute({ ...base, rounding: 'supply', pricesIncludeGst: false,
+    lines: [{ description: 'Consulting', quantity: '1', unitPrice: '100.05', treatment: 'taxable' },
+      { description: 'Postage', quantity: '1', unitPrice: '0.05', treatment: 'taxable' },
+      { description: 'Bread', quantity: '1', unitPrice: '4.00', treatment: 'gst-free' }] });
+  assert.deepEqual([mixed.gst, mixed.totalPrice, mixed.lines.map((l) => [l.gst, l.markedTaxable])],
+    ['10.02', '114.12', [['10.01', true], ['0.01', true], ['0.00', false]]]);
+  const rcti = await tool.execute({ ...base, issuedBy: 'recipient', recipientName: 'Example Processor Pty Ltd', recipientAbn: '53 004 085 616',
+    rctiConditionsMet: true });
+  assert.equal(rcti.heading, 'Recipient created tax invoice');
+  assert.ok(rcti.statements.includes('The GST shown is payable by the supplier.'));
+  await assert.rejects(tool.execute({ ...base, issuedBy: 'recipient', recipientAbn: '53 004 085 616' }), /Determination 2023 allows this RCTI/);
+  await assert.rejects(tool.execute({ ...base, supplierAbn: '51 824 753 557' }), /passes the check digit test/);
+  const { recipientName: _jim, ...noRecipient } = base;
+  await assert.rejects(tool.execute({ ...noRecipient, lines: [{ ...base.lines[2], quantity: '26' }] }), /\$1,000 or more/);
+  await assert.rejects(tool.execute({ ...base, lines: [{ ...base.lines[0], unitPrice: 1.1 }] }), /unitPrice does not match its description/);
+  await assert.rejects(tool.execute({ ...base, lines: [{ ...base.lines[0], treatment: 'exempt' }] }), /treatment does not match its description/);
+  await assert.rejects(tool.execute({ ...base, extra: 1 }), /extra is not an input of this tool/);
+});
+
+test('trust streaming tool returns the ATO Lang Trust example and the trustee’s s 99A tax, and refuses invalid inputs', async () => {
+  const tool = tools['trust-streaming'];
+  const lang = await tool.execute({
+    otherTrustIncome: '80000', otherNetIncome: '80000', frankedDistributions: '70000', frankingCredits: '30000',
+    beneficiaries: [{ name: 'Lucy', kind: 'individual', presentEntitlement: '75000' },
+      { name: 'Hannah', kind: 'individual', presentEntitlement: '75000', frankedEntitled: '50000' }],
+  });
+  assert.deepEqual(lang.beneficiaries.map((b) => [b.frankedShare, b.frankingCredit, b.division6]),
+    [[15000, 6428.57, 60000], [55000, 23571.43, 20000]]);
+  assert.deepEqual([lang.netIncome, lang.trustee.assessable, lang.currency, lang.source],
+    [180000, 0, 'AUD', 'https://duguid.com.au/tools/business-calculators/trust-streaming/']);
+  assert.doesNotThrow(() => JSON.stringify(lang));
+  const trustee = await tool.execute({ otherTrustIncome: '10000', otherNetIncome: '10000', capitalGain: '200', capitalGainRemaining: '100',
+    capitalGainConcessions: 'discount', capitalGainTrustIncome: '200', beneficiaries: [] });
+  assert.deepEqual([trustee.trustee.provision, trustee.trustee.assessable, trustee.trustee.tax], ['s 99A(4)', 10200, 4590]);
+  await assert.rejects(tool.execute({ otherTrustIncome: '1', otherNetIncome: '1', beneficiaries: [], extra: 1 }), /extra is not an input of this tool/);
+  await assert.rejects(tool.execute({ otherTrustIncome: '1', otherNetIncome: '1', beneficiaries: [{ kind: 'partnership', presentEntitlement: '1' }] }),
+    /kind does not match/);
+  await assert.rejects(tool.execute({ otherTrustIncome: '100', otherNetIncome: '100', beneficiaries: [{ kind: 'individual', presentEntitlement: '101' }] }),
+    /cannot exceed the trust/);
 });

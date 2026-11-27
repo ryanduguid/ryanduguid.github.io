@@ -6196,6 +6196,138 @@ fn the_sgc_engines_agree_with_the_oracle_on_every_seeded_case() {
     }
 }
 
+/// Runs the Payday Super cashflow engine, as `HARNESS` runs the others; a refusal comes back as
+/// its message.
+const CASHFLOW_HARNESS: &str = r"
+import { paydayCashflow } from './assets/business-calculators.mjs';
+let input = '';
+for await (const chunk of process.stdin) input += chunk;
+const run = (inputs) => {
+  try {
+    const r = paydayCashflow(inputs);
+    return { paydays: r.paydays.map((p) => [p.payday, p.due, p.partDay, p.daysEarlier, String(p.sg), String(p.ahead)]),
+      quarterlyDue: r.quarterlyDue, total: String(r.total), peak: String(r.peak), peakFrom: r.peakFrom,
+      peakDays: r.peakDays, averageDaysEarlier: String(r.averageDaysEarlier) };
+  } catch (error) {
+    return { refused: error.message };
+  }
+};
+process.stdout.write(JSON.stringify(JSON.parse(input).map(run)));
+";
+
+/// A quarter's key and its first and last month as (year, month).
+type CashflowQuarter = (&'static str, (i64, i64), (i64, i64));
+
+/// The quarters of 2026-27 by their first and last month.
+const CASHFLOW_QUARTERS: [CashflowQuarter; 4] = [
+    ("1", (2026, 7), (2026, 9)),
+    ("2", (2026, 10), (2026, 12)),
+    ("3", (2027, 1), (2027, 3)),
+    ("4", (2027, 4), (2027, 6)),
+];
+
+/// One payday schedule worked by hand: 12% of the earnings rounded half up (s 17A(2)), each due
+/// 7 business days after payday on the published calendar, the earliest where part-day holidays
+/// leave it open, against 28 days after the quarter's last day (old s 23(6)).
+fn cashflow_oracle(
+    scenarios: &[Vec<i64>],
+    quarter: usize,
+    cycle: &str,
+    first: i64,
+    earnings: u64,
+) -> Value {
+    let sg = (24 * earnings + 100) / 200;
+    if sg == 0 {
+        return json!({ "refused": "Enter ordinary time earnings of at least $0.05 each payday, so that 12% of them is a cent or more." });
+    }
+    let (_, (from_year, from_month), (to_year, to_month)) = CASHFLOW_QUARTERS[quarter];
+    let from = day_number(from_year, from_month, 1);
+    let to = day_number(to_year + to_month / 12, to_month % 12 + 1, 1) - 1;
+    let window = match cycle {
+        "weekly" => from + 6,
+        "fortnightly" => from + 13,
+        _ => day_number(from_year, from_month + 1, 1) - 1,
+    };
+    if first < from || first > window {
+        let span = match cycle {
+            "weekly" => "7 days",
+            "fortnightly" => "14 days",
+            _ => "month",
+        };
+        return json!({ "refused": format!("Enter the first payday of the quarter: a date in its first {span}.") });
+    }
+    let paydays: Vec<i64> = match cycle {
+        "weekly" => (first..=to).step_by(7).collect(),
+        "fortnightly" => (first..=to).step_by(14).collect(),
+        _ => gic_instalment_days(first, 3, "monthly"),
+    };
+    let quarterly = to + 28;
+    let (mut ahead, mut weighted, mut rows, mut last) = (0, 0, Vec::new(), 0);
+    for payday in paydays {
+        let dues: Vec<i64> = scenarios
+            .iter()
+            .map(|business| sgc_after(business, payday, 7).unwrap())
+            .collect();
+        let due = *dues.iter().min().unwrap();
+        let earlier = quarterly - due;
+        assert!(earlier > 0, "{}", iso_day(payday));
+        ahead += sg;
+        weighted += u128::from(sg) * u128::try_from(earlier).unwrap();
+        last = due;
+        rows.push(json!([
+            iso_day(payday),
+            iso_day(due),
+            dues.iter().any(|d| *d != due),
+            earlier,
+            shown(sg),
+            shown(ahead)
+        ]));
+    }
+    let tenths = exact_half_up(weighted * 10, u128::from(ahead));
+    let average = if tenths.is_multiple_of(10) {
+        (tenths / 10).to_string()
+    } else {
+        format!("{}.{}", tenths / 10, tenths % 10)
+    };
+    json!({ "paydays": rows, "quarterlyDue": iso_day(quarterly), "total": shown(ahead), "peak": shown(ahead),
+        "peakFrom": iso_day(last), "peakDays": quarterly - last, "averageDaysEarlier": average })
+}
+
+#[test]
+fn the_payday_cashflow_engine_agrees_with_the_oracle_on_every_first_payday() {
+    if !common::rendered() {
+        return;
+    }
+    let scenarios = sgc_calendar_scenarios();
+    let mut rng = Seeded(0x2026_1126_0000_CA5F);
+    let (mut cases, mut expected) = (Vec::new(), Vec::new());
+    for (quarter, (name, (year, month), _)) in CASHFLOW_QUARTERS.iter().enumerate() {
+        let from = day_number(*year, *month, 1);
+        for cycle in ["weekly", "fortnightly", "monthly"] {
+            // Every first payday the form takes, and the day either side of the window.
+            for first in from - 1..from + 32 {
+                let any = rng.cents(100_000_000_000);
+                let earnings = rng.pick(&[4, 5, any, any, any, any]);
+                cases.push(
+                    json!({ "quarter": name, "cycle": cycle, "firstPayday": iso_day(first),
+                    "earnings": dollars(earnings) }),
+                );
+                expected.push(cashflow_oracle(&scenarios, quarter, cycle, first, earnings));
+            }
+        }
+    }
+    assert!(expected.iter().any(|want| {
+        want["paydays"]
+            .as_array()
+            .is_some_and(|rows| rows.iter().any(|row| row[2] == true))
+    }));
+    let actual = run_node(CASHFLOW_HARNESS, &cases);
+    assert_eq!(actual.len(), cases.len());
+    for ((case, want), got) in cases.iter().zip(&expected).zip(&actual) {
+        assert_eq!(got, want, "{case}");
+    }
+}
+
 /// Runs the company tax and foreign surcharge engines, as `HARNESS` runs the others.
 const COMPANY_SURCHARGE_HARNESS: &str = r"
 import { companyTax, foreignSurcharge } from './assets/business-calculators.mjs';
@@ -10329,6 +10461,149 @@ fn co_case(rng: &mut Seeded) -> (Value, Value) {
     )
 }
 
+/// The tax invoice engine under Node: its GST, total price and each line's amount and GST, or its refusal.
+const TI_HARNESS: &str = r"
+import { taxInvoice } from './assets/tax-invoice.mjs';
+let input = '';
+for await (const chunk of process.stdin) input += chunk;
+process.stdout.write(JSON.stringify(JSON.parse(input).map((one) => {
+  try {
+    const r = taxInvoice(one);
+    return { gst: r.gst.toFixed(2), total: r.totalPrice.toFixed(2),
+      lines: r.lines.map((l) => [l.amount.toFixed(2), l.gst === null ? null : l.gst.toFixed(2)]) };
+  } catch (error) {
+    return { refused: error.message };
+  }
+})));
+";
+
+const TI_CASES: usize = 120;
+
+/// ABN Lookup's weights, 'Format of the ABN' (version 9.9.7), read 26 November 2026.
+const TI_ABN_WEIGHTS: [u64; 11] = [10, 1, 3, 5, 7, 9, 11, 13, 15, 17, 19];
+
+/// A seeded ABN and whether it is valid. The oracle builds a valid one from its 9 body digits: the 2 leading
+/// digits are those for which the body's weighted sum, with the first leading digit less 1, divides by 89.
+/// The engine instead takes the whole number and tests the sum.
+fn ti_abn(rng: &mut Seeded) -> (String, bool) {
+    let body: Vec<u64> = (0..9).map(|_| rng.below(10)).collect();
+    let rest: u64 = body
+        .iter()
+        .zip(&TI_ABN_WEIGHTS[2..])
+        .map(|(d, w)| d * w)
+        .sum();
+    let passes = |p: u64| ((p / 10 - 1) * 10 + p % 10 + rest).is_multiple_of(89);
+    let valid: Vec<u64> = (10..100).filter(|&p| passes(p)).collect();
+    let want_valid = !valid.is_empty() && rng.below(4) != 0;
+    let prefix = if want_valid {
+        valid[usize::try_from(rng.below(valid.len() as u64)).unwrap()]
+    } else {
+        loop {
+            let p = 10 + rng.below(90);
+            if !passes(p) {
+                break p;
+            }
+        }
+    };
+    let digits: String = format!("{prefix}")
+        .chars()
+        .chain(
+            body.iter()
+                .map(|d| char::from(b'0' + u8::try_from(*d).unwrap())),
+        )
+        .collect();
+    (
+        format!(
+            "{} {} {} {}",
+            &digits[..2],
+            &digits[2..5],
+            &digits[5..8],
+            &digits[8..]
+        ),
+        want_valid,
+    )
+}
+
+/// One seeded invoice from a supplier, worked from section 29-70(1) and the ATO's 'Tax invoices' (last updated
+/// 18 September 2026), both read 26 November 2026: each line's amount is the quantity times the unit price,
+/// half up to the cent; GST is one-eleventh of a GST-inclusive taxable amount or 10% of an exclusive one; the
+/// total invoice rule rounds the exact total once and the taxable supply rule rounds each line and adds them,
+/// each half up; and with a taxable line and a total price of $1,000 or more the recipient's name or ABN is
+/// required.
+fn ti_case(rng: &mut Seeded) -> (Value, Value) {
+    let inclusive = rng.below(2) == 0;
+    let by_invoice = rng.below(2) == 0;
+    let divisor: u128 = if inclusive { 11 } else { 10 };
+    let (abn, abn_valid) = ti_abn(rng);
+    let named = rng.below(3) != 0;
+    let mut lines = Vec::new();
+    let mut amounts = Vec::new();
+    for _ in 0..=rng.below(6) {
+        let any = 1 + rng.below(100_000);
+        let milli = rng.pick(&[1000, 2000, 2500, 333, any]);
+        let unit = rng.cents(20_000_000);
+        let treatment = rng.pick(&["taxable", "taxable", "gst-free", "input-taxed"]);
+        lines.push(json!({ "description": "Item", "quantity": format!("{}.{:03}", milli / 1000, milli % 1000),
+            "unit_price": dollars(unit), "treatment": treatment }));
+        amounts.push((
+            exact_half_up(u128::from(milli) * u128::from(unit), 1000),
+            treatment == "taxable",
+        ));
+    }
+    let taxable: Vec<u128> = amounts
+        .iter()
+        .filter(|(_, t)| *t)
+        .map(|(a, _)| *a)
+        .collect();
+    let gst = if by_invoice || taxable.len() < 2 {
+        exact_half_up(taxable.iter().sum(), divisor)
+    } else {
+        taxable.iter().map(|a| exact_half_up(*a, divisor)).sum()
+    };
+    let sum: u128 = amounts.iter().map(|(a, _)| a).sum();
+    let total = if inclusive { sum } else { sum + gst };
+    let input = json!({ "issuer": "supplier", "supplier_name": "Example Supplies Pty Ltd", "supplier_business_number": abn,
+        "recipient_name": if named { "Jim" } else { "" }, "issued": "2026-11-26",
+        "prices": if inclusive { "inclusive" } else { "exclusive" }, "rounding": if by_invoice { "invoice" } else { "supply" },
+        "lines": lines });
+    let cents = |value: u128| {
+        let value = u64::try_from(value).unwrap();
+        format!("{}.{:02}", value / 100, value % 100)
+    };
+    let mut problems = Vec::new();
+    if !abn_valid {
+        problems.push(format!(
+            "a supplier ABN that passes the check digit test ({abn} fails it)"
+        ));
+    }
+    if !named && !taxable.is_empty() && total >= 100_000 {
+        problems
+            .push("the recipient’s name or ABN, as the total price is $1,000 or more".to_string());
+    }
+    if !problems.is_empty() {
+        let refused = format!("To be a tax invoice, enter {}.", problems.join("; "));
+        return (input, json!({ "refused": refused }));
+    }
+    let per_line = !by_invoice || taxable.len() < 2;
+    let shown: Vec<Value> = amounts
+        .iter()
+        .map(|&(a, t)| {
+            let line_gst = if !t {
+                json!("0.00")
+            } else if per_line {
+                json!(cents(exact_half_up(a, divisor)))
+            } else {
+                Value::Null
+            };
+            json!([cents(a), line_gst])
+        })
+        .collect();
+    (
+        input,
+        json!({ "gst": cents(gst), "total": cents(total), "lines": shown }),
+    )
+}
+
 #[test]
 fn the_casual_overtime_engine_agrees_with_the_oracle_on_every_seeded_case() {
     if !common::rendered() {
@@ -10342,6 +10617,375 @@ fn the_casual_overtime_engine_agrees_with_the_oracle_on_every_seeded_case() {
     );
     let actual = run_node(CO_HARNESS, &cases);
     assert_eq!(actual.len(), CO_CASES);
+    for ((case, want), got) in cases.iter().zip(&expected).zip(&actual) {
+        assert_eq!(got, want, "{case}");
+    }
+}
+
+#[test]
+fn the_tax_invoice_engine_agrees_with_the_oracle_on_every_seeded_case() {
+    if !common::rendered() {
+        return;
+    }
+    let mut rng = Seeded(0x2026_1126_0000_7A11);
+    let (cases, expected): (Vec<_>, Vec<_>) = (0..TI_CASES).map(|_| ti_case(&mut rng)).unzip();
+    for kind in ["refused", "gst"] {
+        assert!(
+            expected.iter().any(|want| want.get(kind).is_some()),
+            "{kind}"
+        );
+    }
+    assert!(expected.iter().any(|want| {
+        want["lines"]
+            .as_array()
+            .is_some_and(|l| l.iter().any(|x| x[1].is_null()))
+    }));
+    let actual = run_node(TI_HARNESS, &cases);
+    assert_eq!(actual.len(), TI_CASES);
+    for ((case, want), got) in cases.iter().zip(&expected).zip(&actual) {
+        assert_eq!(got, want, "{case}");
+    }
+}
+
+/// Runs the trust streaming engine, as `HARNESS` runs the others: each beneficiary's and the trustee's figures as text,
+/// or `refused`.
+const TRUST_HARNESS: &str = r"
+import { trustStreaming } from './assets/business-calculators.mjs';
+let input = '';
+for await (const chunk of process.stdin) input += chunk;
+const B = ['division6', 'attributableGain', 'extraCapitalGain', 'netCapitalGain', 'attributableFranked', 'frankingCredit', 'assessable'];
+const T = ['division6', 'grossedUpGain', 'attributableFranked', 'frankingCredit', 'assessable', 'tax', 'taxAfterOffset'];
+process.stdout.write(JSON.stringify(JSON.parse(input).map((call) => {
+  let r;
+  try { r = trustStreaming(call); } catch { return 'refused'; }
+  return { net: String(r.netIncome), b: r.beneficiaries.map((b) => B.map((k) => String(b[k]))), t: T.map((k) => String(r.trustee[k])) };
+})));
+";
+
+const TRUST_CASES: usize = 400;
+
+/// A signed whole number of cents as a fraction.
+fn tq(cents: i64) -> Q {
+    Q(cents.into(), 1.into())
+}
+
+/// Cents as `money` writes them in the call: '-12.3' style text the engine reads.
+fn trust_text(cents: i64) -> String {
+    shown_signed(i128::from(cents))
+}
+
+/// One trust: other income and net income (sometimes below nil), a franked distribution with a credit of at most
+/// 30/70 of it and some directly relevant deductions, one capital gain with its remaining amount and concessions,
+/// and up to 4 beneficiaries whose entitlements fit inside trust income and whose specific entitlements fit inside
+/// theirs. The expected figures follow Division 6, 6E, Subdivisions 115-C and 207-B and s 99A as read on
+/// 26 November 2026, worked here from the sections rather than from the engine.
+#[allow(clippy::too_many_lines)]
+fn trust_case(rng: &mut Seeded) -> (Value, Value) {
+    let amount =
+        |rng: &mut Seeded, top: u64| i64::try_from(rng.below(top) * 100 + rng.below(100)).unwrap();
+    let other_income = amount(rng, 200_000)
+        - if rng.below(5) == 0 {
+            amount(rng, 250_000)
+        } else {
+            0
+        };
+    let other_net = other_income + amount(rng, 20_000) - amount(rng, 20_000);
+    let franked = if rng.below(4) == 0 {
+        0
+    } else {
+        amount(rng, 150_000)
+    };
+    let credits = if franked == 0 {
+        0
+    } else {
+        franked * 3 / 7 * i64::try_from(rng.below(2)).unwrap()
+    };
+    let franked_deductions = if franked == 0 || rng.below(2) == 0 {
+        0
+    } else {
+        franked / 10
+    };
+    let gain = if rng.below(4) == 0 {
+        0
+    } else {
+        amount(rng, 300_000) + 100
+    };
+    let concessions = rng.pick(&["none", "discount", "small_business", "both"]);
+    let gross: i64 = match concessions {
+        "none" => 1,
+        "both" => 4,
+        _ => 2,
+    };
+    let remaining = if gain == 0 {
+        0
+    } else {
+        (gain / gross - i64::try_from(rng.below(50)).unwrap() * 100).max(1)
+    };
+    let gain_income = if gain == 0 {
+        0
+    } else {
+        gain - i64::try_from(rng.below(3)).unwrap() * gain / 10
+    };
+    let net_franked = franked - franked_deductions;
+    let trust_income = other_income + gain_income + net_franked;
+    let count = rng.below(5);
+    let (mut left, mut gain_left, mut franked_left) =
+        (trust_income.max(0), gain_income, net_franked);
+    let mut people = Vec::new();
+    for n in 0..count {
+        let present = i64::try_from(rng.below(u64::try_from(left).unwrap() + 1)).unwrap();
+        let g = if gain_left > 0 && rng.below(2) == 0 {
+            i64::try_from(rng.below(u64::try_from(gain_left.min(present)).unwrap() + 1)).unwrap()
+        } else {
+            0
+        };
+        let f = if franked_left > 0 && rng.below(2) == 0 {
+            i64::try_from(rng.below(u64::try_from(franked_left.min(present - g)).unwrap() + 1))
+                .unwrap()
+        } else {
+            0
+        };
+        left -= present;
+        gain_left -= g;
+        franked_left -= f;
+        people.push((
+            format!("P{n}"),
+            rng.pick(&["individual", "company", "trust"]),
+            present,
+            g,
+            f,
+        ));
+    }
+    let call = json!({ "other_trust_income": trust_text(other_income), "other_net_income": trust_text(other_net),
+        "franked_distributions": trust_text(franked), "franking_credits": trust_text(credits), "franked_deductions": trust_text(franked_deductions),
+        "capital_gain": trust_text(gain), "capital_gain_remaining": trust_text(remaining), "capital_gain_concessions": concessions,
+        "capital_gain_trust_income": trust_text(gain_income),
+        "beneficiaries": people.iter().map(|(name, kind, p, g, f)| json!({ "name": name, "kind": kind,
+            "present_entitlement": trust_text(*p), "capital_gain_entitled": trust_text(*g), "franked_entitled": trust_text(*f) })).collect::<Vec<_>>() });
+    (
+        call,
+        trust_oracle(
+            other_income,
+            other_net,
+            franked,
+            credits,
+            net_franked,
+            gain,
+            remaining,
+            gross,
+            gain_income,
+            concessions,
+            &people,
+        ),
+    )
+}
+
+#[allow(clippy::too_many_arguments, clippy::too_many_lines)]
+fn trust_oracle(
+    other_income: i64,
+    other_net: i64,
+    franked: i64,
+    credits: i64,
+    net_franked: i64,
+    gain: i64,
+    remaining: i64,
+    gross: i64,
+    gain_income: i64,
+    concessions: &str,
+    people: &[(String, &str, i64, i64, i64)],
+) -> Value {
+    let zero = || tq(0);
+    let net_income = other_net + remaining + net_franked + credits;
+    let without_credits = net_income - credits;
+    let trust_income = other_income + gain_income + net_franked;
+    // s 102UW(a): no net income, no Division 6; s 115-225(3) with a nil or negative numerator is not settled.
+    if net_income <= 0 || (without_credits <= 0 && remaining + net_franked > 0) {
+        return json!("refused");
+    }
+    // ss 115-228(1), 207-58(1).
+    let spec_gain: Vec<Q> = people
+        .iter()
+        .map(|p| {
+            if gain_income > 0 {
+                tq(gain).times(&tq(p.3)).over(&tq(gain_income))
+            } else {
+                zero()
+            }
+        })
+        .collect();
+    let spec_franked: Vec<Q> = people
+        .iter()
+        .map(|p| {
+            if net_franked > 0 {
+                tq(franked).times(&tq(p.4)).over(&tq(net_franked))
+            } else {
+                zero()
+            }
+        })
+        .collect();
+    let unspec_gain = spec_gain.iter().fold(tq(gain), |t, s| t.minus(s));
+    let unspec_franked = spec_franked.iter().fold(tq(franked), |t, s| t.minus(s));
+    let unentitled = trust_income.max(0) - people.iter().map(|p| p.2).sum::<i64>();
+    // s 95(1) adjusted Division 6 percentage, as the ATO's examples work it.
+    let base = spec_gain
+        .iter()
+        .chain(&spec_franked)
+        .fold(tq(trust_income), |t, s| t.minus(s));
+    let needed = Q::of(0).below(&unspec_gain) || Q::of(0).below(&unspec_franked);
+    let mut adjusted = vec![zero(); people.len()];
+    let mut trustee_adjusted = zero();
+    if needed {
+        if !Q::of(0).below(&base) {
+            return json!("refused");
+        }
+        for (i, p) in people.iter().enumerate() {
+            let part = tq(p.2).minus(&spec_gain[i]).minus(&spec_franked[i]);
+            if part.below(&Q::of(0)) {
+                return json!("refused");
+            }
+            adjusted[i] = part.over(&base);
+        }
+        trustee_adjusted = tq(unentitled).over(&base);
+    }
+    // ss 115-225(2), (3), 207-37(2), (3).
+    let streamed = remaining + net_franked;
+    let reduce = |x: i64| {
+        if without_credits < streamed {
+            tq(x).times(&tq(without_credits)).over(&tq(streamed))
+        } else {
+            tq(x)
+        }
+    };
+    let (gain_net, franked_net) = (reduce(remaining), reduce(net_franked));
+    // (share of the gain, share of the distribution) for each beneficiary, then the trustee.
+    let mut shares: Vec<(Q, Q)> = (0..people.len())
+        .map(|i| {
+            (
+                spec_gain[i].plus(&unspec_gain.times(&adjusted[i])),
+                spec_franked[i].plus(&unspec_franked.times(&adjusted[i])),
+            )
+        })
+        .collect();
+    shares.push((
+        unspec_gain.times(&trustee_adjusted),
+        unspec_franked.times(&trustee_adjusted),
+    ));
+    let per = |share: &Q, whole_amount: i64, of: &Q| {
+        if whole_amount > 0 {
+            of.times(share).over(&tq(whole_amount))
+        } else {
+            zero()
+        }
+    };
+    let attributable: Vec<Q> = shares
+        .iter()
+        .map(|(g, _)| per(g, gain, &gain_net))
+        .collect();
+    let franked_attr: Vec<Q> = shares
+        .iter()
+        .map(|(_, f)| per(f, franked, &franked_net))
+        .collect();
+    let credit: Vec<Q> = shares
+        .iter()
+        .map(|(_, f)| per(f, franked, &tq(credits)))
+        .collect();
+    // s 102UY(4): present entitlement less the parts of the shares that were trust income.
+    let in_income: Vec<Q> = shares
+        .iter()
+        .map(|(g, f)| per(g, gain, &tq(gain_income)).plus(&per(f, franked, &tq(net_franked))))
+        .collect();
+    let income_6e = other_income.max(0);
+    let net_6e = tq(other_net.max(0));
+    let mut division6 = Vec::new();
+    for (i, p) in people.iter().enumerate() {
+        let e = tq(p.2).minus(&in_income[i]);
+        if income_6e > 0 && e.below(&Q::of(0)) {
+            return json!("refused");
+        }
+        division6.push(if income_6e > 0 {
+            net_6e.times(&e).over(&tq(income_6e))
+        } else {
+            zero()
+        });
+    }
+    if income_6e > 0
+        && tq(unentitled)
+            .minus(&in_income[people.len()])
+            .below(&Q::of(0))
+    {
+        return json!("refused");
+    }
+    let trustee_division6 = division6.iter().fold(net_6e.clone(), |t, d| t.minus(d));
+    let half = Q(1.into(), 2.into());
+    let b: Vec<Value> = people
+        .iter()
+        .enumerate()
+        .map(|(i, p)| {
+            let extra = attributable[i].times(&tq(gross));
+            let mut own = extra.clone();
+            if matches!(concessions, "discount" | "both") && p.1 != "company" {
+                own = own.times(&half);
+            }
+            if matches!(concessions, "small_business" | "both") {
+                own = own.times(&half);
+            }
+            let assessable = division6[i]
+                .plus(&own)
+                .plus(&franked_attr[i])
+                .plus(&credit[i]);
+            let figures = [
+                &division6[i],
+                &attributable[i],
+                &extra,
+                &own,
+                &franked_attr[i],
+                &credit[i],
+                &assessable,
+            ]
+            .map(|q| shown(q.cents()));
+            json!(figures)
+        })
+        .collect();
+    let n = people.len();
+    let trustee_gain = attributable[n].times(&tq(gross));
+    let trustee = trustee_division6
+        .plus(&trustee_gain)
+        .plus(&franked_attr[n])
+        .plus(&credit[n]);
+    let tax = trustee.times(&Q(45.into(), 100.into()));
+    let after = tax.minus(&credit[n]).at_least_nil();
+    let t = [
+        &trustee_division6,
+        &trustee_gain,
+        &franked_attr[n],
+        &credit[n],
+        &trustee,
+        &tax,
+        &after,
+    ]
+    .map(|q| shown(q.cents()));
+    json!({ "net": shown(u64::try_from(net_income).unwrap()), "b": b, "t": t })
+}
+
+#[test]
+fn the_trust_streaming_engine_agrees_with_the_oracle_on_every_seeded_case() {
+    if !common::rendered() {
+        return;
+    }
+    let mut rng = Seeded(0x2026_1126_0000_0B15);
+    let (cases, expected): (Vec<_>, Vec<_>) =
+        (0..TRUST_CASES).map(|_| trust_case(&mut rng)).unzip();
+    let refused = expected
+        .iter()
+        .filter(|want| *want == &json!("refused"))
+        .count();
+    assert!(
+        refused > 0 && refused < TRUST_CASES / 2,
+        "{refused} refused"
+    );
+    assert!(expected.iter().any(|want| want["t"][4] != json!("0")));
+    let actual = run_node(TRUST_HARNESS, &cases);
+    assert_eq!(actual.len(), TRUST_CASES);
     for ((case, want), got) in cases.iter().zip(&expected).zip(&actual) {
         assert_eq!(got, want, "{case}");
     }

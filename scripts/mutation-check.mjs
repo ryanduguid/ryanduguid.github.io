@@ -66,6 +66,7 @@ const marginScheme = { ...business, file: 'assets/gst-margin-scheme.mjs' };
 const surcharges = { ...business, file: 'assets/foreign-surcharge.mjs' };
 const businessDays = { ...business, file: 'assets/business-days.mjs' };
 const sgc = { ...business, file: 'assets/sgc-payday.mjs' };
+const cashflowEngine = { ...business, file: 'assets/payday-cashflow.mjs' };
 const cgt = { ...business, file: 'assets/cgt.mjs' };
 const lsl = { ...business, file: 'assets/long-service-leave.mjs' };
 const salaryDividend = { ...business, file: 'assets/salary-dividend.mjs' };
@@ -76,6 +77,8 @@ const pools = { ...business, file: 'assets/depreciation-pools.mjs' };
 const rdOffset = { ...business, file: 'assets/rd-tax-offset.mjs' };
 const casualOt = { ...business, file: 'assets/casual-overtime.mjs' };
 const contractor = { ...business, file: 'assets/contractor-employee.mjs' };
+const invoice = { ...business, file: 'assets/tax-invoice.mjs' };
+const trustStream = { ...business, file: 'assets/trust-streaming.mjs' };
 const gstAdjustments = { ...business, file: 'assets/gst-adjustments.mjs' };
 const deferredTaxEngine = { ...business, file: 'assets/deferred-tax.mjs' };
 const lct = { ...business, file: 'assets/luxury-car-tax.mjs' };
@@ -749,6 +752,12 @@ const MUTATIONS = [
   { ...sgc, name: 'SGC a first out-of-cycle contribution drops item 1', find: "['first-out-of-cycle', ['first', 'out-of-cycle']]", replace: "['first-out-of-cycle', ['out-of-cycle']]" },
   { ...sgc, name: 'SGC combined periods take the first, not the latest', find: '(period[0] > latest[0] ? period : latest), usual)', replace: '(latest[0] === usual[0] ? period : latest), usual)' },
   { ...sgc, name: 'SGC ignores the maximum contributions base', find: 'Math.min(earnings, Math.max(0, MAXIMUM_BASE_2026_27 - cents(inputs.earlier)))', replace: 'earnings' },
+  { ...cashflowEngine, name: 'Payday cashflow at 11%', find: 'BigInt(cents(inputs.earnings)) * 12n', replace: 'BigInt(cents(inputs.earnings)) * 11n' },
+  { ...cashflowEngine, name: 'Payday cashflow quarterly date a day late', find: "due: '2026-10-28'", replace: "due: '2026-10-29'" },
+  { ...cashflowEngine, name: 'Payday cashflow part-day dates not flagged', find: 'partDay = true;', replace: 'partDay = false;' },
+  { ...cashflowEngine, name: 'Payday cashflow fortnights of 15 days', find: "['fortnightly', { step: 14,", replace: "['fortnightly', { step: 15," },
+  { ...cashflowEngine, name: 'Payday cashflow monthly date not moved to a shorter month end', find: 'Math.min(date, last)', replace: 'date' },
+  { ...cashflowEngine, name: 'Payday cashflow average not weighted by amount', find: 'weighted += sg * daysEarlier;', replace: 'weighted += daysEarlier;' },
   { ...sgc, name: 'SGC notional earnings run on the final shortfall', find: 'const notional = compoundedEarnings(base, rates);', replace: 'const notional = compoundedEarnings(final, rates);' },
   { ...sgc, name: 'SGC notional earnings include the assessment day', find: 'received : assessment - 1;', replace: 'received : assessment;' },
   { ...sgc, name: 'SGC notional earnings stop the day before receipt', find: '? received : assessment - 1;', replace: '? received - 1 : assessment - 1;' },
@@ -1162,6 +1171,29 @@ const MUTATIONS = [
   { ...contractor, name: 'Unclaimable GST left out of the cost', find: 'const gstCost = e.credits ? 0 : gst;', replace: 'const gstCost = 0;' },
   { ...contractor, name: 'Other paid leave not taken off the hours', find: 'WEEKS * 100 - annual - other', replace: 'WEEKS * 100 - annual' },
   { ...contractor, name: 'Payroll tax always without super', find: 'atRate(wages + (e.payrollSuper ? employeeSg : 0), payrollRate)', replace: 'atRate(wages, payrollRate)' },
+  { ...invoice, name: 'Tax invoice recipient needed from $1,001', find: 'const RECIPIENT_THRESHOLD = 100000n;', replace: 'const RECIPIENT_THRESHOLD = 100100n;' },
+  { ...invoice, name: 'Tax invoice $1,000 itself not enough for the recipient rule', find: 'totalPrice >= RECIPIENT_THRESHOLD', replace: 'totalPrice > RECIPIENT_THRESHOLD' },
+  { ...invoice, name: 'Tax invoice recipient needed with no taxable supply', find: '(hasTaxable && totalPrice', replace: '(true && totalPrice' },
+  { ...invoice, name: 'Tax invoice GST-inclusive prices taken as 10%', find: 'const divisor = inclusive ? 11n : 10n;', replace: 'const divisor = inclusive ? 10n : 10n;' },
+  { ...invoice, name: 'Tax invoice taxable supply rule ignored', find: "x.rounding === 'invoice' || taxable.length < 2", replace: 'true' },
+  { ...invoice, name: 'Tax invoice GST-exclusive total leaves out the GST', find: 'const totalPrice = inclusive ? amount : amount + gst;', replace: 'const totalPrice = amount;' },
+  { ...invoice, name: 'Tax invoice line amount truncated', find: 'ratioCents(BigInt(Math.round(quantity * 1000)) * BigInt(unit), 1000n)', replace: 'BigInt(Math.floor(quantity * unit))' },
+  { ...invoice, name: 'ABN first digit not reduced by 1', find: '(i === 0 ? digit - 1 : digit)', replace: 'digit' },
+  { ...invoice, name: 'ABN leading zero accepted', find: 'digits[0] !== 0 && total % 89 === 0', replace: 'total % 89 === 0' },
+  { ...invoice, name: 'ABN last 2 weights swapped', find: 'const ABN_WEIGHTS = [10, 1, 3, 5, 7, 9, 11, 13, 15, 17, 19];', replace: 'const ABN_WEIGHTS = [10, 1, 3, 5, 7, 9, 11, 13, 15, 19, 17];' },
+  { ...invoice, name: 'RCTI issued without the Determination confirmed', find: 'if (x.rcti_conditions_met !== true)', replace: 'if (false)' },
+  { ...invoice, name: 'RCTI omits that the supplier pays the GST', find: 'if (rcti && gst > 0n) statements.push', replace: 'if (false) statements.push' },
+  { ...invoice, name: 'Tax invoice download leaves angle brackets unescaped', find: 'text.replace(/[&<>"\']/g,', replace: 'text.replace(/[&"\']/g,' },
+  { ...trustStream, name: 'Trust s 99A at 47%', find: 'const tax = mul(trusteeAmount, [45n, 100n]);', replace: 'const tax = mul(trusteeAmount, [47n, 100n]);' },
+  { ...trustStream, name: 'Trust discounted gain not grossed up', find: 'const GROSS_UP = { none: 1n, discount: 2n, small_business: 2n, both: 4n };', replace: 'const GROSS_UP = { none: 1n, discount: 1n, small_business: 2n, both: 4n };' },
+  { ...trustStream, name: 'Trust both concessions grossed up twice', find: 'const GROSS_UP = { none: 1n, discount: 2n, small_business: 2n, both: 4n };', replace: 'const GROSS_UP = { none: 1n, discount: 2n, small_business: 2n, both: 2n };' },
+  { ...trustStream, name: 'Trust no rateable reduction', find: 'const scale = withoutCredits < streamed ? div(whole(withoutCredits), whole(streamed)) : ONE;', replace: 'const scale = ONE;' },
+  { ...trustStream, name: 'Trust specific entitlement at the net benefit, not the gain', find: 'specificGain: gainIncome ? div(mul(G, whole(gainBenefit)), whole(gainIncome)) : ZERO,', replace: 'specificGain: gainIncome ? whole(gainBenefit) : ZERO,' },
+  { ...trustStream, name: 'Trust adjusted percentage over all trust income', find: 'const base = people.reduce((t, p) => sub(sub(t, p.specificGain), p.specificFranked), whole(trustIncome));', replace: 'const base = whole(trustIncome);' },
+  { ...trustStream, name: 'Trust franking credit not shared with the distribution', find: 'credit: franked ? div(mul(whole(credits), frankedShare), F) : ZERO,', replace: 'credit: ZERO,' },
+  { ...trustStream, name: 'Trust Division 6E keeps the streamed amounts in present entitlement', find: 'const entitled6E = sub(whole(p.entitlement), s.inIncome);', replace: 'const entitled6E = whole(p.entitlement);' },
+  { ...trustStream, name: 'Trust company beneficiary discounts its gain', find: 'const KIND_DISCOUNT = { individual: true, trust: true, company: false };', replace: 'const KIND_DISCOUNT = { individual: true, trust: true, company: true };' },
+  { ...trustStream, name: 'Trust trustee gets no franking credit offset', find: 'const afterOffset = sub(tax, trusteeShares.credit);', replace: 'const afterOffset = tax;' },
   { ...gstAdjustments, name: 'GST creditable purpose threshold counted as over it', find: 'cmp(value, d(finance ? \'10000\' : \'1000\')) <= 0', replace: 'cmp(value, d(finance ? \'10000\' : \'1000\')) < 0' },
   { ...gstAdjustments, name: 'GST 5 adjustment periods at $5,000 or less', find: 'const [low, lowCount] = finance ? [\'50000\', 1] : [\'5000\', 2];', replace: 'const [low, lowCount] = finance ? [\'50000\', 1] : [\'5000\', 5];' },
   { ...gstAdjustments, name: 'GST $500,000 given 5 adjustment periods', find: 'cmp(value, d(\'500000\')) < 0 ? 5 : 10', replace: 'cmp(value, d(\'500000\')) <= 0 ? 5 : 10' },
