@@ -1528,6 +1528,7 @@ const SHARED = [
 
 const TEST_FILES = [
   levy.test, business.test, individualTest,
+  'scripts/aa-ports.test.mjs',
   'scripts/fhss.test.mjs', 'scripts/work-expenses.test.mjs', 'scripts/government-super-amounts.test.mjs', swh.test, tba.test, pm.test, rd.test, lr.test,
   'scripts/net-medical-expenses.test.mjs',
   'scripts/foreign-income.test.mjs',
