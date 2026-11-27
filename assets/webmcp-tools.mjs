@@ -923,8 +923,9 @@ const DIVISION_293_DESCRIPTION = 'Division 293 tax in AUD for one individual and
 
 const SALARY_PACKAGING_DESCRIPTION = 'Salary packaging in AUD for one employee of an FBT-exempt employer for one year: a public '
   + 'benevolent institution or health promotion charity ($30,000 cap) or a public or not-for-profit hospital or public '
-  + 'ambulance service ($17,000 cap), FBTAA s 57A. Type 1 and Type 2 benefits are grossed up at 2.0802 and 1.8868 to the '
-  + 'dollar and added; FBT is 47% of the part above the cap after up to $5,000 more of salary packaged meal entertainment '
+  + 'ambulance service ($17,000 cap), FBTAA s 57A. Type 1 benefits are grossed up by (47% + 10%) / ((1 - 47%) x '
+  + '(1 + 10%) x 47%) and Type 2 by 1 / (1 - 47%) (s 5B(1F) and (1G), not the rounded 2.0802 and 1.8868), each to the '
+  + 'dollar, and added; FBT is 47% of the part above the cap after up to $5,000 more of salary packaged meal entertainment '
   + '(s 5B(1E)). The reportable fringe benefits amount is the taxable value over $2,000 times 1 / 0.53, cents dropped '
   + '(s 135Q). Tax, the Medicare levy and surcharge and any study loan repayment are worked with and without the '
   + 'packaging, the salary as the only income. It does not compute rebatable or ordinary employers, car parking, '

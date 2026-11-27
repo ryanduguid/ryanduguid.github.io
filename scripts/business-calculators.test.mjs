@@ -542,7 +542,7 @@ const shownField = (field, value, labels = LABELS) => {
   return `${labels[field]} ${dollars(value)}`;
 };
 Object.assign(LABELS, { periodEnds: 'period ends', lastDay: 'last day', amendedEnds: '60 days after the amended notice',
-  firstEnds: 'first notice period ends' });
+  originalEnds: 'original period ends' });
 Object.assign(LABELS, { amount: 'amount', credit: 'credit', due: 'due by this instalment' });
 // Fields an engine shows its own way, by engine: a label, or a function that writes the value.
 const ENGINE_LABELS = { paygInstalment: { instalment: 'instalment' }, pcgRisk: PCG_SHOWN,
@@ -624,13 +624,13 @@ const INPUTS = {
     return `Opening ${dollars(opening)}, buffer ${dollars(buffer)}, ${dollars(weeks[week].receipts)} received in `
       + `week ${week + 1}, ${dollars(delayed.amount)} of it delayed ${delayed.delay} week`;
   },
-  objectionDeadline: (decision, group, notice, first) => {
+  objectionDeadline: (decision, group, notice, first, amended) => {
     const date = (iso) => new Date(`${iso}T00:00:00Z`).toLocaleDateString('en-AU',
       { day: 'numeric', month: 'long', year: 'numeric', timeZone: 'UTC' });
     const kind = { assessment: 'Income tax assessment', amended: 'Amended income tax assessment', fbt: 'FBT assessment',
       'amended-fbt': 'Amended FBT assessment', other: 'Other decision' }[decision];
     return `${kind}${decision === 'assessment' || decision === 'amended' ? `, ${group} years` : ''}, notice ${date(notice)}`
-      + `${decision.startsWith('amended') ? `, first notice ${date(first)}` : ''}`;
+      + `${decision.startsWith('amended') ? `, notice of the assessment amended ${date(amended)}, first notice ${date(first)}` : ''}`;
   },
   paygInstalment: (f) => ({
     amount: `Instalment amount ${dollars(f.notified)}`,
@@ -1212,7 +1212,7 @@ const FORM_CALLS = {
   cashForecast: (f) => [f.opening,
     Array.from({ length: 13 }, (_, i) => ({ receipts: f[`receipts-${i + 1}`], payments: f[`payments-${i + 1}`] })),
     f.buffer, { week: Number(f.week), amount: f.amount, delay: Number(f.delay) }],
-  objectionDeadline: (f) => [f.decision, f.group, f.notice, f.first],
+  objectionDeadline: (f) => [f.decision, f.group, f.notice, f.first, f.amended],
   paygInstalment: (f) => [{ method: f.method, notified: f.notified, instalment: f.instalment, estimatedTax: f['estimated-tax'],
     earlier: f.earlier, credits: f.credits, income: f.income, rate: f.rate, estimatedIncome: f['estimated-income'],
     earlierIncome: f['earlier-income'], previousRate: f['previous-rate'] }],
@@ -1310,7 +1310,7 @@ test('objection deadline moves a weekend last day as the Acts Interpretation Act
 });
 
 test('objection periods are 2 or 4 years, 60 days, or the later of an amendment’s 2 dates', () => {
-  const on = (decision, group, notice, first = notice) => calculations.objectionDeadline(decision, group, notice, first).periodEnds;
+  const on = (decision, group, notice, first = notice, amended = first) => calculations.objectionDeadline(decision, group, notice, first, amended).periodEnds;
   assert.equal(on('assessment', '2', '2027-06-15'), '2029-06-15');
   assert.equal(on('assessment', '4', '2027-06-15'), '2031-06-15');
   assert.equal(on('fbt', '2', '2027-06-15'), '2031-06-15');
@@ -1323,7 +1323,25 @@ test('objection periods are 2 or 4 years, 60 days, or the later of an amendment�
   assert.equal(on('amended-fbt', '2', '2027-06-15', '2027-06-15'), '2031-06-15');
   assert.equal(on('amended-fbt', '2', '2027-06-15', '2024-01-10'), '2028-01-10');
   assert.equal(on('amended-fbt', '2', '2027-06-15', '2023-01-10'), '2027-08-14');
-  assert.equal(calculations.objectionDeadline('amended-fbt', '2', '2027-06-15', '2027-06-15').rule, 'subsection 14ZW(1B)');
+  assert.equal(calculations.objectionDeadline('amended-fbt', '2', '2027-06-15', '2027-06-15', '2027-06-15').rule, 'subsection 14ZW(1B)');
+});
+
+// TAA 1953 s 14ZW, compilation 227, read on the ATO legal database 26 November 2026: (1BA)(c) runs
+// '2 years after notice of the assessment ... that has been amended by the amended assessment', and
+// (1C) moves that notice to the first assessment's 'For the purposes of paragraph (1B)(c)' only.
+test('a second amendment counts (1BA) from the assessment amended and (1B) from the first assessment', () => {
+  // First assessment 1 March 2024, amended 10 January 2028, amended again 1 June 2028.
+  const again = (decision, group) => calculations.objectionDeadline(decision, group, '2028-06-01', '2024-03-01', '2028-01-10');
+  assert.deepEqual(Object.values(again('amended', '2')), ['subsection 14ZW(1BA)', '2030-01-10', '2030-01-10', '2028-07-31', '2030-01-10']);
+  // 4 years from 1 March 2024 end on 1 March 2028, so the 60 days after the latest notice win.
+  assert.deepEqual(Object.values(again('amended', '4')), ['subsection 14ZW(1B)', '2028-07-31', '2028-07-31', '2028-07-31', '2028-03-01']);
+  assert.equal(again('amended-fbt', '2').originalEnds, '2028-03-01');
+  assert.throws(() => calculations.objectionDeadline('amended', '2', '2028-06-01', '2024-03-01', '2028-06-02'),
+    { message: 'The notice of the assessment amended cannot be later than the amended assessment’s.' });
+  assert.throws(() => calculations.objectionDeadline('amended', '2', '2028-06-01', '2028-01-11', '2028-01-10'),
+    { message: 'The first assessment’s notice cannot be later than the notice of the assessment amended.' });
+  assert.throws(() => calculations.objectionDeadline('amended', '2', '2028-06-01', '2028-01-10'),
+    { message: 'Enter a date from 1 January 1900 to 31 December 9989.' });
 });
 
 test('objection deadline refuses an unknown decision or item and an impossible date', () => {
@@ -5215,6 +5233,17 @@ test('a residual on a lease paid in advance falls a period after the last paymen
   const r = worked(() => leaseOf({ timing: 'advance', residual: '10000' }));
   assert.deepEqual(r.rows.slice(-2).map(({ date, payment }) => [date, payment]), [['2031-06-01', 1000], ['2031-07-01', 10000]]);
   assert.equal(r.end, '2031-07-01');
+});
+
+test('a residual value guarantee above the payments’ present value is measured, not refused', () => {
+  // AASB 16 paragraph 27(c) includes the amount expected to be payable under a residual value
+  // guarantee and sets no limit on it. 12 monthly payments of $100 in arrears at 6% and a $50,000
+  // guarantee: $1,161.89 of payments and $47,095.27 of residual, $48,257.16 as australian-accounting's
+  // lessee-lease command gives it; the last row pays the guarantee and closes the liability on nil.
+  const r = worked(() => leaseOf({ payment: '100', payments: '12', frequency: 'monthly', timing: 'arrears', rate: '6', residual: '50000' }));
+  assert.equal(r.liability, 48257.16);
+  assert.deepEqual([r.rows.at(-1).payment, r.rows.at(-1).closing, r.years.at(-1).liability], [50100, 0, 0]);
+  assert.equal(Math.round(r.totalInterest * 100), 120000 + 5000000 - 4825716);
 });
 
 test('the lease engine depreciates over the useful life when ownership transfers or the life is shorter', () => {

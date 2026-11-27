@@ -13,17 +13,21 @@ import { taxEstimate } from './tax-estimate.mjs';
 
 /** The income years whose FBT years (ending 31 March 2023 to 2027) have the rates and caps here:
  * the ATO's 'Fringe benefits tax - rates and thresholds' (last updated 20 May 2026), read
- * 19 November 2026: FBT 47%, gross-up 2.0802 (Type 1) and 1.8868 (Type 2). */
+ * 19 November 2026: FBT 47% and GST 10%. */
 export const PACKAGING_YEARS = ['2026-27', '2025-26', '2024-25', '2023-24', '2022-23'];
 
 // Each employer's cap on an employee's grossed-up benefits (s 5B(1E) steps 2 and 3) and the most of
 // the salary packaged meal entertainment above it (step 4), in whole dollars; the reporting
-// threshold (s 135Q(2)) in cents; the gross-up rates in ten-thousandths.
+// threshold (s 135Q(2)) in cents; the gross-up factors as fractions. Section 5B(1F) grosses up
+// Type 1 benefits by (FBT rate + GST rate) / ((1 - FBT rate) x (1 + GST rate) x FBT rate), 0.57 /
+// 0.27401, and s 5B(1G) Type 2 benefits by 1 / (1 - FBT rate), 1 / 0.53. The ATO's published
+// 2.0802 and 1.8868 round these to 4 places, which can put a total read from them a dollar over
+// the cap where the formula leaves it within (read on the ATO legal database 26 November 2026).
 const CAP = /** @type {Record<string, number>} */ ({ charity: 30000, hospital: 17000 });
 const MEAL_ALLOWANCE = 5000;
 const REPORTING_THRESHOLD = 200000;
-const TYPE_1 = 20802n;
-const TYPE_2 = 18868n;
+const TYPE_1 = /** @type {const} */ ([57000n, 27401n]);
+const TYPE_2 = /** @type {const} */ ([100n, 53n]);
 const STANDARD_DEDUCTION_FROM = '2026-27';
 
 /**
@@ -31,9 +35,10 @@ const STANDARD_DEDUCTION_FROM = '2026-27';
  *   meals: string, mealsTypeOne: boolean, studyLoan: boolean, hospitalCover: boolean}} Package
  */
 
-/** `value` cents grossed up at `rate`, to the nearest whole dollar, half up, as the ATO's guide
- * rounds each grossed-up amount in its example. @param {number} value @param {bigint} rate */
-const grossUp = (value, rate) => Number((2n * BigInt(value) * rate + 1000000n) / 2000000n);
+/** `value` cents grossed up by the factor `num / den`, to the nearest whole dollar, half up, as the
+ * ATO's guide rounds each grossed-up amount in its example.
+ * @param {number} value @param {readonly [bigint, bigint]} factor */
+const grossUp = (value, [num, den]) => Number((2n * BigInt(value) * num + 100n * den) / (200n * den));
 
 /** The year's tax, levies and study loan repayment in cents on a salary of `paid` cents with a
  * reportable fringe benefits amount of `fringe` whole dollars, after the standard deduction a
@@ -86,5 +91,6 @@ export function salaryPackaging(p) {
     grossedMeals: grossed.meals, grossed: total, mealAllowance, excess, fbt: fbt / 100, reportable,
     taxableBefore: before.taxable, taxableAfter: after.taxable, owedBefore: before.total / 100, owedAfter: after.total / 100,
     surchargeAfter: after.surcharge, studyLoanAfter: after.studyLoan, saved: saved / 100, gain: (saved - fbt) / 100,
-    room, roomTypeTwo: Math.floor((room * 1000000) / Number(TYPE_2)) / 100 };
+    // The Type 2 benefits whose grossed-up value the room takes: the room times 1 - 47%.
+    room, roomTypeTwo: (room * 53) / 100 };
 }
