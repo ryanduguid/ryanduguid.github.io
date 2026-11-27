@@ -181,3 +181,33 @@ test('checks about computed results fail when no fixture computes', async () => 
     assert.ok(failed(stdout, name), `${name}\n${stdout}`);
   }
 });
+
+test('a refusal with the expected status but another refusal class fails its fixture', async () => {
+  const { code, stdout } = await checkThrough(({ method, status, bytes }) => (
+    method === 'POST' && status === 400 ? { body: { ...JSON.parse(bytes), refusal_class: 'tampered' } } : undefined
+  ));
+  assert.equal(code, 1, stdout);
+  assert.ok(failed(stdout, 'matches every expected value'), stdout);
+});
+
+const runChecker = (args) => new Promise((resolve) => {
+  execFile(process.execPath, [CHECKER, ...args], { timeout: 20000 }, (error, stdout, stderr) => {
+    resolve({ code: error ? error.code : 0, stdout, stderr });
+  });
+});
+
+test('without --base the checker starts the service in-process and passes', async () => {
+  const { code, stdout } = await runChecker([]);
+  assert.equal(code, 0, stdout);
+  assert.match(stdout, /checks passed against http:\/\/127\.0\.0\.1:\d+\n/);
+});
+
+test('a service that cannot be reached is an error, not a pass', async () => {
+  const closed = createServer();
+  const base = await listen(closed);
+  await new Promise((resolve) => closed.close(resolve));
+  const { code, stdout, stderr } = await runChecker(['--base', base]);
+  assert.equal(code, 1, stdout);
+  assert.doesNotMatch(stdout, /checks passed/);
+  assert.match(stderr, /fetch failed/);
+});

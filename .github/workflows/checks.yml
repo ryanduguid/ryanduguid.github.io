@@ -39,7 +39,21 @@ jobs:
           cache: npm
           cache-dependency-path: service/coal-lsl-levy/package-lock.json
       - run: npm ci --ignore-scripts
-      - run: npm test
+      # npm test's suite, with line coverage. The paths gain the service's
+      # folder so Codecov finds them from the repository root.
+      - name: Service tests with line coverage
+        shell: bash
+        run: |
+          node deploy/build-worker.mjs
+          node --test --experimental-test-coverage             --test-coverage-include='src/**/*.mjs' --test-coverage-include='bin/**/*.mjs'             --test-coverage-include='deploy/**/*.mjs' --test-coverage-include='conformance/**/*.mjs'             --test-reporter=lcov --test-reporter-destination=coverage-service.lcov             --test-reporter=spec --test-reporter-destination=stdout             'test/*.test.mjs'
+          sed -i 's|^SF:|SF:service/coal-lsl-levy/|' coverage-service.lcov
+      - name: Keep the coverage report for the Codecov upload
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        with:
+          name: coverage-service
+          path: service/coal-lsl-levy/coverage-service.lcov
+          if-no-files-found: error
+          retention-days: 1
       - run: npm run conformance
       - run: npm run check:worker
       - run: npm audit --audit-level=high
@@ -385,7 +399,7 @@ jobs:
   # project and patch statuses against codecov.yml.
   codecov:
     name: upload coverage to Codecov
-    needs: rust-coverage
+    needs: [rust-coverage, coal-lsl-service]
     if: github.event_name != 'pull_request' || github.event.pull_request.head.repo.full_name == github.repository
     runs-on: ubuntu-24.04
     timeout-minutes: 10
@@ -399,10 +413,29 @@ jobs:
       - uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333 # v8
         with:
           name: coverage-codecov
+      - uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333 # v8
+        with:
+          name: coverage-service
+      # One upload per flag, so codecov.yml can hold each part to its own floor.
       - uses: codecov/codecov-action@303a32d7a59b442fa8d48b6a1cc6825c09c847a5 # v7.1.1
         with:
           use_oidc: true
-          files: coverage-rust.lcov,coverage-js.lcov
+          files: coverage-rust.lcov
+          flags: rust
+          disable_search: true
+          fail_ci_if_error: true
+      - uses: codecov/codecov-action@303a32d7a59b442fa8d48b6a1cc6825c09c847a5 # v7.1.1
+        with:
+          use_oidc: true
+          files: coverage-js.lcov
+          flags: javascript
+          disable_search: true
+          fail_ci_if_error: true
+      - uses: codecov/codecov-action@303a32d7a59b442fa8d48b6a1cc6825c09c847a5 # v7.1.1
+        with:
+          use_oidc: true
+          files: coverage-service.lcov
+          flags: coal-lsl-service
           disable_search: true
           fail_ci_if_error: true
 
