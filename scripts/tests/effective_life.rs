@@ -503,6 +503,89 @@ fn refuses_a_table_after_the_end_of_table_b() {
     assert!(failed.contains(message), "{message} not in {failed}");
 }
 
+/// A second note before any heading, an unknown column header and rows or headings with
+/// no division above them are each refused by name.
+#[test]
+fn refuses_notes_headers_and_rows_out_of_place() {
+    let pumps = row(0, "Pumps", "10", "*", "1 Jul 2008");
+    assert_refused(&[
+        (
+            "<tr><td><p>Note: first</p></td></tr><tr><td><p>Note: second</p></td></tr>".to_owned(),
+            "note first has no heading after it",
+        ),
+        (
+            "<tr><td><p>ASSET</p></td><td><p>YEARS</p></td><td><p>REVIEWED</p></td>\
+             <td><p>LAST UPDATED</p></td></tr>"
+                .to_owned(),
+            "column header ASSET | YEARS | REVIEWED | LAST UPDATED",
+        ),
+    ]);
+    let b = letter(&row(0, "Signs", "10", "*", "1 Jul 2005"));
+    // Table A with no division heading: neither a section heading nor a row has a place.
+    let undivided = |a: &str| {
+        page(&format!(
+            "<p>Table A – Effective life (Industry categories)</p>{a}\
+             <p>Table B – Effective life (Asset categories)</p>{b}"
+        ))
+    };
+    let cases = [
+        (
+            undivided(&format!(
+                "<table>{}{HEADER}{pumps}</table>",
+                heading("Coal mining", "(06000)")
+            )),
+            "heading Coal mining (06000) comes before any division",
+        ),
+        (
+            undivided(&format!("<table>{HEADER}{pumps}</table>")),
+            "a row comes before any division",
+        ),
+    ];
+    for (text, message) in cases {
+        let failed = parse(&text, &[])
+            .expect_err("the text should be refused")
+            .join("\n");
+        assert!(failed.contains(message), "{message} not in {failed}");
+    }
+}
+
+/// The instrument's short title and the date it was made are both required, and the date
+/// must read as one.
+#[test]
+fn refuses_a_missing_title_or_date_and_an_unreadable_date() {
+    let whole = tables(
+        &format!(
+            "<table>{}{HEADER}{}</table>",
+            heading("Coal mining", "(06000)"),
+            row(0, "Pumps", "10", "*", "1 Jul 2008")
+        ),
+        &letter(&row(0, "Signs", "10", "*", "1 Jul 2005")),
+    );
+    let title = r#"<p class="ShortT">Test Determination 2025</p>"#;
+    let dated = "<p>Dated 2 September 2025</p>";
+    assert!(parse(&whole, &[]).is_ok(), "the whole text should be read");
+    let cases = [
+        (
+            whole.replace(title, ""),
+            "the instrument's short title was not found",
+        ),
+        (
+            whole.replace(dated, "<p>Dated sometime</p>"),
+            "date sometime is not a day, month and year",
+        ),
+        (
+            whole.replace(dated, ""),
+            "the date the instrument was made was not found",
+        ),
+    ];
+    for (text, message) in cases {
+        let failed = parse(&text, &[])
+            .expect_err("the text should be refused")
+            .join("\n");
+        assert!(failed.contains(message), "{message} not in {failed}");
+    }
+}
+
 /// A committed row: asset, depth, life as printed, life in months, flags, last updated.
 type Committed = (
     String,

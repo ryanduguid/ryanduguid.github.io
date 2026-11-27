@@ -60,12 +60,13 @@ pub fn javascript(source: &str, module: bool) -> Result<String, String> {
         SourceType::unambiguous()
     };
     let parsed = Parser::new(&allocator, source, source_type).parse();
+    // Oxc's `Parser::parse` adds an error diagnostic on each path that sets `fatal_error`
+    // (the fatal error itself, the lexer's errors, the overlong source or the Flow error),
+    // so this check also refuses a parse that stopped early and left an empty program.
     if let Some(error) = parsed.diagnostics.errors().next() {
         return Err(error.to_string());
     }
-    if parsed.fatal_error {
-        return Err("the parser stopped before the end".into());
-    }
+    debug_assert!(!parsed.fatal_error, "a fatal parse carries an error");
     let mut program = parsed.program;
     // Functions and classes keep their `name` property, which script can read.
     let options = MinifierOptions {

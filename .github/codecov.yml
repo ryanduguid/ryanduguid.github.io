@@ -3,7 +3,7 @@
 # and the Coal LSL levy service's Node coverage together. c8 measures both Node
 # suites: the test runner's own merge of several processes' coverage can count
 # lines that never ran. The project floor is main's measured line coverage
-# (96.38% on 27 November 2026, at the merge of #822). Raise it with the tests
+# (97.46% on 27 November 2026, at the merge of #818). Raise it with the tests
 # until it reaches 100%, never lower it to pass. Every change must test each
 # line it adds or changes. Codecov posts no comments.
 coverage:
@@ -11,7 +11,7 @@ coverage:
   status:
     project:
       default:
-        target: 96.38%
+        target: 97.46%
         threshold: 0%
         if_not_found: failure
       # Each flag is one upload in checks.yml's codecov job.
