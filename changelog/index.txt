@@ -13,6 +13,7 @@ What changed and when, across this site and the tagged tool releases. Dates are 
 ## Site
 
 Date | Change
+27 November 2026 | A new business calculator, non-resident withholding, works the amount a payer withholds from a dividend, interest or royalty paid to a foreign resident in 2024-25 to 2026-27 under Subdivision 12-F of Schedule 1 to the Taxation Administration Act 1953, with a treaty rate, franked dividends, conduit foreign income and the section 12-300 cap. Its WebMCP tool is calculate_non_resident_withholding.
 27 November 2026 | The depreciation register distinguishes assets with the same name, shows the dates recorded against asset group headings and links directly to sections of long tables. The work expenses and rental property calculators now label telephone expenses as dollar amounts.
 27 November 2026 | The Markdown editions of calculators now preserve the instructions shown when JavaScript is off, including the link to the depreciation register data file.
 27 November 2026 | Reference tables now carry names for screen readers. Calculator fields and reference pages have more space between headings, instructions and tables. The depreciation register identifies the industry or asset group on links that share a name. Each indexed page also has a Markdown edition at index.md.
@@ -274,6 +275,7 @@ Published 30 August 2026. Last reviewed 24 November 2026.
 ## Links
 
 - Follow this changelog as an Atom feed: https://duguid.com.au/feed.xml
+- non-resident withholding: https://duguid.com.au/tools/business-calculators/non-resident-withholding/
 - depreciation register: https://duguid.com.au/tools/depreciation-rates/
 - depreciation register data file: https://duguid.com.au/tools/depreciation-rates/effective-life.json
 - sole trader against company: https://duguid.com.au/tools/business-calculators/sole-trader-company/

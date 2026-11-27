@@ -1405,6 +1405,7 @@ const SHARED = [
   'scripts/rd-tax-offset-engine-differential.json',
   'scripts/gst-adjustments-engine-differential.json',
   'scripts/deferred-tax-engine-differential.json',
+  'scripts/non-resident-withholding-engine-differential.json',
   'scripts/ato-penalties-interest-engine-differential.json',
   'scripts/borrowing-expenses-engine-differential.json',
   'scripts/wine-equalisation-tax-engine-differential.json',
