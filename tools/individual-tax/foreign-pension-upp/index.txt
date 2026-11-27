@@ -1,0 +1,73 @@
+# Foreign pension undeducted purchase price calculator
+
+Source: https://duguid.com.au/tools/individual-tax/foreign-pension-upp/
+
+> Work out the deductible amount of a foreign pension’s undeducted purchase price under s 27H, or the ATO’s UK and Dutch pension rates for 2025-26.
+
+# Foreign pension deductible amount
+
+The undeducted purchase price of a foreign pension or annuity, excluded each year.
+
+Published 27 November 2026. Last checked 27 November 2026.
+
+JavaScript is required for interactive calculations. The formula, assumptions and source links remain available below.
+
+A foreign pension or annuity for one income year
+
+Pension received in the year, in Australian dollars
+
+Method The s 27H formula UK State Pension (2025-26) Dutch SVB pension, amount unknown (2025-26)
+
+Income year 2026-27 2025-26 2024-25 2023-24 2022-23 2021-22 2020-21 2019-20 2018-19 2017-18 2016-17 2015-16 2014-15 2013-14 2012-13 2011-12 2010-11 2009-10 2008-09 2007-08
+
+Undeducted purchase price Residual capital value
+
+Relevant number is A life expectation factor A term of years certain
+
+Relevant number, in years Whole annuity, if shared
+
+Paid for the whole income year? Yes No
+
+Any part commuted? No Yes
+
+UK State Pension category Category A Category B (widow’s) Category C Category D
+
+The formula uses the purchase price, residual value, relevant number, whole annuity, whole year and commuted fields; the UK method uses only the category; the Dutch method uses neither. The relevant number is the term in years for an annuity for a term certain, or the life expectation factor from the Life Tables for a life annuity. Enter the whole annuity only if you share it with others.
+
+Calculate
+
+Fictional example: the first boundary case below. Change the inputs and calculate your own. Inputs: 2025-26; s 27H formula; received $20,000.00. Deductible amount $11,217.05 Excluded from assessable income $11,217.05 Assessable foreign pension or annuity $8,782.95 Relevant share 1 × (price less residual value) ÷ relevant number 17.83.
+
+## How the foreign pension undeducted purchase price calculator works
+
+A foreign pension or annuity that you or someone else bought with money that was never deducted has an undeducted purchase price. Section 27H excludes a deductible amount from the pension each year: your share of the annuity, times the purchase price less any residual capital value, divided by the relevant number. The amount excluded cannot be more than the pension, and the rest is assessable income.
+
+For 2025-26 the ATO’s instructions also give 2 shortcuts: 8% of a UK State Pension in category A or a category B widow’s pension, nil for category C or D, and 25% of a Dutch SVB pension whose deductible amount cannot be worked out.
+
+## What the foreign pension undeducted purchase price calculator does not cover
+
+The calculator does not work out the purchase price, residual value or life expectation factor, convert foreign currency, or apply a tax treaty. It refuses an annuity partly commuted, one not paid for the whole year, and one whose relevant number the Commissioner must set: for those, ask the ATO for a determination of the deductible amount. It does not cover Australian super income streams. Confirm the figures with the ATO or a registered tax agent.
+
+## Boundary cases
+
+Each row is a test: scripts/individual-tax.test.mjs runs this calculator on these fictional inputs and fails if the result differs from the one shown.
+
+Boundary cases: Foreign pension deductible amount
+
+Case | Inputs | Result
+The form’s example | 2025-26, formula, received $20,000.00, price $200,000.00, residual $0.00, relevant number 17.83 | Deductible $11,217.05, assessable $8,782.95
+A term of 10 years certain: one-tenth of the price is deductible | 2025-26, formula, received $15,000.00, price $100,000.00, residual $0.00, relevant number 10 | Deductible $10,000.00, assessable $5,000.00
+A residual capital value is taken off the price first | 2019-20, formula, received $15,000.00, price $100,000.00, residual $20,000.00, relevant number 10 | Deductible $8,000.00, assessable $7,000.00
+A deductible amount above the pension excludes only the pension | 2025-26, formula, received $5,000.00, price $100,000.00, residual $0.00, relevant number 10 | Deductible $10,000.00, assessable $0.00
+A shared annuity: your $10,000 of $40,000 is one-quarter | 2025-26, formula, received $10,000.00, price $200,000.00, residual $0.00, relevant number 10, whole annuity $40,000.00 | Deductible $5,000.00, assessable $5,000.00
+UK State Pension category A: 8% | 2025-26, uk state pension, received $12,000.00, category a | Deductible $960.00, assessable $11,040.00
+UK State Pension category C: nil | 2025-26, uk state pension, received $12,000.00, category c | Deductible $0.00, assessable $12,000.00
+Dutch SVB pension with no deductible amount worked out: 25% | 2025-26, dutch svb fallback, received $8,000.00 | Deductible $2,000.00, assessable $6,000.00
+
+One of the twenty-two individual tax calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+
+Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
+
+## Links
+
+- twenty-two individual tax calculators: https://duguid.com.au/tools/individual-tax/

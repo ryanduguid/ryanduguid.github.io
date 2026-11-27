@@ -1,0 +1,61 @@
+# ABN and ACN check digit checker
+
+Source: https://duguid.com.au/tools/business-calculators/abn-acn-check/
+
+> Check an ABN’s modulus 89 or an ACN’s modulus 10 check digit on the page. Format only: it does not look up the registers or show that a number is registered.
+
+# ABN and ACN check digit checker
+
+Whether an ABN or ACN passes its published check digit test. Format only: nothing is looked up.
+
+Published 27 November 2026. Last checked 27 November 2026.
+
+JavaScript is required for interactive calculations. The formula, assumptions and source links remain available below.
+
+One number to check
+
+ABN or ACN, digits and spaces only Which number Australian Business Number (ABN), 11 digits Australian Company Number (ACN), 9 digits
+
+The check is arithmetic on this page alone: nothing is looked up, and a valid check digit does not mean the number is registered.
+
+Check Fictional example: the first boundary case below. Change the inputs and calculate your own. Inputs: ABN (11 digits) ‘51 824 753 556’. Result Check digit valid. The digits pass the published ABN check digit test. In the register’s format 51 824 753 556 What this does not establish A valid check digit shows only that the digits pass the arithmetic ABN Lookup publishes. It proves neither that the number was issued to anyone or is active, nor that an entity is registered in the Australian Business Register or registered for GST. ABN Lookup (https://abr.business.gov.au) shows an ABN’s status and if and when an entity is registered for GST. Source ABN Lookup, Format of the ABN: ‘To verify an ABN’ (version 9.9.7)
+
+## How the ABN and ACN check works
+
+An Australian Business Number has 11 digits: a 9 digit identifier with 2 leading check digits worked out by a modulus 89 calculation. An Australian Company Number has 9 digits, the last a check digit from a modified modulus 10 calculation. The page applies the test each register publishes to the digits you enter and reports one of 3 results: the digits pass, they fail, or they are not an ABN or ACN in form (the wrong number of digits, or a character other than a digit or a space).
+
+A failed check digit means the number is not valid as written, usually a typing or transcription error: check it against the invoice, letter or record it came from. Spaces are ignored; other separators such as hyphens are not, so that a malformed number cannot become a different, valid one.
+
+## What a valid check digit does not show
+
+The check is arithmetic only. It does not show that a number was ever issued, that it is active, that it belongs to the business named on an invoice, or that the business is registered for GST. Many numbers that were never issued still pass. For an ABN’s status, the entity’s name and its GST registration, search ABN Lookup; for a company, search ASIC’s registers.
+
+## What the ABN and ACN check does not cover
+
+The page does not call ABN Lookup, ASIC or any other register, and sends nothing off the page. It does not check a tax file number, an ARBN, an ARSN or a withholding payer number, does not work out the ABN a company would have from its ACN, and does not decide whether to withhold from a payment to a supplier who quotes no ABN.
+
+## Boundary cases
+
+Each row is a test: scripts/business-calculators.test.mjs runs this calculator on these fictional inputs and fails if the result differs from the one shown.
+
+Boundary cases: ABN and ACN check digit checker
+
+Case | Inputs | Result
+ABN Lookup’s own example: 51 824 753 556 passes | ABN (11 digits) ‘51 824 753 556’ | CHECK DIGIT VALID, formatted 51 824 753 556
+The same ABN with its last digit one higher fails | ABN (11 digits) ‘51 824 753 557’ | CHECK DIGIT INVALID, formatted 51 824 753 557
+A first digit of 0 fails though the digits divide by 89: 1 cannot be taken from 0 | ABN (11 digits) ‘00000090000’ | CHECK DIGIT INVALID, formatted 00 000 090 000
+Hyphens are not removed, so the ABN is not in the format | ABN (11 digits) ‘51-824-753-556’ | MALFORMED, not formatted
+Ten digits are not an ABN | ABN (11 digits) ‘5182475355’ | MALFORMED, not formatted
+ASIC’s own example: ACN 004 085 616 passes | ACN (9 digits) ‘004 085 616’ | CHECK DIGIT VALID, formatted 004 085 616
+A remainder of 0 complements to 10, so the check digit is 0 | ACN (9 digits) ‘000250000’ | CHECK DIGIT VALID, formatted 000 250 000
+The same ACN with its last digit one higher fails | ACN (9 digits) ‘004 085 617’ | CHECK DIGIT INVALID, formatted 004 085 617
+Eight digits are not an ACN | ACN (9 digits) ‘00408561’ | MALFORMED, not formatted
+
+One of the sixty-two business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+
+Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
+
+## Links
+
+- ABN Lookup: https://abr.business.gov.au
+- sixty-two business calculators: https://duguid.com.au/tools/business-calculators/

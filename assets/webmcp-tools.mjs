@@ -11,12 +11,19 @@ import { casualOvertimeTool } from './webmcp-casual-overtime.mjs';
 import { contractorEmployeeTool } from './webmcp-contractor-employee.mjs';
 import { paydayCashflowTool } from './webmcp-payday-cashflow.mjs';
 import { taxInvoiceTools } from './webmcp-tax-invoice.mjs';
+import { endorsementReviewTool } from './webmcp-endorsement-review.mjs';
+import { identifierCheckTool } from './webmcp-abn-acn-check.mjs';
 import {
   concessionalCatchUpTool, fhssTool, governmentSuperTool, lumpSumArrearsTool, studyLoanTool, workExpensesTool,
 } from './webmcp-individual-more.mjs';
 import { pensionMinimumTool, transferBalanceTool } from './webmcp-individual-retirement.mjs';
 import { residencyDaysTool } from './webmcp-individual-residency.mjs';
 import { lodgmentRequiredTool } from './webmcp-individual-lodgment.mjs';
+import { dbIncomeCapTool } from './webmcp-individual-db-income-cap.mjs';
+import { foreignPensionTool } from './webmcp-individual-foreign-pension.mjs';
+import { scholarshipTool } from './webmcp-individual-scholarship.mjs';
+import { crystallisationTool } from './webmcp-individual-crystallisation.mjs';
+import { helpIndexationTool } from './webmcp-individual-help.mjs';
 
 // WebMCP tool descriptors for the site's calculators. Each tool calls the same module
 // function as its page's form, reads nothing from the form and sends nothing anywhere.
@@ -43,6 +50,7 @@ const PATTERNS = {
   signedCost: /^-?\d{1,10}$|^-?\d{1,10}\.\d{1,2}$/,
   trillionCost: /^\d{1,13}$|^\d{1,13}\.\d{1,2}$/,
   signedTrillionCost: /^-?\d{1,13}$|^-?\d{1,13}\.\d{1,2}$/,
+  identifier: /^[0-9 ]{1,40}$/,
 };
 
 /**
@@ -566,7 +574,8 @@ const fuelTaxCreditsTool = (fuelTaxCredits) => tool({
  *   | 'rdTaxOffset' | 'RD_YEARS' | 'gstAdjustment' | 'percentFraction' | 'GST_WORKSHEETS' | 'GST_ADJUSTMENT_YEARS'
  *   | 'deferredTax' | 'DEFERRED_TAX_YEARS' | 'soleTraderCompany' | 'SOLE_TRADER_COMPANY_YEARS' | 'casualOvertime'
  *   | 'contractorEmployee' | 'CONTRACTOR_YEARS' | 'paydayCashflow' | 'taxInvoice' | 'TREATMENTS' | 'MAX_LINES'
- *   | 'trustStreaming' | 'TRUST_STREAMING_ROWS'>} calculate */
+ *   | 'trustStreaming' | 'TRUST_STREAMING_ROWS' | 'endorsementReview' | 'ENDORSEMENT_WORKSHEETS' | 'identifierCheck'
+ *   | 'IDENTIFIER_KINDS'>} calculate */
 export function calculatorTools(calculate) {
   return {
     gst: gstTool(calculate.gst),
@@ -589,6 +598,8 @@ export function calculatorTools(calculate) {
     'contractor-employee': contractorEmployeeTool(TOOL_KIT, calculate),
     'payday-cashflow': paydayCashflowTool(TOOL_KIT, calculate.paydayCashflow),
     ...taxInvoiceTools(TOOL_KIT, calculate),
+    'endorsement-review': endorsementReviewTool(TOOL_KIT, calculate),
+    'abn-acn-check': identifierCheckTool(TOOL_KIT, calculate),
   };
 }
 
@@ -1059,6 +1070,46 @@ export function transferBalanceTools(engine) {
  */
 export function residencyDaysTools(engine) {
   return { 'residency-days': residencyDaysTool(TOOL_KIT, engine) };
+}
+
+/**
+ * WebMCP descriptor for the defined benefit income cap.
+ * @param {import('./webmcp-individual-db-income-cap.mjs').DbIncomeCapEngine} engine
+ */
+export function dbIncomeCapTools(engine) {
+  return { 'defined-benefit-income-cap': dbIncomeCapTool(TOOL_KIT, engine) };
+}
+
+/**
+ * WebMCP descriptor for the foreign pension undeducted purchase price.
+ * @param {import('./webmcp-individual-foreign-pension.mjs').ForeignPensionEngine} engine
+ */
+export function foreignPensionTools(engine) {
+  return { 'foreign-pension-upp': foreignPensionTool(TOOL_KIT, engine) };
+}
+
+/**
+ * WebMCP descriptor for the scholarship exemption check.
+ * @param {import('./webmcp-individual-scholarship.mjs').ScholarshipEngine} engine
+ */
+export function scholarshipTools(engine) {
+  return { 'scholarship-exemption': scholarshipTool(TOOL_KIT, engine) };
+}
+
+/**
+ * WebMCP descriptor for super crystallisation at 30 June 2007.
+ * @param {import('./webmcp-individual-crystallisation.mjs').CrystallisationEngine} engine
+ */
+export function crystallisationTools(engine) {
+  return { 'super-crystallisation': crystallisationTool(TOOL_KIT, engine) };
+}
+
+/**
+ * WebMCP descriptor for the HELP indexation calculator.
+ * @param {import('./webmcp-individual-help.mjs').HelpIndexationEngine} engine
+ */
+export function helpIndexationTools(engine) {
+  return { 'help-indexation': helpIndexationTool(TOOL_KIT, engine) };
 }
 
 /**

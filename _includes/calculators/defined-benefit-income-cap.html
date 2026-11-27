@@ -1,0 +1,30 @@
+<section class="business-calculator" id="defined-benefit-income-cap">
+<form class="calculator-split" data-calculator="defined-benefit-income-cap">
+<fieldset disabled><legend>Defined benefit income for one income year</legend>
+<div class="form-grid">
+<label class="field" for="defined-benefit-income-cap-tax-free-and-taxed">Tax free and taxed amounts<input enterkeyhint="next" id="defined-benefit-income-cap-tax-free-and-taxed" name="tax-free-and-taxed" type="text" inputmode="decimal" value="140000" aria-describedby="defined-benefit-income-cap-amounts-note" required /></label>
+<label class="field" for="defined-benefit-income-cap-untaxed">Untaxed elements<input enterkeyhint="next" id="defined-benefit-income-cap-untaxed" name="untaxed" type="text" inputmode="decimal" value="0" aria-describedby="defined-benefit-income-cap-amounts-note" required /></label>
+<label class="field" for="defined-benefit-income-cap-other">Other defined benefit income<input enterkeyhint="next" id="defined-benefit-income-cap-other" name="other" type="text" inputmode="decimal" value="0" aria-describedby="defined-benefit-income-cap-amounts-note" required /></label>
+<div class="field"><label for="defined-benefit-income-cap-year">Income year</label><select name="year" id="defined-benefit-income-cap-year"><option value="2026-27">2026-27</option><option value="2025-26" selected>2025-26</option><option value="2024-25">2024-25</option><option value="2023-24">2023-24</option><option value="2022-23">2022-23</option><option value="2021-22">2021-22</option><option value="2020-21">2020-21</option><option value="2019-20">2019-20</option><option value="2018-19">2018-19</option><option value="2017-18">2017-18</option></select></div>
+<label class="field" for="defined-benefit-income-cap-first-day">First day, if it fell in this year<input enterkeyhint="done" id="defined-benefit-income-cap-first-day" name="first-day" type="date" min="2017-07-01" max="2027-06-30" value="" aria-describedby="defined-benefit-income-cap-first-day-note" /></label>
+</div>
+<p class="field-note" id="defined-benefit-income-cap-amounts-note">Enter the year’s defined benefit income in dollars. The tax free and taxed amounts are the tax free components and taxed elements of the income that is concessionally treated: you are 60 or over, or it is a death benefit from someone who died at 60 or over. The untaxed elements are those of the same income. Other defined benefit income is income without that treatment, and it reduces the cap.</p>
+<p class="field-note" id="defined-benefit-income-cap-first-day-note">Leave the first day blank if the concessional treatment already applied before the year began; otherwise the cap is pro-rated from that day to 30 June.</p>
+<button type="submit" class="button">Calculate</button>
+</fieldset>
+{% include calculator-example.html inputs="2025-26; tax free and taxed $140,000.00; untaxed $0.00; other defined benefit income $0.00" rows="Defined benefit income cap|$125,000.00;Tax free and taxed amounts over the cap|$15,000.00;Assessable income: 50% of the excess|$7,500.00;Untaxed element offset after the reduction|$0.00" principal="2" note="Cap: the general transfer balance cap of $2,000,000.00 / 16; offset of $0.00 reduced by $1,500.00" %}
+<div class="sources-applied" hidden>
+<h2>Sources applied</h2>
+<ul class="sources">
+<li>The cap and its effects: <a href="https://www.ato.gov.au/law/view/document?docid=PAC/19970038/303-4">Income Tax Assessment Act 1997 s 303-4</a>, <a href="https://www.ato.gov.au/law/view/document?docid=PAC/19970038/303-2">s 303-2</a> and <a href="https://www.ato.gov.au/law/view/document?docid=PAC/19970038/303-3">s 303-3</a> on the ATO’s legal database, read 27 November 2026, with <a href="https://www.ato.gov.au/law/view/document?docid=COG/LCR20171/NAT/ATO/00001">LCR 2017/1</a>, read the same day: the sources the australian-accounting <code>defined-benefit-income-cap</code> command cites.</li>
+<li>The calculator agrees with the command on 192 test cases, refusals included.</li>
+<li>Supplied by you: the year, the 3 amounts and any first day.</li>
+</ul>
+</div>
+</form>
+<h2>How the defined benefit income cap calculator works</h2>
+<p>The defined benefit income cap is the general transfer balance cap for the year divided by 16, rounded up to the dollar: $125,000 for 2025-26 and $131,250 for 2026-27. If the concessional treatment first applied to you during the year, the cap is pro-rated by the days from that day to 30 June. Defined benefit income that is not concessionally treated reduces the cap, but not below nil.</p>
+<p>Half of the tax free and taxed amounts over the cap is assessable income, with no tax offset for it. The untaxed element offset of 10% of the untaxed elements is reduced by 10% of the amount by which all the concessional income, untaxed elements included, exceeds the cap.</p>
+<h2>What the defined benefit income cap calculator does not cover</h2>
+<p>The calculator does not decide which of your income is defined benefit income or whether it is concessionally treated; it takes the amounts as you enter them. It does not work the tax on the assessable amount, the withholding a fund applies under Schedule 13, capped defined benefit income streams for the transfer balance account, or the 2017 transitional rules for death benefit dependants. Confirm the amounts with your fund, the ATO or a registered tax agent.</p>
+</section>

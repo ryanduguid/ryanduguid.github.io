@@ -53,6 +53,12 @@ const lr = { file: 'assets/lodgment-required.mjs', test: 'scripts/lodgment-requi
 const wsDecimal = { file: 'assets/withholding-decimal.mjs', test: individualTest };
 const ws1 = { file: 'assets/withholding-schedule-1.mjs', test: individualTest };
 const ws = { file: 'assets/withholding-schedules.mjs', test: individualTest };
+const dbCap = { file: 'assets/defined-benefit-income-cap.mjs', test: 'scripts/defined-benefit-income-cap.test.mjs' };
+const fpUpp = { file: 'assets/foreign-pension-upp.mjs', test: 'scripts/foreign-pension-upp.test.mjs' };
+const schol = { file: 'assets/scholarship-exemption.mjs', test: 'scripts/scholarship-exemption.test.mjs' };
+const cryst = { file: 'assets/super-crystallisation.mjs', test: 'scripts/super-crystallisation.test.mjs' };
+const args = { file: 'assets/command-args.mjs', test: 'scripts/command-args.test.mjs' };
+const hi = { file: 'assets/help-indexation.mjs', test: 'scripts/help-indexation.test.mjs' };
 const money = { ...business, file: 'assets/money.mjs' };
 const division296 = { ...business, file: 'assets/division-296.mjs' };
 const div7a = { ...business, file: 'assets/div7a.mjs' };
@@ -83,6 +89,8 @@ const casualOt = { ...business, file: 'assets/casual-overtime.mjs' };
 const contractor = { ...business, file: 'assets/contractor-employee.mjs' };
 const invoice = { ...business, file: 'assets/tax-invoice.mjs' };
 const trustStream = { ...business, file: 'assets/trust-streaming.mjs' };
+const endorsement = { ...business, file: 'assets/endorsement-review.mjs' };
+const identifiers = { ...business, file: 'assets/abn-acn-check.mjs' };
 const gstAdjustments = { ...business, file: 'assets/gst-adjustments.mjs' };
 const deferredTaxEngine = { ...business, file: 'assets/deferred-tax.mjs' };
 const lct = { ...business, file: 'assets/luxury-car-tax.mjs' };
@@ -1211,6 +1219,14 @@ const MUTATIONS = [
   { ...trustStream, name: 'Trust Division 6E keeps the streamed amounts in present entitlement', find: 'const entitled6E = sub(whole(p.entitlement), s.inIncome);', replace: 'const entitled6E = whole(p.entitlement);' },
   { ...trustStream, name: 'Trust company beneficiary discounts its gain', find: 'const KIND_DISCOUNT = { individual: true, trust: true, company: false };', replace: 'const KIND_DISCOUNT = { individual: true, trust: true, company: true };' },
   { ...trustStream, name: 'Trust trustee gets no franking credit offset', find: 'const afterOffset = sub(tax, trusteeShares.credit);', replace: 'const afterOffset = tax;' },
+  { ...endorsement, name: 'Endorsement review never needs action', find: 'else if (failed.length) status = ACTION_NEEDED;', replace: 'else if (false) status = ACTION_NEEDED;' },
+  { ...endorsement, name: 'Endorsement review lets a no to a condition continue', find: 'if (failed.some((q) => q.outcome === NOT_ENTITLED)) status = NOT_ENTITLED;', replace: 'if (false) status = NOT_ENTITLED;' },
+  { ...endorsement, name: 'Endorsement review accepts an extra answer', find: 'if (given.size !== questions.length) throw bad;', replace: 'if (given.size < questions.length) throw bad;' },
+  { ...endorsement, name: 'Endorsement review ends entitlement for wrong receipts', find: '\'a receipt for\', ACTION_NEEDED, RECEIPTS)', replace: '\'a receipt for\', NOT_ENTITLED, RECEIPTS)' },
+  { ...identifiers, name: 'ABN with a first digit of 0 passes', find: 'd[0] !== 0\n      && ', replace: '' },
+  { ...identifiers, name: 'ABN passes on a remainder of 1', find: '% 89 === 0', replace: '% 89 === 1' },
+  { ...identifiers, name: 'ACN check digit of 10 not set to 0', find: '% 10)) % 10 === d[8]', replace: '% 10)) === d[8]' },
+  { ...identifiers, name: 'ABN or ACN with hyphens removed', find: 'if (c !== \' \' && (c < \'0\' || c > \'9\')) return null;', replace: 'if (c !== \' \' && c !== \'-\' && (c < \'0\' || c > \'9\')) return null;' },
   { ...gstAdjustments, name: 'GST creditable purpose threshold counted as over it', find: 'cmp(value, d(finance ? \'10000\' : \'1000\')) <= 0', replace: 'cmp(value, d(finance ? \'10000\' : \'1000\')) < 0' },
   { ...gstAdjustments, name: 'GST 5 adjustment periods at $5,000 or less', find: 'const [low, lowCount] = finance ? [\'50000\', 1] : [\'5000\', 2];', replace: 'const [low, lowCount] = finance ? [\'50000\', 1] : [\'5000\', 5];' },
   { ...gstAdjustments, name: 'GST $500,000 given 5 adjustment periods', find: 'cmp(value, d(\'500000\')) < 0 ? 5 : 10', replace: 'cmp(value, d(\'500000\')) <= 0 ? 5 : 10' },
@@ -1409,6 +1425,16 @@ const MUTATIONS = [
   { ...rd, name: 'residency treaty refusal dropped', find: 'metBy.length > 0 && elsewhere', replace: 'false' },
   { ...rd, name: 'residency scope not needed', find: "if (input.get('scope_confirmed') !== true) refuse", replace: 'if (false) refuse' },
   { ...rd, name: 'residency form blank departure is 29 June', find: '`${start + 1}-06-30`', replace: '`${start + 1}-06-29`' },
+  { ...hi, name: 'HELP 2025 reduction not applied', find: 'const base = reduce ? (before * 8n) / 10n : before;', replace: 'const base = before;' },
+  { ...hi, name: 'HELP group total not cut to dollars', find: 'total += (sum / 1000000n) * 1000000n;', replace: 'total += sum;' },
+  { ...hi, name: 'HELP cents kept on the debt', find: 'const accumulated = ((former + current) / 1000000n) * 1000000n;', replace: 'const accumulated = former + current;' },
+  { ...hi, name: 'HELP current debts indexed', find: 'const former = (base * factor) / 1000n;', replace: 'const former = ((base + current) * factor) / 1000n;' },
+  { ...hi, name: 'HELP 1 June 2025 debt not reduced', find: 'if (on >= from && on <= to) {', replace: 'if (on >= from && on < to) {' },
+  { ...hi, name: 'HELP repayment of 31 May refused', find: "[date('06-01', y - 1), date('05-31', y)]", replace: "[date('06-01', y - 1), date('05-30', y)]" },
+  { ...hi, name: 'HELP repayments allowed to exceed the debt', find: 'if (before < 0n || currentNet < 0n) {', replace: 'if (false) {' },
+  { ...hi, name: "HELP early payment goes to the year's own debts first", find: 'const toIndexed = proposed < w.before ? proposed : w.before;', replace: 'const toIndexed = 0n;' },
+  { ...hi, name: 'HELP 3 decimal places taken', find: 'if (fraction.length > 2) return null;', replace: 'if (fraction.length > 3) return null;' },
+  { ...hi, name: 'HELP location-preferred taken', find: 'if (input.location_preferred) refuse(', replace: 'if (false) refuse(' },
   { ...rd, name: 'residency page principal is the count', find: 'rows: table, principal: 3, note', replace: 'rows: table, principal: 0, note' },
   { ...lr, name: 'lodgment threshold inclusive', find: "taxable.cents > centsOf(18200), `taxable income", replace: "taxable.cents >= centsOf(18200), `taxable income" },
   { ...lr, name: 'lodgment part-year $395 a month', find: 'const sum = 13464 + 395 * resident.months', replace: 'const sum = 13464 + 394 * resident.months' },
@@ -1435,6 +1461,26 @@ const MUTATIONS = [
   { ...ws, name: 'Schedule 10 instalment rate of 20% ignored', find: "cmp(cir.value, dec('0.20')) >= 0", replace: "cmp(cir.value, dec('0.20')) > 0" },
   { ...ws, name: 'Schedule 9 scales transposed', find: 'exemption * 3 + status + 1', replace: 'status * 3 + exemption + 1' },
   { ...ws, name: 'Schedule 3 offsets per day', find: 'div(div(/** @type {Q} */ (offsets), int(52)), int(week))', replace: 'div(/** @type {Q} */ (offsets), int(52))' },
+  { ...dbCap, name: 'DB cap not rounded up', find: 'days)))), true)', replace: 'days)))), false)' },
+  { ...dbCap, name: 'DB cap pro-rating drops the first day', find: 'add(exact(1n), exact(BigInt(after)))', replace: 'exact(BigInt(after))' },
+  { ...dbCap, name: 'DB cap not reduced by other income', find: 'max(exact(0n), sub(unreduced, other))', replace: 'unreduced' },
+  { ...dbCap, name: 'DB assessable at the whole excess', find: "['assessable_income', mul(excess, exact(1n, 2n))]", replace: "['assessable_income', excess]" },
+  { ...dbCap, name: 'DB offset reduction leaves out untaxed elements', find: 'sub(add(taxed, untaxed), cap)', replace: 'sub(taxed, cap)' },
+  { ...dbCap, name: 'DB 2025-26 cap from $1.9 million', find: "['2025-26', 2000000n]", replace: "['2025-26', 1900000n]" },
+  { ...fpUpp, name: 'UPP residual value ignored', find: 'div(mul(share, sub(price, residual)), years)', replace: 'div(mul(share, price), years)' },
+  { ...fpUpp, name: 'UPP excluded amount not capped at the pension', find: 'const excluded = min(first.value, annuity);', replace: 'const excluded = first.value;' },
+  { ...fpUpp, name: 'UPP share ignored', find: "if (total === undefined) return exact(1n);", replace: 'return exact(1n);' },
+  { ...fpUpp, name: 'UPP UK rate 10%', find: 'exact(8n, 100n)', replace: 'exact(10n, 100n)' },
+  { ...fpUpp, name: 'UPP Dutch rate 20%', find: 'mul(annuity, exact(1n, 4n))', replace: 'mul(annuity, exact(1n, 5n))' },
+  { ...fpUpp, name: 'UPP commuted allowed', find: "if (flag(input.get('commuted'), 'commuted')) refuse", replace: "if (false) refuse" },
+  { ...schol, name: 'Scholarship employment condition ignored', find: 'const met = [facts[0], !facts[1], !facts[2], facts[3]];', replace: 'const met = [facts[0], true, !facts[2], facts[3]];' },
+  { ...schol, name: 'Scholarship full-time test ignored', find: 'const met = [facts[0], !facts[1], !facts[2], facts[3]];', replace: 'const met = [true, !facts[1], !facts[2], facts[3]];' },
+  { ...schol, name: 'Scholarship Commonwealth payment allowed', find: "if (commonwealth !== 'none') refuse", replace: 'if (false) refuse' },
+  { ...cryst, name: 'Crystallisation 30 June 1983 left out', find: 'Math.max(0, BEFORE - start + 1)', replace: 'Math.max(0, BEFORE - start)' },
+  { ...cryst, name: 'Crystallisation lesser test dropped', find: 'const chosen = min(byDays, sub(base, undeducted));', replace: 'const chosen = byDays;' },
+  { ...cryst, name: 'Crystallisation CGT exempt left in the base', find: 'const base = sub(sub(sub(value, concessional), invalidity), cgt);', replace: 'const base = sub(sub(value, concessional), invalidity);' },
+  { ...cryst, name: 'Crystallisation undeducted left out of the segment', find: 'add(add(add(add(concessional, invalidity), undeducted), cgt), pre)', replace: 'add(add(add(concessional, invalidity), cgt), pre)' },
+  { ...args, name: 'Decimal steps keep 41 digits', find: 'if (top / bottom >= ten(40))', replace: 'if (top / bottom >= ten(41))' },
 ];
 
 // Runs that must read as invalid, not as caught.
@@ -1463,6 +1509,12 @@ const SHARED = [
   'scripts/pension-minimum-engine-differential.json',
   'scripts/residency-days-engine-differential.json',
   'scripts/lodgment-required-engine-differential.json',
+  'scripts/defined-benefit-income-cap-engine-differential.json',
+  'scripts/foreign-pension-upp-engine-differential.json',
+  'scripts/scholarship-exemption-engine-differential.json',
+  'scripts/super-crystallisation-engine-differential.json',
+  'scripts/super-income-cases.mjs',
+  'scripts/help-indexation-engine-differential.json',
   'scripts/concessional-catch-up-engine-differential.json',
   'scripts/unused-leave-engine-differential.json',
   'scripts/franking-account-engine-differential.json',
@@ -1487,7 +1539,7 @@ const SHARED = [
 
 const TEST_FILES = [
   levy.test, business.test, individualTest,
-  'scripts/fhss.test.mjs', 'scripts/work-expenses.test.mjs', 'scripts/government-super-amounts.test.mjs', swh.test, tba.test, pm.test, rd.test, lr.test,
+  'scripts/fhss.test.mjs', 'scripts/work-expenses.test.mjs', 'scripts/government-super-amounts.test.mjs', swh.test, tba.test, pm.test, rd.test, lr.test, dbCap.test, fpUpp.test, schol.test, cryst.test, args.test, hi.test,
   'scripts/net-medical-expenses.test.mjs',
   'scripts/foreign-income.test.mjs',
   'scripts/minors-income.test.mjs',

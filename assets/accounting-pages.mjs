@@ -58,7 +58,7 @@ function renderResult(output, result) {
 
 const forms = [...document.querySelectorAll('form[data-calculator]')];
 function initialiseCalculators([calculate, fieldErrors, fbtForms, { individualResult, engines }, fhssMod, workExpensesMod, transferBalanceMod,
-  pensionMinimumMod, governmentSuperMod, residencyDaysMod, lodgmentMod]) {
+  pensionMinimumMod, governmentSuperMod, residencyDaysMod, lodgmentMod, dbIncomeCapMod, foreignPensionMod, scholarshipMod, crystallisationMod, helpIndexationMod]) {
   const { fhssResult } = fhssMod;
   const { workExpensesResult } = workExpensesMod;
   const { transferBalanceResult } = transferBalanceMod;
@@ -66,6 +66,11 @@ function initialiseCalculators([calculate, fieldErrors, fbtForms, { individualRe
   const { governmentSuperResult } = governmentSuperMod;
   const { residencyDaysResult } = residencyDaysMod;
   const { lodgmentRequiredResult } = lodgmentMod;
+  const { dbIncomeCapResult } = dbIncomeCapMod;
+  const { foreignPensionResult } = foreignPensionMod;
+  const { scholarshipResult } = scholarshipMod;
+  const { crystallisationResult } = crystallisationMod;
+  const { helpIndexationResult } = helpIndexationMod;
   for (const form of forms) {
     const output = form.querySelector('output');
     if (output.textContent.startsWith('Calculators could not load')) output.textContent = 'Enter the inputs and calculate.';
@@ -76,7 +81,7 @@ function initialiseCalculators([calculate, fieldErrors, fbtForms, { individualRe
   // A failed import or registration leaves the form itself untouched; the warning keeps the cause.
   if (modelContext?.registerTool) import('./webmcp-tools.mjs').then(async ({
     calculatorTools, individualTaxTools, fhssTools, workExpensesTools, governmentSuperTools, pensionMinimumTools,
-    transferBalanceTools, residencyDaysTools, lodgmentRequiredTools,
+    transferBalanceTools, residencyDaysTools, lodgmentRequiredTools, dbIncomeCapTools, foreignPensionTools, scholarshipTools, crystallisationTools, helpIndexationTools,
   }) => {
     const tools = {
       ...calculatorTools(calculate),
@@ -88,6 +93,11 @@ function initialiseCalculators([calculate, fieldErrors, fbtForms, { individualRe
       ...(governmentSuperMod.governmentSuperAmounts ? governmentSuperTools(governmentSuperMod) : {}),
       ...(residencyDaysMod.residencyDays ? residencyDaysTools(residencyDaysMod) : {}),
       ...(lodgmentMod.lodgmentRequired ? lodgmentRequiredTools(lodgmentMod) : {}),
+      ...(dbIncomeCapMod.definedBenefitIncomeCap ? dbIncomeCapTools(dbIncomeCapMod) : {}),
+      ...(foreignPensionMod.foreignPensionUpp ? foreignPensionTools(foreignPensionMod) : {}),
+      ...(scholarshipMod.scholarshipExemption ? scholarshipTools(scholarshipMod) : {}),
+      ...(crystallisationMod.superCrystallisation ? crystallisationTools(crystallisationMod) : {}),
+      ...(helpIndexationMod.helpIndexation ? helpIndexationTools(helpIndexationMod) : {}),
     };
     for (const form of forms) {
       const tool = tools[form.dataset.calculator];
@@ -610,6 +620,12 @@ function initialiseCalculators([calculate, fieldErrors, fbtForms, { individualRe
             csv = result.html; // eslint-disable-line xss/no-mixed-html -- the invoice file is downloaded, never inserted into this page
             csvDownload.disabled = false;
             break;
+          case 'endorsement-review':
+            result = calculate.endorsementReviewResult(value);
+            break;
+          case 'abn-acn-check':
+            result = calculate.identifierCheckResult(value);
+            break;
           case 'fuel-tax-credits':
             result = calculate.fuelTaxCreditsResult(value, aud);
             break;
@@ -746,6 +762,21 @@ function initialiseCalculators([calculate, fieldErrors, fbtForms, { individualRe
           case 'residency-days':
             result = residencyDaysResult(value);
             break;
+          case 'defined-benefit-income-cap':
+            result = dbIncomeCapResult(value);
+            break;
+          case 'foreign-pension-upp':
+            result = foreignPensionResult(value);
+            break;
+          case 'scholarship-exemption':
+            result = scholarshipResult(value);
+            break;
+          case 'super-crystallisation':
+            result = crystallisationResult(value);
+            break;
+          case 'help-indexation':
+            result = helpIndexationResult(value, aud);
+            break;
           case 'lodgment-required':
             result = lodgmentRequiredResult(value, (name) => form.elements.namedItem(name).checked);
             break;
@@ -781,7 +812,12 @@ function loadCalculators(retryForm) {
     forms.some((f) => f.dataset.calculator === 'pension-minimum') ? import(`./pension-minimum.mjs${suffix}`) : {}, // eslint-disable-line no-unsanitized/method -- a fixed same-origin module path with this page's cache suffix
     forms.some((f) => f.dataset.calculator === 'government-super') ? import(`./government-super-result.mjs${suffix}`) : {}, // eslint-disable-line no-unsanitized/method -- a fixed same-origin module path with this page's cache suffix
     forms.some((f) => f.dataset.calculator === 'residency-days') ? import(`./residency-days.mjs${suffix}`) : {}, // eslint-disable-line no-unsanitized/method -- a fixed same-origin module path with this page's cache suffix
-    forms.some((f) => f.dataset.calculator === 'lodgment-required') ? import(`./lodgment-required.mjs${suffix}`) : {}]).then(initialiseCalculators) // eslint-disable-line no-unsanitized/method -- a fixed same-origin module path with this page's cache suffix
+    forms.some((f) => f.dataset.calculator === 'lodgment-required') ? import(`./lodgment-required.mjs${suffix}`) : {}, // eslint-disable-line no-unsanitized/method -- a fixed same-origin module path with this page's cache suffix
+    forms.some((f) => f.dataset.calculator === 'defined-benefit-income-cap') ? import(`./defined-benefit-income-cap.mjs${suffix}`) : {}, // eslint-disable-line no-unsanitized/method -- a fixed same-origin module path with this page's cache suffix
+    forms.some((f) => f.dataset.calculator === 'foreign-pension-upp') ? import(`./foreign-pension-upp.mjs${suffix}`) : {}, // eslint-disable-line no-unsanitized/method -- a fixed same-origin module path with this page's cache suffix
+    forms.some((f) => f.dataset.calculator === 'scholarship-exemption') ? import(`./scholarship-exemption.mjs${suffix}`) : {}, // eslint-disable-line no-unsanitized/method -- a fixed same-origin module path with this page's cache suffix
+    forms.some((f) => f.dataset.calculator === 'super-crystallisation') ? import(`./super-crystallisation.mjs${suffix}`) : {}, // eslint-disable-line no-unsanitized/method -- a fixed same-origin module path with this page's cache suffix
+    forms.some((f) => f.dataset.calculator === 'help-indexation') ? import(`./help-indexation.mjs${suffix}`) : {}]).then(initialiseCalculators) // eslint-disable-line no-unsanitized/method -- a fixed same-origin module path with this page's cache suffix
     .then(() => { if (retryForm) retryForm.querySelector('input, select').focus(); })
     .catch(() => {
       for (const form of forms) {

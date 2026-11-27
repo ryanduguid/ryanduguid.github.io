@@ -41,14 +41,15 @@ through the draft [WebMCP](https://webmachinelearning.github.io/webmcp/)
 `calculate_fbt_meal_entertainment`, `calculate_fbt_property`, `calculate_land_tax`,
 `calculate_termination_payment`, `calculate_transfer_duty`,
 `calculate_rd_tax_offset`, `calculate_gst_adjustments`, `calculate_deferred_tax`, `calculate_sole_trader_vs_company`, `calculate_trust_streaming`,
-`calculate_casual_overtime_pay`, `calculate_contractor_employee` and `check_tax_invoice`
+`calculate_casual_overtime_pay`, `calculate_contractor_employee`, `check_tax_invoice`, `review_dgr_charity_endorsement` and `check_abn_acn_check_digit`
 on the 63 business calculator pages,
 `estimate_income_tax`, `calculate_take_home_pay`, `calculate_study_loan_repayment`, `calculate_sole_trader_set_aside`,
 `calculate_lump_sum_arrears`, `calculate_division_293_tax`, `calculate_income_tests`, `calculate_concessional_catch_up`,
 `calculate_bonus_withholding`, `calculate_salary_packaging`, `calculate_novated_lease`, `project_super_balance`,
 `calculate_fhss_release`, `calculate_work_expenses`, `calculate_government_super_amounts`,
-`calculate_pension_minimum`, `calculate_transfer_balance`, `calculate_residency_days`
-and `check_lodgment_required` on the 19
+`calculate_pension_minimum`, `calculate_transfer_balance`, `calculate_residency_days`,
+`check_lodgment_required`, `calculate_defined_benefit_income_cap`, `calculate_foreign_pension_upp`,
+`check_scholarship_exemption`, `calculate_super_crystallisation` and `calculate_help_indexation` on the 19
 individual tax calculator pages, `calculate_decline_in_value` on the depreciation rates page and
 `calculate_coal_lsl_levy` on the Coal LSL levy calculator.
 `assets/accounting-pages.mjs`, `assets/depreciation-calculator-page.mjs` and

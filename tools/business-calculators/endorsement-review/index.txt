@@ -1,0 +1,66 @@
+# DGR and charity endorsement review worksheet
+
+Source: https://duguid.com.au/tools/business-calculators/endorsement-review/
+
+> Work through the ATO’s review worksheet for a DGR or income tax exempt charity: still entitled, action needed or not entitled, and what to tell the ATO.
+
+# DGR and charity endorsement review
+
+The ATO’s endorsement review worksheets, answered online, with the provision behind each question.
+
+Published 27 November 2026. Last checked 27 November 2026.
+
+JavaScript is required for interactive calculations. The formula, assumptions and source links remain available below.
+
+The ATO’s review worksheet
+
+Which worksheet Worksheet 1: a DGR endorsed as a whole Worksheet 2: a DGR endorsed for a fund, authority or institution it owns or includes An income tax exempt charity Is the entity’s ABN still current? Yes No
+
+Does the fund, authority or institution still fall within the DGR category on the ATO notice? Yes No
+
+Do the governing documents require surplus gifts and deductible contributions to go to another DGR on winding up or revocation (or is the entity set up by an Act that does not provide for its winding up)? Yes No
+
+Is the fund, authority or institution in Australia? Yes No Do its receipts for gifts and deductible contributions state the name, the ABN and what each is a receipt for? Yes No
+
+Review Fictional example: the first boundary case below. Change the inputs and calculate your own. Inputs: Worksheet 1, a DGR endorsed as a whole (NAT 11685); 5 questions, no to none. Outcome Still entitled on these answers: no need to contact the ATO, and review again each year and after a change Worksheet NAT 11685-02.2021 (Worksheet 1) ABN current Yes. ITAA 1997 s 30-125(1)(a). Within the category Yes. ITAA 1997 s 30-125(1)(b). Winding up clause Yes. ITAA 1997 s 30-125(1)(c), (6) and (7). In Australia Yes. ITAA 1997 s 30-15 item 1, special condition (a). Receipts correct Yes. ITAA 1997 s 30-228. Not asked by the worksheet, so not tested here: ITAA 1997 s 30-125(1)(b)(iii) and (2)(c); ITAA 1997 s 30-125(1)(d) and (e); ITAA 1997 s 30-125(2)(d) and (6). Have the Board, Committee or Trustee approve the completed worksheet and keep it with the entity’s records; do not send it to the ATO.
+
+## How the endorsement review works
+
+An entity the ATO has endorsed as a deductible gift recipient (DGR), or as an income tax exempt charity, must tell the ATO in writing when it stops being entitled. The ATO publishes 3 worksheets for the yearly self-review it recommends, and for a review after a change to the entity’s rules, structure or activities. Choose the worksheet that matches the ATO notice of endorsement, answer each question and the page gives the worksheet’s outcome.
+
+Every ‘Yes’ means the entity continues to be entitled on that point. A ‘No’ to a condition of entitlement means the entity is not entitled: the page says what notice the law requires, under section 426-45 of Schedule 1 to the Taxation Administration Act 1953, and from when. A cancelled ABN ends the endorsement without notice from the entity. A ‘No’ on receipts does not end the endorsement but needs action at once, as the Commissioner may revoke it for a contravention. A missing winding up clause is a condition of entitlement under section 30-125(1)(c), so it gives ‘not entitled’ as well as the amendment the worksheet asks for.
+
+Keep the completed review with the entity’s records once its board, committee or trustee approves it: the ATO asks that it not be sent in.
+
+## DGR status for a donor
+
+The review on this page is the entity’s own. A donor checking whether a recipient is shown as a DGR should search the ABN Lookup deductible gift recipient listing, which shows the DGR item and the date the status started. A DGR named in the income tax law need not be endorsed, and the listing’s absence does not by itself decide whether a gift is deductible.
+
+## What the endorsement review does not cover
+
+The review asks only what the worksheets ask. It does not test the special conditions of the DGR category’s table item, the trust fund or community charity guidelines, or for a charity that has not yet started its activities, the reasonable grounds test of section 50-110(5)(b): the result lists these as not asked. It does not decide whether the entity is a charity, which category it falls in or whether a gift to it is deductible. It does not look up the entity on any register, does not apply for, change or revoke an endorsement and does not lodge anything with the ATO or the ACNC. It does not cover a DGR named in the law rather than endorsed, an entity endorsed for other income tax exemptions, or fringe benefits tax concessions.
+
+## Boundary cases
+
+Each row is a test: scripts/business-calculators.test.mjs runs this calculator on these fictional inputs and fails if the result differs from the one shown.
+
+Boundary cases: DGR and charity endorsement review
+
+Case | Inputs | Result
+Worksheet 1, every answer yes: the DGR continues to be entitled | Worksheet 1, a DGR endorsed as a whole (NAT 11685); 5 questions, no to none | status continues
+Worksheet 1, receipts missing a required detail: action needed, not loss of entitlement (s 426-55(1)(c)) | Worksheet 1, a DGR endorsed as a whole (NAT 11685); 5 questions, no to receipts correct | status action needed
+Worksheet 1, receipts wrong and not in Australia: the more serious outcome wins | Worksheet 1, a DGR endorsed as a whole (NAT 11685); 5 questions, no to in Australia, receipts correct | status not entitled
+Worksheet 1, no winding up clause: s 30-125(1)(c) makes it a condition, so not entitled | Worksheet 1, a DGR endorsed as a whole (NAT 11685); 5 questions, no to winding up clause | status not entitled
+Worksheet 2, gift fund not maintained (s 30-130): not entitled for that period | Worksheet 2, a DGR endorsed for a fund, authority or institution (NAT 11686); 5 questions, no to gift fund maintained | status not entitled
+Income tax exempt charity, every answer yes: continues | Income tax exempt charity (NAT 74110); 4 questions, no to none | status continues
+Income tax exempt charity, ABN cancelled: entitlement ended without notice from the entity (s 426-45(3)) | Income tax exempt charity (NAT 74110); 4 questions, no to ABN current | status not entitled
+Worksheet 2 answered with Worksheet 1’s winding up question in place of the gift fund: refused | Worksheet 2, a DGR endorsed for a fund, authority or institution (NAT 11686); 5 questions, no to none | Refused: answer each question on the worksheet yes or no
+
+One of the sixty-two business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+
+Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
+
+## Links
+
+- ABN Lookup deductible gift recipient listing: https://abr.business.gov.au/Tools/DgrListing
+- sixty-two business calculators: https://duguid.com.au/tools/business-calculators/

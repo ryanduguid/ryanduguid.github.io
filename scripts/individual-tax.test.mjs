@@ -39,6 +39,18 @@ import './residency-days.test.mjs';
 import { lodgmentFormInput, lodgmentRequired, lodgmentRequiredResult } from '../assets/lodgment-required.mjs';
 import './lodgment-required.test.mjs';
 import './withholding-schedules.test.mjs';
+import { ENGINES as SUPER_ENGINES, FORM_CALLS as SUPER_FORM_CALLS, INPUTS as SUPER_INPUTS, OUTPUTS as SUPER_OUTPUTS } from './super-income-cases.mjs';
+import { dbIncomeCapResult } from '../assets/defined-benefit-income-cap.mjs';
+import { foreignPensionResult } from '../assets/foreign-pension-upp.mjs';
+import { scholarshipResult } from '../assets/scholarship-exemption.mjs';
+import { crystallisationResult } from '../assets/super-crystallisation.mjs';
+import './command-args.test.mjs';
+import './defined-benefit-income-cap.test.mjs';
+import './foreign-pension-upp.test.mjs';
+import './scholarship-exemption.test.mjs';
+import './super-crystallisation.test.mjs';
+import { helpIndexation, helpIndexationFormInput, helpIndexationResult } from '../assets/help-indexation.mjs';
+import './help-indexation.test.mjs';
 import { foreignIncomeFixture, foreignIncomeFormTests } from './foreign-income.test.mjs';
 import { minorsFixture, minorsFormTests } from './minors-income.test.mjs';
 import { nonCommercialFixture, nonCommercialFormTests } from './non-commercial-losses.test.mjs';
@@ -52,6 +64,7 @@ const engines = { taxEstimate, takeHomePay, studyLoanRepayment, soleTraderSetAsi
   workExpenses, governmentSuperAmounts,
   transferBalanceCases: (command, input) => (command === 'transfer-balance' ? transferBalance(input) : excessContributions(input)).amounts,
   pensionMinimumAmounts: (input) => pensionMinimum(input).amounts,
+  helpIndexationAmounts: (input) => helpIndexation(input).amounts,
   residencyDaysCases: (...call) => {
     const r = residencyDays(...call);
     return { days_in_australia: r.tests.days_in_australia, days_needed: r.tests.days_needed, exception_applies: r.visitor, days_183: r.tests.days_183 };
@@ -60,6 +73,7 @@ const engines = { taxEstimate, takeHomePay, studyLoanRepayment, soleTraderSetAsi
     const r = lodgmentRequired(input);
     return { lodgment_required: r.lodgment_required, required_by: r.required_by, exceptions_applied: r.exceptions_applied, due_date: r.due_date };
   } };
+Object.assign(engines, SUPER_ENGINES);
 const shownCases = JSON.parse(readFileSync(new URL('../_data/individual_tax_cases.json', import.meta.url), 'utf8'));
 const dollars = (value) => `$${Number(value).toLocaleString('en-AU', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
 const whole = (value) => `$${Number(value).toLocaleString('en-AU')}`;
@@ -104,6 +118,11 @@ const INPUTS = {
     : f.question === 'concessional_charge' ? `${f.year} charge on ${dollars(f.additional_tax)}, tax due ${f.tax_due_date}`
       : `${f.year} release of ${dollars(f.excess)}, determination ${f.determination_date}`),
   pensionMinimumAmounts: (f) => `${f.year}, balance ${dollars(f.account_balance)}, age ${f.age}, ${f.days} days`,
+  helpIndexationAmounts: (f) => `${f.year}, debt ${dollars(f.previous_accumulated_debt)}`
+    + `${(f.earlier_debts ?? []).map((d) => `, earlier debt ${dollars(d.amount)} on ${d.incurred}`).join('')}`
+    + `${(f.current_debts ?? []).map((d) => `, current debt ${dollars(d.amount)} on ${d.incurred}`).join('')}`
+    + `${(f.voluntary_repayments ?? []).map((d) => `, repaid ${dollars(d.amount)} on ${d.date}`).join('')}`
+    + `${f.proposed_repayment ? `, proposed ${dollars(f.proposed_repayment)}` : ''}`,
   residencyDaysCases: (year, presence, outside, intends) => `${year}, ${presence.map((p) => `${p.from} to ${p.to}`).join(', ')}`
     + `${outside ? ', usual abode outside Australia' : ''}${intends ? ', intends to take up residence' : ''}`,
   lodgmentRequiredCases: (f) => `${f.year}, ${f.residency.status === 'part_year' ? `resident ${f.residency.months} months` : f.residency.status === 'none' ? 'not resident' : 'resident all year'}, `
@@ -168,6 +187,7 @@ const INPUTS = {
     + c.earlier.map((r) => `${r.year} ${dollars(r.contributions)}${r.balance === undefined ? '' : ` at ${dollars(r.balance)}`}`)
       .join(', '),
 };
+Object.assign(INPUTS, SUPER_INPUTS);
 const OUTPUTS = {
   workExpenses: (r) => ({
     home_office: () => `${r.methodsAvailable.map((m) => `${HOME_OUTPUT[m]} ${dollars(r.amounts[`${m}_method`])}`).join(', ').replace(/^./, (c) => c.toUpperCase())}; `
@@ -185,6 +205,9 @@ const OUTPUTS = {
     : f.question === 'concessional_charge' ? `Charge ${dollars(r.excess_concessional_contributions_charge)}`
       : `Earnings ${dollars(r.associated_earnings)}, release ${dollars(r.total_release_amount)}, offset ${dollars(r.associated_earnings_tax_offset)}`),
   pensionMinimumAmounts: (r) => `Before rounding ${dollars(r.minimum_before_rounding)}, minimum ${dollars(r.minimum_payment)}`,
+  helpIndexationAmounts: (r) => `Indexation ${dollars(r.indexation)}, debt on 1 June ${dollars(r.accumulated_debt)}`
+    + `${r.proposed_repayment ? `; paid before 1 June ${dollars(r.accumulated_debt_if_paid_before_1_june)}, `
+      + `after ${dollars(r.accumulated_debt_if_paid_on_or_after_1_june)}` : ''}`,
   residencyDaysCases: (r) => `${r.days_in_australia} days, ${r.days_needed} needed${r.exception_applies ? ', exception applies' : ''}: ${r.days_183 ? 'met' : 'not met'}`,
   lodgmentRequiredCases: (r) => (r.lodgment_required ? `Required by ${r.required_by.join(', ')}, due ${r.due_date}`
     : `Not required${r.exceptions_applied.length ? `: ${r.exceptions_applied.join(', ')} applies` : ''}`),
@@ -260,6 +283,7 @@ const formDefaults = (html) => {
   }
   return fields;
 };
+Object.assign(OUTPUTS, SUPER_OUTPUTS);
 // How assets/individual-tax-results.mjs passes each form's fields to its engine.
 const fhssExampleFields = fields => ({ ...fields, scope: 'yes', 'withholding-basis': 'unable', 'debt-offset': '0', transition: '' });
 const FORM_CALLS = {
@@ -268,6 +292,7 @@ const FORM_CALLS = {
   transferBalanceCases: (f) => (f.calc === 'transfer' ? ['transfer-balance', tbaFormInput((name) => f[name] ?? '')]
     : ['excess-contributions', excessFormInput((name) => f[name] ?? '')]),
   pensionMinimumAmounts: (f) => [pensionMinimumFormInput((name) => f[name] ?? '')],
+  helpIndexationAmounts: (f) => [helpIndexationFormInput((name) => f[name] ?? '')],
   residencyDaysCases: (f) => [f.year, residencyFormPresence((name) => f[name] ?? ''), f['usual-abode-outside'] === 'yes', f['intends-residence'] === 'yes'],
   lodgmentRequiredCases: (f) => [lodgmentFormInput((name) => f[name] ?? '', (name) => Object.hasOwn(f, name))],
   fhssAmounts: (f) => {
@@ -314,6 +339,7 @@ const FORM_CALLS = {
     earlier: Object.keys(CAP).sort().filter((year) => f[`contributions-${year}`]).map((year) => ({ year,
       contributions: f[`contributions-${year}`], ...(f[`balance-${year}`] ? { balance: f[`balance-${year}`] } : {}) })) }],
 };
+Object.assign(FORM_CALLS, SUPER_FORM_CALLS);
 for (const [page, { function: name, rows: [first] }] of Object.entries(shownCases)) {
   test(`${page} opens on its first boundary case as the worked example`, () => {
     const html = readFileSync(new URL(`../_includes/calculators/${page}.html`, import.meta.url), 'utf8');
@@ -753,6 +779,11 @@ for (const page of Object.keys(shownCases)) {
       : page === 'pension-minimum' ? pensionMinimumResult(value, aud)
       : page === 'residency-days' ? residencyDaysResult(value)
       : page === 'lodgment-required' ? lodgmentRequiredResult(value, (name) => Object.hasOwn(fields, name))
+      : page === 'defined-benefit-income-cap' ? dbIncomeCapResult(value)
+      : page === 'foreign-pension-upp' ? foreignPensionResult(value)
+      : page === 'scholarship-exemption' ? scholarshipResult(value)
+      : page === 'super-crystallisation' ? crystallisationResult(value)
+      : page === 'help-indexation' ? helpIndexationResult(value, aud)
       : individualResult(page, value, aud);
     assert.equal(result.inputs, example[1]);
     assert.equal(result.rows.map((row) => row.join('|')).join(';'), example[2]);

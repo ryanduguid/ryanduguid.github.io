@@ -1,0 +1,64 @@
+# Is my scholarship taxable? Exemption check (s 51-10)
+
+Source: https://duguid.com.au/tools/individual-tax/scholarship-exemption/
+
+> Check whether a scholarship, bursary or educational allowance paid to a full-time student is exempt income under item 2.1A and the s 51-35 exceptions.
+
+# Scholarship exemption check
+
+Check whether a scholarship or bursary is exempt income, 2017-18 to 2026-27.
+
+Published 27 November 2026. Last checked 27 November 2026.
+
+JavaScript is required for interactive calculations. The formula, assumptions and source links remain available below.
+
+One scholarship or educational payment Are you a full-time student at a school, college or university? Yes No
+
+Payment Scholarship Bursary Educational allowance Educational assistance
+
+Income year 2026-27 2025-26 2024-25 2023-24 2022-23 2021-22 2020-21 2019-20 2018-19 2017-18
+
+Paid on condition you work for the payer? No Yes
+
+Paid on condition of a contract for your labour? No Yes
+
+Provided principally for education? Yes No
+
+From a friendly society scholarship plan? No Yes
+
+A Commonwealth payment? None of these Austudy, ABSTUDY, Youth Allowance or another education or training payment Assistance for secondary education or isolated children Education entry payment
+
+A condition counts if you must, or must if asked, become or stay the payer’s employee, or enter into or keep a contract wholly or principally for your labour, such as a cadetship bonded to work.
+
+Check
+
+Fictional example: the first boundary case below. Change the inputs and calculate your own. Inputs: 2025-26; scholarship. Paid to a full-time student at a school, college or university (s 51-10 item 2.1A) Met Not paid on condition that the student becomes or stays the payer’s employee (s 51-35(c)) Met Not paid on condition of a contract wholly or principally for the student’s labour (s 51-35(d)) Met Provided principally for educational purposes (s 51-35(e)) Met Exempt under item 2.1A Yes Exempt income: tell the provider it is exempt and leave it out of your tax return.
+
+## How the scholarship exemption check works
+
+A scholarship, bursary, educational allowance or educational assistance paid to a full-time student at a school, college or university is exempt income under item 2.1A of the table in s 51-10, unless s 51-35 takes it out. The check asks the 3 exceptions that turn on the payment’s terms: a condition that you become or stay the payer’s employee, a condition that you enter into or keep a contract wholly or principally for your labour, and a scholarship not provided principally for educational purposes. If every answer allows it, the payment is exempt and you leave it out of your tax return.
+
+## What the scholarship exemption check does not cover
+
+The check refuses the Commonwealth payments s 51-35 excludes (assistance for secondary education or isolated children, education or training payments such as Austudy, ABSTUDY and Youth Allowance, and the education entry payment), which other provisions may exempt in whole or part. It also refuses friendly society scholarship plans, which can be taxable. It does not test a prize or award, decide whether you are a full-time student, or work out tax or withholding on a payment that is not exempt. Confirm your answers with the provider, the ATO or a registered tax agent.
+
+## Boundary cases
+
+Each row is a test: scripts/individual-tax.test.mjs runs this calculator on these fictional inputs and fails if the result differs from the one shown.
+
+Boundary cases: Scholarship exemption check
+
+Case | Inputs | Result
+The form’s example | 2025-26, scholarship | Exempt
+A part-time student: not exempt | 2025-26, scholarship, not full-time | Not exempt: full time student
+A cadetship bonded to employment: not exempt (s 51-35(c)) | 2025-26, scholarship, employment condition | Not exempt: no employment condition
+A scholarship on condition of a labour contract: not exempt (s 51-35(d)) | 2025-26, scholarship, labour contract condition | Not exempt: no labour contract condition
+Not provided principally for education: not exempt (s 51-35(e)) | 2025-26, bursary, not principally educational | Not exempt: principally educational
+
+One of the twenty-two individual tax calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+
+Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
+
+## Links
+
+- twenty-two individual tax calculators: https://duguid.com.au/tools/individual-tax/

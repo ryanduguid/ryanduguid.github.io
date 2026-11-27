@@ -4,10 +4,15 @@
 // Compile only. Runtime validation and rounding have separate Node tests.
 import * as calculate from '../../assets/business-calculators.mjs';
 import {
-  calculatorTools, fhssTools, governmentSuperTools, individualTaxTools, lodgmentRequiredTools, pensionMinimumTools, residencyDaysTools, transferBalanceTools,
-  workExpensesTools,
+  calculatorTools, fhssTools, governmentSuperTools, individualTaxTools, lodgmentRequiredTools, pensionMinimumTools, residencyDaysTools, crystallisationTools, dbIncomeCapTools, foreignPensionTools, scholarshipTools, transferBalanceTools,
+  workExpensesTools, helpIndexationTools,
 } from '../../assets/webmcp-tools.mjs';
 import { MAX_PERIODS, RESIDENCY_YEARS, residencyDays } from '../../assets/residency-days.mjs';
+import { DB_INCOME_CAP_YEARS, definedBenefitIncomeCap } from '../../assets/defined-benefit-income-cap.mjs';
+import { FOREIGN_PENSION_YEARS, foreignPensionUpp } from '../../assets/foreign-pension-upp.mjs';
+import { COMMONWEALTH_PAYMENTS, PAYMENT_TYPES, SCHOLARSHIP_YEARS, scholarshipExemption } from '../../assets/scholarship-exemption.mjs';
+import { superCrystallisation } from '../../assets/super-crystallisation.mjs';
+import { HELP_INDEXATION_YEARS, MAX_ENTRIES, helpIndexation } from '../../assets/help-indexation.mjs';
 import { PENSION_MINIMUM_YEARS, pensionMinimum } from '../../assets/pension-minimum.mjs';
 import { LODGMENT_YEARS, STATED, lodgmentRequired } from '../../assets/lodgment-required.mjs';
 import {
@@ -518,6 +523,19 @@ calculate.trustStreaming({ ...trustInput, other_trust_income: 80000 });
 const trustProvision: number = calculate.trustStreaming(trustInput).trustee.provision;
 void trustTax;
 void trustProvision;
+const erStatus: string = calculate.endorsementReview('dgr_whole', { abn_current: true }).status;
+// @ts-expect-error The worksheet is one of the 3 named.
+calculate.endorsementReview('dgr', {});
+// @ts-expect-error An answer is a boolean, not 'yes'.
+calculate.endorsementReview('dgr_fund', { abn_current: 'yes' });
+const idValid: boolean = calculate.identifierCheck('abn', ['51', '824', '753', '556'].join(' ')).checkDigitValid;
+// @ts-expect-error A pass never establishes registration.
+const idRegistered: true = calculate.identifierCheck('acn', '004 085 616').abrRegistrationEstablished;
+// @ts-expect-error Only an ABN or an ACN.
+calculate.identifierCheck('tfn', ['004', '085', '616'].join(' '));
+void erStatus;
+void idValid;
+void idRegistered;
 const gstBdInput = { party: 'supplier', event: 'written_off', amount: '550.00', taxable_or_creditable: true, cash_basis: false,
   special_rule: 'none', attributed: true, year: '2025-26', scope_confirmed: true };
 const gstApplies: boolean = calculate.gstBadDebt(gstBdInput).applies;
@@ -616,6 +634,8 @@ void businessSet['land-tax'].execute({ place: 'AU-NSW', taxableLandValue: 110000
 void businessSet['termination-payment'].execute({ genuineRedundancyPayment: '48000', completedYearsOfService: 5, codeOTaxableComponent: '17678', otherTaxablePayments: '140000', dateOfBirth: '1996-08-01' });
 void businessSet['transfer-duty'].execute({ place: 'AU-NSW', dutiableValue: 1350000 });
 void businessSet['contractor-employee'].execute({ incomeYear: '2026-27', hoursPerWeek: '38', salary: '100000', contractorHourlyRate: '70' });
+void businessSet['endorsement-review'].execute({ worksheet: 'dgr_fund', answers: { abn_current: true } });
+void businessSet['abn-acn-check'].execute({ identifier: 'acn', number: '004 085 616' });
 void businessSet['rd-tax-offset'].execute({ incomeYear: '2025-26', notionalDeductions: '100000', aggregatedTurnover: '10000000', totalExpenses: '100000' });
 void businessSet['tax-invoice'].execute({ supplierName: 'Example Stationery Pty Ltd', supplierAbn: '51 824 753 556', issued: '2026-11-26', lines: [{ description: 'Pens', quantity: '20', unitPrice: '1.10', treatment: 'taxable' }] });
 void businessSet['gst-adjustments'].execute({ worksheet: 'going-concern', year: '2025-26', forConsideration: true, recipientRegistration: 'registered', writtenAgreement: 'on_or_before_supply_day', allThingsNecessary: true, carriedOnUntilSupply: true });
@@ -629,6 +649,9 @@ pensionMinimumTools({ pensionMinimum });
 void residencyDaysTools({ MAX_PERIODS, RESIDENCY_YEARS, residencyDays })['residency-days'].execute({ incomeYear: '2025-26', periods: [{ arrival: '2025-07-01', departure: '2025-09-30' }], usualPlaceOfAbodeOutsideAustralia: false, intendsToTakeUpResidence: false });
 // @ts-expect-error residencyDaysTools requires MAX_PERIODS alongside the years and residencyDays.
 residencyDaysTools({ RESIDENCY_YEARS, residencyDays });
+void helpIndexationTools({ HELP_INDEXATION_YEARS, MAX_ENTRIES, helpIndexation })['help-indexation'].execute({ incomeYear: '2025-26', previousAccumulatedDebt: '30000', voluntaryRepayments: [{ date: '2026-05-01', amount: '500' }] });
+// @ts-expect-error helpIndexationTools requires MAX_ENTRIES alongside the years and helpIndexation.
+helpIndexationTools({ HELP_INDEXATION_YEARS, helpIndexation });
 const coInput = { payday: '2026-07-10', base_rate: '30.00', casual_loading: '25', ordinary_hours: '30',
   lines: [{ hours: '3', percent: '175', overtime: true }], leave_hours: '0', leave_loading: '0', leave_loading_overtime: false };
 const coSuper: number = calculate.casualOvertime(coInput).superGuarantee;
@@ -640,3 +663,12 @@ void coSuper;
 void lodgmentRequiredTools({ LODGMENT_YEARS, STATED, lodgmentRequired })['lodgment-required'].execute({ incomeYear: '2025-26', residency: 'whole_year', taxableIncome: '15000', dividendsAndFrankingCredits: '0', conditions: ['payg_withheld'] });
 // @ts-expect-error lodgmentRequiredTools requires STATED alongside the years and lodgmentRequired.
 lodgmentRequiredTools({ LODGMENT_YEARS, lodgmentRequired });
+
+const s10 = { ...dbIncomeCapTools({ DB_INCOME_CAP_YEARS, definedBenefitIncomeCap }), ...foreignPensionTools({ FOREIGN_PENSION_YEARS, foreignPensionUpp }),
+  ...scholarshipTools({ SCHOLARSHIP_YEARS, PAYMENT_TYPES, COMMONWEALTH_PAYMENTS, scholarshipExemption }), ...crystallisationTools({ superCrystallisation }) };
+void s10['defined-benefit-income-cap'].execute({ incomeYear: '2025-26', taxFreeAndTaxed: '1', untaxed: '0', otherDefinedBenefitIncome: '0' });
+void s10['super-crystallisation'].execute({ eligibleServiceStart: '1980-01-01', interestValue: '1', concessionalComponent: '0', postJune1994InvalidityComponent: '0', cgtExemptComponent: '0', undeductedContributions: '0' });
+// @ts-expect-error dbIncomeCapTools requires the years alongside the engine.
+dbIncomeCapTools({ definedBenefitIncomeCap });
+// @ts-expect-error scholarshipTools requires the payment lists.
+scholarshipTools({ SCHOLARSHIP_YEARS, scholarshipExemption });

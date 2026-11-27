@@ -1916,7 +1916,9 @@ const CALCULATORS = ['gst', 'business-use', 'margin', 'break-even', 'hourly', 'f
   'div7a-schedule', 'division-296', 'payroll-tax', 'psi-determination', 'cgt-concessions',
   'franking-account', 'company-tax', 'salary-dividend', 'foreign-surcharge', 'business-days', 'sgc-payday', 'cgt', 'long-service-leave', 'unused-leave', 'borrowing-expenses',
   'workers-compensation', 'fuel-tax-credits', 'luxury-car-tax', 'super-benefit-tax', 'lease', 'gst-margin-scheme', 'wine-equalisation-tax', 'asic-fees', 'depreciation-pools', 'ato-penalties-interest', 'rental-property', 'rd-tax-offset', 'casual-overtime', 'contractor-employee',
-  'gst-adjustments', 'deferred-tax', 'sole-trader-company', 'payday-cashflow', 'tax-invoice', 'trust-streaming'];
+  'gst-adjustments', 'deferred-tax', 'sole-trader-company', 'payday-cashflow', 'tax-invoice', 'trust-streaming', 'endorsement-review', 'abn-acn-check'];
+
+const VERDICT_PAGES = new Set(['endorsement-review', 'abn-acn-check']);
 
 test.describe('before any script runs', () => {
   test.use({ javaScriptEnabled: false });
@@ -1926,7 +1928,8 @@ test.describe('before any script runs', () => {
       const output = page.locator(`#${id} output`);
       await expect(output.locator('.result-example'), id).toHaveText(
         'Fictional example: the first boundary case below. Change the inputs and calculate your own.');
-      await expect(output.locator('.result-row strong').first(), id).toHaveText(/\d/);
+      // These 2 give a verdict in words, not a figure.
+      await expect(output.locator('.result-row strong').first(), id).toHaveText(VERDICT_PAGES.has(id) ? /\S/ : /\d/);
     }
   });
 });
@@ -1948,7 +1951,8 @@ for (const id of CALCULATORS) {
     // A page that asks the reader to confirm its scope is answered first, as a reader would.
     const scope = form.locator('select[name="scope"]');
     if (await scope.count()) await scope.selectOption('yes');
-    await form.getByRole('button', { name: 'Calculate', exact: true }).click();
+    // The verdict pages name their button for what it does: Review and Check.
+    await form.getByRole('button', { name: /^(Calculate|Review|Check)$/ }).click();
     await expect(output.locator('.result-example')).toHaveCount(0);
     // The cash result also names week 1's first day, which the page sets to today.
     const calculated = await output.evaluate((element) => element.textContent);
@@ -1957,7 +1961,9 @@ for (const id of CALCULATORS) {
     await waitForCalculator(form);
     // The objection deadline form has dates and choices only.
     const edit = form.locator('input[type=number], input[type=date]').first();
-    await edit.fill(await edit.getAttribute('type') === 'date' ? '2027-01-01' : '1');
+    // A form of choices alone (the endorsement review) or with a text box (the ABN check) is edited by choosing the second option.
+    if (VERDICT_PAGES.has(id)) await form.getByRole('radio').nth(1).check();
+    else await edit.fill(await edit.getAttribute('type') === 'date' ? '2027-01-01' : '1');
     await expect(output).toHaveText('Enter the inputs and calculate.');
   });
 }

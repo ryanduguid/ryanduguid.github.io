@@ -1,0 +1,61 @@
+# Defined benefit income cap calculator (s 303-4)
+
+Source: https://duguid.com.au/tools/individual-tax/defined-benefit-income-cap/
+
+> Work out the defined benefit income cap, the 50% of the excess that is assessable and the reduced untaxed element offset for a super pension from 2017-18.
+
+# Defined benefit income cap calculator
+
+Work the defined benefit income cap for 2017-18 to 2026-27 and what is assessable over it.
+
+Published 27 November 2026. Last checked 27 November 2026.
+
+JavaScript is required for interactive calculations. The formula, assumptions and source links remain available below.
+
+Defined benefit income for one income year
+
+Tax free and taxed amounts Untaxed elements Other defined benefit income
+
+Income year 2026-27 2025-26 2024-25 2023-24 2022-23 2021-22 2020-21 2019-20 2018-19 2017-18
+
+First day, if it fell in this year
+
+Enter the year’s defined benefit income in dollars. The tax free and taxed amounts are the tax free components and taxed elements of the income that is concessionally treated: you are 60 or over, or it is a death benefit from someone who died at 60 or over. The untaxed elements are those of the same income. Other defined benefit income is income without that treatment, and it reduces the cap.
+
+Leave the first day blank if the concessional treatment already applied before the year began; otherwise the cap is pro-rated from that day to 30 June.
+
+Calculate
+
+Fictional example: the first boundary case below. Change the inputs and calculate your own. Inputs: 2025-26; tax free and taxed $140,000.00; untaxed $0.00; other defined benefit income $0.00. Defined benefit income cap $125,000.00 Tax free and taxed amounts over the cap $15,000.00 Assessable income: 50% of the excess $7,500.00 Untaxed element offset after the reduction $0.00 Cap: the general transfer balance cap of $2,000,000.00 / 16; offset of $0.00 reduced by $1,500.00.
+
+## How the defined benefit income cap calculator works
+
+The defined benefit income cap is the general transfer balance cap for the year divided by 16, rounded up to the dollar: $125,000 for 2025-26 and $131,250 for 2026-27. If the concessional treatment first applied to you during the year, the cap is pro-rated by the days from that day to 30 June. Defined benefit income that is not concessionally treated reduces the cap, but not below nil.
+
+Half of the tax free and taxed amounts over the cap is assessable income, with no tax offset for it. The untaxed element offset of 10% of the untaxed elements is reduced by 10% of the amount by which all the concessional income, untaxed elements included, exceeds the cap.
+
+## What the defined benefit income cap calculator does not cover
+
+The calculator does not decide which of your income is defined benefit income or whether it is concessionally treated; it takes the amounts as you enter them. It does not work the tax on the assessable amount, the withholding a fund applies under Schedule 13, capped defined benefit income streams for the transfer balance account, or the 2017 transitional rules for death benefit dependants. Confirm the amounts with your fund, the ATO or a registered tax agent.
+
+## Boundary cases
+
+Each row is a test: scripts/individual-tax.test.mjs runs this calculator on these fictional inputs and fails if the result differs from the one shown.
+
+Boundary cases: Defined benefit income cap calculator
+
+Case | Inputs | Result
+The form’s example | 2025-26, tax free and taxed $140,000.00, untaxed $0.00, other $0.00 | Cap $125,000.00, assessable $7,500.00, offset $0.00
+A full year at the 2026-27 cap of $131,250 exactly: nothing over it | 2026-27, tax free and taxed $131,250.00, untaxed $0.00, other $0.00 | Cap $131,250.00, assessable $0.00, offset $0.00
+A dollar over the 2017-18 cap of $100,000: 50 cents assessable | 2017-18, tax free and taxed $100,001.00, untaxed $0.00, other $0.00 | Cap $100,000.00, assessable $0.50, offset $0.00
+Concessional treatment from 1 January 2024 in a 366-day year: the cap is pro-rated and rounded up | 2023-24, tax free and taxed $100,000.00, untaxed $0.00, other $0.00, first day 2024-01-01 | Cap $59,051.00, assessable $20,474.50, offset $0.00
+Untaxed elements of $50,000 under the cap keep the full $5,000 offset | 2025-26, tax free and taxed $50,000.00, untaxed $50,000.00, other $0.00 | Cap $125,000.00, assessable $0.00, offset $5,000.00
+Other defined benefit income above the cap reduces it to nil | 2025-26, tax free and taxed $10,000.00, untaxed $10,000.00, other $200,000.00 | Cap $0.00, assessable $5,000.00, offset $0.00
+
+One of the twenty-two individual tax calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+
+Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
+
+## Links
+
+- twenty-two individual tax calculators: https://duguid.com.au/tools/individual-tax/
