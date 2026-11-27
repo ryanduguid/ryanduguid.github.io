@@ -168,8 +168,8 @@
 //! per cent of exact cents, join the rows of one payer by union-find, where the engine follows each
 //! row to its payer's first row, and count unrelated payers as joined groups. The 2-place shares
 //! round down, as the engine's do, so the oracle cannot show that convention. A third of them
-//! carry client labels, some inconsistent, and the rest meet the refusal where unlabelled rows of
-//! one payer decide the unrelated clients test (AA #930).
+//! carry client labels, some inconsistent, and every 20th has 2 rows of one payer won by offers, so
+//! that unlabelled rows of one payer decide the unrelated clients test and meet its refusal (AA #930).
 mod common;
 
 use jiff::ToSpan;
@@ -9365,6 +9365,40 @@ fn psi_case(rng: &mut Seeded) -> PsiCase {
     }
 }
 
+/// 2 rows of one payer won by offers, a third payer and no other test met, so whether the 2 rows
+/// are 2 clients can decide the outcome: half the cases carry labels, the rest meet the refusal
+/// unless the 80% rule decides.
+fn psi_trust_case(rng: &mut Seeded) -> PsiCase {
+    let mut case = psi_case(rng);
+    let won = [false, true, false, true, true];
+    let mut rows: Vec<PsiRow> = (0..3)
+        .map(|row| PsiRow {
+            cents: 100 * (1 + rng.below(60)),
+            flags: if row < 2 {
+                won
+            } else {
+                [false, rng.below(2) == 0, false, true, true]
+            },
+            same: (row == 1).then_some(1),
+            client: None,
+        })
+        .collect();
+    if rng.below(2) == 0 {
+        for (row, client) in rows.iter_mut().zip([0, 1 + rng.below(2) as usize, 2]) {
+            row.client = Some(client);
+        }
+    }
+    case.earner = "sole-trader";
+    case.mainly = true;
+    case.determination = false;
+    case.rows = rows;
+    case.agent = None;
+    case.others = 0;
+    case.apprentice = false;
+    case.premises[0] = false;
+    case
+}
+
 #[test]
 fn the_psi_oracle_joins_a_payers_rows() {
     let row = |cents, flags: &str, same| PsiRow {
@@ -9431,7 +9465,15 @@ fn the_psi_engine_agrees_with_the_oracle_on_seeded_cases() {
         return;
     }
     let mut rng = Seeded(0x2026_1122_0000_0851);
-    let cases: Vec<PsiCase> = (0..PSI_CASES).map(|_| psi_case(&mut rng)).collect();
+    let cases: Vec<PsiCase> = (0..PSI_CASES)
+        .map(|n| {
+            if n % 20 == 19 {
+                psi_trust_case(&mut rng)
+            } else {
+                psi_case(&mut rng)
+            }
+        })
+        .collect();
     let inputs: Vec<Value> = cases.iter().map(PsiCase::input).collect();
     let actual = run_node(PSI_HARNESS, &inputs);
     assert_eq!(actual.len(), cases.len());
