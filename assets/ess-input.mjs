@@ -33,10 +33,11 @@ export function amountOf(value) {
   if (typeof value !== 'string' || new TextEncoder().encode(value).length > 32) return null;
   const text = pyStrip(value);
   const neg = text.startsWith('-');
-  const [whole, fraction, more] = (neg ? text.slice(1) : text).split('.');
-  const plain = (/** @type {string | undefined} */ part) => part !== undefined && /^\d+$/.test(part);
-  if (!plain(whole) || more !== undefined || (fraction !== undefined && !plain(fraction))) return null;
-  const v = { neg, c: BigInt(whole + (fraction ?? '')), e: -(fraction ?? '').length };
+  const parts = (neg ? text.slice(1) : text).split('.');
+  const fraction = parts.length === 2 ? parts[1] : '';
+  const plain = (/** @type {string} */ part) => /^\d+$/.test(part);
+  if (parts.length > 2 || !plain(parts[0]) || (parts.length === 2 && !plain(fraction))) return null;
+  const v = { neg, c: BigInt(parts[0] + fraction), e: -fraction.length };
   return (neg && v.c !== 0n) || v.e < -2 || cmp(v, lit('1000000000000')) > 0 ? null : v;
 }
 

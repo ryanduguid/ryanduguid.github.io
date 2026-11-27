@@ -66,7 +66,7 @@ function earliest(share, acquired, f, cessation) {
   if (cessation && f.employmentEnded !== null && f.employmentEnded < on(CESSATION_ENDS)) {
     points.push([f.employmentEnded, `former ${section}(5)`]);
   }
-  return points.reduce((best, p) => (p[0] < best[0] ? p : best));
+  return points.reduce((best, p) => (p[0] < best[0] ? p : best), points[0]);
 }
 
 /** A point moved to a disposal within 30 days after it (ss 83A-115(3), 83A-120(3)). @param {Reader} r
