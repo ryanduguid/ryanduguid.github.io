@@ -1,0 +1,19 @@
+# Codecov reads this file from .github/, where Jekyll never publishes it. It
+# reports the site tools' Rust coverage and the calculator engines' Node
+# coverage together. The project floor is main's measured line coverage
+# (96.38% on 27 November 2026, at the merge of #822).
+# Raise it with the tests until it reaches 100%, never lower it to pass. Every
+# change must test each line it adds or changes. Codecov posts no comments.
+coverage:
+  round: down
+  status:
+    project:
+      default:
+        target: 96.38%
+        threshold: 0%
+        if_not_found: failure
+    patch:
+      default:
+        target: 100%
+        threshold: 0%
+comment: false

@@ -1443,3 +1443,248 @@ fn a_failed_gh_reports_its_command_and_error_output() {
         )
     );
 }
+
+#[test]
+fn a_path_lookup_queries_the_path_and_a_gh_failure_stops_it() {
+    use site_tools::source_freshness::last_commit_date;
+    let mut host = Fake::new(|_| Ok("2026-09-02T00:00:00Z\n".into()));
+    assert_eq!(
+        last_commit_date(&mut host, "o", "r", Some("a b/c")).unwrap(),
+        "2026-09-02"
+    );
+    assert_eq!(
+        host.asked[0].0[1],
+        "repos/o/r/commits?per_page=1&path=a+b%2Fc"
+    );
+    let mut host = Fake::new(|_| Err("offline".into()));
+    assert_eq!(
+        last_commit_date(&mut host, "o", "r", None).unwrap_err(),
+        "offline"
+    );
+}
+
+#[test]
+fn a_card_without_a_source_link_is_kept_as_it_is() {
+    let html = r#"<p class="collection-entry__links"><a href="/x/">Docs</a></p>"#;
+    assert_eq!(
+        stamp_html(html, &mut |_, _, _| panic!("no lookup")).unwrap(),
+        html
+    );
+}
+
+#[test]
+fn a_tag_with_a_line_break_before_its_version_is_not_published() {
+    let html = release_table(&["tool\nv1.0.0"]);
+    let failures = check_releases(&html, &mut |_| Ok(releases(&["tool\nv1.0.0"]))).unwrap();
+    assert_eq!(
+        failures,
+        ["ryanduguid/example: tool\nv1.0.0 is not a published stable release"]
+    );
+}
+
+#[test]
+fn release_checks_read_tool_pages_once_per_repository() {
+    let (root, _, mut host) = cli_fixture(&[]);
+    let meta = r#"<p class="release-meta"><a href="https://github.com/ryanduguid/example/releases/tag/v1.0.0">v1.0.0</a></p>"#;
+    for (slug, page) in [
+        ("a", meta),
+        ("b", meta),
+        ("c", r#"<p class="release-meta">No link</p>"#),
+    ] {
+        std::fs::create_dir(root.path().join("tools").join(slug)).unwrap();
+        std::fs::write(
+            root.path().join("tools").join(slug).join("index.html"),
+            page,
+        )
+        .unwrap();
+    }
+    std::fs::create_dir(root.path().join("tools/no-page")).unwrap();
+    assert_eq!(
+        main_with(root.path(), &["--check-releases".to_owned()], &mut host),
+        0,
+        "{:?}",
+        host.said
+    );
+    // The changelog's lookup serves both tool pages.
+    assert_eq!(host.asked.len(), 1);
+}
+
+#[test]
+fn tool_metadata_handles_bare_schemas_untyped_entries_and_missing_fields() {
+    let release = json!({"version": "1.2.3", "date": "2026-09-10"});
+    let html = concat!(
+        r#"<script type="application/ld+json">{"@type": "SoftwareApplication", "name": "Old", "alternateName": "Gone"}</script>"#,
+        r#"<script type="application/ld+json">{"@graph": [{"name": "untyped"}, "text"]}</script>"#
+    );
+    let tool = json!({"name": "New", "sameAs": "https://example.com/"});
+    let stamped = stamp_tool_metadata(html, &tool, Some(&release)).unwrap();
+    assert!(stamped.contains(r#""name": "New""#), "{stamped}");
+    assert!(!stamped.contains("alternateName"), "{stamped}");
+    assert!(
+        stamped.contains(r#""sameAs": "https://example.com/""#),
+        "{stamped}"
+    );
+    assert!(stamped.contains(r#""name": "untyped""#), "{stamped}");
+    // A tool without sameAs leaves the entry's own.
+    let stamped = stamp_tool_metadata(
+        r#"<script type="application/ld+json">{"@type": "SoftwareApplication", "sameAs": "kept"}</script>"#,
+        &json!({}),
+        Some(&release),
+    )
+    .unwrap();
+    assert!(stamped.contains(r#""sameAs": "kept""#), "{stamped}");
+    assert_eq!(
+        stamp_tool_metadata(
+            r#"<script type="application/ld+json">{"@graph": {}}</script>"#,
+            &tool,
+            Some(&release)
+        )
+        .unwrap_err(),
+        "schema['@graph'] is not iterable"
+    );
+}
+
+#[test]
+fn an_index_without_the_mcp_line_is_unchanged() {
+    assert_eq!(stamp_mcp_index("# Site\n", None).unwrap(), "# Site\n");
+}
+
+#[test]
+fn a_calculator_revision_lookup_failure_stops_the_refresh() {
+    let mut host = Fake::new(|_| Err("offline".into()));
+    assert_eq!(build_calculator_revision(&mut host).unwrap_err(), "offline");
+}
+
+/// A site with no tools whose release refresh reaches every write.
+fn empty_release_site() -> tempfile::TempDir {
+    let root = tempfile::tempdir().unwrap();
+    for dir in ["_data", "tools"] {
+        std::fs::create_dir(root.path().join(dir)).unwrap();
+    }
+    for (rel, text) in [
+        ("_data/tools.json", "{}\n"),
+        ("_data/tool_releases.json", "{}\n"),
+        ("tools/index.html", "<p>Tools</p>\n"),
+        ("sitemap.xml", "<urlset></urlset>\n"),
+        (
+            "index.html",
+            "<ul class=\"latest-releases\">\n<li>old</li>\n</ul>\n",
+        ),
+        ("llms.txt", "# Site\n"),
+    ] {
+        std::fs::write(root.path().join(rel), text).unwrap();
+    }
+    root
+}
+
+fn read_only(path: &Path) {
+    let mut permissions = std::fs::metadata(path).unwrap().permissions();
+    permissions.set_readonly(true);
+    std::fs::set_permissions(path, permissions).unwrap();
+}
+
+#[test]
+fn a_release_refresh_without_build_skips_the_build_and_reports_unwritable_files() {
+    let revision =
+        || Fake::new(|_| Ok(json!({"sha": "abc", "date": "2026-09-02T00:00:00Z"}).to_string()));
+    let root = empty_release_site();
+    let mut host = revision();
+    assert_eq!(
+        main_with(
+            root.path(),
+            &["--write-tool-releases".to_owned()],
+            &mut host
+        ),
+        0,
+        "{:?}",
+        host.said
+    );
+    assert!(!host.built);
+    // Each write that fails stops the refresh with exit 2.
+    for rel in ["_data/tool_releases.json", "index.html", "llms.txt"] {
+        let root = empty_release_site();
+        read_only(&root.path().join(rel));
+        let mut host = revision();
+        assert_eq!(
+            main_with(
+                root.path(),
+                &["--write-tool-releases".to_owned()],
+                &mut host
+            ),
+            2,
+            "{rel}"
+        );
+    }
+    let root = empty_release_site();
+    std::fs::write(root.path().join("_data/tools.json"), "[]\n").unwrap();
+    let mut host = revision();
+    assert_eq!(
+        main_with(root.path(), &["--sync-releases".to_owned()], &mut host),
+        2
+    );
+    assert!(
+        host.said[0]
+            .0
+            .ends_with("tools.json: expected a JSON object"),
+        "{:?}",
+        host.said
+    );
+}
+
+#[test]
+fn the_system_host_reads_the_environment_the_sydney_date_and_builds() {
+    use site_tools::source_freshness::System;
+    assert_eq!(System.env("SOURCE_FRESHNESS_UNSET_FIXTURE"), None);
+    let today = System.today();
+    assert!(
+        today.len() == 10 && today.as_bytes()[4] == b'-' && today.as_bytes()[7] == b'-',
+        "{today}"
+    );
+    // An empty folder has no Gemfile, so the build fails rather than writing a site.
+    let root = tempfile::tempdir().unwrap();
+    assert!(System.build_site(root.path()).is_err());
+}
+
+#[test]
+fn the_command_without_a_site_root_exits_2() {
+    let dir = tempfile::tempdir().unwrap();
+    let output = std::process::Command::new(env!("CARGO_BIN_EXE_site-tools"))
+        .arg("stamp_source_freshness")
+        .env_remove("SITE_ROOT")
+        .current_dir(dir.path())
+        .output()
+        .unwrap();
+    assert_eq!(output.status.code(), Some(2));
+    assert_eq!(
+        String::from_utf8_lossy(&output.stderr),
+        "Cannot locate the site root (_config.yml or scripts/); set SITE_ROOT\n"
+    );
+}
+
+#[cfg(unix)]
+#[test]
+fn a_gh_call_past_its_time_limit_is_an_outage() {
+    use site_tools::source_freshness::System;
+    use std::os::unix::fs::PermissionsExt;
+    // The child copy of this test, with only the slow gh on PATH, makes the call.
+    if std::env::var_os("SOURCE_FRESHNESS_SLOW_GH").is_some() {
+        assert_eq!(
+            System
+                .gh(&["api", "x"], Some(Duration::from_millis(200)))
+                .unwrap_err(),
+            "spawnSync gh ETIMEDOUT"
+        );
+        return;
+    }
+    let bin = tempfile::tempdir().unwrap();
+    let gh = bin.path().join("gh");
+    std::fs::write(&gh, "#!/bin/sh\nexec /bin/sleep 10\n").unwrap();
+    std::fs::set_permissions(&gh, std::fs::Permissions::from_mode(0o755)).unwrap();
+    let status = std::process::Command::new(std::env::current_exe().unwrap())
+        .args(["--exact", "a_gh_call_past_its_time_limit_is_an_outage"])
+        .env("SOURCE_FRESHNESS_SLOW_GH", "1")
+        .env("PATH", bin.path())
+        .status()
+        .unwrap();
+    assert!(status.success());
+}

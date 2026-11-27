@@ -454,3 +454,33 @@ fn run_takes_at_most_one_directory() {
     fs::create_dir(dir.path().join("_site")).unwrap();
     assert_eq!(run(dir.path(), &[]).unwrap(), 0);
 }
+
+#[test]
+fn a_page_without_a_head_keeps_its_markup_and_run_takes_a_directory() {
+    let dir = tempfile::tempdir().unwrap();
+    let assets = dir.path().join("assets");
+    fs::create_dir(&assets).unwrap();
+    for name in ["tokens", "site"] {
+        fs::write(assets.join(format!("{name}.css")), "").unwrap();
+    }
+    fs::write(dir.path().join("fragment.html"), "<p>Fragment</p>").unwrap();
+    let args = vec![dir.path().to_string_lossy().into_owned()];
+    assert_eq!(run(std::path::Path::new("unused"), &args).unwrap(), 0);
+    assert_eq!(
+        fs::read_to_string(dir.path().join("fragment.html")).unwrap(),
+        "<p>Fragment</p>"
+    );
+}
+
+#[cfg(unix)]
+#[test]
+fn a_generated_file_that_cannot_be_created_names_its_path() {
+    use std::os::unix::fs::PermissionsExt;
+    let dir = tempfile::tempdir().unwrap();
+    fs::write(dir.path().join("index.html"), "<main><h1>Site</h1></main>").unwrap();
+    fs::write(dir.path().join("index.txt"), "public text").unwrap();
+    fs::set_permissions(dir.path(), fs::Permissions::from_mode(0o555)).unwrap();
+    let error = minify_tree(dir.path()).unwrap_err();
+    fs::set_permissions(dir.path(), fs::Permissions::from_mode(0o755)).unwrap();
+    assert!(error.contains("index."), "{error}");
+}
