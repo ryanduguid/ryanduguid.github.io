@@ -25,12 +25,17 @@ fn site() -> (tempfile::TempDir, u16) {
 }
 
 #[test]
-fn an_http_0_9_request_gets_the_body_without_a_status_line_or_headers() {
+fn an_http_0_9_request_gets_a_bare_error_page_or_nothing() {
     let (_site, port) = site();
-    assert_eq!(exchange(port, "GET /data.csv\r\n"), "a,b\n");
-    // A type the server may gzip reads Accept-Encoding with get_all, which an
-    // HTTP/0.9 request's plain header dict lacks in http.server: the handler fails
-    // and the connection closes with nothing sent.
+    // A file named with a trailing slash is answered 404 before any header is read, and
+    // HTTP/0.9 sends the error page alone, with no status line or headers.
+    let reply = exchange(port, "GET /page.txt/\r\n");
+    assert!(reply.starts_with("<!DOCTYPE HTML>"), "{reply}");
+    assert!(reply.contains("<p>Error code: 404</p>"), "{reply}");
+    // Any other file first reads Accept-Encoding with get_all, which an HTTP/0.9
+    // request's plain header dict lacks in http.server: the handler fails and the
+    // connection closes with nothing sent, whatever the file's type.
+    assert_eq!(exchange(port, "GET /data.csv\r\n"), "");
     assert_eq!(exchange(port, "GET /page.txt\r\n"), "");
 }
 
