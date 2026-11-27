@@ -110,6 +110,7 @@ test('the catch-up page words the downsizer refusals for the form', () => {
     [{ 'downsizer-made': '' }, 'Enter each downsizer day as a date.'], [{ 'downsizer-amount': '' }, 'Enter each downsizer amount in dollars and cents.'],
     [{ 'downsizer-proceeds': '-5' }, 'Enter each downsizer amount from 0 to 1,000,000,000,000, to the cent.'],
     [{ 'downsizer-made': '2025-07-01' }, 'Enter a downsizer contribution day in 2024-25.'],
+    [{ 'downsizer-amount': '1'.repeat(8193) }, 'downsizer_contribution is too long.'],
     [{ 'downsizer-settled': '2024-09-01' }, 'The change of ownership cannot be before the sale contract.'],
     [{ 'downsizer-made': '2024-11-01', 'downsizer-contract': '2024-10-01' }, 'Enter a downsizer contribution made on or after the change of ownership.']]) {
     assert.throws(() => shown({ ...FORM, ...fields }), { message }, JSON.stringify(fields));
