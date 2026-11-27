@@ -39,8 +39,8 @@ test('the page agrees with the australian-accounting command on every differenti
     }
     assert.deepEqual(got, c.refused ? { refused: c.refused } : { amounts: c.amounts, rates: c.rates }, c.source);
   }
-  assert.equal(fixture.cases.length, 1560);
-  assert.ok(page.includes('agrees with the command on 1,560 test cases'));
+  assert.equal(fixture.cases.length, 1847);
+  assert.ok(page.includes('agrees with the command on 1,847 test cases'));
 });
 
 test('the factors, the first year, the last 30 days and rounding to $10', () => {
@@ -59,13 +59,23 @@ test('the factors, the first year, the last 30 days and rounding to $10', () => 
   assert.equal(code(() => minimum('2026-27', '1000', '80', 365)), 'input.age_invalid');
 });
 
+test('a negative zero balance keeps its sign, except in the nil of the last 30 days', () => {
+  const zero = (days, balance = '-0') => pensionMinimum({ account_balance: balance, age: 70, days, year: '2025-26', scope_confirmed: true,
+    transition_to_retirement: true }).amounts;
+  assert.deepEqual(zero(365), { account_balance_used: '-0.00', minimum_before_rounding: '-0.00', minimum_payment: '-0.00', maximum_payment: '-0.00' });
+  assert.deepEqual(zero(200, '-0.0'), zero(365));
+  assert.deepEqual(zero(30), { account_balance_used: '-0.00', minimum_before_rounding: '0.00', minimum_payment: '0.00', maximum_payment: '-0.00' });
+  assert.deepEqual(zero(365, '0'), { account_balance_used: '0.00', minimum_before_rounding: '0.00', minimum_payment: '0.00', maximum_payment: '0.00' });
+  assert.ok(fixture.cases.filter((c) => c.source.startsWith('seeded negative zero')).length > 200);
+});
+
 test('a transition to retirement income stream adds the 10% maximum, down to the cent and not pro-rated', () => {
   const ttr = (balance, days, flag = true) => pensionMinimum({ account_balance: balance, age: 62, days, year: '2025-26', scope_confirmed: true,
     transition_to_retirement: flag });
   assert.deepEqual(ttr('400000.00', 181).amounts, { account_balance_used: '400000.00', minimum_before_rounding: '7934.25', minimum_payment: '7930.00',
     maximum_payment: '40000.00' });
   assert.deepEqual([ttr('0.09', 365).amounts.maximum_payment, ttr('123456.78', 30).amounts.maximum_payment, ttr('-0', 365).amounts.maximum_payment],
-    ['0.00', '12345.67', '0.00']);
+    ['0.00', '12345.67', '-0.00']);
   assert.equal('maximum_payment' in ttr('1000', 365, false).amounts, false);
   assert.equal(code(() => ttr('1000', 365, 'true')), 'input.flag_invalid');
   assert.equal(code(() => ttr('x', 365, null)), 'input.decimal_unreadable');

@@ -7,7 +7,8 @@ import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
 import { createRequire } from 'node:module';
 import test from 'node:test';
-import { DOWNSIZER_INPUTS, downsizer, downsizerGiven } from '../assets/downsizer.mjs';
+import { concessionalCatchUp } from '../assets/concessional-catch-up.mjs';
+import { DOWNSIZER_INPUTS, downsizer, downsizerGiven, readDownsizerInputs } from '../assets/downsizer.mjs';
 import { individualResult } from '../assets/individual-tax-results.mjs';
 
 const fixture = createRequire(import.meta.url)('./downsizer-engine-differential.json');
@@ -115,4 +116,38 @@ test('the catch-up page words the downsizer refusals for the form', () => {
     [{ 'downsizer-made': '2024-11-01', 'downsizer-contract': '2024-10-01' }, 'Enter a downsizer contribution made on or after the change of ownership.']]) {
     assert.throws(() => shown({ ...FORM, ...fields }), { message }, JSON.stringify(fields));
   }
+});
+
+// What the contribution-caps command (australian-accounting 7f3c3eb, release build) refused for each pair of one
+// catch-up fault and one downsizer fault: it reads this year's amounts, then the downsizer inputs, then checks the
+// catch-up, then works the downsizer. A code is the downsizer's refusal; null is the catch-up's.
+const TWO_FAULTS = {
+  'defined benefit': [{ definedBenefit: true }, ['input.decimal_unreadable', 'input.missing_field', 'input.decimal_too_long', null, null, null]],
+  year: [{ year: '2023-24' }, ['input.decimal_unreadable', 'input.missing_field', 'input.decimal_too_long', null, null, null]],
+  'negative concessional': [{ concessional: '-1' }, ['input.decimal_unreadable', 'input.missing_field', 'input.decimal_too_long', null, null, null]],
+  'earlier gap': [{ earlier: [{ year: '2024-25', contributions: '1' }] },
+    ['input.decimal_unreadable', 'input.missing_field', 'input.decimal_too_long', null, null, null]],
+  'unreadable balance': [{ balance: 'abc' }, [null, null, null, null, null, null]],
+};
+const DOWNSIZER_FAULTS = [{ downsizer_contribution: 'abc' }, { downsizer_age: undefined }, { downsizer_capital_proceeds: '1'.repeat(8193) },
+  { downsizer_contribution_date: '2026-07-01' }, { downsizer_age: -1 }, { downsizer_capital_proceeds: '-1' }];
+const CATCH_UP = { year: '2025-26', balance: '450000.00', concessional: '20000.00', definedBenefit: false,
+  earlier: ['2020-21', '2021-22', '2022-23', '2023-24', '2024-25'].map((year) => ({ year, contributions: '1000' })) };
+
+test('with a fault in the catch-up and one in the downsizer, the page refuses the one the command does', () => {
+  for (const [name, [fault, codes]] of Object.entries(TWO_FAULTS)) {
+    DOWNSIZER_FAULTS.forEach((downsizerFault, i) => {
+      const given = Object.fromEntries(Object.entries({ ...BASE, ...downsizerFault }).filter(([, v]) => v !== undefined));
+      const input = { ...CATCH_UP, ...fault };
+      assert.throws(() => {
+        concessionalCatchUp(input, () => readDownsizerInputs(given));
+        downsizer(given, input.year);
+      }, (error) => (error.code ?? null) === codes[i], `${name} with ${JSON.stringify(downsizerFault).slice(0, 60)}`);
+    });
+  }
+  // The form: a downsizer amount it cannot read comes before the defined benefit refusal, a day outside the year after it,
+  // and a balance it cannot read before both.
+  assert.throws(() => shown({ ...FORM, 'defined-benefit': 'yes', 'downsizer-amount': '' }), { message: 'Enter each downsizer amount in dollars and cents.' });
+  assert.throws(() => shown({ ...FORM, 'defined-benefit': 'yes', 'downsizer-made': '2025-07-01' }), /Subdivision 291-C/);
+  assert.throws(() => shown({ ...FORM, balance: 'abc', 'downsizer-amount': '' }), { message: /^Total super balance on 30 June before the year: / });
 });

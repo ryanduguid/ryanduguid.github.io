@@ -29,7 +29,7 @@ export const downsizerGiven = (given) => DOWNSIZER_INPUTS.some((key) => Object.h
 
 /** The command's reading of each input: present, and an amount given as text readable as a decimal.
  * @param {Record<string, unknown>} given */
-function readInputs(given) {
+export function readDownsizerInputs(given) {
   for (const key of DOWNSIZER_INPUTS) {
     if (!Object.hasOwn(given, key)) refuse('input.missing_field', `${key} is required`);
     const value = given[key];
@@ -129,7 +129,7 @@ const NIL = { cents: 0n, negativeZero: false };
  * @returns {DownsizerWorked}
  */
 export function downsizer(given, year) {
-  readInputs(given);
+  readDownsizerInputs(given);
   const rows = tests(given, year);
   const eligible = rows.every((row) => row.met);
   const made = amountCents(given.downsizer_contribution);

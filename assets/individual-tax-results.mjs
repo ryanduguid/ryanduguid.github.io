@@ -21,7 +21,7 @@ import { RECEIPT_YEARS, lumpSumArrears } from './lump-sum-arrears.mjs';
 import { SOLE_TRADER_YEARS, soleTraderSetAside } from './sole-trader.mjs';
 import { incomeTests } from './income-tests.mjs';
 import { CAP, CATCH_UP_YEARS, concessionalCatchUp } from './concessional-catch-up.mjs';
-import { downsizer } from './downsizer.mjs';
+import { downsizer, readDownsizerInputs } from './downsizer.mjs';
 import { superProjection } from './super-projection.mjs';
 
 /** @typedef {{inputs: string, rows: string[][], principal: number, note?: string}} Result */
@@ -464,23 +464,34 @@ const downsizerMessages = (year) => ({ 'input.age_invalid': 'Enter the age at th
   'downsizer.settlement_before_contract': 'The change of ownership cannot be before the sale contract.',
   'downsizer.contribution_before_settlement': 'Enter a downsizer contribution made on or after the change of ownership.' });
 
-/** The downsizer rows and note, or none when no downsizer contribution is given.
- * @param {(name: string) => string} value @param {string} year @param {(amount: number) => string} aud */
-function downsizerPart(value, year, aud) {
-  if (value('downsizer') !== 'yes') return { rows: [], notes: [], inputs: '' };
+/** The downsizer inputs as the command names them, or null when no downsizer contribution is given.
+ * @param {(name: string) => string} value */
+function downsizerArgs(value) {
+  if (value('downsizer') !== 'yes') return null;
   const age = value('downsizer-age').trim();
   const amount = (/** @type {string} */ name) => value(`downsizer-${name}`).trim();
-  let r;
+  return { downsizer_contribution: amount('amount'), downsizer_contribution_date: value('downsizer-made'),
+    downsizer_age: /^\d+$/.test(age) ? Number(age) : age, downsizer_contract_date: value('downsizer-contract'),
+    downsizer_settlement_date: value('downsizer-settled'), downsizer_longer_period_allowed: value('downsizer-longer') === 'yes',
+    downsizer_capital_proceeds: amount('proceeds'), downsizer_earlier_own: amount('earlier-own'),
+    downsizer_earlier_from_proceeds: amount('earlier-proceeds'), downsizer_conditions_met: value('downsizer-conditions') === 'yes' };
+}
+
+/** `work`, its downsizer refusal given the form's message. @template T @param {string} year @param {() => T} work @returns {T} */
+function downsizerWorked(year, work) {
   try {
-    r = downsizer({ downsizer_contribution: amount('amount'), downsizer_contribution_date: value('downsizer-made'),
-      downsizer_age: /^\d+$/.test(age) ? Number(age) : age, downsizer_contract_date: value('downsizer-contract'),
-      downsizer_settlement_date: value('downsizer-settled'), downsizer_longer_period_allowed: value('downsizer-longer') === 'yes',
-      downsizer_capital_proceeds: amount('proceeds'), downsizer_earlier_own: amount('earlier-own'),
-      downsizer_earlier_from_proceeds: amount('earlier-proceeds'), downsizer_conditions_met: value('downsizer-conditions') === 'yes' }, year);
+    return work();
   } catch (error) {
     const code = /** @type {{code?: string}} */ (error).code;
     throw new Error(/** @type {Record<string, string>} */ (downsizerMessages(year))[String(code)] ?? /** @type {Error} */ (error).message);
   }
+}
+
+/** The downsizer rows and note, or none when no downsizer contribution is given.
+ * @param {Record<string, unknown> | null} given @param {string} year @param {(amount: number) => string} aud */
+function downsizerPart(given, year, aud) {
+  if (given === null) return { rows: [], notes: [], inputs: '' };
+  const r = downsizerWorked(year, () => downsizer(given, year));
   const shown = (/** @type {string} */ key) => aud(Number(r.amounts[/** @type {keyof typeof r.amounts} */ (key)]));
   const failed = r.tests.filter((test) => !test.met).map((test) => `${test.finding} (${test.authority})`);
   return { rows: [['Downsizer contribution covered, outside both caps', shown('downsizer_covered')],
@@ -489,7 +500,7 @@ function downsizerPart(value, year, aud) {
     ['Left of the capital proceeds', shown('downsizer_proceeds_remaining')]],
   notes: [r.eligible ? 'The downsizer contribution is covered up to the lesser of the 2 limits (s 292-102(3))'
     : `The downsizer contribution is not covered: ${failed.join('; ')}`],
-  inputs: `, downsizer contribution ${aud(Number(amount('amount')))}` };
+  inputs: `, downsizer contribution ${aud(Number(given.downsizer_contribution))}` };
 }
 
 /** @param {(name: string) => string} value @param {(amount: number) => string} aud @returns {Result} */
@@ -502,8 +513,11 @@ function catchUpResult(value, aud) {
   }
   const proposed = value('proposed').trim();
   const year = value('year');
+  const given = downsizerArgs(value);
+  // The command reads the downsizer inputs before it checks the catch-up, and works the downsizer after it.
   const r = concessionalCatchUp({ year, balance: value('balance'), concessional: value('concessional'),
-    ...(proposed === '' ? {} : { proposed }), definedBenefit: value('defined-benefit') === 'yes', earlier });
+    ...(proposed === '' ? {} : { proposed }), definedBenefit: value('defined-benefit') === 'yes', earlier },
+  () => given && downsizerWorked(year, () => readDownsizerInputs(given)));
   const rows = [['General concessional cap', aud(r.cap)], ['Unused cap from the previous 5 years', aud(r.unusedCarried)],
     ['Concessional cap available', aud(r.available)], ['Carried-forward cap applied', aud(r.carryForwardApplied)],
     ['Cap left after this year’s contributions', aud(r.remaining)], ['Excess concessional contributions', aud(r.excess)]];
@@ -512,7 +526,7 @@ function catchUpResult(value, aud) {
       ['Excess with the proposed contribution', aud(/** @type {number} */ (r.excessWithProposal))]);
   }
   for (const row of r.years) rows.push([`${row.year} unused cap left, lapses after ${row.expiresAtEndOf}`, aud(row.remaining)]);
-  const downsized = downsizerPart(value, year, aud);
+  const downsized = downsizerPart(given, year, aud);
   rows.push(...downsized.rows);
   const notes = Object.entries(r.earlierApplied).map(([to, from]) => `${to}’s excess used `
     + Object.entries(from).map(([source, amount]) => `${aud(amount)} of ${source}’s unused cap`).join(' and '));

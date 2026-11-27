@@ -45,7 +45,8 @@ function decimal(value) {
   return parts;
 }
 
-/** The account balance in cents: finite, from 0 to 1,000,000,000,000, at most 2 decimal places. @param {unknown} value */
+/** The account balance in cents, with '-' for a negative zero: finite, from 0 to 1,000,000,000,000, at most 2 decimal places.
+ * @param {unknown} value @returns {{cents: bigint, sign: string}} */
 function balanceCents(value) {
   const parts = typeof value === 'string' ? decimal(value) : null;
   if (parts === null) refuse('input.amount_invalid', 'Enter a finite account balance in dollars and cents.');
@@ -53,7 +54,8 @@ function balanceCents(value) {
   if (cents === null || (parts.negative && cents !== 0n) || cents > 100000000000000n) {
     refuse('input.amount_invalid', 'Enter an account balance from 0 to 1,000,000,000,000, to the cent.');
   }
-  return cents;
+  // The command keeps a negative zero balance as a decimal does, so its figures from it print as -0.00.
+  return { cents, sign: parts.negative ? '-' : '' };
 }
 
 /** @param {unknown} value @param {number} most */
@@ -82,7 +84,7 @@ export function pensionMinimum(given) {
   if (year === undefined) refuse('period.unsupported', 'Choose an income year from 2024-25 to 2027-28.');
   const ttr = input.has('transition_to_retirement') ? input.get('transition_to_retirement') : false;
   if (typeof ttr !== 'boolean') refuse('input.flag_invalid', 'transition_to_retirement must be a boolean.');
-  const balance = balanceCents(input.get('account_balance'));
+  const { cents: balance, sign } = balanceCents(input.get('account_balance'));
   const age = whole(input.get('age'), 150);
   if (age === null) refuse('input.age_invalid', 'Enter the age in whole years, from 0 to 150.');
   const second = Number(year.slice(0, 4)) + 1;
@@ -91,14 +93,16 @@ export function pensionMinimum(given) {
   if (days === null || days < 1) refuse('input.day_count_invalid', `Enter the days from 1 to ${daysInYear} for ${year}.`);
   const factor = /** @type {bigint} */ (PENSION_FACTORS.find(([lowest]) => age >= lowest)?.[1]);
   // In cents over `den`: cl 4 gives nil from the last 30 days; cl 3 pro-rates a first year that starts after 1 July.
-  const [num, den, clause] = days <= 30 ? [0n, 1n, 'cl 4']
-    : days < daysInYear ? [balance * factor * BigInt(days), 100n * BigInt(daysInYear), 'cl 3'] : [balance * factor, 100n, 'cl 1(1)'];
+  const [num, den, clause, minimumSign] = days <= 30 ? [0n, 1n, 'cl 4', '']
+    : days < daysInYear ? [balance * factor * BigInt(days), 100n * BigInt(daysInYear), 'cl 3', sign] : [balance * factor, 100n, 'cl 1(1)', sign];
   // cl 5: to the nearest $10, $5 rounded up.
   const tens = (2n * num + 1000n * den) / (2000n * den);
-  return { year, amounts: { account_balance_used: centsText(balance, 1n), minimum_before_rounding: centsText(num, den), minimum_payment: `${tens * 10n}.00`,
+  // cl 4's nil is the command's own 0, never a product of the balance.
+  return { year, amounts: { account_balance_used: sign + centsText(balance, 1n), minimum_before_rounding: minimumSign + centsText(num, den),
+    minimum_payment: `${minimumSign}${tens * 10n}.00`,
       // SISR reg 6.01(2) 'transition to retirement income stream': at most 10% of the same balance, not
       // reduced for a part year, down to the cent so a payment of it stays within the limit.
-      ...(ttr ? { maximum_payment: `${balance / 1000n}.${String(balance / 10n % 100n).padStart(2, '0')}` } : {}) },
+      ...(ttr ? { maximum_payment: `${sign}${balance / 1000n}.${String(balance / 10n % 100n).padStart(2, '0')}` } : {}) },
     rates: { percentage_factor: `0.${String(factor).padStart(2, '0')}`, days: String(days), days_in_year: String(daysInYear) },
     factor: Number(factor), days, daysInYear, clause: /** @type {'cl 1(1)' | 'cl 3' | 'cl 4'} */ (clause) };
 }
