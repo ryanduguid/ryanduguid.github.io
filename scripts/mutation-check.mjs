@@ -49,6 +49,11 @@ const excess = { ...tba, file: 'assets/excess-contributions.mjs' };
 const tbaPage = { ...tba, file: 'assets/transfer-balance-result.mjs' };
 const pm = { file: 'assets/pension-minimum.mjs', test: 'scripts/pension-minimum.test.mjs' };
 const rd = { file: 'assets/residency-days.mjs', test: 'scripts/residency-days.test.mjs' };
+const essMain = { file: 'assets/ess-discount.mjs', test: 'scripts/ess-discount.test.mjs' };
+const essCore = { ...essMain, file: 'assets/ess-core.mjs' };
+const essInput = { ...essMain, file: 'assets/ess-input.mjs' };
+const essDeferral = { ...essMain, file: 'assets/ess-deferral.mjs' };
+const essValuation = { ...essMain, file: 'assets/ess-valuation.mjs' };
 const money = { ...business, file: 'assets/money.mjs' };
 const division296 = { ...business, file: 'assets/division-296.mjs' };
 const div7a = { ...business, file: 'assets/div7a.mjs' };
@@ -1393,6 +1398,23 @@ const MUTATIONS = [
   { ...rd, name: 'residency scope not needed', find: "if (input.get('scope_confirmed') !== true) refuse", replace: 'if (false) refuse' },
   { ...rd, name: 'residency form blank departure is 29 June', find: '`${start + 1}-06-30`', replace: '`${start + 1}-06-29`' },
   { ...rd, name: 'residency page principal is the count', find: 'rows: table, principal: 3, note', replace: 'rows: table, principal: 0, note' },
+  { ...essMain, name: 'ESS reduction not capped at $1,000', find: '? ZERO : (cmp(cap, eligible) < 0 ? cap : eligible);', replace: '? ZERO : eligible;' },
+  { ...essMain, name: 'ESS income test limit exclusive', find: 'cmp(adjusted, lit(RATES.income_test_limit)) > 0', replace: 'cmp(adjusted, lit(RATES.income_test_limit)) >= 0' },
+  { ...essMain, name: 'ESS start-up 15% discount test dropped', find: 'const market = held.right === null ? cmp(discount, mul(lit(RATES.start_up_discount_limit), held.value)) <= 0', replace: 'const market = held.right === null ? true' },
+  { ...essMain, name: 'ESS salary sacrifice $5,000 exclusive', find: 'cmp(total, lit(RATES.salary_sacrifice_limit)) <= 0]', replace: 'cmp(total, lit(RATES.salary_sacrifice_limit)) < 0]' },
+  { ...essMain, name: 'ESS real risk still eligible for the reduction', find: 'const eligible = c.nonDiscriminatory && !c.realRisk && further(c);', replace: 'const eligible = c.nonDiscriminatory && further(c);' },
+  { ...essMain, name: 'ESS forfeiture excluded despite a protecting condition', find: 'notAChoice && !f.protectsAgainstFall && ', replace: 'notAChoice && ' },
+  { ...essDeferral, name: 'ESS 30-day rule takes 31 days', find: 'f.disposed - base <= 30', replace: 'f.disposed - base <= 31' },
+  { ...essDeferral, name: 'ESS cessation point kept from 1 July 2022', find: 'return point[0] < on(CESSATION_ENDS) ? point :', replace: 'return true ? point :' },
+  { ...essDeferral, name: 'ESS 15-year point a day late', find: '[[addMonths(acquired, 180) - 1,', replace: '[[addMonths(acquired, 180),' },
+  { ...essDeferral, name: 'ESS deferred amount below nil', find: 'amount = cmp(int(0), gain) > 0 ? int(0) : gain;', replace: 'amount = gain;' },
+  { ...essValuation, name: 'ESS period on a row bound takes the higher row', find: 'last <= addMonths(day, months)', replace: 'last < addMonths(day, months)' },
+  { ...essValuation, name: 'ESS excess over 110% rounded half up', find: "quantize(sub(calculation, int(110)), 0, 'down')", replace: "quantize(sub(calculation, int(110)), 0, 'half_up')" },
+  { ...essValuation, name: 'ESS table value not compared with intrinsic', find: 'cmp(tabled, intrinsic) > 0 ? tabled : intrinsic', replace: 'tabled' },
+  { ...essCore, name: 'ESS cents rounded half down', find: "rounding === 'half_up' && (v.c % p) * 2n >= p", replace: "rounding === 'half_up' && (v.c % p) * 2n > p" },
+  { ...essCore, name: 'ESS division tie rounded to odd', find: 'q % 2n === 1n', replace: 'q % 2n === 0n' },
+  { ...essInput, name: 'ESS 3 decimal places taken', find: 'v.e < -2 ||', replace: 'v.e < -3 ||' },
+  { ...essInput, name: 'ESS acquisitions before 1 July 2015 taken', find: "if (acquired < on('2015-07-01')) {", replace: 'if (false) {' },
 ];
 
 // Runs that must read as invalid, not as caught.
@@ -1420,6 +1442,7 @@ const SHARED = [
   'scripts/transfer-balance-engine-differential.json',
   'scripts/pension-minimum-engine-differential.json',
   'scripts/residency-days-engine-differential.json',
+  'scripts/ess-discount-engine-differential.json',
   'scripts/concessional-catch-up-engine-differential.json',
   'scripts/unused-leave-engine-differential.json',
   'scripts/franking-account-engine-differential.json',
@@ -1442,7 +1465,7 @@ const SHARED = [
 
 const TEST_FILES = [
   levy.test, business.test, individualTest,
-  'scripts/fhss.test.mjs', 'scripts/work-expenses.test.mjs', 'scripts/government-super-amounts.test.mjs', swh.test, tba.test, pm.test, rd.test,
+  'scripts/fhss.test.mjs', 'scripts/work-expenses.test.mjs', 'scripts/government-super-amounts.test.mjs', swh.test, tba.test, pm.test, rd.test, essMain.test,
   'scripts/net-medical-expenses.test.mjs',
   'scripts/foreign-income.test.mjs',
   'scripts/minors-income.test.mjs',

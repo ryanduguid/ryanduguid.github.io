@@ -7,7 +7,7 @@ import * as calculate from '../assets/business-calculators.mjs';
 import { readFileSync, readdirSync } from 'node:fs';
 import {
   calculatorTools, depreciationTools, fhssTools, governmentSuperTools, individualTaxTools, levyTools, ozzitTools,
-  pensionMinimumTools, residencyDaysTools, transferBalanceTools, workExpensesTools,
+  pensionMinimumTools, residencyDaysTools, transferBalanceTools, workExpensesTools, essDiscountTools,
 } from '../assets/webmcp-tools.mjs';
 import { engines as individualEngines } from '../assets/individual-tax-results.mjs';
 import { fhss } from '../assets/fhss-result.mjs';
@@ -15,6 +15,7 @@ import { workExpenses, workExpensesYears } from '../assets/work-expenses-result.
 import { governmentSuperAmounts, governmentSuperYears } from '../assets/government-super-result.mjs';
 import { PENSION_MINIMUM_YEARS, pensionMinimum } from '../assets/pension-minimum.mjs';
 import { MAX_PERIODS, RESIDENCY_YEARS, residencyDays } from '../assets/residency-days.mjs';
+import { CAUSES, ESS_YEARS, MAX_INTERESTS, essDiscount } from '../assets/ess-discount.mjs';
 import { ATO_TABLE_5, CHARGE_YEARS, RELEASE_YEARS, excessContributions } from '../assets/excess-contributions.mjs';
 import { TBA_KINDS, TBA_YEARS, dayOf, label, transferBalance, yearOf } from '../assets/transfer-balance.mjs';
 import * as depreciation from '../assets/depreciation-rates.mjs';
@@ -465,6 +466,7 @@ const individual = {
   ...pensionMinimumTools({ pensionMinimum, PENSION_MINIMUM_YEARS }),
   ...transferBalanceTools({ ATO_TABLE_5, CHARGE_YEARS, RELEASE_YEARS, TBA_KINDS, TBA_YEARS, dayOf, excessContributions, label, transferBalance, yearOf }),
   ...residencyDaysTools({ MAX_PERIODS, RESIDENCY_YEARS, residencyDays }),
+  ...essDiscountTools({ CAUSES, ESS_YEARS, MAX_INTERESTS, essDiscount }),
 };
 
 test('each individual tax tool is keyed by the form that registers it and is read-only', () => {
@@ -474,7 +476,7 @@ test('each individual tax tool is keyed by the form that registers it and is rea
     'calculate_concessional_catch_up', 'calculate_bonus_withholding', 'calculate_salary_packaging',
     'calculate_novated_lease', 'calculate_fhss_release', 'calculate_work_expenses',
     'calculate_government_super_amounts', 'calculate_pension_minimum', 'calculate_transfer_balance',
-    'calculate_residency_days']);
+    'calculate_residency_days', 'calculate_ess_discount']);
   for (const [key, t] of Object.entries(individual)) {
     const form = readFileSync(new URL(`../_includes/calculators/${key}.html`, import.meta.url), 'utf8');
     assert.ok(form.includes(`<form class="calculator-split" data-calculator="${key}">`), key);
@@ -1722,7 +1724,7 @@ test('every calculator include in _includes/calculators has a registered WebMCP 
     .sort();
   const registered = [...Object.keys(tools), ...Object.keys(individual)].sort();
   assert.deepEqual(registered, slugs);
-  assert.equal(registered.length + 2, 83);
+  assert.equal(registered.length + 2, 84);
 });
 
 test('business days tool returns the page worked example, matches holiday JSON and refuses mismatched or invalid inputs', async () => {
@@ -2164,6 +2166,33 @@ test('pension minimum tool covers full years, pro-rating, 1 June nil and leap ye
   await assert.rejects(tool.execute({ incomeYear: '2026-27', accountBalance: '600000', age: 151 }), /age must be a whole number from 0 to 150/);
   await assert.rejects(tool.execute({ incomeYear: '2026-27', accountBalance: '600000', age: 67, scopeConfirmed: false }), /Confirm the facts/);
   await assert.rejects(tool.execute({ incomeYear: '2026-27', accountBalance: '600000', age: 67, extra: 1 }), /extra is not an input of this tool/);
+});
+
+test('employee share scheme tool returns the page example, a deferred right and a forfeiture, and refuses what the command refuses', async () => {
+  const tool = individual['ess-discount'];
+  const conditions = { employed: true, ordinarySharesOnly: true, notShareTradingCompany: true, minimumHoldingPeriod: true,
+    tenPercentLimit: true, nonDiscriminatory: true, realRiskOfForfeiture: false, salarySacrifice: false };
+  const incomeTest = { taxableIncome: '90000', reportableFringeBenefitsTotal: '0', reportableSuperContributions: '0', totalNetInvestmentLoss: '0' };
+  const shares = { kind: 'share', acquired: '2025-09-01', consideration: '0', marketValue: '2500', conditions: { ...conditions, broadAvailability: true } };
+  const page = await tool.execute({ incomeYear: '2025-26', interests: [shares], incomeTest });
+  assert.deepEqual([page.amounts.reduction, page.amounts.assessable_discount, page.currency, page.source],
+    ['1000.00', '1500.00', 'AUD', 'https://duguid.com.au/tools/individual-tax/ess-discount/']);
+  const rights = { kind: 'right', acquired: '2021-09-01', consideration: '0', exercisePrice: '1000', shareMarketValue: '1200',
+    lastExerciseDay: '2025-09-01', valuation: 'market_value', marketValue: '300',
+    conditions: { ...conditions, realRiskOfForfeiture: true, deferralStated: false },
+    startUp: { unlisted: true, incorporatedUnder10Years: true, aggregatedTurnover: '1000000', employerAustralianResident: false },
+    deferral: { exercised: '2025-08-01', shareRestrictionsLifted: '2025-08-01', costBase: '1300', taxingPointValue: { date: '2025-08-01', marketValue: '2000' } } };
+  const later = await tool.execute({ incomeYear: '2025-26', interests: [rights] });
+  assert.deepEqual([later.interests[0].taxing_point_rule, later.interests[0].employment_ended, later.amounts.deferred_amounts],
+    ['s 83A-120(7)', undefined, '700.00']);
+  const lost = await tool.execute({ incomeYear: '2025-26', interests: [{ kind: 'share', acquired: '2023-09-01',
+    forfeiture: { cause: 'ceased_employment', protectsAgainstFall: false, considerationReceived: false, amountIncluded: '400', yearIncluded: '2023-24' } }] });
+  assert.deepEqual(lost.forfeitureExclusions, { '2023-24': '400.00' });
+  await assert.rejects(tool.execute({ incomeYear: '2025-26', interests: [shares], scopeConfirmed: false }), { code: 'scope.not_confirmed' });
+  await assert.rejects(tool.execute({ incomeYear: '2025-26', interests: [shares] }), { code: 'input.missing_field' });
+  await assert.rejects(tool.execute({ incomeYear: '2019-20', interests: [shares] }), /incomeYear does not match/);
+  await assert.rejects(tool.execute({ incomeYear: '2025-26', interests: [{ ...shares, marketValue: '1.001' }] }), /marketValue does not match/);
+  await assert.rejects(tool.execute({ incomeYear: '2025-26', interests: [shares], foreignEmployment: true }), /foreignEmployment is not an input/);
 });
 
 test('residency day count tool counts broken periods, leap years and the exception, and decides no residency', async () => {

@@ -5,9 +5,10 @@
 import * as calculate from '../../assets/business-calculators.mjs';
 import {
   calculatorTools, fhssTools, governmentSuperTools, individualTaxTools, pensionMinimumTools, residencyDaysTools, transferBalanceTools,
-  workExpensesTools,
+  workExpensesTools, essDiscountTools,
 } from '../../assets/webmcp-tools.mjs';
 import { MAX_PERIODS, RESIDENCY_YEARS, residencyDays } from '../../assets/residency-days.mjs';
+import { CAUSES, ESS_YEARS, MAX_INTERESTS, essDiscount } from '../../assets/ess-discount.mjs';
 import { PENSION_MINIMUM_YEARS, pensionMinimum } from '../../assets/pension-minimum.mjs';
 import {
   ATO_TABLE_5, CHARGE_YEARS, RELEASE_YEARS, TBA_KINDS, TBA_YEARS, dayOf, excessContributions, label, transferBalance,
@@ -628,6 +629,9 @@ pensionMinimumTools({ pensionMinimum });
 void residencyDaysTools({ MAX_PERIODS, RESIDENCY_YEARS, residencyDays })['residency-days'].execute({ incomeYear: '2025-26', periods: [{ arrival: '2025-07-01', departure: '2025-09-30' }], usualPlaceOfAbodeOutsideAustralia: false, intendsToTakeUpResidence: false });
 // @ts-expect-error residencyDaysTools requires MAX_PERIODS alongside the years and residencyDays.
 residencyDaysTools({ RESIDENCY_YEARS, residencyDays });
+void essDiscountTools({ CAUSES, ESS_YEARS, MAX_INTERESTS, essDiscount })['ess-discount'].execute({ incomeYear: '2025-26', interests: [] });
+// @ts-expect-error essDiscountTools requires CAUSES alongside the years, the limit and essDiscount.
+essDiscountTools({ ESS_YEARS, MAX_INTERESTS, essDiscount });
 const coInput = { payday: '2026-07-10', base_rate: '30.00', casual_loading: '25', ordinary_hours: '30',
   lines: [{ hours: '3', percent: '175', overtime: true }], leave_hours: '0', leave_loading: '0', leave_loading_overtime: false };
 const coSuper: number = calculate.casualOvertime(coInput).superGuarantee;

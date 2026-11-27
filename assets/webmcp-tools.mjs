@@ -16,6 +16,7 @@ import {
 } from './webmcp-individual-more.mjs';
 import { pensionMinimumTool, transferBalanceTool } from './webmcp-individual-retirement.mjs';
 import { residencyDaysTool } from './webmcp-individual-residency.mjs';
+import { essDiscountTool } from './webmcp-individual-ess.mjs';
 
 // WebMCP tool descriptors for the site's calculators. Each tool calls the same module
 // function as its page's form, reads nothing from the form and sends nothing anywhere.
@@ -1032,6 +1033,14 @@ export function transferBalanceTools(engine) {
  */
 export function residencyDaysTools(engine) {
   return { 'residency-days': residencyDaysTool(TOOL_KIT, engine) };
+}
+
+/**
+ * WebMCP descriptor for the employee share scheme discount calculator.
+ * @param {import('./webmcp-individual-ess.mjs').EssDiscountEngine} engine
+ */
+export function essDiscountTools(engine) {
+  return { 'ess-discount': essDiscountTool(TOOL_KIT, engine) };
 }
 
 /** The WebMCP descriptor for the income tax estimate.
