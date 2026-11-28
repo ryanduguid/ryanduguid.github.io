@@ -1787,6 +1787,85 @@ fn rate_pages_state_their_csv_year_value_and_dates() {
 }
 
 #[test]
+fn flagship_rate_pages_keep_answers_sources_and_csv_in_extracted_markdown() {
+    assert!(rendered(), "rate extraction requires a rendered site");
+    let pages: [(&str, &str, &[&str]); 3] = [
+        (
+            "div7a-benchmark-rate",
+            "div7a-benchmark-rates.csv",
+            &[
+                "https://www.legislation.gov.au/C1936A00027/latest/text",
+                "https://www.rba.gov.au/statistics/tables/",
+                "https://www.ato.gov.au/tax-rates-and-codes/division-7a-benchmark-interest-rate",
+            ],
+        ),
+        (
+            "super-guarantee",
+            "super-guarantee-rates.csv",
+            &[
+                "https://www.ato.gov.au/tax-rates-and-codes/key-superannuation-rates-and-thresholds/super-guarantee",
+                "https://www.legislation.gov.au/C2025A00057/asmade",
+                "https://www.legislation.gov.au/C2004A04402/latest/text",
+            ],
+        ),
+        (
+            "car-limit",
+            "car-limit.csv",
+            &[
+                "https://www.ato.gov.au/businesses-and-organisations/small-business-newsroom/car-thresholds-from-1-july",
+                "https://www.ato.gov.au/individuals-and-families/income-deductions-offsets-and-records/tradies-be-certain-about-what-you-can-claim",
+                "https://www.ato.gov.au/businesses-and-organisations/income-deductions-and-concessions/depreciation-and-capital-expenses-and-allowances/backing-business-investment-accelerated-depreciation",
+                "https://www.legislation.gov.au/C2004A05138/latest/text",
+            ],
+        ),
+    ];
+    // Model the boilerplate removal that dropped these introductions in Firecrawl (#851).
+    let converter = htmd::HtmlToMarkdown::builder()
+        .skip_tags(vec!["header", "footer", "nav", "aside"])
+        .build();
+    let mut failures = Vec::new();
+    for (slug, csv, citations) in pages {
+        let fact = rate_fact(slug);
+        let html = site_tools::seo_core::visible_html(&read(&format!("rates/{slug}/index.html")));
+        let main = re(r"<main\b[^>]*>(.*?)</main\s*>", S)
+            .search(&html)
+            .unwrap_or_else(|| panic!("{slug}: no rendered main content"));
+        let markdown = converter.convert(&main[1]).unwrap();
+        let lead = markdown
+            .lines()
+            .skip_while(|line| !line.starts_with("# "))
+            .skip(1)
+            .find(|line| !line.trim().is_empty())
+            .unwrap_or_default();
+        if first_figure(lead).as_ref() != Some(&fact.value) {
+            failures.push(format!("{slug}: extracted lead lacks {}", fact.value));
+        }
+
+        let expected_dates: Vec<_> = fact.checked.iter().map(|date| format_date(date)).collect();
+        let dates = re(r"Source checked (\d{1,2} [A-Z][a-z]+ \d{4})", 0).findall(&markdown);
+        if dates != expected_dates {
+            failures.push(format!(
+                "{slug}: extracted source dates {dates:?}, expected {expected_dates:?}"
+            ));
+        }
+
+        let page_url = format!("https://duguid.com.au/rates/{slug}/");
+        let links: Vec<_> = re(r"\]\(([^)\s]+)\)", 0)
+            .findall(&markdown)
+            .iter()
+            .filter_map(|href| site_tools::pyurl::urljoin(&page_url, href).ok())
+            .collect();
+        let download = format!("{page_url}{csv}");
+        for expected in citations.iter().copied().chain([download.as_str()]) {
+            if !links.iter().any(|link| link == expected) {
+                failures.push(format!("{slug}: extracted link missing {expected}"));
+            }
+        }
+    }
+    assert!(failures.is_empty(), "{failures:#?}");
+}
+
+#[test]
 fn rates_hub_modification_date_covers_content_changes() {
     assert!(rendered(), "rates hub dates require a rendered site");
     let page = read("rates/index.html");
