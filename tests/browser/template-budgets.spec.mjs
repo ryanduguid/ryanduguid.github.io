@@ -20,6 +20,7 @@ const calculatorIncludes = readdirSync('_includes/calculators')
 const topics = paths.filter((path) => /^\/tools\/accounting-questions\/[a-z-]+\/$/.test(path));
 
 test('calculator and question pages open on their working control', async ({ page }) => {
+  // The shared timeout must cover navigating to every calculator and question page.
   test.setTimeout(60_000);
   expect(calculators.map((path) => path.split('/').at(-2)).sort()).toEqual(calculatorIncludes);
   expect(topics).toHaveLength(10);

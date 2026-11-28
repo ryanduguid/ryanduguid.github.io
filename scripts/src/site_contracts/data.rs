@@ -46,10 +46,10 @@ pub const AUTHORITY_URLS: [(&str, &str); 2] = [
 ];
 pub const CODEX_MCP_INSTALL_PATTERN: &str =
     r"\bcodex\s+mcp\s+add\s+aus-accounting\s+--\s+uvx\s+aus-accounting-mcp\b";
-pub const GITHUB_AGENT_SKILLS_URL: &str = "https://github.com/ryanduguid/github-agent-skills";
+pub const GITHUB_AGENT_SKILLS_URL: &str = "https://github.com/yungSNAT/github-agent-skills";
 pub const GITHUB_AGENT_SKILLS_BOUNDARY: &str = "github-agent-skills gives Codex and Claude Code the GitHub maintenance workflows this portfolio uses, and keeps the fictional-data and human review boundaries.";
 pub const GITHUB_AGENT_SKILLS_INSTALL_PATTERN: &str = concat!(
-    r"\bgit\s+clone\s+https://github\.com/ryanduguid/github-agent-skills\.git\s+",
+    r"\bgit\s+clone\s+https://github\.com/yungSNAT/github-agent-skills\.git\s+",
     r"cd\s+github-agent-skills\s+rustup\s+toolchain\s+install\s+",
     r"cargo\s+run\s+--manifest-path\s+tools/github-skills/Cargo\.toml\s+--locked\s+--\s+validate-skills\s+--strict\b"
 );

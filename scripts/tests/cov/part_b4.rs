@@ -4,6 +4,7 @@
 //! Failed writes and live checks that reach no network: `pin_rates`,
 //! `build_effective_life` and `release_record --verify-live`.
 use site_tools::{pin_rates, release_record};
+#[cfg(target_os = "linux")]
 use std::path::Path;
 use std::process::Command;
 

@@ -748,8 +748,8 @@ fn public_contracts_install_and_adoption_routes() {
         );
     }
     let route = [
-        "https://github.com/ryanduguid/github-agent-skills",
-        "git clone https://github.com/ryanduguid/github-agent-skills.git",
+        "https://github.com/yungSNAT/github-agent-skills",
+        "git clone https://github.com/yungSNAT/github-agent-skills.git",
         "cd github-agent-skills",
         "cargo run --manifest-path tools/github-skills/Cargo.toml --locked -- validate-skills --strict",
         contracts::GITHUB_AGENT_SKILLS_BOUNDARY,
