@@ -14,7 +14,7 @@ JavaScript is required for interactive calculations. The formula, assumptions an
 
 One super lump sum from a complying fund
 
-Work out The most income tax on the lump sum The amount the fund withholds (Schedule 12) The tax on a departing Australia superannuation payment
+Work out The most income tax on the lump sum The amount the fund withholds (Schedule 12) The amount withheld from an income stream payment (Schedule 13) The tax on a departing Australia superannuation payment
 
 The lump sum
 
@@ -56,19 +56,23 @@ Withholding is worked for payments from 13 October 2020. With a TFN, a resident�
 
 Take the components from the fund’s or the ATO’s statement. The working holiday maker rate applies when the payment includes amounts from contributions made whilst the person was a working holiday maker. An unclaimed money roll-over with an untaxed element is refused: section 5(2) taxes any excess untaxed roll-over amount in it at nil.
 
+### What the income stream inputs need
+
+An income stream payment is worked under Schedule 13, Part A, for payments in 2024-25 to 2026-27. Its tax free component is its share of the interest’s when the stream commenced. The fund withholds from the taxable component under 60, or only from the untaxed element at 60 or over, ignoring cents, by the PAYG tax table for the period: scale 2 with the tax-free threshold claimed, scale 1 without. It takes off a tax offset (15% of the taxed element for a disability super income stream or a dependant under 60, 10% of the untaxed element at 60 or over) and withholds the greater of the rest and the offset adjustment for the Medicare levy. Without a TFN it withholds 47% (45% for a foreign resident) with no offset. A capped defined benefit income stream to someone 60 or over is refused, as Parts B to E apply, as are a foreign resident with a TFN and a dependant under 60 whose deceased died at 60 or over.
+
 Fictional example: the first boundary case below. Change the inputs and calculate your own. Inputs: 2026-27; member; paid 1 October 2026; lump sum $300,000.00 from an interest of $300,000.00 with $30,000.00 tax free; untaxed element $80,000.00; born 1 May 1964; no service before 1 July 1983; untaxed plan cap used $0.00. Tax free component $30,000.00 Taxable component: element taxed in the fund $190,000.00 Taxable component: element untaxed in the fund $80,000.00 Untaxed element within the untaxed plan cap left, $80,000.00 at no more than 15% $12,000.00 Assessable income $80,000.00 Not assessable income and not exempt income $220,000.00 Most income tax on the lump sum, before Medicare levy $12,000.00 Untaxed plan cap amount counted $80,000.00 Aged 62 on the payment date, preservation age 59: 60 or over, so only the untaxed element is assessable (ss 301-10 and 301-95).
 
 ## How the super lump sum tax calculator works
 
 The super lump sum tax calculator splits one lump sum from a complying fund, paid from 1 July 2020 to 30 June 2027, into its components. It gives the most income tax each part can bear before the Medicare levy. A member’s treatment turns on age on the payment day and preservation age; a death benefit’s turns on whether the person receiving it is a death benefits dependant. Each rate is a ceiling: the offsets stop the tax on a part going above it, so a person on lower marginal rates pays less, and the Medicare levy is added on top.
 
-It also works the amount the fund withholds from the same lump sum under Schedule 12, for a payment from 13 October 2020, including from a roll-over and a death benefit paid to a deceased estate, and the final tax on a departing Australia superannuation payment in 2025-26 to 2027-28.
+It also works the amount the fund withholds from the same lump sum under Schedule 12, for a payment from 13 October 2020, including from a roll-over and a death benefit paid to a deceased estate; the amount withheld from one income stream payment under Schedule 13, Part A, from 1 July 2024; and the final tax on a departing Australia superannuation payment in 2025-26 to 2027-28.
 
-Its results match the super-benefit-tax command of Ryan Duguid’s australian-accounting calculators on the ATO’s examples and 532 test cases, and its super-withholding and dasp-tax commands on 613 more, refusals included.
+Its results match the super-benefit-tax command of Ryan Duguid’s australian-accounting calculators on the ATO’s examples and 532 test cases, and its super-withholding and dasp-tax commands on 613 more and the super-withholding command’s income stream withholding on 359 more, refusals included.
 
 ## What the super lump sum tax calculator does not cover
 
-The calculator does not work the tax at the person’s own marginal rates, the Medicare levy, income streams and their withholding (Schedule 13), the tax on a roll-over or a deceased estate, a tax treaty, or payments from a non-complying or foreign fund. It does not decide dependency, a terminal medical condition, the components or the elements: you state those. It refuses a disability superannuation benefit, an untaxed element from service before 1 July 1983, and other lump sums in the same year that share the low rate cap.
+The calculator does not work the tax at the person’s own marginal rates, the Medicare levy or the tax on an income stream in the person’s return. Nor does it work withholding from a capped defined benefit income stream to someone 60 or over (Schedule 13 Parts B to E), a commutation of an income stream, the tax on a roll-over or a deceased estate, a tax treaty, or payments from a non-complying or foreign fund. It does not decide dependency, a terminal medical condition, the components or the elements: you state those. It refuses a disability superannuation benefit, an untaxed element from service before 1 July 1983, and other lump sums in the same year that share the low rate cap.
 
 Confirm the result with the fund, the ATO’s guidance on super lump sums or a registered tax agent before relying on it. The redundancy and ETP withholding calculator covers employment termination payments.
 
@@ -90,7 +94,7 @@ A death benefit to a death benefits dependant is tax free (section 302-60) | 202
 Other lump sums in the same year share the low rate cap, which the page does not take | 2021-22; member; paid 1 October 2021; lump sum $1,500.00 from an interest of $1,500.00 with $0.00 tax free; untaxed element $500.00; born 1 January 1963; no service before 1 July 1983; low rate cap used $224,999.99; other lump sums this year; untaxed plan cap used $0.00 | Refused: other lump sums received in the same income year at or above preservation age and under 60 share the year’s low rate cap left, the taxed element first whatever the order of payment (ITAA 1997 ss 301-20(3) and 301-105(5) and (6)), which this calculator does not take; with none of the cap left they do not change the result
 2027-28’s untaxed plan cap is not yet published | 2027-28; member; paid 1 October 2027; lump sum $300,000.00 from an interest of $300,000.00 with $30,000.00 tax free; untaxed element $80,000.00; born 1 May 1964; no service before 1 July 1983; untaxed plan cap used $0.00 | Refused: choose an income year from 2020-21 to 2026-27; the untaxed plan cap for 2027-28 is not yet published
 
-One of the sixty-five business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the sixty-nine business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 ## Related
 
@@ -104,6 +108,6 @@ Planning estimates in AUD. Confirm tax treatment, liability amounts and dates se
 
 - australian-accounting: https://github.com/ryanduguid/australian-accounting
 - redundancy and ETP withholding calculator: https://duguid.com.au/tools/business-calculators/termination-payment/
-- sixty-five business calculators: https://duguid.com.au/tools/business-calculators/
+- sixty-nine business calculators: https://duguid.com.au/tools/business-calculators/
 - Super projection calculator: https://duguid.com.au/tools/individual-tax/super-projection/
 - Division 296 tax calculator: https://duguid.com.au/tools/business-calculators/division-296/

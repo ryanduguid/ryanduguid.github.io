@@ -1,0 +1,64 @@
+# SMSF tax calculator: taxable income, ECPI, NALI and levy
+
+Source: https://duguid.com.au/tools/business-calculators/smsf-tax/
+
+> A complying SMSF’s tax for the annual return: exempt pension income, the 15% and 45% components, offsets, the $259 levy and the amount due or refundable.
+
+# SMSF tax calculator
+
+A complying SMSF’s income tax calculation statement, 2020-21 to 2026-27.
+
+Published 26 November 2026. Last checked 22 November 2026.
+
+JavaScript is required for interactive calculations. The formula, assumptions and source links remain available below.
+
+A complying SMSF’s item 13 for one income year
+
+Assessable contributions (whole AUD)
+
+Income year 2026-27 2025-26 2024-25 2023-24 2022-23 2021-22 2020-21
+
+Of those, no-TFN contributions income (whole AUD) Net non-arm’s length income, label U (whole AUD) Non-arm’s length income from general expenses, section 295-550(8) and (9) (AUD) Income from segregated current pension assets (whole AUD) Other income the actuary’s proportion applies to (whole AUD) The actuary’s proportion, as a decimal from 0 to 1 Income from segregated non-current assets (whole AUD) Total deductions (whole AUD) Of those, deductions attributable to the contributions (whole AUD)
+
+The fund has disregarded small fund assets (section 295-387) No Yes
+
+Section D: offsets, credits and the levy
+
+Non-refundable non-carry forward tax offsets, label C (AUD) Non-refundable carry forward tax offsets, label D (AUD) Refundable tax offsets, such as franking credits, label E (AUD) Eligible credits, label H (AUD) PAYG instalments raised, label K (AUD) Section 102AAM interest charge, label G (AUD)
+
+The fund was newly registered in the year No Yes
+
+The fund was wound up in the year No Yes
+
+Calculate
+
+Enter Section B and C amounts in whole dollars, as the return does. The actuary’s proportion applies to income that is not from segregated assets, contributions or non-arm’s length income (section 295-390); enter it as a decimal, such as 0.25 for 25%.
+
+Fictional example: the first boundary case below. Change the inputs and calculate your own. Inputs: 2025-26; assessable contributions $60,000.00, other income $120,000.00, deductions $8,000.00, refundable offsets $3,000.00, PAYG instalments $2,000.00; actuary’s proportion 0.25. Gross income (W) $180,000.00 Exempt current pension income (Y) $30,000.00 Total assessable income (V) $150,000.00 Taxable income (A) $142,000.00 Tax on taxable income (T1) $21,300.00 Gross tax (B) $21,300.00 Subtotal 1, after non-refundable offsets (T2) $21,300.00 Subtotal 2, after carry forward offsets (T3) $21,300.00 Tax payable (T5) $18,300.00 Supervisory levy (L) $259.00 Amount due (S) $16,559.00 Low tax component at 15% and any non-arm’s length component at 45% (Income Tax Rates Act 1986 s 26(1)).
+
+## How the SMSF tax calculator works
+
+The calculator works the income tax calculation statement at item 13 of a complying self managed superannuation fund’s annual return for an income year from 2020-21 to 2026-27. Gross income is the assessable contributions, net non-arm’s length income and the fund’s other income. Exempt current pension income is the income from segregated current pension assets plus the actuary’s proportion of the other income, rounded down to the dollar. Taxable income is the assessable income less deductions; a loss gives nil. The non-arm’s length component is the lesser of the non-arm’s length income and the taxable income less the assessable contributions and plus the deductions attributable to them (section 295-545(2A)), taxed at 45%; the rest of the taxable income is the low tax component, taxed at 15%. No-TFN contributions income is taxed at a further 32%. Non-refundable, carry forward and refundable offsets come off in that order, and the $259 supervisory levy, the interest charge, credits and PAYG instalments give the amount due or refundable at label S. A newly registered fund also pays the levy for its first year (label N); an existing fund wound up in the year pays none for the next (label M). Each amount is worked exactly and rounded to the cent once.
+
+## What the SMSF tax calculator does not cover
+
+The calculator takes a complying Australian superannuation fund only: a non-complying fund, taxed at 45% on all its income, and a fund that is not an Australian superannuation fund are refused. It does not decide which income is non-arm’s length, segregated or exempt, what is deductible, the actuary’s proportion, or the amount of any offset or credit. It does not work out capital gains, losses carried forward from earlier years, the transfer balance cap, Division 296 tax, the tax on contributions above the caps or the fund’s instalment rate. It refuses income from segregated current pension assets when the fund has disregarded small fund assets, as that income goes in with the actuary’s proportion. Results are planning estimates: check them against the fund’s records and the ATO’s instructions.
+
+## Boundary cases
+
+Each row is a test: scripts/business-calculators.test.mjs runs this calculator on these fictional inputs and fails if the result differs from the one shown.
+
+Boundary cases: SMSF tax calculator
+
+Case | Inputs | Result
+A fund with a 25% actuary’s proportion and franking credits: $16,559 due | 2025-26; assessable contributions $60,000.00, other income $120,000.00, deductions $8,000.00, refundable offsets $3,000.00, PAYG instalments $2,000.00; actuary’s proportion 0.25 | Taxable income $142,000.00, tax payable $18,300.00, amount due or refundable $16,559.00
+Non-arm’s length income taxed at 45%, a newly registered fund paying the levy twice | 2025-26; assessable contributions $60,000.00, net non-arm’s length income $10,000.00, other income $120,000.00, deductions $8,000.00, refundable offsets $3,000.00, PAYG instalments $2,000.00; actuary’s proportion 0.25; newly registered | Taxable income $152,000.00, tax payable $22,800.00, amount due or refundable $21,318.00
+A fund wholly in pension phase with franking credits: a refund | 2025-26; other income $120,000.00, refundable offsets $3,000.00; actuary’s proportion 1 | Taxable income $0.00, tax payable $0.00, amount due or refundable -$2,741.00
+
+One of the sixty-nine business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+
+Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
+
+## Links
+
+- sixty-nine business calculators: https://duguid.com.au/tools/business-calculators/

@@ -28,11 +28,12 @@ import { WITHHOLDING_COMMANDS, withholdingSchedule } from './withholding-schedul
 /** @typedef {{inputs: string, rows: string[][], principal: number, note?: string}} Result */
 
 const RESIDENCY = /** @type {Record<string, string>} */ ({ resident: 'Australian resident', foreign: 'foreign resident',
-  'working-holiday': 'working holiday maker' });
+  'working-holiday': 'working holiday maker', 'part-year': 'Australian resident for part of the year' });
 const NOT_RESIDENT = /** @type {Record<string, string>} */ ({
   foreign: 'A foreign resident gets no low income tax offset and pays no Medicare levy or surcharge',
   'working-holiday': 'Working holiday maker rates apply to all of this taxable income, taken as a foreign resident’s: '
     + 'no low income tax offset and no Medicare levy or surcharge',
+  'part-year': 'The Medicare levy surcharge is not worked out for a part-year resident',
 });
 const PERIOD = /** @type {Record<string, string>} */ ({ year: 'a year', month: 'a month', fortnight: 'a fortnight', week: 'a week' });
 const whole = (/** @type {number} */ value) => `$${value.toLocaleString('en-AU')}`;
@@ -47,13 +48,16 @@ function incomeTaxResult(value, aud) {
   const loan = value('study-loan') === 'yes';
   const resident = value('residency') === 'resident';
   const offsets = incomeTaxOptions(value, spouse);
+  const partYear = value('residency') === 'part-year' ? { months: Number(value('part-year-months')),
+    nonResidentDays: Number(value('non-resident-days')), eligiblePensioner: value('eligible-pensioner') === 'yes' } : undefined;
   const r = taxEstimate({ year: value('year'), residency: value('residency'), taxable: value('income'),
     fringe: value('fringe'), super: value('super'), losses: value('losses'), foreign: value('foreign'), studyLoan: loan,
     uncoveredDays: value('uncovered'), spouse: spouse ? value('spouse-income') : null, children: value('children'),
-    withheld: value('withheld'), offsets });
+    withheld: value('withheld'), offsets, partYear });
   const children = Number(value('children'));
   const [before, after, refundable] = offsets ? optionRows(r, aud) : [[], [], []];
-  const rows = [['Tax on taxable income', aud(r.tax)], ...before, ['Low income tax offset', aud(r.offset)]];
+  const rows = [...(partYear ? [['Tax-free threshold', aud(Number(r.threshold))]] : []), ['Tax on taxable income', aud(r.tax)],
+    ...before, ['Low income tax offset', aud(r.offset)]];
   if (['2020-21', '2021-22'].includes(value('year'))) rows.push(['Low and middle income tax offset', aud(r.lmito)]);
   rows.push(...after, ['Medicare levy', aud(r.medicare)], ['Medicare levy surcharge', aud(r.surcharge)]);
   if (loan) rows.push(['Study and training loan repayment', aud(r.studyLoan)]);
@@ -70,6 +74,8 @@ function incomeTaxResult(value, aud) {
       + `${count(Number(value('uncovered')), 'day')} without private hospital cover, `
       + `${spouse ? `a spouse with income for surcharge purposes of ${aud(Number(value('spouse-income')))}` : 'no spouse'} and `
       + `${children === 1 ? '1 dependent child' : `${children || 'no'} dependent children`}, tax withheld ${aud(Number(value('withheld')))}`
+      + (partYear ? `, ${count(partYear.months, 'month')} as a resident and ${count(partYear.nonResidentDays, 'day')} not, `
+        + `${partYear.eligiblePensioner ? 'an' : 'not an'} eligible pensioner` : '')
       + (offsets ? optionInputs(value, offsets, aud) : ''),
     principal: rows.length - 1, rows, note: surcharge };
 }
@@ -255,8 +261,8 @@ function bonusResult(value, aud) {
    * @param {[{studyLoan: number, total: number}, string][]} parts */
   const loanNote = (parts) => {
     const each = parts.map(([t, label]) => `${aud(t.studyLoan)} of the ${aud(t.total)}`.replaceAll('.00', '') + ` ${label}`);
-    return loan ? `Each amount withheld includes the Schedule 8 study loan component: ${each.slice(0, -1).join(', ')}`
-      + `${each.length > 1 ? ' and ' : ''}${each.at(-1)}` : '';
+    return loan ? `Each amount withheld includes the Schedule 8 study loan component: ${each.slice(0, -1).join(', ')} and `
+      + each.at(-1) : '';
   };
   if (r.method === 'A') return methodAResult(r, { aud, loan, head, money, loanNote });
   const rows = [['Withheld from this pay’s earnings', aud(r.base.total)]];
@@ -348,7 +354,7 @@ const percent = (/** @type {number} */ rate) => `${Number((rate * 100).toFixed(2
 function lumpSumArrearsResult(value, aud) {
   const accrual = [];
   for (const slot of ARREARS_SLOTS) {
-    const field = (/** @type {string} */ name) => (value(`${slot}-${name}`) ?? '').trim();
+    const field = (/** @type {string} */ name) => value(`${slot}-${name}`).trim();
     // Only the 2 latest accrual years take their own taxable income and rebate facts.
     const facts = slot.startsWith('earlier') ? []
       : ARREARS_FACTS.map(([key, name]) => [key, field(name)]).filter(([, text]) => text !== '');
@@ -365,10 +371,10 @@ function lumpSumArrearsResult(value, aud) {
   let note = 'No offset: the total arrears amount is less than 10% of normal taxable income less it';
   if (r.met) {
     rows.push([`Tax on arrears in ${year}`, aud(/** @type {number} */ (r.taxOnArrears))],
-      ...(r.notional ?? []).map(({ year: accrued, amount }) => [`Notional tax for ${accrued}`, aud(amount)]));
+      ...r.notional.map(({ year: accrued, amount }) => [`Notional tax for ${accrued}`, aud(amount)]));
     if (r.distant) rows.push(['Notional tax for the distant years', aud(r.distant.amount)]);
     rows.push(['Notional tax on arrears', aud(/** @type {number} */ (r.notionalTotal))]);
-    const [latest, before] = r.notional ?? [];
+    const [latest, before] = r.notional;
     const distant = r.distant?.years ?? [];
     const listed = distant.length > 1 ? `${distant.slice(0, -1).join(', ')} and ${distant.at(-1)}` : distant[0];
     note = r.distant && r.rates ? `${distant.length > 1 ? 'The distant years' : 'The distant year'} ${listed} `

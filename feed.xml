@@ -8,13 +8,6 @@
   <updated>2026-11-27T00:00:00Z</updated>
   <author><name>Ryan Duguid</name></author>
   <entry>
-    <title>A new business calculator, the FBT return, composes an employer’s FBT return…</title>
-    <link href="https://duguid.com.au/changelog/#entry-1c18d5bee04cd822" />
-    <id>https://duguid.com.au/changelog/#entry-1c18d5bee04cd822</id>
-    <updated>2026-11-27T00:00:00Z</updated>
-    <summary>A new business calculator, the FBT return, composes an employer’s FBT return from its benefits’ taxable values: the type 1 and type 2 gross-up at items 14 to 16, item 23, each employee’s reportable fringe benefits amount, a rebatable employer’s rebate under section 65J, the $30,000 and $17,000 caps of section 57A employers with the $5,000 entertainment cap, items 20 to 22 and a quarter’s FBT instalment, checked against the australian-accounting fbt-return and fbt-instalment commands on 775 cases.</summary>
-  </entry>
-  <entry>
     <title>The depreciation register distinguishes assets with the same name, shows the…</title>
     <link href="https://duguid.com.au/changelog/#entry-812e9c722d31e872" />
     <id>https://duguid.com.au/changelog/#entry-812e9c722d31e872</id>
@@ -36,18 +29,25 @@
     <summary>Reference tables now carry names for screen readers. Calculator fields and reference pages have more space between headings, instructions and tables. The depreciation register identifies the industry or asset group on links that share a name. Each indexed page also has a Markdown edition at index.md.</summary>
   </entry>
   <entry>
-    <title>The company tax and franking calculator now also works the company tax return’s…</title>
-    <link href="https://duguid.com.au/changelog/#entry-ce4bc4c452bf396d" />
-    <id>https://duguid.com.au/changelog/#entry-ce4bc4c452bf396d</id>
+    <title>A new business calculator, leave provisions, measures annual and long service…</title>
+    <link href="https://duguid.com.au/changelog/#entry-a7d28e64a0183afb" />
+    <id>https://duguid.com.au/changelog/#entry-a7d28e64a0183afb</id>
     <updated>2026-11-26T00:00:00Z</updated>
-    <summary>The company tax and franking calculator now also works the company tax return’s calculation statement for 2021-22 to 2026-27: prior-year losses with the stated outcome of their loss test, net exempt income, the tax offsets at labels C to F, credits and PAYG instalments, and the amount due or refundable at label S. It works the Division 160 loss carry back tax offset only for the claim years the law gives one: 2021-22 and 2022-23 under the former Division 160, and 2026-27 under the Division 160 that Act No. 71 of 2026 substituted.</summary>
+    <summary>A new business calculator, leave provisions, measures annual and long service leave under AASB 119 for 2020-21 to 2026-27, line by line: short-term lines undiscounted, other long-term lines projected by salary growth, weighted by the probability of payment and discounted, and the total split current and non-current under AASB 101 para 69.</summary>
   </entry>
   <entry>
-    <title>A new business calculator, blackhole expenditure, deducts business capital…</title>
-    <link href="https://duguid.com.au/changelog/#entry-f963dfebf680bc1c" />
-    <id>https://duguid.com.au/changelog/#entry-f963dfebf680bc1c</id>
+    <title>A new business calculator, instant asset write-off, says whether a small…</title>
+    <link href="https://duguid.com.au/changelog/#entry-54431228541eeebc" />
+    <id>https://duguid.com.au/changelog/#entry-54431228541eeebc</id>
     <updated>2026-11-26T00:00:00Z</updated>
-    <summary>A new business calculator, blackhole expenditure, deducts business capital expenditure under section 40-880 for 2020-21 to 2027-28: each item to the extent of its taxable purpose, a fifth a year over 5 income years, or at once as a start-up cost of a proposed business, and nothing where an exclusion applies.</summary>
+    <summary>A new business calculator, instant asset write-off, says whether a small business entity using simplified depreciation, or a medium sized business to 30 June 2021, writes one asset off in full for 2020-21 to 2026-27: the cost limit from the dates acquired and first used ($20,000 from 1 July 2026), and the deduction at the taxable use.</summary>
+  </entry>
+  <entry>
+    <title>The super lump sum tax calculator now also works the amount withheld from a…</title>
+    <link href="https://duguid.com.au/changelog/#entry-8ffddec28a29c757" />
+    <id>https://duguid.com.au/changelog/#entry-8ffddec28a29c757</id>
+    <updated>2026-11-26T00:00:00Z</updated>
+    <summary>The super lump sum tax calculator now also works the amount withheld from a super income stream payment under Schedule 13, for payments from 1 July 2024: weekly, fortnightly, monthly or quarterly, with the 15% or 10% tax offset and the offset adjustment, or 47% without a tax file number.</summary>
   </entry>
   <entry>
     <title>The take-home pay calculator can now also work the amount to withhold from one…</title>
@@ -97,6 +97,13 @@
     <id>https://duguid.com.au/changelog/#entry-4e806f300e78a4e8</id>
     <updated>2026-11-26T00:00:00Z</updated>
     <summary>A new business calculator, trust streaming, shares a resident discretionary trust’s net income between up to 4 beneficiaries by present entitlement under Division 6, streams a capital gain and franked distributions to the beneficiaries specifically entitled to them under Subdivisions 115-C and 207-B with Division 6E, and works the trustee’s 45% tax under section 99A on income no beneficiary is presently entitled to, tested against the ATO’s worked examples.</summary>
+  </entry>
+  <entry>
+    <title>The income tax calculator now works out tax for a person resident for part of…</title>
+    <link href="https://duguid.com.au/changelog/#entry-cd95f3dad451f79a" />
+    <id>https://duguid.com.au/changelog/#entry-cd95f3dad451f79a</id>
+    <updated>2026-11-26T00:00:00Z</updated>
+    <summary>The income tax calculator now works out tax for a person resident for part of 2024-25 to 2026-27: the tax-free threshold of $13,464 plus $4,736 for each month of residence over 12 (Income Tax Rates Act 1986 section 20), the low income tax offset in full and the Medicare levy less the share for the days not resident. It agrees with the australian-accounting resident-tax and personal-tax-estimate commands on 346 cases.</summary>
   </entry>
   <entry>
     <title>Added Do I need to lodge a tax return?: whether you must lodge for 2020-21 to…</title>

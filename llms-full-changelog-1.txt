@@ -21,12 +21,12 @@ What changed and when, across this site and the tagged tool releases. Dates are 
 ## Site
 
 Date | Change
-27 November 2026 | A new business calculator, the FBT return, composes an employer’s FBT return from its benefits’ taxable values: the type 1 and type 2 gross-up at items 14 to 16, item 23, each employee’s reportable fringe benefits amount, a rebatable employer’s rebate under section 65J, the $30,000 and $17,000 caps of section 57A employers with the $5,000 entertainment cap, items 20 to 22 and a quarter’s FBT instalment, checked against the australian-accounting fbt-return and fbt-instalment commands on 775 cases.
 27 November 2026 | The depreciation register distinguishes assets with the same name, shows the dates recorded against asset group headings and links directly to sections of long tables. The work expenses and rental property calculators now label telephone expenses as dollar amounts.
 27 November 2026 | The Markdown editions of calculators now preserve the instructions shown when JavaScript is off, including the link to the depreciation register data file.
 27 November 2026 | Reference tables now carry names for screen readers. Calculator fields and reference pages have more space between headings, instructions and tables. The depreciation register identifies the industry or asset group on links that share a name. Each indexed page also has a Markdown edition at index.md.
-26 November 2026 | The company tax and franking calculator now also works the company tax return’s calculation statement for 2021-22 to 2026-27: prior-year losses with the stated outcome of their loss test, net exempt income, the tax offsets at labels C to F, credits and PAYG instalments, and the amount due or refundable at label S. It works the Division 160 loss carry back tax offset only for the claim years the law gives one: 2021-22 and 2022-23 under the former Division 160, and 2026-27 under the Division 160 that Act No. 71 of 2026 substituted.
-26 November 2026 | A new business calculator, blackhole expenditure, deducts business capital expenditure under section 40-880 for 2020-21 to 2027-28: each item to the extent of its taxable purpose, a fifth a year over 5 income years, or at once as a start-up cost of a proposed business, and nothing where an exclusion applies.
+26 November 2026 | A new business calculator, leave provisions, measures annual and long service leave under AASB 119 for 2020-21 to 2026-27, line by line: short-term lines undiscounted, other long-term lines projected by salary growth, weighted by the probability of payment and discounted, and the total split current and non-current under AASB 101 para 69.
+26 November 2026 | A new business calculator, instant asset write-off, says whether a small business entity using simplified depreciation, or a medium sized business to 30 June 2021, writes one asset off in full for 2020-21 to 2026-27: the cost limit from the dates acquired and first used ($20,000 from 1 July 2026), and the deduction at the taxable use.
+26 November 2026 | The super lump sum tax calculator now also works the amount withheld from a super income stream payment under Schedule 13, for payments from 1 July 2024: weekly, fortnightly, monthly or quarterly, with the 15% or 10% tax offset and the offset adjustment, or 47% without a tax file number.
 26 November 2026 | The take-home pay calculator can now also work the amount to withhold from one payment under another withholding schedule for 2024-25 to 2026-27: the tax table for daily and casual workers, Schedule 2 (horticulture and shearing), 3 (performers), 4 (return to work payments), 6 (annuities), 9 (seniors and pensioners), 10 (voluntary agreements), 14 (an extra amount the payee asked for), 15 (working holiday makers) and the no ABN rule. Each is a port of its australian-accounting command and agrees with it on every call the command’s tests make; the page’s WebMCP tool takes the same inputs.
 26 November 2026 | A new business calculator, sole trader against company, puts one business profit for 2021-22 to 2026-27 through both structures: as a sole trader, tax and the Medicare levy on the whole profit less the small business income tax offset under Subdivision 328-F; through a company, a salary with its super guarantee, company tax at 25% or 30%, a fully franked dividend for the rest of what the owner takes out with its top-up tax, the profit kept in the company and the tax on the super. It states each total and the difference and recommends no structure, and names what it leaves out: the personal services income rules, Division 7A, the small business CGT concessions, state taxes and the cost of running a company. Rates were read on 26 November 2026.
 26 November 2026 | Added the 183-day residency day count: the days in Australia in an income year from 2020-21 to 2026-27, added up from arrival and departure days, against the 183-day test and its exception. It does not decide residency, and agrees with the australian-accounting residency-tests command on 667 test cases.
@@ -34,6 +34,7 @@ Date | Change
 26 November 2026 | A new business calculator, Payday Super cashflow, lists each payday’s super guarantee in a quarter of 2026-27 with the date the fund must receive it, 7 business days after payday, against the old quarterly date 28 days after the quarter, and the peak extra working capital, the quarter’s whole super guarantee, held from the last payday’s due date to the quarterly date.
 26 November 2026 | A new business calculator, tax invoice generator, makes a printable tax invoice or recipient created tax invoice in the browser, storing and sending nothing, and checks it against section 29-70 of the GST Act: GST at one-eleventh with the total invoice and taxable supply rounding rules, the wording for taxable, GST-free and mixed invoices, the ABN check digit and the $1,000 recipient rule.
 26 November 2026 | A new business calculator, trust streaming, shares a resident discretionary trust’s net income between up to 4 beneficiaries by present entitlement under Division 6, streams a capital gain and franked distributions to the beneficiaries specifically entitled to them under Subdivisions 115-C and 207-B with Division 6E, and works the trustee’s 45% tax under section 99A on income no beneficiary is presently entitled to, tested against the ATO’s worked examples.
+26 November 2026 | The income tax calculator now works out tax for a person resident for part of 2024-25 to 2026-27: the tax-free threshold of $13,464 plus $4,736 for each month of residence over 12 (Income Tax Rates Act 1986 section 20), the low income tax offset in full and the Medicare levy less the share for the days not resident. It agrees with the australian-accounting resident-tax and personal-tax-estimate commands on 346 cases.
 26 November 2026 | Added Do I need to lodge a tax return?: whether you must lodge for 2020-21 to 2025-26 under that year’s lodgment instrument, from the $18,200 threshold, the part-year, under 18, dividend and study loan amounts and the conditions you tick, then the working holiday maker, listed payment and seniors exceptions, with the 31 October due date.
 26 November 2026 | The tool pages, changelog, release record and machine indexes name the releases of 24 and 25 November: aus-accounting-mcp v0.13.0 (148 worksheet kinds with calculators 1.4.0, 29 tools), Australian Accounting Skills v0.8.1 (112 skills, Apache License 2.0), monthly-close-control-plane v1.2.0 and review-ready-gate v1.1.0 (both now under the GNU Affero General Public License v3.0 or later, with executables for 6 targets), and solomons-sword v1.0.0 and the-exchequer-tally v1.0.0, now standalone executables under the same licence; the trust distribution and company tax pages keep their pinned Python examples. The profit and cash flow case states that GitHub holds au-fpa-pack v0.8.0 whilst PyPI still serves 0.7.0.
 26 November 2026 | A new business calculator, contractor against employee, compares what the same person costs a business and takes home as an employee or as a contractor for the same hours from 2021-22 to 2026-27: salary with the stated paid leave and loading, the super guarantee, payroll tax and workers compensation at the rates you enter, GST, and the super guarantee section 12(3) still makes payable on a contractor paid wholly or principally for their labour. It does not decide whether the person is an employee.
@@ -290,11 +291,11 @@ Published 30 August 2026. Last reviewed 24 November 2026.
 ## Links
 
 - Follow this changelog as an Atom feed: https://duguid.com.au/feed.xml
-- FBT return: https://duguid.com.au/tools/business-calculators/fbt-return/
 - depreciation register: https://duguid.com.au/tools/depreciation-rates/
 - depreciation register data file: https://duguid.com.au/tools/depreciation-rates/effective-life.json
-- company tax and franking calculator: https://duguid.com.au/tools/business-calculators/company-tax/
-- blackhole expenditure: https://duguid.com.au/tools/business-calculators/blackhole-expenditure/
+- leave provisions: https://duguid.com.au/tools/business-calculators/leave-provisions/
+- instant asset write-off: https://duguid.com.au/tools/business-calculators/instant-asset-write-off/
+- super lump sum tax calculator: https://duguid.com.au/tools/business-calculators/super-benefit-tax/
 - take-home pay calculator: https://duguid.com.au/tools/individual-tax/take-home-pay/
 - sole trader against company: https://duguid.com.au/tools/business-calculators/sole-trader-company/
 - 183-day residency day count: https://duguid.com.au/tools/individual-tax/residency-days/
@@ -302,6 +303,7 @@ Published 30 August 2026. Last reviewed 24 November 2026.
 - Payday Super cashflow: https://duguid.com.au/tools/business-calculators/payday-cashflow/
 - tax invoice generator: https://duguid.com.au/tools/business-calculators/tax-invoice/
 - trust streaming: https://duguid.com.au/tools/business-calculators/trust-streaming/
+- income tax calculator: https://duguid.com.au/tools/individual-tax/income-tax/
 - Do I need to lodge a tax return?: https://duguid.com.au/tools/individual-tax/lodgment-required/
 - aus-accounting-mcp v0.13.0: https://github.com/ryanduguid/australian-accounting/releases/tag/aus-accounting-mcp/v0.13.0
 - contractor against employee: https://duguid.com.au/tools/business-calculators/contractor-employee/
@@ -314,13 +316,11 @@ Published 30 August 2026. Last reviewed 24 November 2026.
 - Homebrew tap: https://github.com/ryanduguid/homebrew-tap
 - sole trader page: https://duguid.com.au/tools/individual-tax/sole-trader/#non-commercial-losses
 - income tax page: https://duguid.com.au/tools/individual-tax/income-tax/#minors-income
-- income tax calculator: https://duguid.com.au/tools/individual-tax/income-tax/
 - pension minimum calculator: https://duguid.com.au/tools/individual-tax/pension-minimum/
 - transfer balance and excess contributions calculator: https://duguid.com.au/tools/individual-tax/transfer-balance/
 - deferred tax: https://duguid.com.au/tools/business-calculators/deferred-tax/
 - GST adjustments: https://duguid.com.au/tools/business-calculators/gst-adjustments/
 - R&D tax offset: https://duguid.com.au/tools/business-calculators/rd-tax-offset/
-- super lump sum tax calculator: https://duguid.com.au/tools/business-calculators/super-benefit-tax/
 - company and trust question 86: https://duguid.com.au/tools/accounting-questions/company-compliance/
 - tool pages: https://duguid.com.au/tools/
 - super co-contribution, LISTO and spouse offset: https://duguid.com.au/tools/individual-tax/government-super/

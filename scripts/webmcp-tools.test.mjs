@@ -105,6 +105,8 @@ test('every calculator tool is read-only, refuses unknown inputs and has its own
     'calculate_rd_tax_offset', 'calculate_gst_adjustments', 'calculate_deferred_tax', 'calculate_sole_trader_vs_company', 'calculate_trust_streaming',
     'calculate_fbt_return', 'calculate_fbt_instalment', 'calculate_blackhole_expenditure',
     'calculate_casual_overtime_pay', 'calculate_contractor_employee', 'calculate_payday_super_cashflow', 'check_tax_invoice',
+    'calculate_instant_asset_write_off', 'calculate_leave_provisions',
+    'calculate_smsf_tax', 'calculate_trading_stock', 'calculate_prepayments', 'calculate_alcohol_excise',
     'calculate_decline_in_value', 'calculate_coal_lsl_levy']);
   for (const t of all) {
     assert.equal(t.annotations.readOnlyHint, true, t.name);
@@ -504,6 +506,24 @@ test('income tax tool returns the page worked example: the ATO’s Tom with $21,
   const family = await individual['income-tax'].execute({ incomeYear: '2026-27', residency: 'resident', taxableIncome: 113001,
     spouseIncome: 100000, dependentChildren: 3, daysWithoutHospitalCover: 365 });
   assert.equal(family.medicareLevySurcharge, '1130.01');
+});
+
+// australian-accounting's personal-tax-estimate test: resident from 15 October 2025, 9 months and 106 days not.
+test('income tax tool works a part-year resident with the pro-rated threshold and the reduced levy', async () => {
+  const tool = individual['income-tax'];
+  const base = { incomeYear: '2025-26', residency: 'part-year', taxableIncome: 60000 };
+  const partYear = { monthsResident: 9, nonResidentDays: 106, eligiblePensioner: false };
+  const r = await tool.execute({ ...base, partYear });
+  assert.deepEqual([r.taxFreeThreshold, r.taxOnTaxableIncome, r.lowIncomeTaxOffset, r.medicareLevy, r.medicareLevySurcharge,
+    r.total], ['17016.00', '8977.44', '100.00', '851.51', '0.00', '9728.95']);
+  const pensioner = await tool.execute({ ...base, partYear: { ...partYear, eligiblePensioner: true } });
+  assert.deepEqual([pensioner.taxFreeThreshold, pensioner.taxOnTaxableIncome], ['18200.00', '8788.00']);
+  await assert.rejects(tool.execute(base), /partYear with residency part-year only/);
+  await assert.rejects(tool.execute({ ...base, residency: 'resident', partYear }), /partYear with residency part-year only/);
+  await assert.rejects(tool.execute({ ...base, incomeYear: '2023-24', partYear }), /covers 2024-25 to 2026-27/);
+  await assert.rejects(tool.execute({ ...base, studyLoan: true, partYear }), /full-year resident only/);
+  await assert.rejects(tool.execute({ ...base, partYear: { ...partYear, nonResidentDays: 357 } }), /from 0 to 356/);
+  assert.doesNotMatch(tool.description, /a part-year residency,/);
 });
 
 test('take-home pay tool gives PAYG withholding for a pay in any year and none for a year', async () => {
@@ -1617,7 +1637,7 @@ test('rental property tool returns the page worked example, serialises borrowing
   }), /extra is not an input of this tool/);
 });
 
-test('super lump sum tax tool returns all 3 calculations and refuses mismatched or unknown inputs', async () => {
+test('super lump sum tax tool returns all 4 calculations and refuses mismatched or unknown inputs', async () => {
   const tool = tools['super-benefit-tax'];
   const tax = await tool.execute({
     calculation: 'tax', incomeYear: '2026-27', paymentDate: '2026-10-01', recipient: 'member',
@@ -1638,6 +1658,20 @@ test('super lump sum tax tool returns all 3 calculations and refuses mismatched 
   });
   assert.equal(wh.withholding, '13600.00');
   assert.doesNotThrow(() => JSON.stringify(wh));
+  const stream = await tool.execute({
+    calculation: 'stream', incomeYear: '2026-27', paymentDate: '2026-09-01', recipient: 'member', benefit: '1400',
+    interestValue: '1400', interestTaxFreeComponent: '300', untaxedElement: '0', dateOfBirth: '1968-01-15',
+    disabilitySuperannuationBenefit: true, tfnProvided: true, foreignResident: false, incomeStreamPeriod: 'fortnightly',
+    taxFreeThresholdClaimed: true, cappedDefinedBenefit: false,
+  });
+  assert.deepEqual([stream.treatment, stream.incomeStreamPeriod, stream.amounts.withholding_amount, stream.amounts.tax_offset,
+    stream.amounts.offset_adjustment, stream.withholding, stream.age],
+  ['income_stream_disability_under_60', 'fortnightly', '60.00', '165.00', '2.40', '2.00', 58]);
+  await assert.rejects(tool.execute({
+    calculation: 'withholding', incomeYear: '2026-27', paymentDate: '2026-10-01', recipient: 'member',
+    benefit: '1000', interestValue: '1000', interestTaxFreeComponent: '0', tfnProvided: true, foreignResident: false,
+    incomeStreamPeriod: 'weekly',
+  }), /incomeStreamPeriod does not apply/);
   const dasp = await tool.execute({
     calculation: 'dasp', incomeYear: '2026-27', taxFreeComponent: '25000', taxedElement: '17000',
     untaxedElement: '0', workingHolidayMakerContributions: false, unclaimedMoneyRollover: false,
@@ -1745,7 +1779,7 @@ test('every calculator include in _includes/calculators has a registered WebMCP 
     .sort();
   const registered = [...Object.keys(tools), ...Object.keys(individual)].sort();
   assert.deepEqual(registered.filter((key) => !HOSTED_FORMS.has(key)), slugs);
-  assert.equal(registered.length + 2, 87);
+  assert.equal(registered.length + 2, 93);
 });
 
 test('blackhole expenditure tool returns the page example and refuses what the page refuses', async () => {
@@ -1827,6 +1861,40 @@ test('company tax tool works the return statement and the 2026-27 loss carry bac
   await assert.rejects(tool.execute({ ...company, taxableIncome: '1', returnStatement: { incomeYear: '2026-27', deductions: '100000' } }),
     /taxableIncome must equal the statement's taxable income \(label A\), 0\.00/);
   await assert.rejects(tool.execute({ ...company, returnStatement: { incomeYear: '2026-27' } }), /deductions/);
+});
+
+test('instant asset write-off tool returns Fiona’s computer and Daryl’s ute and refuses a budget day', async () => {
+  const tool = tools['instant-asset-write-off'];
+  const fiona = await tool.execute({ incomeYear: '2025-26', entity: 'small_business_simplified', acquired: '2025-11-18',
+    firstUsed: '2025-11-18', cost: '6800', taxableUse: '0.8' });
+  assert.deepEqual([fiona.writtenOff, fiona.taxablePurposeCost, fiona.deduction, fiona.costLimit, fiona.currency, fiona.source],
+    [true, '5440.00', '5440.00', '20000', 'AUD', 'https://duguid.com.au/tools/business-calculators/instant-asset-write-off/']);
+  const ute = await tool.execute({ incomeYear: '2025-26', entity: 'small_business_simplified', acquired: '2025-07-28',
+    firstUsed: '2025-07-28', cost: '40000', taxableUse: '0.4' });
+  assert.deepEqual([ute.writtenOff, ute.taxablePurposeCost, ute.deduction], [false, '16000.00', '0.00']);
+  await assert.rejects(tool.execute({ incomeYear: '2020-21', entity: 'small_business_simplified', acquired: '2020-10-06',
+    firstUsed: '2021-01-01', cost: '50000', taxableUse: '1' }), /7.30 pm on 6 October 2020/);
+  await assert.rejects(tool.execute({ incomeYear: '2025-26', entity: 'small_business_simplified', acquired: '2025-11-18',
+    firstUsed: '2025-11-18', cost: '6800', taxableUse: '0.8', extra: 1 }), /extra is not an input of this tool/);
+});
+
+test('leave provisions tool returns the page example and refuses a defined benefit line type and a short-term line with long-term fields', async () => {
+  const tool = tools['leave-provisions'];
+  const annual = { label: 'Annual leave', leave: 'annual', hours: '152.00', hourlyRate: '45.50', probability: '1', settledWithin12Months: true };
+  const lines = [annual,
+    { label: 'Long service leave, vested', leave: 'long_service', hours: '400.00', hourlyRate: '52.00', probability: '1', settledWithin12Months: false,
+      yearsToSettlement: 2, salaryGrowth: '0.03', discountRate: '0.045', canDeferSettlement: false },
+    { label: 'Long service leave, unvested', leave: 'long_service', hours: '120.00', hourlyRate: '38.00', probability: '0.4', settledWithin12Months: false,
+      yearsToSettlement: 5, salaryGrowth: '0.035', discountRate: '0.0425', canDeferSettlement: true }];
+  const r = await tool.execute({ incomeYear: '2025-26', lines });
+  assert.deepEqual([r.annualLeaveProvision, r.longServiceLeaveProvision, r.totalProvision, r.currentProvision, r.nonCurrentProvision, r.source],
+    ['6916.00', '21966.49', '28882.49', '27123.16', '1759.33', 'https://duguid.com.au/tools/business-calculators/leave-provisions/']);
+  assert.deepEqual(r.lines[2], { label: 'Long service leave, unvested', leave: 'long_service', category: 'other_long_term', valueAtCurrentRate: '4560.00',
+    projectedValue: '5415.85', provision: '1759.33', classification: 'non_current' });
+  assert.equal(r.lines[0].projectedValue, null);
+  await assert.rejects(tool.execute({ incomeYear: '2025-26', lines: [{ ...annual, leave: 'sick' }] }), /leave/);
+  await assert.rejects(tool.execute({ incomeYear: '2025-26', lines: [{ ...annual, yearsToSettlement: 2 }] }), /years_to_settlement is for a line not expected/);
+  await assert.rejects(tool.execute({ incomeYear: '2025-26', lines: [{ ...annual, probability: '0.1234567' }] }), /at most 6 places/);
 });
 
 test('business days tool returns the page worked example, matches holiday JSON and refuses mismatched or invalid inputs', async () => {
@@ -2429,6 +2497,59 @@ test('trust streaming tool returns the ATO Lang Trust example and the trustee’
     /kind does not match/);
   await assert.rejects(tool.execute({ otherTrustIncome: '100', otherNetIncome: '100', beneficiaries: [{ kind: 'individual', presentEntitlement: '101' }] }),
     /cannot exceed the trust/);
+});
+
+test('SMSF tax, trading stock, prepaid expenses and alcohol excise tools return their pages’ examples and refuse bad input', async () => {
+  const smsf = await tools['smsf-tax'].execute({ incomeYear: '2025-26', assessableContributions: '60000', unsegregatedIncome: '120000',
+    exemptProportion: '0.25', deductions: '8000', refundableOffsets: '3000', paygInstalments: '2000' });
+  assert.deepEqual([smsf.taxableIncome, smsf.taxPayable, smsf.amountDueOrRefundable, smsf.returnLabels.amount_due_or_refundable, smsf.source],
+    ['142000.00', '18300.00', '16559.00', 'S', 'https://duguid.com.au/tools/business-calculators/smsf-tax/']);
+  await assert.rejects(tools['smsf-tax'].execute({ incomeYear: '2025-26', deductions: '8000.50' }), /whole dollars/);
+  const stock = await tools['trading-stock'].execute({ incomeYear: '2025-26', entity: 'small_business_entity', openingValue: '40000',
+    items: [{ cost: '25000', marketSellingValue: '28000', replacementValue: '26000', method: 'cost' },
+      { cost: '12000', marketSellingValue: '9000', replacementValue: '11500', method: 'lowest' }] });
+  assert.deepEqual([stock.closingValue, stock.deduction, stock.simplifiedAvailable, stock.items[1].method],
+    ['34000.00', '6000.00', false, 'market_selling_value']);
+  await assert.rejects(tools['trading-stock'].execute({ incomeYear: '2025-26', entity: 'small_business_entity', openingValue: '40000',
+    items: [{ cost: '1', method: 'fifo' }] }), /method/);
+  const prepaid = await tools.prepayments.execute({ incomeYear: '2025-26', taxpayer: 'other', businessExpenditure: true, expenditure: '24000',
+    incurred: '2026-03-01', serviceStart: '2026-03-01', serviceEnd: '2027-02-28' });
+  assert.deepEqual([prepaid.treatment, prepaid.deductionThisYear, prepaid.deductionLaterYears, prepaid.eligibleServicePeriod.days],
+    ['apportioned_82kzmd', '8021.92', '15978.08', 365]);
+  const excise = await tools['alcohol-excise'].execute({ financialYear: '2026-27', lines: [
+    { date: '2026-09-01', product: 'beer', volumeLitres: '5000', strengthPercent: '4.8', containerLitres: '50' },
+    { date: '2026-10-15', product: 'spirit', volumeLitres: '400', strengthPercent: '40', remission: true }] });
+  assert.deepEqual([excise.exciseDuty, excise.netDuty, excise.amounts.remission, excise.returnLines.map((line) => line.subitem)],
+    ['25542.67', '7918.67', '17624.00', ['1.11', '3.10']]);
+  await assert.rejects(tools['alcohol-excise'].execute({ financialYear: '2026-27', lines: [{ date: '2026-09-01', product: 'wine',
+    volumeLitres: '1', strengthPercent: '12' }] }), /product/);
+});
+
+test('the S5 tools pass each optional input to their commands', async () => {
+  // s 70-45(1): each item at its elected method, an item's missing values left to the command; s 70-35(3): a decrease is deductible.
+  const stock = await tools['trading-stock'].execute({ incomeYear: '2025-26', entity: 'small_business_entity', openingValue: '40000', items: [
+    { cost: '100', method: 'cost' }, { marketSellingValue: '50', replacementValue: '60', method: 'replacement_value' },
+    { cost: '30', marketSellingValue: '20', replacementValue: '25', method: 'obsolescence', obsolescenceValue: '5' }] });
+  assert.deepEqual([stock.items.map((item) => item.value), stock.stocktakeValue, stock.deduction], [['100.00', '60.00', '5.00'], '165.00', '39835.00']);
+  // s 82KZM(1)(ba): an individual's non-business expenditure for no more than 12 months is deductible when incurred.
+  const prepaid = await tools.prepayments.execute({ incomeYear: '2025-26', taxpayer: 'other', individual: true, businessExpenditure: false,
+    chose82kzmd: false, expenditure: '24000', incurred: '2026-03-01', serviceStart: '2026-03-01', serviceEnd: '2027-02-28' });
+  assert.deepEqual([prepaid.treatment, prepaid.deductionThisYear], ['twelve_month_rule', '24000.00']);
+  // Business expenditure left out is false, as the command takes it: a small business entity's 12-month prepayment is still deductible.
+  const smallBusiness = await tools.prepayments.execute({ incomeYear: '2025-26', taxpayer: 'small_business_entity', expenditure: '12000',
+    incurred: '2026-04-01', serviceStart: '2026-04-01', serviceEnd: '2027-03-31' });
+  assert.deepEqual([smallBusiness.treatment, smallBusiness.deductionThisYear], ['twelve_month_rule', '12000.00']);
+  // A manufacturer from 1 August 2026 has 334 days' share of the $400,000 cap; duty already paid is refunded on application.
+  const excise = await tools['alcohol-excise'].execute({ financialYear: '2026-27', manufacturerFrom: '2026-08-01', dutyPaid: true,
+    remissionUsedThisYear: '0', lines: [{ date: '2026-10-15', product: 'spirit', volumeLitres: '400', strengthPercent: '40', remission: true }] });
+  assert.deepEqual([excise.rates.remission_cap, excise.amounts.refund, excise.netDuty], ['366027.39', '17624.00', '0.00']);
+  await assert.rejects(tools['alcohol-excise'].execute({ financialYear: '2026-27', lines: [{ date: '2026-09-01', product: 'beer',
+    volumeLitres: '5000', strengthPercent: '4.8', containerLitres: '50', colour: 'amber' }] }), /colour is not an input/);
+  // s 302-60: a death benefit lump sum to a dependant is tax free, so no age is worked out.
+  const dependant = await tools['super-benefit-tax'].execute({ calculation: 'withholding', incomeYear: '2026-27', paymentDate: '2026-10-01',
+    recipient: 'death_benefits_dependant', benefit: '300000', interestValue: '300000', interestTaxFreeComponent: '30000', untaxedElement: '0',
+    tfnProvided: true, foreignResident: false });
+  assert.deepEqual([dependant.withholding, 'age' in dependant], ['0.00', false]);
 });
 
 test('lodgment tool applies the threshold, the exceptions and the due date, and refuses 2026-27', async () => {

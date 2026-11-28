@@ -87,13 +87,20 @@ const casualOt = { ...business, file: 'assets/casual-overtime.mjs' };
 const contractor = { ...business, file: 'assets/contractor-employee.mjs' };
 const invoice = { ...business, file: 'assets/tax-invoice.mjs' };
 const trustStream = { ...business, file: 'assets/trust-streaming.mjs' };
+const iawoCheck = { ...business, file: 'assets/instant-asset-write-off.mjs' };
+const leaveCheck = { ...business, file: 'assets/leave-provisions.mjs' };
 const gstAdjustments = { ...business, file: 'assets/gst-adjustments.mjs' };
 const deferredTaxEngine = { ...business, file: 'assets/deferred-tax.mjs' };
+const smsfEngine = { ...business, file: 'assets/smsf-tax.mjs' };
+const stockEngine = { ...business, file: 'assets/trading-stock.mjs' };
+const prepaidEngine = { ...business, file: 'assets/prepayments.mjs' };
+const exciseEngine = { ...business, file: 'assets/alcohol-excise.mjs' };
 const lct = { ...business, file: 'assets/luxury-car-tax.mjs' };
 const fhog = { ...business, file: 'assets/first-home-owner-grant.mjs' };
 const sbt = { ...business, file: 'assets/super-benefit-tax.mjs' };
 const swh = { file: 'assets/super-withholding.mjs', test: 'scripts/super-lump-sum-options.test.mjs' };
 const dasp = { ...swh, file: 'assets/dasp-tax.mjs' };
+const sis = { ...swh, file: 'assets/super-income-stream.mjs' };
 const wet = { ...business, file: 'assets/wine-equalisation-tax.mjs' };
 const rental = { ...business, file: 'assets/rental-property.mjs' };
 const rentalResult = { ...business, file: 'assets/rental-property-result.mjs' };
@@ -514,6 +521,13 @@ const MUTATIONS = [
   { ...incomeTax, name: 'the Medicare shade-in takes the greater', find: 'Math.min(income * 2, (income - threshold) * 10)', replace: 'Math.max(income * 2, (income - threshold) * 10)' },
   { ...incomeTax, name: 'foreign residents pay the Medicare levy', find: 'const medicare = resident ?', replace: 'const medicare = true ?' },
   { ...incomeTax, name: '2024-25 takes the 2025-26 Medicare thresholds', find: "'2024-25': [27222, 34027]", replace: "'2024-25': [28011, 35013]" },
+  { ...incomeTax, name: 'a part-year threshold counts one month fewer', find: '13464 * 12 + 4736 * months', replace: '13464 * 12 + 4736 * (months - 1)' },
+  { ...incomeTax, name: 'an eligible pensioner gets the pro-rated threshold', find: '(eligiblePensioner ? 18200 * 12', replace: '(!eligiblePensioner ? 18200 * 12' },
+  { ...incomeTax, name: 'part-year tax rounds down', find: 'Math.floor((twelfths + 60) / 120)', replace: 'Math.floor(twelfths / 120)' },
+  { ...incomeTax, name: 'the part-year threshold moves every band', find: '(index === 0 ? threshold : 12 * over)', replace: '(threshold + 12 * over - 218400)' },
+  { ...incomeTax, name: 'non-resident days count twice', find: '2 * levy * (days - nonResident)', replace: '2 * levy * (days - 2 * nonResident)' },
+  { ...incomeTax, name: 'non-resident days may fill the resident months', find: 'const most = daysInYear(year) - p.months;', replace: 'const most = daysInYear(year) - 1;' },
+  { ...estimate, name: 'a part-year resident gets a study loan repayment', find: "r.residency === 'part-year' && r.studyLoan", replace: "false && r.studyLoan" },
   { ...studyLoan, name: 'the upper marginal rate is 16%', find: 'Math.max(0, income - top) * 17', replace: 'Math.max(0, income - top) * 16' },
   { ...studyLoan, name: 'the repayment takes the greater amount', find: 'tenth < marginal ?', replace: 'tenth > marginal ?' },
   { ...studyLoan, name: '2024-25 takes the first band', find: 'income >= from).at(-1)', replace: 'income >= from).at(0)' },
@@ -1034,6 +1048,18 @@ const MUTATIONS = [
   { ...sbt, name: 'SBT under $200 is tax free without closing the interest', find: ': benefit < 20000n && benefit === interest ?', replace: ': benefit < 20000n ?' },
   { ...sbt, name: 'SBT 2023-24 keeps the 2022-23 low rate cap', find: "'2023-24': 235000 };", replace: "'2023-24': 230000 };" },
   { ...sbt, name: 'SBT the form sends the low rate cap at 60', find: 'if (age < 60 && age >= preservationAge(born)) {', replace: 'if (age <= 60 && age >= preservationAge(born)) {' },
+  { ...sis, name: 'SIS Schedule 13 read only from 2025-26', find: "export const STREAM_FIRST_YEAR = '2024-25';", replace: "export const STREAM_FIRST_YEAR = '2025-26';" },
+  { ...sis, name: 'SIS a quarter is 12 weeks', find: 'quarterly: [1n, 13n]', replace: 'quarterly: [1n, 12n]' },
+  { ...sis, name: 'SIS the 2026-27 adjustment limit stays $1,181', find: "'2026-27': [538, 673, 1216]", replace: "'2026-27': [538, 673, 1181]" },
+  { ...sis, name: 'SIS a dependant under 60 has no offset', find: "income_stream_dependant_under_60: ['taxed', 15n],", replace: 'income_stream_dependant_under_60: null,' },
+  { ...sis, name: 'SIS the shade-in band at 10% of the whole amount', find: '(from * per - threshold * times) * 30n / per', replace: 'from * 30n' },
+  { ...sis, name: 'SIS the 2% band on the weekly equivalent', find: 'else adjusted = from * 6n;', replace: 'else adjusted = from * per * 6n / times;' },
+  { ...sis, name: 'SIS the greater rounds down', find: 'withholding: (greater + 150n) / 300n', replace: 'withholding: greater / 300n' },
+  { ...sis, name: 'SIS a capped stream at 60 is not refused', find: "input.capped_defined_benefit) && age >= 60", replace: 'input.capped_defined_benefit) && age >= 600' },
+  { ...sis, name: 'SIS the offset keeps the cents', find: '(c[offsetRow[0]] / 100n) * offsetRow[1]', replace: 'c[offsetRow[0]] * offsetRow[1] / 100n' },
+  { ...sis, name: 'SIS no TFN at 45% for a resident', find: 'const rate = foreign ? 45n : 47n;', replace: 'const rate = foreign ? 45n : 45n;' },
+  { ...sis, name: 'SIS scale 2 without the threshold', find: "input.tax_free_threshold_claimed) ? 2 : 1)", replace: "input.tax_free_threshold_claimed) ? 2 : 2)" },
+  { ...swh, name: 'SWH the stream form sends the threshold without a TFN', find: 'if (input.tfn_provided === true) input.tax_free_threshold_claimed', replace: 'if (true) input.tax_free_threshold_claimed' },
   { ...swh, name: 'SWH Schedule 12 read from a day later', find: "export const SWH_FIRST_DAY = '2020-10-13';", replace: "export const SWH_FIRST_DAY = '2020-10-14';" },
   { ...swh, name: 'SWH Table A leaves out the Medicare levy', find: 'p.rate && p.rate + (foreign ? 0 : 2)', replace: 'p.rate && p.rate + (foreign ? 0 : 0)' },
   { ...swh, name: 'SWH a foreign resident keeps the Medicare levy', find: 'p.rate && p.rate + (foreign ? 0 : 2)', replace: 'p.rate && p.rate + (foreign ? 2 : 2)' },
@@ -1050,6 +1076,7 @@ const MUTATIONS = [
   { ...dasp, name: "DASP a working holiday maker's untaxed element at 45%", find: '? [65n, 65n] : [35n, 45n]', replace: '? [65n, 45n] : [35n, 45n]' },
   { ...dasp, name: 'DASP an unclaimed money roll-over with an untaxed element passes', find: '&& untaxed !== 0n) {', replace: '&& false) {' },
   { ...dasp, name: 'DASP 2027-28 left out', find: "'2026-27', '2027-28'];", replace: "'2026-27'];" },
+  { ...swh, name: 'SWH the stream result rounds to the dollar without a TFN', find: "${input.tfn_provided ? 'to the nearest dollar' : 'cents ignored'}", replace: "${'to the nearest dollar'}" },
   { ...swh, name: 'SWH the result rounds to the dollar without a TFN', find: "input.tfn_provided ? 'Amount to withhold, to the nearest dollar'", replace: "true ? 'Amount to withhold, to the nearest dollar'" },
   { ...swh, name: 'SWH a part row keeps the top marginal rate', find: "label.replace(', at the top marginal rate', '')", replace: 'label' },
   { ...wet, name: 'WET at 28%', find: 'ratioCents(cents * 29n, 100n)', replace: 'ratioCents(cents * 28n, 100n)' },
@@ -1188,6 +1215,26 @@ const MUTATIONS = [
   { ...casualOt, name: 'Quarterly base $60,000', find: 'const QUARTERLY_BASE = 6250000n;', replace: 'const QUARTERLY_BASE = 6000000n;' },
   { ...casualOt, name: 'Base exceeded only above a cent more', find: 'if (ote > base) {', replace: 'if (ote > base + 1n) {' },
   { ...casualOt, name: 'Casual on leave allowed', find: 'if (casual > 0n && leaveHours > 0n) {', replace: 'if (false) {' },
+  { ...leaveCheck, name: "LEAVE compounding one year short", find: "for (let i = 0; i < years; i += 1)", replace: "for (let i = 1; i < years; i += 1)" },
+  { ...leaveCheck, name: "LEAVE cents rounded down", find: "(2n * (v.c % unit) >= unit ? 1n : 0n)", replace: "0n" },
+  { ...leaveCheck, name: "LEAVE a long-term line is not weighted by probability", find: "div(mul(projected, l.probability),", replace: "div(projected," },
+  { ...leaveCheck, name: "LEAVE a short-term line is not weighted by probability", find: "provision: shown(mul(value, l.probability)), current: true", replace: "provision: shown(value), current: true" },
+  { ...leaveCheck, name: "LEAVE a right to defer is current", find: "current: !l.longTerm.canDefer", replace: "current: true" },
+  { ...leaveCheck, name: "LEAVE 7 places of a probability are taken", find: "v.e >= -6 &&", replace: "v.e >= -7 &&" },
+  { ...leaveCheck, name: "LEAVE 51 years are taken", find: "const MOST_YEARS = 50;", replace: "const MOST_YEARS = 51;" },
+  { ...leaveCheck, name: "LEAVE plan assets are not refused", find: "['plan_assets', 'leave_provisions.plan_assets', LEAVE_PLAN_ASSETS]", replace: "" },
+  { ...leaveCheck, name: "LEAVE a short-term line takes long-term fields", find: "const longKey = shortTerm ? LONG.find", replace: "const longKey = false ? LONG.find" },
+  { ...leaveCheck, name: "LEAVE the form sends long-term fields for a short-term line", find: "    if (!short) {\n      Object.assign(line", replace: "    if (true) {\n      Object.assign(line" },
+  { ...iawoCheck, name: 'IAWO $20,000 from 1 July 2026 starts a day late', find: "if (used >= on('2026-07-01'))", replace: "if (used > on('2026-07-01'))" },
+  { ...iawoCheck, name: 'IAWO a cost equal to the limit is written off', find: 'cost < BigInt(limit) * 100n', replace: 'cost <= BigInt(limit) * 100n' },
+  { ...iawoCheck, name: 'IAWO full expensing runs past 30 June 2023', find: "if (used <= on('2023-06-30') && heldFrom(acquired, BUDGET_2020))", replace: "if (used <= on('2024-06-30') && heldFrom(acquired, BUDGET_2020))" },
+  { ...iawoCheck, name: 'IAWO $150,000 to 30 June 2022', find: "const increased = used <= on('2021-06-30')", replace: "const increased = used <= on('2022-06-30')" },
+  { ...iawoCheck, name: 'IAWO the 2015 budget day is not refused', find: "if (acquired === day) {", replace: "if (acquired === day && budget !== BUDGET_2015) {" },
+  { ...iawoCheck, name: 'IAWO a medium business keeps the write-off after 2021', find: "if (used > on('2021-06-30')) return { limit: 'not_applicable', rule: IAWO_RULES.noneAfter2021 };", replace: '' },
+  { ...iawoCheck, name: 'IAWO the deduction rounds down', find: 'return (2n * units + scale) / (2n * scale);', replace: 'return units / scale;' },
+  { ...iawoCheck, name: 'IAWO a 27-digit use is taken', find: "replace(/^-?0+/, '').length) > 26", replace: "replace(/^-?0+/, '').length) > 27" },
+  { ...iawoCheck, name: 'IAWO no 2020-21 pool note', find: "year === '2020-21' ? POOL_2020_21 : POOL", replace: 'POOL' },
+  { ...iawoCheck, name: 'IAWO the form takes the use as a fraction', find: "taxable_use: useFraction(value('use'))", replace: "taxable_use: value('use')" },
   { ...rdOffset, name: 'R&D refundable premium 18.5 points dropped', find: 'capped * (e.rate + 185n) * 1000n', replace: 'capped * e.rate * 1000n' },
   { ...rdOffset, name: 'R&D threshold $20,000 counted as under it', find: 'const base = total < THRESHOLD ? e.rspCrc : total;', replace: 'const base = total <= THRESHOLD ? e.rspCrc : total;' },
   { ...rdOffset, name: 'R&D cap at $100 million', find: 'const CAP = 15000000000n;', replace: 'const CAP = 10000000000n;' },
@@ -1252,6 +1299,20 @@ const MUTATIONS = [
   { ...trustStream, name: 'Trust Division 6E keeps the streamed amounts in present entitlement', find: 'const entitled6E = sub(whole(p.entitlement), s.inIncome);', replace: 'const entitled6E = whole(p.entitlement);' },
   { ...trustStream, name: 'Trust company beneficiary discounts its gain', find: 'const KIND_DISCOUNT = { individual: true, trust: true, company: false };', replace: 'const KIND_DISCOUNT = { individual: true, trust: true, company: true };' },
   { ...trustStream, name: 'Trust trustee gets no franking credit offset', find: 'const afterOffset = sub(tax, trusteeShares.credit);', replace: 'const afterOffset = tax;' },
+  { ...smsfEngine, name: 'SMSF low tax component at 30%', find: 'const tax = (low * 15n + nali * 45n) / 100n;', replace: 'const tax = (low * 30n + nali * 45n) / 100n;' },
+  { ...smsfEngine, name: 'SMSF non-arm’s length component at 15%', find: 'const tax = (low * 15n + nali * 45n) / 100n;', replace: 'const tax = (low * 15n + nali * 15n) / 100n;' },
+  { ...smsfEngine, name: 'SMSF exempt income not rounded down', find: 'return exp >= 0 ? product * 10n ** BigInt(exp) : product / 10n ** BigInt(-exp);', replace: 'return exp >= 0 ? product * 10n ** BigInt(exp) : (product + 10n ** BigInt(-exp) - 1n) / 10n ** BigInt(-exp);' },
+  { ...smsfEngine, name: 'SMSF levy for a new fund dropped', find: 'newNotWoundUp ? LEVY : 0n', replace: '0n' },
+  { ...stockEngine, name: 'Trading stock $5,000 limit exclusive', find: 'const available = canChoose && difference <= LIMIT;', replace: 'const available = canChoose && difference < LIMIT;' },
+  { ...stockEngine, name: 'Trading stock medium entity in 2020-21', find: "return year !== '2020-21';", replace: 'return true;' },
+  { ...stockEngine, name: 'Trading stock lowest takes the highest', find: 'if (!best || value.cents < best[1].cents) best = [i, value];', replace: 'if (!best || value.cents > best[1].cents) best = [i, value];' },
+  { ...prepaidEngine, name: 'Prepayments $1,000 exclusion inclusive', find: "const excluded = exclusion !== 'none' || expenditure < EXCLUDED_BELOW;", replace: "const excluded = exclusion !== 'none' || expenditure <= EXCLUDED_BELOW;" },
+  { ...prepaidEngine, name: 'Prepayments 12-month rule over 13 months', find: 'end <= monthsEnd(start, 12)', replace: 'end <= monthsEnd(start, 13)' },
+  { ...prepaidEngine, name: 'Prepayments apportioned without the running total', find: 'const running = (2n * f.expenditure * counted + total) / (2n * total);', replace: 'const running = (f.expenditure * counted) / total;' },
+  { ...exciseEngine, name: 'Excise beer on the full strength', find: "line.product === 'beer' ? line.strength - 1150n : line.strength", replace: 'line.strength' },
+  { ...exciseEngine, name: 'Excise draught from 48 litres exclusive', find: 'const middle = container >= 8000n && container <= 48000n;', replace: 'const middle = container >= 8000n && container < 48000n;' },
+  { ...exciseEngine, name: 'Excise remission cap $350,000 in 2026-27', find: "year >= '2026-27' ? 40000000n : 35000000n", replace: '35000000n' },
+  { ...exciseEngine, name: 'Excise litres not truncated to 0.1', find: 'const amount = (tenths * rateCents(rate)) / 10n;', replace: 'const amount = (g.lal * rateCents(rate)) / 1000000000n;' },
   { ...gstAdjustments, name: 'GST creditable purpose threshold counted as over it', find: 'cmp(value, d(finance ? \'10000\' : \'1000\')) <= 0', replace: 'cmp(value, d(finance ? \'10000\' : \'1000\')) < 0' },
   { ...gstAdjustments, name: 'GST 5 adjustment periods at $5,000 or less', find: 'const [low, lowCount] = finance ? [\'50000\', 1] : [\'5000\', 2];', replace: 'const [low, lowCount] = finance ? [\'50000\', 1] : [\'5000\', 5];' },
   { ...gstAdjustments, name: 'GST $500,000 given 5 adjustment periods', find: 'cmp(value, d(\'500000\')) < 0 ? 5 : 10', replace: 'cmp(value, d(\'500000\')) <= 0 ? 5 : 10' },
@@ -1498,6 +1559,7 @@ const SHARED = [
   'scripts/income-tax-offsets-engine-differential.json',
   'scripts/net-medical-expenses-engine-differential.json',
   'scripts/foreign-income-engine-differential.json',
+  'scripts/part-year-resident-engine-differential.json',
   'scripts/minors-income-engine-differential.json',
   'scripts/non-commercial-losses-engine-differential.json',
   'scripts/government-super-engine-differential.json',
@@ -1515,8 +1577,14 @@ const SHARED = [
   'scripts/blackhole-expenditure-engine-differential.json',
   'scripts/company-tax-statement-engine-differential.json',
   'scripts/s40-880-company-statement-edge-cases.json',
+  'scripts/instant-asset-write-off-engine-differential.json',
+  'scripts/leave-provisions-engine-differential.json',
   'scripts/gst-adjustments-engine-differential.json',
   'scripts/deferred-tax-engine-differential.json',
+  'scripts/smsf-tax-engine-differential.json',
+  'scripts/trading-stock-engine-differential.json',
+  'scripts/prepayments-engine-differential.json',
+  'scripts/alcohol-excise-engine-differential.json',
   'scripts/ato-penalties-interest-engine-differential.json',
   'scripts/borrowing-expenses-engine-differential.json',
   'scripts/wine-equalisation-tax-engine-differential.json',
@@ -1527,6 +1595,7 @@ const SHARED = [
   'scripts/payg-withholding-sample-2020.json', 'scripts/payg-withholding-sample-2024.json',
   'scripts/super-benefit-tax-engine-differential.json',
   'scripts/super-lump-sum-options-engine-differential.json',
+  'scripts/super-income-stream-engine-differential.json',
   'scripts/withholding-schedules-engine-differential.json',
 ];
 
@@ -1535,6 +1604,7 @@ const TEST_FILES = [
   'scripts/fhss.test.mjs', 'scripts/work-expenses.test.mjs', 'scripts/government-super-amounts.test.mjs', swh.test, tba.test, pm.test, rd.test, lr.test,
   'scripts/net-medical-expenses.test.mjs',
   'scripts/foreign-income.test.mjs',
+  'scripts/part-year-resident.test.mjs',
   'scripts/minors-income.test.mjs',
   'scripts/non-commercial-losses.test.mjs',
   'scripts/withholding-schedules.test.mjs',

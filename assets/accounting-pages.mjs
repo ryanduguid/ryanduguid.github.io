@@ -597,6 +597,12 @@ function initialiseCalculators([calculate, fieldErrors, fbtForms, { individualRe
           case 'casual-overtime':
             result = calculate.casualOvertimeResult(value, aud);
             break;
+          case 'leave-provisions':
+            result = calculate.leaveProvisionsResult(value, aud);
+            break;
+          case 'instant-asset-write-off':
+            result = calculate.instantAssetWriteOffResult(value, aud);
+            break;
           case 'rd-tax-offset':
             result = calculate.rdTaxOffsetResult(value, aud);
             break;
@@ -716,6 +722,18 @@ function initialiseCalculators([calculate, fieldErrors, fbtForms, { individualRe
           case 'gst-adjustments':
             result = calculate.gstAdjustmentsResult(value, aud);
             showTables(result.tables);
+            break;
+          case 'smsf-tax':
+            result = calculate.smsfTaxResult(value, aud);
+            break;
+          case 'trading-stock':
+            result = calculate.tradingStockResult(value, aud);
+            break;
+          case 'prepayments':
+            result = calculate.prepaymentsResult(value, aud);
+            break;
+          case 'alcohol-excise':
+            result = calculate.alcoholExciseResult(value, aud);
             break;
           case 'deferred-tax':
             result = calculate.deferredTaxResult(value, aud);

@@ -30,7 +30,7 @@ export const SBT_RECIPIENTS = { member: 'member', death_benefits_dependant: 'dea
 
 const REQUIRED = ['benefit', 'interest_value', 'interest_tax_free_component', 'untaxed_element', 'recipient', 'payment_date',
   'year', 'scope_confirmed'];
-const OPTIONAL = ['date_of_birth', 'terminal_medical_condition', 'disability_superannuation_benefit', 'service_before_july_1983',
+export const SBT_OPTIONAL = ['date_of_birth', 'terminal_medical_condition', 'disability_superannuation_benefit', 'service_before_july_1983',
   'low_rate_cap_used', 'untaxed_plan_cap_used', 'other_lump_sums_this_year'];
 const DECIMALS = new Set(['benefit', 'interest_value', 'interest_tax_free_component', 'untaxed_element', 'low_rate_cap_used',
   'untaxed_plan_cap_used', 'tax_free_component', 'taxed_element']);
@@ -46,7 +46,10 @@ const WORDS = /** @type {Record<string, string>} */ ({ benefit: 'the lump sum', 
   tfn_provided: 'whether the payee gave the fund a TFN', foreign_resident: 'whether the payee is a foreign resident',
   tax_free_component: 'the payment’s tax free component', taxed_element: 'the element taxed in the fund',
   working_holiday_maker_contributions: 'whether the payment includes contributions made whilst a working holiday maker',
-  unclaimed_money_rollover: 'whether the payment is an unclaimed money roll-over' });
+  unclaimed_money_rollover: 'whether the payment is an unclaimed money roll-over',
+  income_stream_period: 'how often the income stream is paid', tax_free_threshold_claimed: 'whether the payee claims the tax-free threshold',
+  capped_defined_benefit: 'whether the income stream is a capped defined benefit income stream',
+  deceased_aged_60_or_over: 'whether the deceased died aged 60 or over' });
 const MAX = 10n ** 14n;
 
 /** A refusal with the command's code. @param {string} code @param {string} message @returns {never} */
@@ -138,7 +141,7 @@ const RATE_TEXT = /** @type {Record<string, string>} */ ({ 0: '0', 15: '0.15', 2
 /** The input's keys, required fields and decimals, refused as the command's reader refuses them: the
  * required fields in the command's order, then the optional ones.
  * @param {Record<string, unknown>} input @param {string[]} required @param {string[]} optional */
-export function read(input, required = REQUIRED, optional = OPTIONAL) {
+export function read(input, required = REQUIRED, optional = SBT_OPTIONAL) {
   const unknown = Object.keys(input).find((key) => !required.includes(key) && !optional.includes(key));
   if (unknown !== undefined) refuse('input.field_unknown', `${unknown} is not an input of this calculator.`);
   /** @type {Record<string, bigint | null>} */
@@ -172,12 +175,13 @@ function components(input, amounts) {
   return { ...period(input), ...lumpSum(amounts) };
 }
 
-/** The lump sum's components (ss 307-125 and 307-275). @param {Record<string, bigint | null>} amounts */
-export function lumpSum(amounts) {
+/** The lump sum's components (ss 307-125 and 307-275), or with `stream` an income stream payment's, which
+ * the interest's value when the stream commenced does not limit. @param {Record<string, bigint | null>} amounts */
+export function lumpSum(amounts, stream = false) {
   const [benefit, interest, interestFree, untaxed] = ['benefit', 'interest_value', 'interest_tax_free_component', 'untaxed_element']
     .map((key) => money(key, amounts[key]));
   if (benefit === 0n || interest === 0n) refuse('super_benefit_tax.benefit_nil', 'The lump sum and the value of the super interest must each be more than nil.');
-  if (benefit > interest) conflict('The lump sum cannot exceed the value of the super interest it is paid from.');
+  if (!stream && benefit > interest) conflict('The lump sum cannot exceed the value of the super interest it is paid from.');
   if (interestFree > interest) conflict('The interest’s tax free component cannot exceed its value.');
   const taxFree = ratioCents(benefit * interestFree, interest);
   const taxable = benefit - taxFree;
