@@ -12,7 +12,7 @@
   },
   "json_ld": {
     "about/index.html": [
-      "7130ed5e0372de702d459d665f6c411d62f7bfc8f28b9191c1fbd116e872b52d"
+      "baa1c8d465ee62431e58bc08297fdd6403b1eed35f59788e664629ed0cfb9945"
     ],
     "changelog/index.html": [
       "2f99cacd968d0cce8b2c3be85df980d2ded4206f071d2663f2c82c23816fd1b2"
@@ -39,7 +39,7 @@
       "3c1604e9daed736e19910e5339f54086500888b4704379eeead8622996cd0385"
     ],
     "index.html": [
-      "5f892b98716cf12e11f2e91555a4ac249a83eaaa8b86a14449f2b95fa1e0ab4e"
+      "7f3cd677b0c8627319c288b6aca6f73361d1ec5eb0a185be331df04b72cac68f"
     ],
     "privacy/index.html": [
       "ce9aa577b2be0b437d39b322c02f347edf317884ce1de45de918d4cf003688b8"
@@ -124,6 +124,9 @@
     ],
     "tools/bas-due-dates/index.html": [
       "6f22173930285ac0d6c7aa02c77b70e02e8f693c73fd2853ffa9b9863e1598b2"
+    ],
+    "tools/business-calculators/alcohol-excise/index.html": [
+      "3db5fec87233945fe23e0aed138364a3dfc8da76bd9470e0aebccdda15e9e698"
     ],
     "tools/business-calculators/asic-fees/index.html": [
       "1695328325c3bd061d256303275f3872f33eaa53076df801b420bfcb01529583"
@@ -230,11 +233,17 @@
     "tools/business-calculators/index.html": [
       "017c5417aec4fa67cac2cd5aee9d90d5bf40f8378532c09cf3038cbc263bc7d0"
     ],
+    "tools/business-calculators/instant-asset-write-off/index.html": [
+      "6971df28b7445bbd839771159f0183fc5e366f38b8cb99da111046e975215889"
+    ],
     "tools/business-calculators/land-tax/index.html": [
       "90b1d2897a81b87c05cb1a74bb0937f468ac5e1806fa0b19603b5fff589b9e09"
     ],
     "tools/business-calculators/lease/index.html": [
       "f1ada462de82074cba52c6f7841f68cb0420b3de3bd1a9984582dbaab56d7077"
+    ],
+    "tools/business-calculators/leave-provisions/index.html": [
+      "df29e4cc45ef19c5cadd2aaf8cfd59facf551cf6e76f10eb77747a37569cf694"
     ],
     "tools/business-calculators/loan/index.html": [
       "2cd406152ba2bb6a96d062cf11bbf877a9a18426c109e5b7d42327d124e1dea4"
@@ -266,6 +275,9 @@
     "tools/business-calculators/pcg-2021-4/index.html": [
       "f503a022ee50369a51222b2fc10a5c226ff49301dce425434399f33129a90471"
     ],
+    "tools/business-calculators/prepayments/index.html": [
+      "94457940444f71abb694475fc25f153b488d5b837069e18b082cc9b89e1d6999"
+    ],
     "tools/business-calculators/psi-determination/index.html": [
       "bf990b5cb178852bf874916d90e3aee297a665284853f4ce7f06e785f09acc63"
     ],
@@ -281,6 +293,9 @@
     "tools/business-calculators/sgc-payday/index.html": [
       "e973ac852c84dc22cd7ceda86113c1cac5ff87eefb33dc3d1a4bc2d0fec0e1c3"
     ],
+    "tools/business-calculators/smsf-tax/index.html": [
+      "4e8574dc3288c9426413c0923e8e4c20bb13c106337d1573347fbd1eb7e4885e"
+    ],
     "tools/business-calculators/sole-trader-company/index.html": [
       "f6758a9160b5572269b96b9851d939a6edb74f3b423b39d8e8e26f2a7e4df131"
     ],
@@ -288,13 +303,16 @@
       "f6d27328541f0ed80446e56fbe3d59031e3686b15759b93994561c842531fb1e"
     ],
     "tools/business-calculators/super-benefit-tax/index.html": [
-      "43025e01fc00922d799fda63d3e34838119ed949926ade7a2cc59dd92171eb9a"
+      "b1b60fb0d0e8f178c430612915cb7f3f37a9f22c8e06d87be27a7bf6a8f1d8e2"
     ],
     "tools/business-calculators/tax-invoice/index.html": [
       "613bc525c8be0bb0ee5505fb0ed0ec4dac3e2330d6f1b2b7ae7d1ec51d7acb81"
     ],
     "tools/business-calculators/termination-payment/index.html": [
       "b055a3fecec1e12e11404b465cc1031bccc9254058bbd4566e22509430287508"
+    ],
+    "tools/business-calculators/trading-stock/index.html": [
+      "8f2bd4318a3504efe95bb25da56ba8fbe96ec773dfda1a70ef3a49a84566a634"
     ],
     "tools/business-calculators/transfer-duty/index.html": [
       "c868e04100902a2addc3c4481999fc36a8e8022dc7a688b129349623f0068140"
@@ -452,7 +470,7 @@
   },
   "protected_files": {
     "robots.txt": "18d6a7d73dbde21fcae1ba0ac8ccd5750ced144637be01d142ea5dc16ee96a9d",
-    "sitemap.xml": "23aa4773444d4f897be18158377361976cec9e980e7f418e5c891267a4911a4a"
+    "sitemap.xml": "64bdcd207d443f6b883b89b13f3d58791591171c097559e3077275da5a3cf620"
   },
   "protected_main_links": {
     "rates/cents-per-kilometre/index.html": [
@@ -512,7 +530,7 @@
     "rates/super-guarantee/index.html": "a5d7321076de35ab9916764165ca7cdc369eef5a36ae35762be3e2ed93c6dc56"
   },
   "protected_text": {
-    "Ryan Duguid is not a registered tax or BAS agent. Nothing here is accounting, tax, legal or financial advice. Outputs are review aids for a qualified professional.": 7819,
+    "Ryan Duguid is not a registered tax or BAS agent. Nothing here is accounting, tax, legal or financial advice. Outputs are review aids for a qualified professional.": 7825,
     "Nothing here is accounting, tax, legal or financial advice. The tools are review aids for a qualified professional, not compliance determinations.": 1,
     "This site does not offer tax or BAS agent services or take requests for tax advice or lodgement.": 1
   }

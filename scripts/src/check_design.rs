@@ -596,6 +596,31 @@ pub fn check_oled_tokens(tokens_css: &str) -> Vec<String> {
     failures
 }
 
+fn check_light_code_and_home(
+    properties: &[(String, String)],
+    tokens_css: &str,
+    failures: &mut Vec<String>,
+) {
+    match token_get(properties, "--colour-code") {
+        Some(code_bg) if six_digit(code_bg) => check_contrast_tokens(
+            properties,
+            code_bg,
+            &["--colour-code-ink", "--colour-code-comment"],
+            4.5,
+            failures,
+        ),
+        _ => failures.push("--colour-code must be a six-digit colour".into()),
+    }
+    for groups in re(LIGHT_HOME_BLOCK_PATTERN, S | I).findall_groups(tokens_css) {
+        let home_props = css_block_properties(&groups[0]);
+        for token in ["--colour-ink-mid", "--colour-ink-soft"] {
+            if token_get(&home_props, token).is_some() {
+                check_contrast_tokens(&home_props, "#ffffff", &[token], 4.5, failures);
+            }
+        }
+    }
+}
+
 /// Validate the opt-in `:root[data-theme="light"]` palette and contrast floors.
 pub fn check_light_tokens(tokens_css: &str) -> Vec<String> {
     let mut failures = Vec::new();
@@ -631,16 +656,6 @@ pub fn check_light_tokens(tokens_css: &str) -> Vec<String> {
         4.5,
         &mut failures,
     );
-    match token_get(&properties, "--colour-code") {
-        Some(code_bg) if six_digit(code_bg) => check_contrast_tokens(
-            &properties,
-            code_bg,
-            &["--colour-code-ink", "--colour-code-comment"],
-            4.5,
-            &mut failures,
-        ),
-        _ => failures.push("--colour-code must be a six-digit colour".into()),
-    }
     check_contrast_tokens(
         &properties,
         "#ffffff",
@@ -650,14 +665,7 @@ pub fn check_light_tokens(tokens_css: &str) -> Vec<String> {
     );
     check_brand_accents(&properties, &mut failures);
     check_on_stamp_contrast(&properties, &mut failures);
-    for groups in re(LIGHT_HOME_BLOCK_PATTERN, S | I).findall_groups(tokens_css) {
-        let home_props = css_block_properties(&groups[0]);
-        for token in ["--colour-ink-mid", "--colour-ink-soft"] {
-            if token_get(&home_props, token).is_some() {
-                check_contrast_tokens(&home_props, "#ffffff", &[token], 4.5, &mut failures);
-            }
-        }
-    }
+    check_light_code_and_home(&properties, tokens_css, &mut failures);
     failures
 }
 

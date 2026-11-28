@@ -1322,6 +1322,66 @@ test('tax invoice page works GSTR 2013/1 example 2, a mixed invoice and its down
   await expect(form.getByRole('button', { name: 'Download the invoice to print' })).toBeDisabled();
 });
 
+// The SMSF example is the form's default; a wholly pension phase fund is refunded, and a part dollar is refused.
+test('SMSF tax page works its example, a refund and refuses cents in a whole dollar field offline', async ({ page, context }) => {
+  await page.goto('/tools/business-calculators/smsf-tax/');
+  const form = page.locator('#smsf-tax form');
+  await waitForCalculator(form);
+  await context.setOffline(true);
+  await form.getByRole('button', { name: 'Calculate', exact: true }).click();
+  await expect(form.locator('output .result-row--principal')).toHaveText('Amount due (S): $16,559.00.');
+  await form.locator('[name="contributions"]').fill('0');
+  await form.locator('[name="deductions"]').fill('0');
+  await form.locator('[name="instalments"]').fill('0');
+  await form.locator('[name="proportion"]').fill('1');
+  await form.getByRole('button', { name: 'Calculate', exact: true }).click();
+  await expect(form.locator('output .result-row--principal')).toHaveText('Amount refundable (S): $2,741.00.');
+  await form.locator('[name="deductions"]').fill('10.50');
+  await form.getByRole('button', { name: 'Calculate', exact: true }).click();
+  await expect(form.locator('.field-error')).toHaveText('Enter a whole number.');
+});
+
+// The trading stock example is the form's default; within $5,000 the choice gives nil.
+test('trading stock page works its example and the small business choice offline', async ({ page, context }) => {
+  await page.goto('/tools/business-calculators/trading-stock/');
+  const form = page.locator('#trading-stock form');
+  await waitForCalculator(form);
+  await context.setOffline(true);
+  await form.getByRole('button', { name: 'Calculate', exact: true }).click();
+  await expect(form.locator('output .result-row--principal')).toHaveText('Deduction for the decrease (section 70-35(3)): $6,000.00.');
+  await form.locator('[name="opening"]').fill('36000');
+  await form.locator('[name="choice"]').selectOption('yes');
+  await form.getByRole('button', { name: 'Calculate', exact: true }).click();
+  await expect(form.locator('output .result-row--principal')).toHaveText('Assessable increase (section 70-35(2)): $0.00.');
+});
+
+// The prepaid expenses example is the form's default; a small business entity takes the 12-month rule.
+test('prepaid expenses page apportions its example and applies the 12-month rule offline', async ({ page, context }) => {
+  await page.goto('/tools/business-calculators/prepayments/');
+  const form = page.locator('#prepayments form');
+  await waitForCalculator(form);
+  await context.setOffline(true);
+  await form.getByRole('button', { name: 'Calculate', exact: true }).click();
+  await expect(form.locator('output .result-row--principal')).toHaveText('Deduction in 2025-26: $8,021.92.');
+  await form.locator('[name="taxpayer"]').selectOption('small_business_entity');
+  await form.getByRole('button', { name: 'Calculate', exact: true }).click();
+  await expect(form.locator('output .result-row--principal')).toHaveText('Deduction in 2025-26: $24,000.00.');
+});
+
+// The alcohol excise example is the form's default; 31 January 2027 is the last published rate day.
+test('alcohol excise page works its example and the last published rate day without remission offline', async ({ page, context }) => {
+  await page.goto('/tools/business-calculators/alcohol-excise/');
+  const form = page.locator('#alcohol-excise form');
+  await waitForCalculator(form);
+  await context.setOffline(true);
+  await form.getByRole('button', { name: 'Calculate', exact: true }).click();
+  await expect(form.locator('output .result-row--principal')).toHaveText('Net duty payable: $7,918.67.');
+  await form.locator('[name="date-1"]').fill('2027-01-31');
+  await form.locator('[name="remission-2"]').selectOption('no');
+  await form.getByRole('button', { name: 'Calculate', exact: true }).click();
+  await expect(form.locator('output .result-row--principal')).toHaveText('Net duty payable: $25,542.67.');
+});
+
 // GSTR 2000/24's Bill is the form's default; the bad debt worksheet shows its own fields and the conditions table.
 test('GST adjustments page works Bill, a recipient bad debt and refuses a margin scheme debt offline', async ({ page, context }) => {
   await page.goto('/tools/business-calculators/gst-adjustments/');
@@ -1385,6 +1445,67 @@ test('Trust streaming page works its example, a third beneficiary and refuses en
   await form.locator('[name="b3-entitlement"]').fill('50000.01');
   await form.getByRole('button', { name: 'Calculate', exact: true }).click();
   await expect(form.locator('output')).toContainText('cannot exceed the trust’s income');
+});
+
+// Veronica's fortnightly pension: $2 withheld with a tax file number and the threshold, $517 (47%) without one.
+test('super lump sum page works Schedule 13 income stream withholding offline', async ({ page, context }) => {
+  await page.goto('/tools/business-calculators/super-benefit-tax/');
+  const form = page.locator('#super-benefit-tax form');
+  await waitForCalculator(form);
+  await context.setOffline(true);
+  await expect(form.locator('[name="stream-period"]')).toBeHidden();
+  await form.locator('[name="calc"][value="stream"]').check();
+  await expect(form.locator('[name="stream-period"]')).toBeVisible();
+  await expect(form.locator('[name="benefit"]')).toBeHidden();
+  await form.getByRole('button', { name: 'Calculate', exact: true }).click();
+  await expect(form.locator('output .result-row--principal')).toHaveText('Amount to withhold, to the nearest dollar: $2.00.');
+  await form.locator('[name="stream-tfn"]').selectOption('no');
+  await form.getByRole('button', { name: 'Calculate', exact: true }).click();
+  await expect(form.locator('output .result-row--principal')).toHaveText('Amount to withhold, cents ignored: $517.00.');
+});
+
+// The ATO's Fiona writes her $6,800 computer off at 80%; Daryl's $40,000 ute at 40% goes to the pool.
+test('Instant asset write-off page works Fiona and Daryl and refuses a budget day offline', async ({ page, context }) => {
+  await page.goto('/tools/business-calculators/instant-asset-write-off/');
+  const form = page.locator('#instant-asset-write-off form');
+  await waitForCalculator(form);
+  await context.setOffline(true);
+  await form.getByRole('button', { name: 'Calculate', exact: true }).click();
+  await expect(form.locator('output .result-row--principal')).toHaveText('Instant asset write-off deduction: $5,440.00.');
+  for (const [field, value] of [['acquired', '2025-07-28'], ['used', '2025-07-28'], ['cost', '40000'], ['use', '40']]) {
+    await form.locator(`[name="${field}"]`).fill(value);
+  }
+  await form.getByRole('button', { name: 'Calculate', exact: true }).click();
+  await expect(form.locator('output .result-row--principal')).toHaveText('Instant asset write-off deduction: not written off: $0.00.');
+  await form.locator('[name="year"]').selectOption('2020-21');
+  await form.locator('[name="acquired"]').fill('2020-10-06');
+  await form.locator('[name="used"]').fill('2021-01-01');
+  await form.getByRole('button', { name: 'Calculate', exact: true }).click();
+  await expect(form.locator('output')).toContainText('6 October 2020');
+});
+
+// The form opens on 3 lines; dropping the unvested line leaves only current provisions, and 10 hours of
+// short-term annual leave at $38 with the line's 40% probability adds $152.
+test('Leave provisions page works its example, drops a blank line and adds a short-term line offline', async ({ page, context }) => {
+  await page.goto('/tools/business-calculators/leave-provisions/');
+  const form = page.locator('#leave-provisions form');
+  await waitForCalculator(form);
+  await context.setOffline(true);
+  await form.getByRole('button', { name: 'Calculate', exact: true }).click();
+  await expect(form.locator('output .result-row--principal')).toHaveText('Total leave provisions: $28,882.49.');
+  await form.locator('[name="line-3-label"]').fill('');
+  await form.locator('[name="line-3-hours"]').fill('');
+  await form.getByRole('button', { name: 'Calculate', exact: true }).click();
+  await expect(form.locator('output .result-row--principal')).toHaveText('Total leave provisions: $27,123.16.');
+  await form.locator('[name="line-3-label"]').fill('Annual leave, casual conversions');
+  await form.locator('[name="line-3-leave"]').selectOption('annual');
+  await form.locator('[name="line-3-hours"]').fill('10');
+  await form.locator('[name="line-3-settled"]').selectOption('yes');
+  await form.locator('[name="line-3-years"]').fill('');
+  await form.locator('[name="line-3-growth"]').fill('');
+  await form.locator('[name="line-3-discount"]').fill('');
+  await form.getByRole('button', { name: 'Calculate', exact: true }).click();
+  await expect(form.locator('output .result-row--principal')).toHaveText('Total leave provisions: $27,275.16.');
 });
 
 test('ATO penalties and interest page works GIC by quarter, a failure to lodge penalty and refuses remission offline', async ({ page, context }) => {
@@ -1916,7 +2037,7 @@ const CALCULATORS = ['gst', 'business-use', 'margin', 'break-even', 'hourly', 'f
   'div7a-schedule', 'division-296', 'payroll-tax', 'psi-determination', 'cgt-concessions',
   'franking-account', 'company-tax', 'salary-dividend', 'foreign-surcharge', 'business-days', 'sgc-payday', 'cgt', 'long-service-leave', 'unused-leave', 'borrowing-expenses',
   'workers-compensation', 'fuel-tax-credits', 'luxury-car-tax', 'super-benefit-tax', 'lease', 'gst-margin-scheme', 'wine-equalisation-tax', 'asic-fees', 'depreciation-pools', 'ato-penalties-interest', 'rental-property', 'rd-tax-offset', 'casual-overtime', 'contractor-employee',
-  'gst-adjustments', 'deferred-tax', 'sole-trader-company', 'payday-cashflow', 'tax-invoice', 'trust-streaming'];
+  'gst-adjustments', 'deferred-tax', 'sole-trader-company', 'payday-cashflow', 'tax-invoice', 'trust-streaming', 'instant-asset-write-off', 'leave-provisions', 'smsf-tax', 'trading-stock', 'prepayments', 'alcohol-excise'];
 
 test.describe('before any script runs', () => {
   test.use({ javaScriptEnabled: false });

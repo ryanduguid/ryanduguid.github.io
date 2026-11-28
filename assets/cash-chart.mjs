@@ -211,10 +211,27 @@ export function buildNegativeStrokePath(states) {
   return buildNegativePath(states, false);
 }
 
-/** @param {Element} root */
-function initCashChart(root) {
+/**
+ * @typedef {Object} ChartElements
+ * @property {HTMLElement} controls
+ * @property {SVGPathElement} line
+ * @property {SVGPathElement} deficit
+ * @property {SVGPathElement} negLine
+ * @property {SVGLineElement} receiptLine
+ * @property {SVGCircleElement} receiptDot
+ * @property {SVGTextElement} receiptLabel
+ * @property {SVGCircleElement} lowDot
+ * @property {SVGTextElement} lowLabel
+ * @property {HTMLElement} minValue
+ * @property {HTMLElement} minNote
+ * @property {HTMLElement | null} staticDelay
+ * @property {HTMLElement | null} receiptSr
+ * @property {HTMLElement | null} status
+ */
+
+/** @param {Element} root @returns {ChartElements | null} */
+function queryChartElements(root) {
   const controls = root.querySelector('[data-cash-controls]');
-  const staticDelay = root.querySelector('[data-cash-static-delay]');
   const line = root.querySelector('[data-cash-line]');
   const deficit = root.querySelector('[data-cash-deficit]');
   const negLine = root.querySelector('[data-cash-neg-line]');
@@ -225,111 +242,85 @@ function initCashChart(root) {
   const lowLabel = root.querySelector('[data-cash-low-label]');
   const minValue = root.querySelector('[data-cash-min-value]');
   const minNote = root.querySelector('[data-cash-min-note]');
-  const receiptSr = root.querySelector('[data-cash-receipt-sr]');
-  const status = root.querySelector('[data-cash-status]');
-
   if (
-    !(controls instanceof HTMLElement)
-    || !(line instanceof SVGPathElement)
-    || !(deficit instanceof SVGPathElement)
-    || !(negLine instanceof SVGPathElement)
-    || !(receiptLine instanceof SVGLineElement)
-    || !(receiptDot instanceof SVGCircleElement)
-    || !(receiptLabel instanceof SVGTextElement)
-    || !(lowDot instanceof SVGCircleElement)
-    || !(lowLabel instanceof SVGTextElement)
-    || !(minValue instanceof HTMLElement)
+    !(controls instanceof HTMLElement) || !(line instanceof SVGPathElement)
+    || !(deficit instanceof SVGPathElement) || !(negLine instanceof SVGPathElement)
+    || !(receiptLine instanceof SVGLineElement) || !(receiptDot instanceof SVGCircleElement)
+    || !(receiptLabel instanceof SVGTextElement) || !(lowDot instanceof SVGCircleElement)
+    || !(lowLabel instanceof SVGTextElement) || !(minValue instanceof HTMLElement)
     || !(minNote instanceof HTMLElement)
   ) {
-    return;
+    return null;
   }
+  const staticDelay = root.querySelector('[data-cash-static-delay]');
+  const receiptSr = root.querySelector('[data-cash-receipt-sr]');
+  const status = root.querySelector('[data-cash-status]');
+  return {
+    controls, line, deficit, negLine, receiptLine, receiptDot, receiptLabel, lowDot, lowLabel, minValue, minNote,
+    staticDelay: staticDelay instanceof HTMLElement ? staticDelay : null,
+    receiptSr: receiptSr instanceof HTMLElement ? receiptSr : null,
+    status: status instanceof HTMLElement ? status : null,
+  };
+}
 
-  if (staticDelay instanceof HTMLElement) staticDelay.hidden = true;
-  if (receiptSr instanceof HTMLElement) receiptSr.hidden = false;
-  controls.hidden = false;
-  const controlsEl = controls;
-  const lineEl = line;
-  const deficitEl = deficit;
-  const negLineEl = negLine;
-  const receiptLineEl = receiptLine;
-  const receiptDotEl = receiptDot;
-  const receiptLabelEl = receiptLabel;
-  const lowDotEl = lowDot;
-  const lowLabelEl = lowLabel;
-  const minValueEl = minValue;
-  const minNoteEl = minNote;
-  const staticDelayEl = staticDelay instanceof HTMLElement ? staticDelay : null;
-  const receiptSrEl = receiptSr instanceof HTMLElement ? receiptSr : null;
-  const statusEl = status instanceof HTMLElement ? status : null;
+/** @param {Element} root @param {ChartElements} els @param {DelayKey} key @param {boolean} announce */
+function applyChartScenario(root, els, key, announce) {
+  const scenario = SCENARIOS[key];
+  if (!scenario) return;
+  root.setAttribute('data-state', scenario.isAlert ? 'alert' : 'ok');
+  els.line.setAttribute('d', buildStepPath(scenario.states));
+  els.deficit.setAttribute('d', buildDeficitPath(scenario.states));
+  els.negLine.setAttribute('d', buildNegativeStrokePath(scenario.states));
 
-  /**
-   * @param {DelayKey} key
-   * @param {boolean} announce
-   */
-  function applyScenario(key, announce) {
-    const scenario = SCENARIOS[key];
-    if (!scenario) return;
-    root.setAttribute('data-state', scenario.isAlert ? 'alert' : 'ok');
+  const rx = xPos(scenario.receiptDay);
+  const receiptState = scenario.states.find(([day]) => day === scenario.receiptDay);
+  const ry = yPos(receiptState ? receiptState[1] : 67320);
+  const rxStr = String(rx);
+  els.receiptLine.setAttribute('x1', rxStr);
+  els.receiptLine.setAttribute('x2', rxStr);
+  els.receiptLine.setAttribute('y2', String(ry));
+  els.receiptDot.setAttribute('cx', rxStr);
+  els.receiptDot.setAttribute('cy', String(ry));
+  els.receiptLabel.setAttribute('x', rxStr);
+  els.receiptLabel.setAttribute('text-anchor', rx < 130 ? 'start' : rx > 295 ? 'end' : 'middle');
+  els.receiptLabel.textContent = `OPEN-V receipt \u00b7 ${scenario.receiptDateShort}`;
 
-    lineEl.setAttribute('d', buildStepPath(scenario.states));
-    deficitEl.setAttribute('d', buildDeficitPath(scenario.states));
-    negLineEl.setAttribute('d', buildNegativeStrokePath(scenario.states));
+  els.lowDot.setAttribute('cx', String(xPos(scenario.lowDay)));
+  els.lowDot.setAttribute('cy', String(yPos(scenario.lowValue)));
+  els.lowLabel.setAttribute('x', String(scenario.lowLabelX));
+  els.lowLabel.setAttribute('y', String(scenario.lowLabelY));
+  els.lowLabel.setAttribute('text-anchor', scenario.lowLabelAnchor);
+  els.lowLabel.textContent = scenario.lowValue >= 0 ? `Low ${scenario.lowDisplay}` : scenario.lowDisplay;
 
-    const rx = xPos(scenario.receiptDay);
-    const receiptState = scenario.states.find(([day]) => day === scenario.receiptDay);
-    const ry = yPos(receiptState ? receiptState[1] : 67320);
-    const rxStr = String(rx);
-    const anchor = rx < 130 ? 'start' : rx > 295 ? 'end' : 'middle';
-    receiptLineEl.setAttribute('x1', rxStr);
-    receiptLineEl.setAttribute('x2', rxStr);
-    receiptLineEl.setAttribute('y2', String(ry));
-    receiptDotEl.setAttribute('cx', rxStr);
-    receiptDotEl.setAttribute('cy', String(ry));
-    receiptLabelEl.setAttribute('x', rxStr);
-    receiptLabelEl.setAttribute('text-anchor', anchor);
-    receiptLabelEl.textContent = `OPEN-V receipt \u00b7 ${scenario.receiptDateShort}`;
-
-    const lx = xPos(scenario.lowDay);
-    const ly = yPos(scenario.lowValue);
-    lowDotEl.setAttribute('cx', String(lx));
-    lowDotEl.setAttribute('cy', String(ly));
-    lowLabelEl.setAttribute('x', String(scenario.lowLabelX));
-    lowLabelEl.setAttribute('y', String(scenario.lowLabelY));
-    lowLabelEl.setAttribute('text-anchor', scenario.lowLabelAnchor);
-    lowLabelEl.textContent = scenario.lowValue >= 0 ? `Low ${scenario.lowDisplay}` : scenario.lowDisplay;
-
-    minValueEl.textContent = scenario.lowDisplay;
-    minNoteEl.textContent = scenario.lowNote;
-    if (staticDelayEl) {
-      staticDelayEl.textContent = `${scenario.buttonLabel} (${scenario.receiptDateShort} receipt)`;
-    }
-    if (receiptSrEl) {
-      receiptSrEl.textContent = `OPEN-V receipt: ${scenario.receiptDateShort}.`;
-    }
-    if (announce && statusEl) {
-      const negPeriods = negativeRuns(scenario.states).length;
-      let note = scenario.lowNote.replace(' \u00b7 ', ', ');
-      if (negPeriods > 1) {
-        note = note.replace(/ \(\d+ periods\)$/, ` across ${negPeriods} separate periods`);
-      }
-      statusEl.textContent =
-        `${scenario.buttonLabel} (${scenario.receiptDateShort} receipt): lowest daily cash ${scenario.lowDisplay}, ${note}. Quarterly profit before tax remains $35,957.55.`;
-    }
+  els.minValue.textContent = scenario.lowDisplay;
+  els.minNote.textContent = scenario.lowNote;
+  if (els.staticDelay) els.staticDelay.textContent = `${scenario.buttonLabel} (${scenario.receiptDateShort} receipt)`;
+  if (els.receiptSr) els.receiptSr.textContent = `OPEN-V receipt: ${scenario.receiptDateShort}.`;
+  if (announce && els.status) {
+    const negPeriods = negativeRuns(scenario.states).length;
+    let note = scenario.lowNote.replace(' \u00b7 ', ', ');
+    if (negPeriods > 1) note = note.replace(/ \(\d+ periods\)$/, ` across ${negPeriods} separate periods`);
+    els.status.textContent =
+      `${scenario.buttonLabel} (${scenario.receiptDateShort} receipt): lowest daily cash ${scenario.lowDisplay}, ${note}. Quarterly profit before tax remains $35,957.55.`;
   }
+}
 
-  const initialChecked = controlsEl.querySelector('input:checked');
-  if (
-    initialChecked instanceof HTMLInputElement
-    && initialChecked.value in SCENARIOS
-    && initialChecked.value !== '45'
-  ) {
-    applyScenario(/** @type {DelayKey} */ (initialChecked.value), false);
+/** @param {Element} root */
+function initCashChart(root) {
+  const els = queryChartElements(root);
+  if (!els) return;
+  if (els.staticDelay) els.staticDelay.hidden = true;
+  if (els.receiptSr) els.receiptSr.hidden = false;
+  els.controls.hidden = false;
+
+  const initialChecked = els.controls.querySelector('input:checked');
+  if (initialChecked instanceof HTMLInputElement && initialChecked.value in SCENARIOS && initialChecked.value !== '45') {
+    applyChartScenario(root, els, /** @type {DelayKey} */ (initialChecked.value), false);
   }
-
-  controlsEl.addEventListener('change', event => {
+  els.controls.addEventListener('change', event => {
     const target = event.target;
     if (target instanceof HTMLInputElement && target.value in SCENARIOS) {
-      applyScenario(/** @type {DelayKey} */ (target.value), true);
+      applyChartScenario(root, els, /** @type {DelayKey} */ (target.value), true);
     }
   });
 }
