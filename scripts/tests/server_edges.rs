@@ -4,7 +4,9 @@
 //! The preview server's handling of request lines http.server treats specially.
 mod common;
 
-use common::http::{connect, request, start};
+#[cfg(unix)]
+use common::http::request;
+use common::http::{connect, start};
 use std::io::{Read, Write};
 
 /// Everything the server writes for one raw request before it closes the connection.

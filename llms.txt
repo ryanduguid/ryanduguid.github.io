@@ -239,7 +239,7 @@ Scope: duguid.com.au is a personal index of accounting tools. Ryan Duguid is not
 ## Supported installation
 
 - [Adopt](https://duguid.com.au/tools/australian-tax-ai-agents/#install): the maintained source for the supported installation routes and the no-install option.
-- [github-agent-skills](https://github.com/ryanduguid/github-agent-skills): github-agent-skills gives Codex and Claude Code the GitHub maintenance workflows this portfolio uses, and keeps the fictional-data and human review boundaries. Use the maintained setup at Adopt.
+- [github-agent-skills](https://github.com/yungSNAT/github-agent-skills): github-agent-skills gives Codex and Claude Code the GitHub maintenance workflows this portfolio uses, and keeps the fictional-data and human review boundaries. Use the maintained setup at Adopt.
 
 ## Contact and history
 

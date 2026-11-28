@@ -5388,8 +5388,8 @@ github-agent-skills gives Codex and Claude Code the GitHub maintenance workflows
 Needs Git and rustup for validation. Development checkout: clones the default branch, not a tagged release.
 
 ```
-# GitHub maintenance workflows for Codex and Claude Code: https://github.com/ryanduguid/github-agent-skills
-git clone https://github.com/ryanduguid/github-agent-skills.git
+# GitHub maintenance workflows for Codex and Claude Code: https://github.com/yungSNAT/github-agent-skills
+git clone https://github.com/yungSNAT/github-agent-skills.git
 cd github-agent-skills
 rustup toolchain install
 cargo run --manifest-path tools/github-skills/Cargo.toml --locked -- validate-skills --strict

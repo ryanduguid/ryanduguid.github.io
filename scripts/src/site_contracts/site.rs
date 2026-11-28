@@ -570,7 +570,7 @@ pub fn check_authority_surface(root: &Path) -> Result<Vec<String>, String> {
     if !tooling.contains(GITHUB_AGENT_SKILLS_URL)
         || !tooling.contains(GITHUB_AGENT_SKILLS_BOUNDARY)
         || [
-            "git clone https://github.com/ryanduguid/github-agent-skills.git",
+            "git clone https://github.com/yungSNAT/github-agent-skills.git",
             "cd github-agent-skills",
             "cargo run --manifest-path tools/github-skills/Cargo.toml --locked -- validate-skills --strict",
         ]
