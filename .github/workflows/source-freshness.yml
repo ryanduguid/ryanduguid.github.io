@@ -201,7 +201,7 @@ jobs:
         with:
           persist-credentials: false
       # build_llms_full renders the site with Jekyll before it extracts the mirrors.
-      - uses: ruby/setup-ruby@b3aaceaef7e0ee231b499e7b5f49c03fc1d32199
+      - uses: ruby/setup-ruby@be3c7df29b3349ec6bcfc6b4792f1cf9f5237d18
         with:
           ruby-version: "3.3"
           bundler-cache: true
@@ -250,7 +250,7 @@ jobs:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           persist-credentials: false
-      - uses: ruby/setup-ruby@b3aaceaef7e0ee231b499e7b5f49c03fc1d32199
+      - uses: ruby/setup-ruby@be3c7df29b3349ec6bcfc6b4792f1cf9f5237d18
         with:
           ruby-version: "3.3"
           bundler-cache: true
@@ -294,7 +294,7 @@ jobs:
     steps:
       - name: Mint the pull request token
         id: app-token
-        uses: actions/create-github-app-token@64ab729a6294000f5aa4a4bc0b73d1f32bc45510 # v3.3.0
+        uses: actions/create-github-app-token@f418cff399f7aef4c2f0ad47e25ca7a6abbdd6fc # v3.4.0
         with:
           client-id: ${{ vars.SOURCE_FRESHNESS_APP_CLIENT_ID }}
           private-key: ${{ secrets.SOURCE_FRESHNESS_APP_PRIVATE_KEY }}
@@ -390,7 +390,7 @@ jobs:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           persist-credentials: false
-      - uses: ruby/setup-ruby@b3aaceaef7e0ee231b499e7b5f49c03fc1d32199
+      - uses: ruby/setup-ruby@be3c7df29b3349ec6bcfc6b4792f1cf9f5237d18
         with:
           ruby-version: "3.3"
           bundler-cache: true
@@ -403,7 +403,7 @@ jobs:
           node-version: "24"
           cache: npm
       - name: Install locked-script runner
-        uses: astral-sh/setup-uv@68559e99cc807c1eb7e9238fd43a15bba460eec2 # v10.3.3
+        uses: astral-sh/setup-uv@1db35dd8eee11c5894872e0b383ae6c406cf738d # v10.4.0
         with:
           version: "0.13.5"
           enable-cache: true
@@ -463,7 +463,7 @@ jobs:
     steps:
       - name: Mint the pull request token
         id: app-token
-        uses: actions/create-github-app-token@64ab729a6294000f5aa4a4bc0b73d1f32bc45510 # v3.3.0
+        uses: actions/create-github-app-token@f418cff399f7aef4c2f0ad47e25ca7a6abbdd6fc # v3.4.0
         with:
           client-id: ${{ vars.SOURCE_FRESHNESS_APP_CLIENT_ID }}
           private-key: ${{ secrets.SOURCE_FRESHNESS_APP_PRIVATE_KEY }}
@@ -494,7 +494,7 @@ jobs:
       # contents and pull requests, and has no workflows permission.
       - name: Mint the pull request token
         id: app-token
-        uses: actions/create-github-app-token@64ab729a6294000f5aa4a4bc0b73d1f32bc45510 # v3.3.0
+        uses: actions/create-github-app-token@f418cff399f7aef4c2f0ad47e25ca7a6abbdd6fc # v3.4.0
         with:
           client-id: ${{ vars.SOURCE_FRESHNESS_APP_CLIENT_ID }}
           private-key: ${{ secrets.SOURCE_FRESHNESS_APP_PRIVATE_KEY }}
