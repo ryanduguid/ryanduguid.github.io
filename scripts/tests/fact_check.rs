@@ -9,7 +9,7 @@ use common::{copied_site, rendered, root};
 use site_tools::htmlparser::{self, Event};
 use site_tools::pycsv;
 use site_tools::pyjson::{self, Json};
-use site_tools::pyre::{S, re};
+use site_tools::pyre::{I, S, re};
 use site_tools::seo_core::{TITLE_MAX, Tree, parse_structure};
 use site_tools::site_contracts::RATE_PAGES;
 use site_tools::source_freshness::format_date;
@@ -1787,9 +1787,19 @@ fn rate_pages_state_their_csv_year_value_and_dates() {
 }
 
 #[test]
-fn flagship_rate_pages_keep_answers_sources_and_csv_in_extracted_markdown() {
+fn rate_pages_keep_answers_sources_and_csv_in_extracted_markdown() {
     assert!(rendered(), "rate extraction requires a rendered site");
-    let pages: [(&str, &str, &[&str]); 3] = [
+    // Keep the expected links independent of the rendered HTML.
+    let pages: [(&str, &str, &[&str]); RATE_PAGES.len()] = [
+        (
+            "super-guarantee",
+            "super-guarantee-rates.csv",
+            &[
+                "https://www.ato.gov.au/tax-rates-and-codes/key-superannuation-rates-and-thresholds/super-guarantee",
+                "https://www.legislation.gov.au/C2025A00057/asmade",
+                "https://www.legislation.gov.au/C2004A04402/latest/text",
+            ],
+        ),
         (
             "div7a-benchmark-rate",
             "div7a-benchmark-rates.csv",
@@ -1800,11 +1810,19 @@ fn flagship_rate_pages_keep_answers_sources_and_csv_in_extracted_markdown() {
             ],
         ),
         (
-            "super-guarantee",
-            "super-guarantee-rates.csv",
+            "cents-per-kilometre",
+            "cents-per-kilometre-rates.csv",
+            &[
+                "https://www.legislation.gov.au/F2026L00785/asmade",
+                "https://www.legislation.gov.au/F2024L00697/asmade",
+                "https://www.ato.gov.au/businesses-and-organisations/income-deductions-and-concessions/income-and-deductions-for-business/deductions/deductions-for-motor-vehicle-expenses/cents-per-kilometre-method",
+            ],
+        ),
+        (
+            "maximum-contribution-base",
+            "maximum-contribution-base.csv",
             &[
                 "https://www.ato.gov.au/tax-rates-and-codes/key-superannuation-rates-and-thresholds/super-guarantee",
-                "https://www.legislation.gov.au/C2025A00057/asmade",
                 "https://www.legislation.gov.au/C2004A04402/latest/text",
             ],
         ),
@@ -1816,21 +1834,108 @@ fn flagship_rate_pages_keep_answers_sources_and_csv_in_extracted_markdown() {
                 "https://www.ato.gov.au/individuals-and-families/income-deductions-offsets-and-records/tradies-be-certain-about-what-you-can-claim",
                 "https://www.ato.gov.au/businesses-and-organisations/income-deductions-and-concessions/depreciation-and-capital-expenses-and-allowances/backing-business-investment-accelerated-depreciation",
                 "https://www.legislation.gov.au/C2004A05138/latest/text",
+                "https://www.ato.gov.au/businesses-and-organisations/gst-excise-and-indirect-taxes/gst/in-detail/your-industry/motor-vehicle-and-transport/gst-and-motor-vehicles/purchasing-a-motor-vehicle",
+            ],
+        ),
+        (
+            "fbt-rate",
+            "fbt-rates.csv",
+            &[
+                "https://www.ato.gov.au/tax-rates-and-codes/fringe-benefits-tax-rates-and-thresholds",
+                "https://www.ato.gov.au/tax-rates-and-codes/fringe-benefits-tax-historical-rates-and-thresholds",
+                "https://www.legislation.gov.au/C2004A03281/latest/text",
+            ],
+        ),
+        (
+            "individual-income-tax",
+            "individual-income-tax-rates.csv",
+            &[
+                "https://www.ato.gov.au/tax-rates-and-codes/tax-rates-australian-residents",
+                "https://www.ato.gov.au/individuals-and-families/medicare-and-private-health-insurance/medicare-levy/medicare-levy-reduction/medicare-levy-reduction-for-low-income-earners",
+                "https://www.legislation.gov.au/C2004A03351/latest/text",
+            ],
+        ),
+        (
+            "study-loan-repayment",
+            "study-loan-repayment-thresholds.csv",
+            &[
+                "https://www.ato.gov.au/tax-rates-and-codes/study-and-training-loan-minimum-repayment-income-and-rates",
+            ],
+        ),
+        (
+            "payg-withholding",
+            "schedule-1-coefficients.csv",
+            &[
+                "https://www.ato.gov.au/tax-rates-and-codes/payg-withholding-schedule-1-statement-of-formulas-for-calculating-amounts-to-be-withheld/coefficients-to-use-in-formulas-for-withholding-from-weekly-payments",
+                "https://www.ato.gov.au/tax-rates-and-codes/payg-withholding-schedule-1-statement-of-formulas-for-calculating-amounts-to-be-withheld/about-this-schedule",
+                "https://www.ato.gov.au/tax-rates-and-codes/payg-withholding-schedule-1-statement-of-formulas-for-calculating-amounts-to-be-withheld/using-a-formula",
+                "https://www.ato.gov.au/tax-rates-and-codes/payg-withholding-schedule-1-statement-of-formulas-for-calculating-amounts-to-be-withheld/working-out-the-weekly-earnings",
+                "https://www.ato.gov.au/tax-rates-and-codes/payg-withholding-schedule-1-statement-of-formulas-for-calculating-amounts-to-be-withheld/sample-data/withholding-amounts-sample-data",
+            ],
+        ),
+        (
+            "general-interest-charge",
+            "general-interest-charge-rates.csv",
+            &[
+                "https://www.ato.gov.au/tax-rates-and-codes/general-interest-charge-rates",
+                "https://www.legislation.gov.au/C1953A00001/latest/text",
+                "https://www.ato.gov.au/individuals-and-families/paying-the-ato/help-with-paying/payment-plans",
+            ],
+        ),
+        (
+            "announced-not-yet-law",
+            "announced-measures.csv",
+            &[
+                "https://www.ato.gov.au/about-ato/new-legislation/latest-news-on-tax-law-and-policy",
+                "https://www.ato.gov.au/about-ato/new-legislation/guidance-on-tax-and-superannuation-measures",
+                "https://web.archive.org/web/20261006045904/https://treasury.gov.au/consultation",
+                "https://www.aph.gov.au/Parliamentary_Business/Bills_Legislation",
+                "https://www.legislation.gov.au/",
+                "https://www.ato.gov.au/about-ato/new-legislation/in-detail/businesses/electric-car-discount-more-sustainable-fbt-treatment-of-electric-cars",
+                "https://www.ato.gov.au/about-ato/new-legislation/in-detail/international/implementation-of-a-global-minimum-tax-and-a-domestic-minimum-tax",
+                "https://www.ato.gov.au/about-ato/new-legislation/in-detail/businesses/strengthening-the-foreign-resident-cgt-regime",
+                "https://www.ato.gov.au/about-ato/new-legislation/in-detail/international/banning-foreign-purchases-of-established-dwellings",
+                "https://www.ato.gov.au/about-ato/new-legislation/in-detail/businesses/tax-reform-better-targeting-the-research-and-development-tax-incentive",
+                "https://www.ato.gov.au/about-ato/new-legislation/in-detail/businesses/tax-reform-expanding-venture-capital-incentives",
+                "https://www.ato.gov.au/about-ato/new-legislation/in-detail/businesses/tax-reform-introducing-a-minimum-tax-on-discretionary-trusts",
+                "https://www.ato.gov.au/about-ato/new-legislation/in-detail/businesses/tax-reform-loss-refundability-reforms-for-businesses-and-start-ups",
+                "https://www.ato.gov.au/about-ato/new-legislation/in-detail/businesses/dynamic-pay-as-you-go-instalments-making-tax-simpler-for-businesses",
+                "https://www.legislation.gov.au/C2026A00086/latest/text",
+                "https://www.ato.gov.au/about-ato/new-legislation/in-detail/individuals/tax-reform-boosting-home-ownership-reforming-negative-gearing-and-capital-gains-tax",
+                "https://www.legislation.gov.au/C2026A00049/latest/text",
+                "https://www.aph.gov.au/Parliamentary_Business/Bills_Legislation/Bills_Search_Results/Result?bId=r7554",
+                "https://www.ato.gov.au/about-ato/new-legislation/in-detail/businesses/tax-reform-tax-loss-carry-back",
+            ],
+        ),
+        (
+            "transfer-duty",
+            "transfer-duty-rates.csv",
+            &[
+                "https://www.revenue.nsw.gov.au/taxes-duties-levies-royalties/transfer-duty/understanding-transfer-duty/calculate-transfer-duty",
+                "https://www.sro.vic.gov.au/about-us/rates-and-statistics/current-rates/land-transfer-duty-non-principal-place-residence-current-rates",
+                "https://qro.qld.gov.au/duties/transfer-duty/calculate/rates/",
+                "https://www.wa.gov.au/organisation/department-of-treasury-and-finance/transfer-duty-assessment",
+                "https://revenuesa.sa.gov.au/stamp-duty/rate-of-stamp-duty",
+                "https://www.sro.tas.gov.au/property-transfer-duties/rates-of-duty",
+                "https://www.legislation.act.gov.au/View/di/2026-155/current/html/2026-155.html",
+                "https://legislation.nt.gov.au/en/Legislation/STAMP-DUTY-ACT-1978",
             ],
         ),
     ];
-    // Model the boilerplate removal that dropped these introductions in Firecrawl (#851).
-    let converter = htmd::HtmlToMarkdown::builder()
-        .skip_tags(vec!["header", "footer", "nav", "aside"])
-        .build();
+    // Model the boilerplate removal in #851, then use the site's converter to keep table row headers.
+    let boilerplate = re(r"<(header|footer|nav|aside)([\s/>])", I);
     let mut failures = Vec::new();
-    for (slug, csv, citations) in pages {
+    for rel in RATE_PAGES {
+        let slug = rel.split('/').nth(1).unwrap();
+        let (_, csv, citations) = pages
+            .iter()
+            .find(|(page, _, _)| *page == slug)
+            .unwrap_or_else(|| panic!("{slug}: missing extraction expectations"));
         let fact = rate_fact(slug);
-        let html = site_tools::seo_core::visible_html(&read(&format!("rates/{slug}/index.html")));
-        let main = re(r"<main\b[^>]*>(.*?)</main\s*>", S)
-            .search(&html)
-            .unwrap_or_else(|| panic!("{slug}: no rendered main content"));
-        let markdown = converter.convert(&main[1]).unwrap();
+        let html = boilerplate.sub_with(&read(rel), |m| format!("<{} hidden{}", &m[1], &m[2]));
+        let page_url = format!("https://duguid.com.au/rates/{slug}/");
+        let markdown = site_tools::page_markdown::render(&html, &page_url)
+            .unwrap_or_else(|error| panic!("{slug}: {error}"));
         let lead = markdown
             .lines()
             .skip_while(|line| !line.starts_with("# "))
@@ -1849,12 +1954,14 @@ fn flagship_rate_pages_keep_answers_sources_and_csv_in_extracted_markdown() {
             ));
         }
 
-        let page_url = format!("https://duguid.com.au/rates/{slug}/");
-        let links: Vec<_> = re(r"\]\(([^)\s]+)\)", 0)
-            .findall(&markdown)
-            .iter()
-            .filter_map(|href| site_tools::pyurl::urljoin(&page_url, href).ok())
-            .collect();
+        failures.extend(
+            scope_failures(&markdown, &fact)
+                .into_iter()
+                .map(|failure| format!("{slug}: extracted source {failure}")),
+        );
+
+        let mut links = re(r"\]\(([^)\s]+)\)", 0).findall(&markdown);
+        links.extend(site_tools::seo_core::anchor_hrefs(&markdown));
         let download = format!("{page_url}{csv}");
         for expected in citations.iter().copied().chain([download.as_str()]) {
             if !links.iter().any(|link| link == expected) {
