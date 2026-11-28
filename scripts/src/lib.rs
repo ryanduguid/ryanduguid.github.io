@@ -29,7 +29,7 @@ pub mod minify_site;
 pub mod node;
 pub mod ozzit_functions;
 pub mod ozzit_reference;
-mod page_markdown;
+pub mod page_markdown;
 pub mod passages;
 pub mod pin_rates;
 pub mod py;
