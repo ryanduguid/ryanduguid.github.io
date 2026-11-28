@@ -92,10 +92,10 @@ static site has neither.
 
 ## Portable GitHub maintenance workflows
 
-github-agent-skills gives Codex and Claude Code the GitHub maintenance workflows this portfolio uses, and keeps the fictional-data and human review boundaries. Bootstrap <https://github.com/ryanduguid/github-agent-skills> locally with:
+github-agent-skills gives Codex and Claude Code the GitHub maintenance workflows this portfolio uses, and keeps the fictional-data and human review boundaries. Bootstrap <https://github.com/yungSNAT/github-agent-skills> locally with:
 
 ```powershell
-git clone https://github.com/ryanduguid/github-agent-skills.git
+git clone https://github.com/yungSNAT/github-agent-skills.git
 cd github-agent-skills
 rustup toolchain install
 cargo run --manifest-path tools/github-skills/Cargo.toml --locked -- validate-skills --strict
