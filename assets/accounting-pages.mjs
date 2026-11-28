@@ -223,553 +223,16 @@ function initialiseCalculators([calculate, fieldErrors, fbtForms, { individualRe
       invalidate();
       if (!fieldErrors.reportFirstInvalid(form)) return;
       try {
-        let result;
-        switch (form.dataset.calculator) {
-          case 'gst': {
-            const inclusive = form.elements.namedItem('inclusive').checked;
-            const r = calculate.gst(value('amount'), inclusive);
-            result = { inputs: `amount ${money('amount')}, ${inclusive ? 'includes' : 'excludes'} GST`, principal: 1,
-              rows: [['Excluding GST', aud(r.net)], ['GST', aud(r.gst)], ['Including GST', aud(r.gross)]] };
-            break;
-          }
-          case 'business-use':
-            result = { inputs: `eligible cost ${money('cost')}, business use ${value('percent')}%`, principal: 0,
-              rows: [['Business-use share', aud(calculate.businessUse(value('cost'), value('percent')).share)]] };
-            break;
-          case 'margin': {
-            const r = calculate.margin(value('sales'), value('cost'));
-            result = { inputs: `sales ${money('sales')}, direct cost ${money('cost')}`,
-              rows: [['Gross profit', aud(r.profit)], ['Margin', percent(r.margin)], ['Markup', percent(r.markup)]] };
-            break;
-          }
-          case 'break-even': {
-            const r = calculate.breakEven(value('fixed'), value('price'), value('variable'));
-            result = { inputs: `fixed costs ${money('fixed')}, selling price ${money('price')} per unit, variable cost ${money('variable')} per unit`, principal: 1,
-              rows: [['Contribution per unit', aud(r.contribution)], ['Break-even', `${r.units.toLocaleString('en-AU')} whole units, or ${aud(r.sales)} in sales`]] };
-            break;
-          }
-          case 'hourly':
-            result = { inputs: `annual costs ${money('cost')}, target profit ${money('profit')}, ${count(value('hours'), 'billable hour')}`, principal: 0,
-              rows: [['Required hourly rate before GST', aud(calculate.hourlyRate(value('cost'), value('profit'), value('hours')).rate)]] };
-            break;
-          case 'fixed-fee': {
-            const addGst = form.elements.namedItem('gst').checked;
-            const step = value('round');
-            const months = Number(value('instalments'));
-            const r = calculate.fixedFee(value('hours'), value('rate'), value('margin'), step, addGst, value('instalments'));
-            result = { inputs: `${count(value('hours'), 'hour')} at ${money('rate')} an hour, ${value('margin')}% margin, fee rounded up to ${step === '0.01' ? 'the cent' : `the next $${step}`}, ${addGst ? 'GST added' : 'no GST'}, ${count(value('instalments'), 'monthly instalment')}`, principal: 2,
-              rows: [['Fee before GST', aud(r.fee)], ['GST', aud(r.gst)], ['Fee including GST', aud(r.total)],
-                [months === 1 ? 'Paid at once' : 'First instalment', aud(r.first)],
-                ...(months === 1 ? [] : [[`Instalments 2 to ${months}, each`, aud(r.instalment)]]),
-                ['Effective hourly rate before GST', aud(r.effectiveRate)]] };
-            break;
-          }
-          case 'variance': {
-            const r = calculate.variance(value('actual'), value('budget'), value('kind'));
-            result = { inputs: `actual ${money('actual')}, budget ${money('budget')}, figure type ${value('kind')}`, principal: 0,
-              rows: [['Actual minus budget', aud(r.difference)], ['Difference as a share of absolute budget', percent(r.percent)]], note: r.effect };
-            break;
-          }
-          case 'loan':
-          case 'hire-purchase':
-          case 'lease': {
-            result = form.dataset.calculator === 'lease' ? calculate.leaseResult(value, aud) : calculate.financeResult({ solve: value('solve'), amount: value('amount'), rate: value('rate'), payments: value('payments'),
-              payment: value('payment'), balloon: value('balloon'), balloonKind: value('balloon-kind'), frequency: value('frequency'),
-              timing: value('timing'), start: value('start') }, aud, form.dataset.calculator === 'loan' ? null : value('agreement'));
-            showTables(result.tables);
-            csv = result.csv;
-            csvDownload.disabled = false;
-            break;
-          }
-          case 'borrowing-expenses':
-            result = calculate.borrowingResult(value, aud);
-            showTables(result.tables);
-            break;
-          case 'rental-property':
-            result = calculate.rentalPropertyResult(value, aud);
-            showTables(result.tables);
-            break;
-          case 'div7a': {
-            // The year's benchmark rate comes from the option, which lists only years the site's rate table holds.
-            const year = form.elements.namedItem('year').selectedOptions[0];
-            const r = calculate.div7aMinimumRepayment(value('balance'), year.dataset.rate, value('term'));
-            result = { inputs: `${year.value} income year at the ${year.dataset.rate}% benchmark rate, ${money('balance')} not repaid at 30 June ${year.value.slice(0, 4)}, ${count(value('term'), 'year')} remaining`, principal: 0,
-              rows: [['Minimum yearly repayment', aud(r.repayment)], ['Interest for the year, if repaid on 30 June', aud(r.interest)], ['Principal, if repaid on 30 June', aud(r.principal)]] };
-            break;
-          }
-          case 'div7a-schedule': {
-            const yes = name => value(name) === 'yes';
-            result = calculate.div7aScheduleResult({ made: value('made'), amount: value('amount'), term: value('term'),
-              assumedRate: value('assumed-rate'), repayments: value('repayments'), marginalRate: value('marginal-rate'),
-              franking: value('franking'), lodgment: yes('lodgment'), refinanced: yes('refinanced'), interposed: yes('interposed') }, aud);
-            const table = form.querySelector('#div7a-schedule-results');
-            table.tBodies[0].replaceChildren(...result.table.map(cells => {
-              const tr = document.createElement('tr');
-              tr.append(...cells.map((text, i) => Object.assign(document.createElement(i ? 'td' : 'th'), { textContent: text }, i ? {} : { scope: 'row' })));
-              return tr;
-            }));
-            table.parentElement.hidden = false;
-            break;
-          }
-          case 'transfer-duty': {
-            // The chosen jurisdiction's radio carries its rows of the site's rate table:
-            // over,to,base,rate,rule for each bracket, separated by semicolons.
-            const place = form.querySelector('input[name="jurisdiction"]:checked');
-            const scale = place.dataset.scale.split(';').map(row => row.split(','));
-            const r = calculate.transferDuty(value('value'), scale);
-            const [over, , base, rate, named] = scale[r.bracket];
-            const toDollar = named.endsWith('-to-dollar');
-            const rule = toDollar ? named.slice(0, -'-to-dollar'.length) : named;
-            const whole = text => `$${Number(text).toLocaleString('en-AU')}`;
-            const plus = Number(base) ? `${whole(base)} plus ` : '';
-            let ruleText = {
-              'excess-rounded-up-to-100': `${plus}$${Number(rate).toFixed(2)} for every $100, or part of $100, over ${whole(over)}`,
-              excess: `${plus}${rate}% of the value over ${whole(over)}`,
-              'whole-value': `${rate}% of the whole value`,
-              'nt-formula': '(0.06571441 × V × V) + 15V, where V is the value ÷ 1,000',
-            }[rule];
-            if (rule !== 'nt-formula' && Number(rate) === 0) ruleText = Number(base) ? `a fixed ${whole(base)}` : 'nil';
-            if (toDollar) ruleText += ', to the nearest whole dollar (50 cents down)';
-            result = { inputs: `${place.dataset.name}, dutiable value ${money('value')}`, principal: 0,
-              rows: [['General transfer duty', aud(r.duty)], ['Rate applied', ruleText]] };
-            // NSW premium duty, the scale's last bracket, applies to residential land only.
-            if (place.value === 'AU-NSW' && r.bracket === scale.length - 1) {
-              result.note = 'Premium duty applies to residential land only; other land continues at $5.50 for every $100 over $1,290,000';
-            }
-            const home = form.querySelector('input[name="buyer"]:checked').value;
-            if (home !== 'general') {
-              const f = calculate.firstHomeDuty(value('value'), scale, place.value, home);
-              result.inputs += `, eligible first home buyer, ${home} home`;
-              result.rows.unshift(['Duty for an eligible first home buyer',
-                f.concession ? aud(f.duty) : 'none for this home, so general duty applies']);
-            }
-            break;
-          }
-          case 'fbt-car': {
-            // The gross-up comes from the checked option and the year's days and FBT rate from the
-            // form; the Node tests bind all three to the site's FBT rate table.
-            const type = form.querySelector('input[name="type"]:checked');
-            const operating = value('method') === 'operating';
-            const reduced = value('reduced') === 'yes';
-            const r = calculate.fbtCar({ method: value('method'), cost: value('cost'), accessories: value('accessories'), reduced,
-              days: value('days'), costs: value('costs'), businessUse: value('business-use'), contribution: value('contribution') },
-            { days: form.dataset.yearDays, grossUp: type.dataset.grossUp, fbtRate: form.dataset.fbtRate });
-            // An exempt electric car's taxable value is nil (s 8A); its value before the exemption is still reportable.
-            const ev = fbtForms.fbtEvResult(form, calculate, { aud, value, money });
-            const exempt = ev?.exempt === true;
-            result = { inputs: `${operating ? 'operating cost method' : 'statutory formula'}, cost price ${money('cost')}, later non-business accessories ${money('accessories')}, `
-              + `first held ${reduced ? 'before' : 'on or after'} 1 April 2022, ${count(value('days'), 'day')} of ${form.dataset.yearDays} available for private use, `
-              + `${operating ? `operating costs ${money('costs')} at ${value('business-use')}% business use, ` : ''}employee contributions ${money('contribution')}, Type ${type.value} gross-up ${type.dataset.grossUp}`
-              + `${ev ? `, ${ev.inputs}` : ''}`,
-            rows: [...(ev?.rows ?? []), ['Base value', aud(r.baseValue)], ['Statutory formula taxable value', aud(r.statutory)],
-              ...(operating ? [['Operating cost taxable value', aud(r.operating)]] : []),
-              ...(exempt ? [['Taxable value before the exemption, for reporting', aud(r.taxableValue)]] : []),
-              ['Taxable value', aud(exempt ? 0 : r.taxableValue)], ['Grossed-up taxable value', aud(exempt ? 0 : r.grossedUp)],
-              [`FBT at ${form.dataset.fbtRate}%`, aud(exempt ? 0 : r.fbt)]],
-            note: [exempt && fbtForms.EV_EXEMPT_NOTE, operating && r.statutory < r.operating
-              && 'The statutory formula value is lower, so it applies under subsection 10(5)'].filter(Boolean).join('. ') || undefined };
-            result.principal = result.rows.length - 1;
-            break;
-          }
-          case 'pcg-2021-4': {
-            const all = value('factor3') === 'yes';
-            const r = calculate.pcgRisk({ gateway1: value('gateway1') === 'yes', gateway2: value('gateway2') === 'yes',
-              entitlement: value('entitlement'), returned: value('returned'), tax: value('tax'), factor3: all,
-              remuneration: value('remuneration'), benchmark: value('benchmark') });
-            const zone = { green: 'Green: low risk', amber: 'Amber: moderate risk', red: 'Red: high risk' }[r.zone];
-            const scored = (share, score) => `${percent(share)}, score ${score}`;
-            result = { inputs: `gateways 1 and 2 passed, profit entitlement ${money('entitlement')}, returned by the IPP ${money('returned')}, `
-              + `${r.total === null ? 'the whole entitlement' : `tax on that firm income ${money('tax')}, ${all
-                ? `remuneration ${money('remuneration')} against a commercial benchmark of ${money('benchmark')}, all 3 factors` : 'factors 1 and 2'}`}`,
-            rows: r.total === null ? [['Factor 1: profit entitlement returned by the IPP', scored(r.returned, r.factor1)], ['Risk zone', zone]] : [
-              ['Factor 1: profit entitlement returned by the IPP', scored(r.returned, r.factor1)],
-              ['Factor 2: total effective tax rate', scored(r.taxRate, r.factor2)],
-              ...(all ? [['Factor 3: remuneration as a share of the benchmark', scored(r.benchmarkShare, r.factor3)]] : []),
-              ['Aggregate score', String(r.total)], ['Risk zone', zone]],
-            note: r.total === null ? 'The IPP returns the whole entitlement, so paragraph 81 makes the arrangement low risk with no other factor scored' : undefined };
-            result.principal = result.rows.length - 1;
-            break;
-          }
-          case 'pcg-2021-4-allocation': {
-            const year = form.querySelector('input[name="year"]:checked');
-            result = calculate.pcgAllocationResult(value, { name: year.value, ...year.dataset }, aud, percent);
-            break;
-          }
-          case 'vehicle-class': {
-            // The year's car limit and LCT thresholds come from the checked option; the Node
-            // tests bind them to the car limit table and the ATO's LCT thresholds.
-            const year = form.querySelector('input[name="year"]:checked').dataset;
-            const f = Object.fromEntries(['body', 'seats', 'gvm', 'kerb', 'payload', 'accessories', 'modified', 'cost', 'credit', 'fuel', 'use']
-              .map(name => [name, value(name)]));
-            const r = calculate.vehicleClass(f, { carLimit: year.carLimit, fuelEfficientThreshold: year.fuelEfficient,
-              otherThreshold: year.other });
-            const notes = [
-              ...(f.modified === 'plated' ? ['A modification after manufacture does not change the designed load, but a permanent one can change '
-                + 'the design purpose (MT 2033), which this page does not judge'] : []),
-              ...(r.luxury === 'commercial' && f.body !== 'van' ? ['LCTD 2023/1’s simplified method assumes the ute is a goods vehicle '
-                + 'under the Australian Design Rules (paragraph 57)'] : []),
-              ...(r.exempt && r.belowThreshold ? ['PCG 2018/3 can also apply, as the price is below the luxury car tax threshold '
-                + '(paragraph 6(c)); its other conditions are yours to check'] : [])];
-            result = { inputs: `${BODY_NAMES[f.body]}, ${count(f.seats, 'seat')}, gross vehicle mass ${kg(f.gvm)}, `
-              + `${Number(f.kerb) ? `kerb weight ${kg(f.kerb)}, ` : ''}${Number(f.payload) ? `payload ${kg(f.payload)}, ` : ''}`
-              + `${Number(f.accessories) ? `accessories at supply ${kg(f.accessories)}, ` : ''}`
-              + `${f.modified === 'no' ? 'not modified' : 'modified, manufacturer’s figures'}, ${value('year')}, price ${money('cost')}, `
-              + `${f.credit === 'full' ? 'full GST credit' : 'no GST credit'}, `
-              + `${f.fuel === 'efficient' ? '3.5 litres per 100 km or less' : 'more than 3.5 litres per 100 km'}, `
-              + `private use ${f.use === 'limited' ? 'limited as you state' : 'more than limited'}`,
-            principal: 1, rows: vehicleRows(r, f, year, aud), note: notes.length ? notes.join('. ') : undefined };
-            break;
-          }
-          case 'gic-payment-plan': {
-            const plan = { debt: value('debt'), start: value('start'), count: value('count'), frequency: value('frequency'),
-              assumedRate: value('assumedRate') };
-            const r = calculate.gicPaymentPlan(plan);
-            result = { inputs: `debt ${money('debt')}, first instalment ${calendarDate(plan.start)}, ${count(plan.count, `${plan.frequency} instalment`)}, `
-              + `${plan.assumedRate}% a year assumed after December 2026`,
-            rows: [['Paid in full now', money('debt')],
-              ...(Number(plan.count) === 1 ? [] : [['Each instalment but the last', aud(r.instalment)]]),
-              [`Final instalment, ${calendarDate(r.lastDate)}`, aud(r.final)], ['Total paid on the plan', aud(r.totalPaid)],
-              ['GIC on the plan, over paying now', aud(r.gic)]],
-            note: r.assumedDays ? `${count(String(r.assumedDays), 'day')} after December 2026 use the assumed rate` : undefined };
-            result.principal = result.rows.length - 1;
-            break;
-          }
-          case 'land-tax': {
-            // The chosen jurisdiction's radio carries its scales, from,base,rate,over,rule for each
-            // band separated by semicolons, and the ACT's radio its fixed charge.
-            const place = form.querySelector('input[name="jurisdiction"]:checked');
-            const trust = form.querySelector('input[name="owner"]:checked').value === 'trust';
-            const foreign = form.querySelector('input[name="foreign"]:checked').value === 'yes';
-            const metro = form.elements.namedItem('metro').checked;
-            const fixed = place.dataset.fixed ?? '0';
-            const r = calculate.landTaxYear(value('value'), place.dataset,
-              { trust, foreign, surchargeValue: value('surcharge-value'), metro });
-            const [, base, rate, over, rule] = r.band;
-            const dollars = text => `$${Number(text).toLocaleString('en-AU', { minimumFractionDigits: Number(text) % 1 ? 2 : 0 })}`;
-            const plus = Number(base) ? `${dollars(base)} plus ` : '';
-            let ruleText = rule === 'excess' ? `${plus}${rate}% of the value${Number(over) ? ` over ${dollars(over)}` : ''}`
-              : `${plus}$${Number(rate).toFixed(2)} for every $100, or part of $100, over ${dollars(over)}`;
-            if (Number(rate) === 0) ruleText = Number(base) ? `a fixed ${dollars(base)}` : 'nil';
-            if (Number(fixed)) ruleText = `the ${dollars(fixed)} fixed charge plus ${ruleText}`;
-            const rows = [['Land tax for the year', aud(r.tax)], ['Rate applied', ruleText]];
-            if (foreign) rows.push(['Foreign or absentee owner surcharge', aud(r.surcharge)]);
-            if (metro) rows.push(['Metropolitan region improvement tax', aud(r.mrit)]);
-            if (foreign || metro) rows.push(['Total for the year', aud(r.total)]);
-            const separate = foreign && place.dataset.surchargeBase === 'separate';
-            result = { inputs: `${place.dataset.name}${trust ? ', trust rates' : ''}${foreign ? ', foreign or absentee owner' : ''}, `
-              + `total taxable land value ${money('value')}${separate ? `, surcharge value ${money('surcharge-value')}` : ''}`
-              + `${metro ? ', all in the Perth metropolitan region' : ''}`, principal: rows.length > 2 ? rows.length - 1 : 0, rows };
-            if (place.value === 'AU-SA' && r.tax > 0 && r.tax < 20) {
-              result.note = 'RevenueSA issues no land tax assessment where the calculated land tax is under $20';
-            }
-            break;
-          }
-          case 'psi-determination':
-            result = calculate.psiDeterminationResult(value, (name) => form.elements.namedItem(name).checked, aud);
-            break;
-          case 'cgt-concessions':
-            result = calculate.cgtConcessionsResult(value, aud);
-            break;
-          case 'staff': {
-            const r = calculate.staffCost(value('wages'), value('super'), value('other'));
-            result = { inputs: `wages ${money('wages')}, super ${money('super')}, other costs ${money('other')}`, principal: 0,
-              rows: [['Annual staff cost', aud(r.annual)], ['Monthly average', aud(r.monthly)]] };
-            break;
-          }
-          case 'cash': {
-            const weeks = Array.from({ length: 13 }, (_, i) => ({ receipts: value(`receipts-${i + 1}`), payments: value(`payments-${i + 1}`) }));
-            const dates = calculate.cashWeekDates(value('start-date'));
-            const r = calculate.cashForecast(value('opening'), weeks, value('buffer'), { week: value('week'), amount: value('amount'), delay: value('delay') });
-            result = { inputs: `week 1 from ${calendarDate(value('start-date'))}, opening cash ${money('opening')}, buffer ${money('buffer')}, receipt of ${money('amount')} in week ${value('week')} delayed ${count(value('delay'), 'week')}`,
-              rows: [['Closing cash', aud(r.closing)], ['Lowest opening or weekly closing balance', aud(r.minimum)], ['Funding gap to the buffer', aud(r.funding)], ['Receipts deferred beyond week 13', aud(r.deferred)]] };
-            const body = form.querySelector('#cash-results tbody');
-            body.replaceChildren();
-            for (const row of r.rows) {
-              const tr = document.createElement('tr');
-              for (const key of ['week', 'dates', 'opening', 'receipts', 'payments', 'closing']) {
-                const cell = document.createElement(key === 'week' ? 'th' : 'td');
-                if (key === 'week') cell.scope = 'row';
-                cell.textContent = key === 'week' ? row[key] : key === 'dates'
-                  ? `${calendarDate(dates[row.week - 1].start)} to ${calendarDate(dates[row.week - 1].end)}` : aud(row[key]);
-                tr.append(cell);
-              }
-              body.append(tr);
-            }
-            form.querySelector('#cash-results').parentElement.hidden = false;
-            csv = ['Currency,AUD', 'Planning estimate; weekly totals may hide daily shortages',
-              `First day of week 1,${value('start-date')}`,
-              `Opening cash,${value('opening')}`, `Minimum cash buffer,${value('buffer')}`,
-              `Original receipt week,${value('week')}`, `Receipt delayed,${value('amount')}`,
-              `Delay in weeks,${value('delay')}`, `Deferred beyond week 13,${r.deferred.toFixed(2)}`,
-              `Funding gap,${r.funding.toFixed(2)}`, '', 'Week,Start date,End date,Opening,Receipts,Payments,Closing',
-              ...r.rows.map(row => [row.week, dates[row.week - 1].start, dates[row.week - 1].end, row.opening.toFixed(2), row.receipts.toFixed(2), row.payments.toFixed(2), row.closing.toFixed(2)].join(','))].join('\r\n');
-            cashDownload.disabled = false;
-            break;
-          }
-          case 'objection-deadline': {
-            const decision = value('decision');
-            const income = decision === 'assessment' || decision === 'amended';
-            const amended = decision === 'amended' || decision === 'amended-fbt';
-            const years = income && value('group') === '2' ? 2 : 4;
-            const r = calculate.objectionDeadline(decision, value('group'), value('notice'), value('first'), value('amended'));
-            const kind = { assessment: 'income tax assessment', amended: 'amended income tax assessment', fbt: 'FBT assessment',
-              'amended-fbt': 'amended FBT assessment', other: 'other decision' }[decision];
-            result = { inputs: `${kind}, ${income ? `${years === 2 ? 'item 1, 2, 3 or 3A applies (2 years)' : 'no item 1, 2, 3 or 3A (4 years)'}, ` : ''}`
-              + `notice given ${longDate(value('notice'))}${amended ? `, notice of the assessment amended given ${longDate(value('amended'))}, `
-                + `first assessment’s notice given ${longDate(value('first'))}` : ''}`,
-            rows: [...(amended ? [['60 days after the amended notice', dayAndDate(r.amendedEnds)],
-              [`${years} years after ${years === 2 ? 'notice of the assessment amended' : 'the first assessment’s notice'}`, dayAndDate(r.originalEnds)]] : []),
-              [`Period ends, ${r.rule}`, dayAndDate(r.periodEnds)],
-              ['Last day to lodge, under subsection 36(2) of the Acts Interpretation Act 1901', dayAndDate(r.lastDay)]],
-            note: 'If that day is a public holiday where the objection is lodged, or the office is closed all day, it may be lodged on the next day that is not a Saturday, Sunday or holiday. '
-              + 'After the last day, an objection needs a written request under subsection 14ZW(2), which the Commissioner decides under section 14ZX' };
-            result.principal = result.rows.length - 1;
-            break;
-          }
-          case 'payg-instalments': {
-            const method = value('method');
-            const r = calculate.paygInstalment({ method, notified: value('notified'), instalment: value('instalment'),
-              estimatedTax: value('estimated-tax'), earlier: value('earlier'), credits: value('credits'), income: value('income'),
-              rate: value('rate'), estimatedIncome: value('estimated-income'), earlierIncome: value('earlier-income'),
-              previousRate: value('previous-rate') });
-            const earlier = `earlier instalments ${money('earlier')} less ${method === 'varied-amount' ? 'earlier credits' : 'credits claimed'} ${money('credits')}`;
-            const credit = ['Credit to claim at 5B, whole dollars', aud(r.credit)];
-            if (method === 'amount') {
-              result = { inputs: `instalment amount (option 1), ${money('notified')} at T7`, principal: 0,
-                rows: [['Instalment at 5A, whole dollars', aud(r.instalment)]],
-                note: 'For 2026-27 the amount the ATO notifies includes its GDP adjustment of 5%' };
-            } else if (method === 'varied-amount') {
-              result = { inputs: `varied instalment amount (option 1), instalment ${value('instalment')} of the income year, `
-                + `estimated tax ${money('estimated-tax')} at T8, ${earlier}`, principal: 2,
-              rows: [[`${Number(value('instalment')) * 25}% of estimated tax`, aud(r.due)], ['Varied amount', aud(r.amount)],
-                ['Varied amount at T9 and 5A, whole dollars', aud(r.instalment)], credit] };
-            } else if (method === 'rate') {
-              result = { inputs: `instalment rate (option 2), instalment income ${money('income')} at T1, instalment rate ${value('rate')}% at T2`,
-                principal: 1, rows: [['T1 × T2', aud(r.amount)], ['Instalment at T11 and 5A, whole dollars', aud(r.instalment)]] };
-            } else {
-              result = { inputs: `varied instalment rate (option 2), estimated tax ${money('estimated-tax')} on estimated instalment income `
-                + `${money('estimated-income')} for the year, instalment income ${money('income')} at T1, previous quarter’s rate ${value('previous-rate')}%, `
-                + `${earlier}, on earlier instalment income ${money('earlier-income')}`, principal: 2,
-              rows: [['Varied rate at T3', `${r.instalmentRate.toFixed(2)}%`], ['T1 × T3', aud(r.amount)],
-                ['Instalment at T11 and 5A, whole dollars', aud(r.instalment)], credit],
-              note: 'A credit applies only when the varied rate is lower than the rate used for the previous quarter' };
-            }
-            break;
-          }
-          case 'termination-payment': {
-            // The year's last day, caps, amounts and Table A rates come from the form; the Node
-            // tests bind them to Schedule 11.
-            const year = form.dataset;
-            const r = calculate.terminationPayment({ redundancy: value('redundancy'), years: value('years'), excluded: value('excluded'),
-              nonExcluded: value('non-excluded'), other: value('other'), born: value('born') }, year);
-            result = { inputs: `genuine redundancy or early retirement scheme payment ${money('redundancy')} after ${count(value('years'), 'completed year')} of service, `
-              + `other code R taxable component ${money('excluded')}, code O taxable component ${money('non-excluded')}, `
-              + `other taxable payments in 2026-27 ${money('other')}, born ${calendarDate(value('born'))}`, principal: 7,
-            rows: [['Tax-free limit', aud(r.taxFreeLimit)], ['Tax-free part of the redundancy payment', aud(r.taxFree)],
-              ['Code R taxable component', aud(r.excluded)], ['Withhold from the code R part', aud(r.excludedWithholding)],
-              ['Whole-of-income cap left', aud(r.wholeOfIncomeCap)], ['Cap for the code O part', aud(r.cap)],
-              ['Withhold from the code O part', aud(r.nonExcludedWithholding)], ['Total to withhold', aud(r.withholding)]],
-            note: `${r.reached ? 'Preservation age or older' : 'Under preservation age'} on 30 June 2027: ${r.rate}% within each cap and ${year.rateAbove}% above it` };
-            break;
-          }
-          case 'division-296': {
-            // The thresholds and rates come from the form; the Node tests bind them to the Acts.
-            const yes = name => value(name) === 'yes';
-            result = calculate.division296Result({ balance: value('balance'), earnings: value('earnings'), child: yes('child'),
-              settlement: yes('settlement'), died: yes('died') }, form.dataset, aud);
-            break;
-          }
-          case 'sgc-payday':
-            result = calculate.sgcPaydayResult(value, aud);
-            break;
-          case 'payday-cashflow':
-            result = calculate.paydayCashflowResult(value, aud);
-            break;
-          case 'cgt':
-            result = calculate.cgtResult(value, (name) => form.elements.namedItem(name).checked, aud);
-            break;
-          case 'long-service-leave':
-            result = calculate.longServiceLeaveResult(value, aud);
-            break;
-          case 'depreciation-pools':
-            result = calculate.depreciationPoolsResult(value, aud);
-            break;
-          case 'casual-overtime':
-            result = calculate.casualOvertimeResult(value, aud);
-            break;
-          case 'leave-provisions':
-            result = calculate.leaveProvisionsResult(value, aud);
-            break;
-          case 'instant-asset-write-off':
-            result = calculate.instantAssetWriteOffResult(value, aud);
-            break;
-          case 'rd-tax-offset':
-            result = calculate.rdTaxOffsetResult(value, aud);
-            break;
-          case 'contractor-employee':
-            result = calculate.contractorEmployeeResult(value, aud);
-            break;
-          case 'tax-invoice':
-            result = calculate.taxInvoiceResult(value, aud);
-            showTables(result.tables);
-            // The download is the invoice itself, a page to print or save as PDF.
-            csv = result.html; // eslint-disable-line xss/no-mixed-html -- the invoice file is downloaded, never inserted into this page
-            csvDownload.disabled = false;
-            break;
-          case 'fuel-tax-credits':
-            result = calculate.fuelTaxCreditsResult(value, aud);
-            break;
-          case 'first-home-owner-grant': {
-            // The chosen jurisdiction's radio carries its transfer duty scale, as on the transfer duty page.
-            const place = form.querySelector('input[name="jurisdiction"]:checked');
-            result = calculate.firstHomeOwnerGrantResult(value, (name) => form.elements.namedItem(name).checked,
-              place.dataset.scale.split(';').map(row => row.split(',')), calculate.firstHomeDuty, aud);
-            break;
-          }
-          case 'super-benefit-tax':
-            result = calculate.superBenefitTaxResult(value, aud);
-            break;
-          case 'luxury-car-tax':
-            result = calculate.luxuryCarTaxResult(value, aud);
-            break;
-          case 'wine-equalisation-tax':
-            result = calculate.wineEqualisationTaxResult(value, aud);
-            showTables(result.tables);
-            break;
-          case 'unused-leave':
-            result = calculate.unusedLeaveResult(value, aud);
-            break;
-          case 'workers-compensation':
-            result = calculate.workersCompensationResult(value, aud);
-            break;
-          case 'payroll-tax':
-            result = calculate.payrollTaxResult(value('wages'), value('australian'), value('jurisdiction'), aud);
-            break;
-          case 'franking-account': {
-            result = calculate.frankingAccountResult(value, aud);
-            // The ledger and the distributions, each a label cell, then figures.
-            for (const table of form.querySelectorAll('table[data-results]')) {
-              table.tBodies[0].replaceChildren(...result.tables[table.dataset.results].map(cells => {
-                const tr = document.createElement('tr');
-                tr.append(...cells.map((text, i) => Object.assign(document.createElement(i ? 'td' : 'th'), { textContent: text }, i ? {} : { scope: 'row' })));
-                return tr;
-              }));
-              table.parentElement.hidden = !result.tables[table.dataset.results].length;
-            }
-            break;
-          }
-          case 'salary-dividend':
-            result = calculate.salaryDividendResult({ year: value('year'), profit: value('profit'), baseRate: value('base-rate') === 'yes',
-              salary: value('salary'), other: value('other') }, aud);
-            break;
-          case 'sole-trader-company':
-            result = calculate.soleTraderCompanyResult({ year: value('year'), profit: value('profit'), takenOut: value('taken-out'),
-              salary: value('salary'), baseRate: value('base-rate') === 'yes', offset: value('offset') === 'yes' }, aud);
-            break;
-          case 'company-tax': {
-            const year = (prefix) => ({ turnover: value(`${prefix}turnover`), assessable: value(`${prefix}assessable`), passive: value(`${prefix}passive`) });
-            result = calculate.companyTaxResult({ ...year(''), taxable: value('taxable'), existed: value('existed') === 'yes', prior: year('prior-'),
-              dividend: value('dividend'), franking: value('franking'), marginal: value('marginal') }, aud);
-            break;
-          }
-          case 'gst-margin-scheme': {
-            const yes = name => value(name) === 'yes';
-            result = calculate.gstMarginSchemeResult({ interest: value('interest'), taxable: yes('taxable'), agreed: yes('agreed'),
-              acquired: value('acquired'), associate: yes('associate'), method: value('method'), price: value('price'), basis: value('basis'),
-              cost: value('cost'), part: value('part'), whole: value('whole'),
-              valuationDay: value('valuation-day'), registrationAtTransition: value('registration-at-transition'),
-              valuationProperty: value('valuation-property'),
-              registrationEffectiveDay: value('registration-effective-day'), registrationApplicationDay: value('registration-application-day') }, aud);
-            break;
-          }
-          case 'foreign-surcharge': {
-            // Each jurisdiction's radio carries its general transfer duty scale, as the transfer duty page's does.
-            const place = form.querySelector('input[name="jurisdiction"]:checked');
-            const use = value('use');
-            const generals = Object.fromEntries([...form.querySelectorAll('input[name="jurisdiction"]')].map(radio => [radio.value,
-              use === 'residential' ? calculate.transferDuty(value('value'), radio.dataset.scale.split(';').map(row => row.split(','))).duty : null]));
-            const yes = name => value(name) === 'yes';
-            const ownership = value('firb-ownership');
-            result = calculate.foreignSurchargeResult({ type: value('buyer'), status: value('status'), daysBefore: value('days-before'),
-              daysDecember: value('days-december'), nzResident: yes('nz-resident'), resides: yes('resides'), absent: yes('absent'), home: yes('home'),
-              overseas: yes('overseas'), largest: value('largest'), combined: value('combined'), absentee: value('absentee'), capital: value('capital'), amendable: yes('amendable'),
-              control: yes('control'), named: yes('named'), defaults: value('defaults'), exemption: yes('exemption') },
-            { place: place.value, use, value: value('value'), share: value('share'), land: value('land') }, generals,
-            { kind: value('firb'), consideration: value('firb-consideration'), ownership,
-              interest: ownership === 'tenant-in-common' ? value('firb-interest') : undefined }, aud);
-            // The comparison table: a label cell, then figures; it stays hidden when the result leaves it out.
-            const table = form.querySelector('table[data-results="places"]');
-            if (result.tables.places) {
-              table.tBodies[0].replaceChildren(...result.tables.places.map(cells => {
-                const tr = document.createElement('tr');
-                tr.append(...cells.map((text, i) => Object.assign(document.createElement(i ? 'td' : 'th'), { textContent: text }, i ? {} : { scope: 'row' })));
-                return tr;
-              }));
-              table.parentElement.hidden = false;
-            }
-            break;
-          }
-          case 'gst-adjustments':
-            result = calculate.gstAdjustmentsResult(value, aud);
-            showTables(result.tables);
-            break;
-          case 'smsf-tax':
-            result = calculate.smsfTaxResult(value, aud);
-            break;
-          case 'trading-stock':
-            result = calculate.tradingStockResult(value, aud);
-            break;
-          case 'prepayments':
-            result = calculate.prepaymentsResult(value, aud);
-            break;
-          case 'alcohol-excise':
-            result = calculate.alcoholExciseResult(value, aud);
-            break;
-          case 'deferred-tax':
-            result = calculate.deferredTaxResult(value, aud);
-            showTables(result.tables);
-            break;
-          case 'trust-streaming':
-            result = calculate.trustStreamingResult(value, aud);
-            showTables(result.tables);
-            break;
-          case 'asic-fees':
-            result = calculate.asicFeesResult(value, aud);
-            break;
-          case 'ato-penalties-interest':
-            result = calculate.atoPenaltiesInterestResult(value, aud);
-            showTables(result.tables);
-            break;
-          case 'business-days':
-            result = calculate.businessDaysResult({ mode: value('mode'), place: value('place'), start: value('start'), end: value('end'),
-              count: value('count') }, calculate.parseHolidays(form.dataset.holidays));
-            break;
-          case 'fhss':
-            result = fhssResult(value, aud);
-            showTables(result.tables);
-            break;
-          case 'work-expenses':
-            result = workExpensesResult(value, aud);
-            break;
-          case 'government-super':
-            result = governmentSuperResult(value, aud);
-            break;
-          case 'transfer-balance':
-            result = transferBalanceResult(value, aud);
-            showTables(result.tables);
-            break;
-          case 'pension-minimum':
-            result = pensionMinimumResult(value, aud);
-            break;
-          case 'residency-days':
-            result = residencyDaysResult(value);
-            break;
-          case 'lodgment-required':
-            result = lodgmentRequiredResult(value, (name) => form.elements.namedItem(name).checked);
-            break;
-          default: result = individualResult(form.dataset.calculator, value, aud) ?? fbtForms.fbtBenefitResult(form, calculate, { aud, value, money });
+        const out = runCalculator(form.dataset.calculator, {
+          form, calculate, fbtForms, individualResult, value, money, showTables,
+          fhssResult, workExpensesResult, transferBalanceResult, pensionMinimumResult,
+          governmentSuperResult, residencyDaysResult, lodgmentRequiredResult,
+        });
+        if (out.csv !== undefined) {
+          csv = out.csv;
+          (out.cashCsv ? cashDownload : csvDownload).disabled = false;
         }
-        renderResult(output, result);
+        renderResult(output, out.result);
         form.dataset.calculated = 'true';
         if (applied) {
           // The panel names the rule and the figures behind this result; a
@@ -786,6 +249,500 @@ function initialiseCalculators([calculate, fieldErrors, fbtForms, { individualRe
       output.scrollIntoView({ behavior: 'instant', block: 'nearest' });
     });
   }
+}
+
+function renderTableRows(table, rows, hideWhenEmpty = false) {
+  table.tBodies[0].replaceChildren(...rows.map(cells => {
+    const tr = document.createElement('tr');
+    tr.append(...cells.map((text, i) => Object.assign(document.createElement(i ? 'td' : 'th'), { textContent: text }, i ? {} : { scope: 'row' })));
+    return tr;
+  }));
+  table.parentElement.hidden = hideWhenEmpty ? !rows.length : false;
+}
+
+const DUTY_RULES = new Map([
+  ['excess-rounded-up-to-100', (plus, rate, over) => `${plus}$${Number(rate).toFixed(2)} for every $100, or part of $100, over ${over}`],
+  ['excess', (plus, rate, over) => `${plus}${rate}% of the value over ${over}`],
+  ['whole-value', (_plus, rate) => `${rate}% of the whole value`],
+  ['nt-formula', () => '(0.06571441 × V × V) + 15V, where V is the value ÷ 1,000'],
+]);
+
+const PCG_ZONES = new Map([
+  ['green', 'Green: low risk'],
+  ['amber', 'Amber: moderate risk'],
+  ['red', 'Red: high risk'],
+]);
+
+const OBJECTION_KINDS = new Map([
+  ['assessment', 'income tax assessment'],
+  ['amended', 'amended income tax assessment'],
+  ['fbt', 'FBT assessment'],
+  ['amended-fbt', 'amended FBT assessment'],
+  ['other', 'other decision'],
+]);
+
+const BODY_NAME_MAP = new Map(Object.entries(BODY_NAMES));
+
+function transferDutyHandler({ form, calculate, value, money }) {
+  // The chosen jurisdiction's radio carries its rows of the site's rate table:
+  // over,to,base,rate,rule for each bracket, separated by semicolons.
+  const place = form.querySelector('input[name="jurisdiction"]:checked');
+  const scale = place.dataset.scale.split(';').map(row => row.split(','));
+  const r = calculate.transferDuty(value('value'), scale);
+  const [over, , base, rate, named] = scale.at(r.bracket);
+  const toDollar = named.endsWith('-to-dollar');
+  const rule = toDollar ? named.slice(0, -'-to-dollar'.length) : named;
+  const whole = text => `$${Number(text).toLocaleString('en-AU')}`;
+  const plus = Number(base) ? `${whole(base)} plus ` : '';
+  let ruleText = DUTY_RULES.get(rule)(plus, rate, whole(over));
+  if (rule !== 'nt-formula' && Number(rate) === 0) ruleText = Number(base) ? `a fixed ${whole(base)}` : 'nil';
+  if (toDollar) ruleText += ', to the nearest whole dollar (50 cents down)';
+  const result = { inputs: `${place.dataset.name}, dutiable value ${money('value')}`, principal: 0,
+    rows: [['General transfer duty', aud(r.duty)], ['Rate applied', ruleText]] };
+  // NSW premium duty, the scale's last bracket, applies to residential land only.
+  if (place.value === 'AU-NSW' && r.bracket === scale.length - 1) {
+    result.note = 'Premium duty applies to residential land only; other land continues at $5.50 for every $100 over $1,290,000';
+  }
+  const home = form.querySelector('input[name="buyer"]:checked').value;
+  if (home !== 'general') {
+    const f = calculate.firstHomeDuty(value('value'), scale, place.value, home);
+    result.inputs += `, eligible first home buyer, ${home} home`;
+    result.rows.unshift(['Duty for an eligible first home buyer',
+      f.concession ? aud(f.duty) : 'none for this home, so general duty applies']);
+  }
+  return { result };
+}
+
+function fbtCarHandler({ form, calculate, fbtForms, value, money }) {
+  // The gross-up type comes from the checked option and the year's days and FBT rate from
+  // the form; the Node tests bind them to the site's FBT rate table.
+  const type = form.querySelector('input[name="type"]:checked');
+  const operating = value('method') === 'operating';
+  const reduced = value('reduced') === 'yes';
+  const r = calculate.fbtCar({ method: value('method'), cost: value('cost'), accessories: value('accessories'), reduced,
+    days: value('days'), costs: value('costs'), businessUse: value('business-use'), contribution: value('contribution') },
+  { days: form.dataset.yearDays, type: type.value, fbtRate: form.dataset.fbtRate });
+  // An exempt electric car's taxable value is nil (s 8A); its value before the exemption is still reportable.
+  const ev = fbtForms.fbtEvResult(form, calculate, { aud, value, money });
+  const exempt = ev?.exempt === true;
+  const result = { inputs: `${operating ? 'operating cost method' : 'statutory formula'}, cost price ${money('cost')}, later non-business accessories ${money('accessories')}, `
+    + `first held ${reduced ? 'before' : 'on or after'} 1 April 2022, ${count(value('days'), 'day')} of ${form.dataset.yearDays} available for private use, `
+    + `${operating ? `operating costs ${money('costs')} at ${value('business-use')}% business use, ` : ''}employee contributions ${money('contribution')}, Type ${type.value} gross-up`
+    + `${ev ? `, ${ev.inputs}` : ''}`,
+  rows: [...(ev?.rows ?? []), ['Base value', aud(r.baseValue)], ['Statutory formula taxable value', aud(r.statutory)],
+    ...(operating ? [['Operating cost taxable value', aud(r.operating)]] : []),
+    ...(exempt ? [['Taxable value before the exemption, for reporting', aud(r.taxableValue)]] : []),
+    ['Taxable value', aud(exempt ? 0 : r.taxableValue)], ['Grossed-up taxable value', aud(exempt ? 0 : r.grossedUp)],
+    [`FBT at ${form.dataset.fbtRate}%`, aud(exempt ? 0 : r.fbt)]],
+  note: [exempt && fbtForms.EV_EXEMPT_NOTE, operating && r.statutory < r.operating
+    && 'The statutory formula value is lower, so it applies under subsection 10(5)'].filter(Boolean).join('. ') || undefined };
+  result.principal = result.rows.length - 1;
+  return { result };
+}
+
+function pcgRiskHandler({ calculate, value, money }) {
+  const all = value('factor3') === 'yes';
+  const r = calculate.pcgRisk({ gateway1: value('gateway1') === 'yes', gateway2: value('gateway2') === 'yes',
+    entitlement: value('entitlement'), returned: value('returned'), tax: value('tax'), factor3: all,
+    remuneration: value('remuneration'), benchmark: value('benchmark') });
+  const zone = PCG_ZONES.get(r.zone);
+  const scored = (share, score) => `${percent(share)}, score ${score}`;
+  const factor3Text = all ? `remuneration ${money('remuneration')} against a commercial benchmark of ${money('benchmark')}, all 3 factors` : 'factors 1 and 2';
+  const result = { inputs: `gateways 1 and 2 passed, profit entitlement ${money('entitlement')}, returned by the IPP ${money('returned')}, `
+    + `${r.total === null ? 'the whole entitlement' : `tax on that firm income ${money('tax')}, ${factor3Text}`}`,
+  rows: r.total === null ? [['Factor 1: profit entitlement returned by the IPP', scored(r.returned, r.factor1)], ['Risk zone', zone]] : [
+    ['Factor 1: profit entitlement returned by the IPP', scored(r.returned, r.factor1)],
+    ['Factor 2: total effective tax rate', scored(r.taxRate, r.factor2)],
+    ...(all ? [['Factor 3: remuneration as a share of the benchmark', scored(r.benchmarkShare, r.factor3)]] : []),
+    ['Aggregate score', String(r.total)], ['Risk zone', zone]],
+  note: r.total === null ? 'The IPP returns the whole entitlement, so paragraph 81 makes the arrangement low risk with no other factor scored' : undefined };
+  result.principal = result.rows.length - 1;
+  return { result };
+}
+
+function vehicleClassHandler({ form, calculate, value, money }) {
+  // The year's car limit and LCT thresholds come from the checked option; the Node
+  // tests bind them to the car limit table and the ATO's LCT thresholds.
+  const year = form.querySelector('input[name="year"]:checked').dataset;
+  const f = Object.fromEntries(['body', 'seats', 'gvm', 'kerb', 'payload', 'accessories', 'modified', 'cost', 'credit', 'fuel', 'use']
+    .map(name => [name, value(name)]));
+  const r = calculate.vehicleClass(f, { carLimit: year.carLimit, fuelEfficientThreshold: year.fuelEfficient,
+    otherThreshold: year.other });
+  const notes = [
+    ...(f.modified === 'plated' ? ['A modification after manufacture does not change the designed load, but a permanent one can change '
+      + 'the design purpose (MT 2033), which this page does not judge'] : []),
+    ...(r.luxury === 'commercial' && f.body !== 'van' ? ['LCTD 2023/1’s simplified method assumes the ute is a goods vehicle '
+      + 'under the Australian Design Rules (paragraph 57)'] : []),
+    ...(r.exempt && r.belowThreshold ? ['PCG 2018/3 can also apply, as the price is below the luxury car tax threshold '
+      + '(paragraph 6(c)); its other conditions are yours to check'] : [])];
+  const weights = [
+    Number(f.kerb) ? `kerb weight ${kg(f.kerb)}, ` : '',
+    Number(f.payload) ? `payload ${kg(f.payload)}, ` : '',
+    Number(f.accessories) ? `accessories at supply ${kg(f.accessories)}, ` : '',
+  ].join('');
+  return { result: { inputs: `${BODY_NAME_MAP.get(f.body)}, ${count(f.seats, 'seat')}, gross vehicle mass ${kg(f.gvm)}, ${weights}`
+    + `${f.modified === 'no' ? 'not modified' : 'modified, manufacturer’s figures'}, ${value('year')}, price ${money('cost')}, `
+    + `${f.credit === 'full' ? 'full GST credit' : 'no GST credit'}, `
+    + `${f.fuel === 'efficient' ? '3.5 litres per 100 km or less' : 'more than 3.5 litres per 100 km'}, `
+    + `private use ${f.use === 'limited' ? 'limited as you state' : 'more than limited'}`,
+  principal: 1, rows: vehicleRows(r, f, year, aud), note: notes.length ? notes.join('. ') : undefined } };
+}
+
+function landTaxRuleText([, base, rate, over, rule], fixed) {
+  const dollars = text => `$${Number(text).toLocaleString('en-AU', { minimumFractionDigits: Number(text) % 1 ? 2 : 0 })}`;
+  const plus = Number(base) ? `${dollars(base)} plus ` : '';
+  const overPart = Number(over) ? ` over ${dollars(over)}` : '';
+  let ruleText = rule === 'excess' ? `${plus}${rate}% of the value${overPart}`
+    : `${plus}$${Number(rate).toFixed(2)} for every $100, or part of $100, over ${dollars(over)}`;
+  if (Number(rate) === 0) ruleText = Number(base) ? `a fixed ${dollars(base)}` : 'nil';
+  return Number(fixed) ? `the ${dollars(fixed)} fixed charge plus ${ruleText}` : ruleText;
+}
+
+function landTaxHandler({ form, calculate, value, money }) {
+  // The chosen jurisdiction's radio carries its scales, from,base,rate,over,rule for each
+  // band separated by semicolons, and the ACT's radio its fixed charge.
+  const place = form.querySelector('input[name="jurisdiction"]:checked');
+  const trust = form.querySelector('input[name="owner"]:checked').value === 'trust';
+  const foreign = form.querySelector('input[name="foreign"]:checked').value === 'yes';
+  const metro = form.elements.namedItem('metro').checked;
+  const fixed = place.dataset.fixed ?? '0';
+  const r = calculate.landTaxYear(value('value'), place.dataset,
+    { trust, foreign, surchargeValue: value('surcharge-value'), metro });
+  const rows = [['Land tax for the year', aud(r.tax)], ['Rate applied', landTaxRuleText(r.band, fixed)]];
+  if (foreign) rows.push(['Foreign or absentee owner surcharge', aud(r.surcharge)]);
+  if (metro) rows.push(['Metropolitan region improvement tax', aud(r.mrit)]);
+  if (foreign || metro) rows.push(['Total for the year', aud(r.total)]);
+  const separate = foreign && place.dataset.surchargeBase === 'separate';
+  const result = { inputs: `${place.dataset.name}${trust ? ', trust rates' : ''}${foreign ? ', foreign or absentee owner' : ''}, `
+    + `total taxable land value ${money('value')}${separate ? `, surcharge value ${money('surcharge-value')}` : ''}`
+    + `${metro ? ', all in the Perth metropolitan region' : ''}`, principal: rows.length > 2 ? rows.length - 1 : 0, rows };
+  if (place.value === 'AU-SA' && r.tax > 0 && r.tax < 20) {
+    result.note = 'RevenueSA issues no land tax assessment where the calculated land tax is under $20';
+  }
+  return { result };
+}
+
+function cashHandler({ form, calculate, value, money }) {
+  const weeks = Array.from({ length: 13 }, (_, i) => ({ receipts: value(`receipts-${i + 1}`), payments: value(`payments-${i + 1}`) }));
+  const dates = calculate.cashWeekDates(value('start-date'));
+  const r = calculate.cashForecast(value('opening'), weeks, value('buffer'), { week: value('week'), amount: value('amount'), delay: value('delay') });
+  const result = { inputs: `week 1 from ${calendarDate(value('start-date'))}, opening cash ${money('opening')}, buffer ${money('buffer')}, receipt of ${money('amount')} in week ${value('week')} delayed ${count(value('delay'), 'week')}`,
+    rows: [['Closing cash', aud(r.closing)], ['Lowest opening or weekly closing balance', aud(r.minimum)], ['Funding gap to the buffer', aud(r.funding)], ['Receipts deferred beyond week 13', aud(r.deferred)]] };
+  const tableRows = r.rows.map(row => {
+    const span = dates.at(row.week - 1);
+    return [String(row.week), `${calendarDate(span.start)} to ${calendarDate(span.end)}`, aud(row.opening), aud(row.receipts), aud(row.payments), aud(row.closing)];
+  });
+  renderTableRows(form.querySelector('#cash-results'), tableRows);
+  const csv = ['Currency,AUD', 'Planning estimate; weekly totals may hide daily shortages',
+    `First day of week 1,${value('start-date')}`,
+    `Opening cash,${value('opening')}`, `Minimum cash buffer,${value('buffer')}`,
+    `Original receipt week,${value('week')}`, `Receipt delayed,${value('amount')}`,
+    `Delay in weeks,${value('delay')}`, `Deferred beyond week 13,${r.deferred.toFixed(2)}`,
+    `Funding gap,${r.funding.toFixed(2)}`, '', 'Week,Start date,End date,Opening,Receipts,Payments,Closing',
+    ...r.rows.map(row => {
+      const span = dates.at(row.week - 1);
+      return [row.week, span.start, span.end, row.opening.toFixed(2), row.receipts.toFixed(2), row.payments.toFixed(2), row.closing.toFixed(2)].join(',');
+    })].join('\r\n');
+  return { result, csv, cashCsv: true };
+}
+
+function objectionDeadlineHandler({ calculate, value }) {
+  const decision = value('decision');
+  const income = decision === 'assessment' || decision === 'amended';
+  const amended = decision === 'amended' || decision === 'amended-fbt';
+  const years = income && value('group') === '2' ? 2 : 4;
+  const r = calculate.objectionDeadline(decision, value('group'), value('notice'), value('first'), value('amended'));
+  const kind = OBJECTION_KINDS.get(decision);
+  const groupText = years === 2 ? 'item 1, 2, 3 or 3A applies (2 years)' : 'no item 1, 2, 3 or 3A (4 years)';
+  const amendedLabel = years === 2 ? 'notice of the assessment amended' : 'the first assessment’s notice';
+  const result = { inputs: `${kind}, ${income ? `${groupText}, ` : ''}`
+    + `notice given ${longDate(value('notice'))}${amended ? `, notice of the assessment amended given ${longDate(value('amended'))}, `
+      + `first assessment’s notice given ${longDate(value('first'))}` : ''}`,
+  rows: [...(amended ? [['60 days after the amended notice', dayAndDate(r.amendedEnds)],
+    [`${years} years after ${amendedLabel}`, dayAndDate(r.originalEnds)]] : []),
+    [`Period ends, ${r.rule}`, dayAndDate(r.periodEnds)],
+    ['Last day to lodge, under subsection 36(2) of the Acts Interpretation Act 1901', dayAndDate(r.lastDay)]],
+  note: 'If that day is a public holiday where the objection is lodged, or the office is closed all day, it may be lodged on the next day that is not a Saturday, Sunday or holiday. '
+    + 'After the last day, an objection needs a written request under subsection 14ZW(2), which the Commissioner decides under section 14ZX' };
+  result.principal = result.rows.length - 1;
+  return { result };
+}
+
+function paygInstalmentsHandler({ calculate, value, money }) {
+  const method = value('method');
+  const r = calculate.paygInstalment({ method, notified: value('notified'), instalment: value('instalment'),
+    estimatedTax: value('estimated-tax'), earlier: value('earlier'), credits: value('credits'), income: value('income'),
+    rate: value('rate'), estimatedIncome: value('estimated-income'), earlierIncome: value('earlier-income'),
+    previousRate: value('previous-rate') });
+  const earlier = `earlier instalments ${money('earlier')} less ${method === 'varied-amount' ? 'earlier credits' : 'credits claimed'} ${money('credits')}`;
+  const credit = ['Credit to claim at 5B, whole dollars', aud(r.credit)];
+  if (method === 'amount') {
+    return { result: { inputs: `instalment amount (option 1), ${money('notified')} at T7`, principal: 0,
+      rows: [['Instalment at 5A, whole dollars', aud(r.instalment)]],
+      note: 'For 2026-27 the amount the ATO notifies includes its GDP adjustment of 5%' } };
+  }
+  if (method === 'varied-amount') {
+    return { result: { inputs: `varied instalment amount (option 1), instalment ${value('instalment')} of the income year, `
+      + `estimated tax ${money('estimated-tax')} at T8, ${earlier}`, principal: 2,
+    rows: [[`${Number(value('instalment')) * 25}% of estimated tax`, aud(r.due)], ['Varied amount', aud(r.amount)],
+      ['Varied amount at T9 and 5A, whole dollars', aud(r.instalment)], credit] } };
+  }
+  if (method === 'rate') {
+    return { result: { inputs: `instalment rate (option 2), instalment income ${money('income')} at T1, instalment rate ${value('rate')}% at T2`,
+      principal: 1, rows: [['T1 × T2', aud(r.amount)], ['Instalment at T11 and 5A, whole dollars', aud(r.instalment)]] } };
+  }
+  return { result: { inputs: `varied instalment rate (option 2), estimated tax ${money('estimated-tax')} on estimated instalment income `
+    + `${money('estimated-income')} for the year, instalment income ${money('income')} at T1, previous quarter’s rate ${value('previous-rate')}%, `
+    + `${earlier}, on earlier instalment income ${money('earlier-income')}`, principal: 2,
+  rows: [['Varied rate at T3', `${r.instalmentRate.toFixed(2)}%`], ['T1 × T3', aud(r.amount)],
+    ['Instalment at T11 and 5A, whole dollars', aud(r.instalment)], credit],
+  note: 'A credit applies only when the varied rate is lower than the rate used for the previous quarter' } };
+}
+
+function foreignSurchargeHandler({ form, calculate, value }) {
+  // Each jurisdiction's radio carries its general transfer duty scale, as the transfer duty page's does.
+  const place = form.querySelector('input[name="jurisdiction"]:checked');
+  const use = value('use');
+  const generals = Object.fromEntries([...form.querySelectorAll('input[name="jurisdiction"]')].map(radio => [radio.value,
+    use === 'residential' ? calculate.transferDuty(value('value'), radio.dataset.scale.split(';').map(row => row.split(','))).duty : null]));
+  const yes = name => value(name) === 'yes';
+  const ownership = value('firb-ownership');
+  const result = calculate.foreignSurchargeResult({ type: value('buyer'), status: value('status'), daysBefore: value('days-before'),
+    daysDecember: value('days-december'), nzResident: yes('nz-resident'), resides: yes('resides'), absent: yes('absent'), home: yes('home'),
+    overseas: yes('overseas'), largest: value('largest'), combined: value('combined'), absentee: value('absentee'), capital: value('capital'), amendable: yes('amendable'),
+    control: yes('control'), named: yes('named'), defaults: value('defaults'), exemption: yes('exemption') },
+  { place: place.value, use, value: value('value'), share: value('share'), land: value('land') }, generals,
+  { kind: value('firb'), consideration: value('firb-consideration'), ownership,
+    interest: ownership === 'tenant-in-common' ? value('firb-interest') : undefined }, aud);
+  // The comparison table: a label cell, then figures; it stays hidden when the result leaves it out.
+  const table = form.querySelector('table[data-results="places"]');
+  if (result.tables.places) renderTableRows(table, result.tables.places);
+  return { result };
+}
+
+const SIMPLE_VALUE_AUD = new Map([
+  ['cgt-concessions', (c, v, a) => c.cgtConcessionsResult(v, a)],
+  ['sgc-payday', (c, v, a) => c.sgcPaydayResult(v, a)],
+  ['payday-cashflow', (c, v, a) => c.paydayCashflowResult(v, a)],
+  ['long-service-leave', (c, v, a) => c.longServiceLeaveResult(v, a)],
+  ['depreciation-pools', (c, v, a) => c.depreciationPoolsResult(v, a)],
+  ['casual-overtime', (c, v, a) => c.casualOvertimeResult(v, a)],
+  ['leave-provisions', (c, v, a) => c.leaveProvisionsResult(v, a)],
+  ['instant-asset-write-off', (c, v, a) => c.instantAssetWriteOffResult(v, a)],
+  ['rd-tax-offset', (c, v, a) => c.rdTaxOffsetResult(v, a)],
+  ['blackhole-expenditure', (c, v, a) => c.blackholeResult(v, a)],
+  ['fbt-return', (c, v, a) => c.fbtReturnResult(v, a)],
+  ['fbt-instalment', (c, v, a) => c.fbtInstalmentResult(v, a)],
+  ['contractor-employee', (c, v, a) => c.contractorEmployeeResult(v, a)],
+  ['fuel-tax-credits', (c, v, a) => c.fuelTaxCreditsResult(v, a)],
+  ['super-benefit-tax', (c, v, a) => c.superBenefitTaxResult(v, a)],
+  ['luxury-car-tax', (c, v, a) => c.luxuryCarTaxResult(v, a)],
+  ['unused-leave', (c, v, a) => c.unusedLeaveResult(v, a)],
+  ['workers-compensation', (c, v, a) => c.workersCompensationResult(v, a)],
+  ['smsf-tax', (c, v, a) => c.smsfTaxResult(v, a)],
+  ['trading-stock', (c, v, a) => c.tradingStockResult(v, a)],
+  ['prepayments', (c, v, a) => c.prepaymentsResult(v, a)],
+  ['alcohol-excise', (c, v, a) => c.alcoholExciseResult(v, a)],
+  ['asic-fees', (c, v, a) => c.asicFeesResult(v, a)],
+]);
+
+const TABLE_VALUE_AUD = new Map([
+  ['borrowing-expenses', (c, v, a) => c.borrowingResult(v, a)],
+  ['rental-property', (c, v, a) => c.rentalPropertyResult(v, a)],
+  ['wine-equalisation-tax', (c, v, a) => c.wineEqualisationTaxResult(v, a)],
+  ['gst-adjustments', (c, v, a) => c.gstAdjustmentsResult(v, a)],
+  ['deferred-tax', (c, v, a) => c.deferredTaxResult(v, a)],
+  ['trust-streaming', (c, v, a) => c.trustStreamingResult(v, a)],
+  ['ato-penalties-interest', (c, v, a) => c.atoPenaltiesInterestResult(v, a)],
+]);
+
+function financeHandler({ form, calculate, value, showTables }) {
+  const kind = form.dataset.calculator;
+  const result = kind === 'lease' ? calculate.leaseResult(value, aud)
+    : calculate.financeResult({ solve: value('solve'), amount: value('amount'), rate: value('rate'), payments: value('payments'),
+      payment: value('payment'), balloon: value('balloon'), balloonKind: value('balloon-kind'), frequency: value('frequency'),
+      timing: value('timing'), start: value('start') }, aud, kind === 'loan' ? null : value('agreement'));
+  showTables(result.tables);
+  return { result, csv: result.csv };
+}
+
+const CUSTOM_HANDLERS = new Map([
+  ['gst', ({ form, calculate, value, money }) => {
+    const inclusive = form.elements.namedItem('inclusive').checked;
+    const r = calculate.gst(value('amount'), inclusive);
+    return { result: { inputs: `amount ${money('amount')}, ${inclusive ? 'includes' : 'excludes'} GST`, principal: 1,
+      rows: [['Excluding GST', aud(r.net)], ['GST', aud(r.gst)], ['Including GST', aud(r.gross)]] } };
+  }],
+  ['business-use', ({ calculate, value, money }) => ({ result: { inputs: `eligible cost ${money('cost')}, business use ${value('percent')}%`, principal: 0,
+    rows: [['Business-use share', aud(calculate.businessUse(value('cost'), value('percent')).share)]] } })],
+  ['margin', ({ calculate, value, money }) => {
+    const r = calculate.margin(value('sales'), value('cost'));
+    return { result: { inputs: `sales ${money('sales')}, direct cost ${money('cost')}`,
+      rows: [['Gross profit', aud(r.profit)], ['Margin', percent(r.margin)], ['Markup', percent(r.markup)]] } };
+  }],
+  ['break-even', ({ calculate, value, money }) => {
+    const r = calculate.breakEven(value('fixed'), value('price'), value('variable'));
+    return { result: { inputs: `fixed costs ${money('fixed')}, selling price ${money('price')} per unit, variable cost ${money('variable')} per unit`, principal: 1,
+      rows: [['Contribution per unit', aud(r.contribution)], ['Break-even', `${r.units.toLocaleString('en-AU')} whole units, or ${aud(r.sales)} in sales`]] } };
+  }],
+  ['hourly', ({ calculate, value, money }) => ({ result: { inputs: `annual costs ${money('cost')}, target profit ${money('profit')}, ${count(value('hours'), 'billable hour')}`, principal: 0,
+    rows: [['Required hourly rate before GST', aud(calculate.hourlyRate(value('cost'), value('profit'), value('hours')).rate)]] } })],
+  ['fixed-fee', ({ form, calculate, value, money }) => {
+    const addGst = form.elements.namedItem('gst').checked;
+    const step = value('round');
+    const months = Number(value('instalments'));
+    const r = calculate.fixedFee(value('hours'), value('rate'), value('margin'), step, addGst, value('instalments'));
+    return { result: { inputs: `${count(value('hours'), 'hour')} at ${money('rate')} an hour, ${value('margin')}% margin, fee rounded up to ${step === '0.01' ? 'the cent' : `the next $${step}`}, ${addGst ? 'GST added' : 'no GST'}, ${count(value('instalments'), 'monthly instalment')}`, principal: 2,
+      rows: [['Fee before GST', aud(r.fee)], ['GST', aud(r.gst)], ['Fee including GST', aud(r.total)],
+        [months === 1 ? 'Paid at once' : 'First instalment', aud(r.first)],
+        ...(months === 1 ? [] : [[`Instalments 2 to ${months}, each`, aud(r.instalment)]]),
+        ['Effective hourly rate before GST', aud(r.effectiveRate)]] } };
+  }],
+  ['variance', ({ calculate, value, money }) => {
+    const r = calculate.variance(value('actual'), value('budget'), value('kind'));
+    return { result: { inputs: `actual ${money('actual')}, budget ${money('budget')}, figure type ${value('kind')}`, principal: 0,
+      rows: [['Actual minus budget', aud(r.difference)], ['Difference as a share of absolute budget', percent(r.percent)]], note: r.effect } };
+  }],
+  ['loan', financeHandler],
+  ['hire-purchase', financeHandler],
+  ['lease', financeHandler],
+  ['div7a', ({ form, calculate, value, money }) => {
+    // The year's benchmark rate comes from the option, which lists only years the site's rate table holds.
+    const year = form.elements.namedItem('year').selectedOptions[0];
+    const r = calculate.div7aMinimumRepayment(value('balance'), year.dataset.rate, value('term'));
+    return { result: { inputs: `${year.value} income year at the ${year.dataset.rate}% benchmark rate, ${money('balance')} not repaid at 30 June ${year.value.slice(0, 4)}, ${count(value('term'), 'year')} remaining`, principal: 0,
+      rows: [['Minimum yearly repayment', aud(r.repayment)], ['Interest for the year, if repaid on 30 June', aud(r.interest)], ['Principal, if repaid on 30 June', aud(r.principal)]] } };
+  }],
+  ['div7a-schedule', ({ form, calculate, value }) => {
+    const yes = name => value(name) === 'yes';
+    const result = calculate.div7aScheduleResult({ made: value('made'), amount: value('amount'), term: value('term'),
+      assumedRate: value('assumed-rate'), repayments: value('repayments'), marginalRate: value('marginal-rate'),
+      franking: value('franking'), lodgment: yes('lodgment'), refinanced: yes('refinanced'), interposed: yes('interposed') }, aud);
+    renderTableRows(form.querySelector('#div7a-schedule-results'), result.table);
+    return { result };
+  }],
+  ['transfer-duty', transferDutyHandler],
+  ['fbt-car', fbtCarHandler],
+  ['pcg-2021-4', pcgRiskHandler],
+  ['pcg-2021-4-allocation', ({ form, calculate, value }) => {
+    const year = form.querySelector('input[name="year"]:checked');
+    return { result: calculate.pcgAllocationResult(value, { name: year.value, ...year.dataset }, aud, percent) };
+  }],
+  ['vehicle-class', vehicleClassHandler],
+  ['gic-payment-plan', ({ calculate, value, money }) => {
+    const plan = { debt: value('debt'), start: value('start'), count: value('count'), frequency: value('frequency'),
+      assumedRate: value('assumedRate') };
+    const r = calculate.gicPaymentPlan(plan);
+    const result = { inputs: `debt ${money('debt')}, first instalment ${calendarDate(plan.start)}, ${count(plan.count, `${plan.frequency} instalment`)}, `
+      + `${plan.assumedRate}% a year assumed after December 2026`,
+    rows: [['Paid in full now', money('debt')],
+      ...(Number(plan.count) === 1 ? [] : [['Each instalment but the last', aud(r.instalment)]]),
+      [`Final instalment, ${calendarDate(r.lastDate)}`, aud(r.final)], ['Total paid on the plan', aud(r.totalPaid)],
+      ['GIC on the plan, over paying now', aud(r.gic)]],
+    note: r.assumedDays ? `${count(String(r.assumedDays), 'day')} after December 2026 use the assumed rate` : undefined };
+    result.principal = result.rows.length - 1;
+    return { result };
+  }],
+  ['land-tax', landTaxHandler],
+  ['psi-determination', ({ form, calculate, value }) => ({ result: calculate.psiDeterminationResult(value, (name) => form.elements.namedItem(name).checked, aud) })],
+  ['staff', ({ calculate, value, money }) => {
+    const r = calculate.staffCost(value('wages'), value('super'), value('other'));
+    return { result: { inputs: `wages ${money('wages')}, super ${money('super')}, other costs ${money('other')}`, principal: 0,
+      rows: [['Annual staff cost', aud(r.annual)], ['Monthly average', aud(r.monthly)]] } };
+  }],
+  ['cash', cashHandler],
+  ['objection-deadline', objectionDeadlineHandler],
+  ['payg-instalments', paygInstalmentsHandler],
+  ['termination-payment', ({ form, calculate, value, money }) => {
+    // The year's last day, caps, amounts and Table A rates come from the form; the Node
+    // tests bind them to Schedule 11.
+    const year = form.dataset;
+    const r = calculate.terminationPayment({ redundancy: value('redundancy'), years: value('years'), excluded: value('excluded'),
+      nonExcluded: value('non-excluded'), other: value('other'), born: value('born') }, year);
+    return { result: { inputs: `genuine redundancy or early retirement scheme payment ${money('redundancy')} after ${count(value('years'), 'completed year')} of service, `
+      + `other code R taxable component ${money('excluded')}, code O taxable component ${money('non-excluded')}, `
+      + `other taxable payments in 2026-27 ${money('other')}, born ${calendarDate(value('born'))}`, principal: 7,
+    rows: [['Tax-free limit', aud(r.taxFreeLimit)], ['Tax-free part of the redundancy payment', aud(r.taxFree)],
+      ['Code R taxable component', aud(r.excluded)], ['Withhold from the code R part', aud(r.excludedWithholding)],
+      ['Whole-of-income cap left', aud(r.wholeOfIncomeCap)], ['Cap for the code O part', aud(r.cap)],
+      ['Withhold from the code O part', aud(r.nonExcludedWithholding)], ['Total to withhold', aud(r.withholding)]],
+    note: `${r.reached ? 'Preservation age or older' : 'Under preservation age'} on 30 June 2027: ${r.rate}% within each cap and ${year.rateAbove}% above it` } };
+  }],
+  ['division-296', ({ form, calculate, value }) => {
+    // The thresholds and rates come from the form; the Node tests bind them to the Acts.
+    const yes = name => value(name) === 'yes';
+    return { result: calculate.division296Result({ balance: value('balance'), earnings: value('earnings'), child: yes('child'),
+      settlement: yes('settlement'), died: yes('died') }, form.dataset, aud) };
+  }],
+  ['cgt', ({ form, calculate, value }) => ({ result: calculate.cgtResult(value, (name) => form.elements.namedItem(name).checked, aud) })],
+  ['tax-invoice', ({ calculate, value, showTables }) => {
+    const result = calculate.taxInvoiceResult(value, aud);
+    showTables(result.tables);
+    // The download is the invoice itself, a page to print or save as PDF.
+    return { result, csv: result.html }; // eslint-disable-line xss/no-mixed-html -- the invoice file is downloaded, never inserted into this page
+  }],
+  ['first-home-owner-grant', ({ form, calculate, value }) => {
+    // The chosen jurisdiction's radio carries its transfer duty scale, as on the transfer duty page.
+    const place = form.querySelector('input[name="jurisdiction"]:checked');
+    return { result: calculate.firstHomeOwnerGrantResult(value, (name) => form.elements.namedItem(name).checked,
+      place.dataset.scale.split(';').map(row => row.split(',')), calculate.firstHomeDuty, aud) };
+  }],
+  ['payroll-tax', ({ calculate, value }) => ({ result: calculate.payrollTaxResult(value('wages'), value('australian'), value('jurisdiction'), aud) })],
+  ['franking-account', ({ form, calculate, value }) => {
+    const result = calculate.frankingAccountResult(value, aud);
+    const tables = new Map(Object.entries(result.tables));
+    // The ledger and the distributions, each a label cell, then figures.
+    for (const table of form.querySelectorAll('table[data-results]')) {
+      renderTableRows(table, tables.get(table.dataset.results), true);
+    }
+    return { result };
+  }],
+  ['salary-dividend', ({ calculate, value }) => ({ result: calculate.salaryDividendResult({ year: value('year'), profit: value('profit'), baseRate: value('base-rate') === 'yes',
+    salary: value('salary'), other: value('other') }, aud) })],
+  ['sole-trader-company', ({ calculate, value }) => ({ result: calculate.soleTraderCompanyResult({ year: value('year'), profit: value('profit'), takenOut: value('taken-out'),
+    salary: value('salary'), baseRate: value('base-rate') === 'yes', offset: value('offset') === 'yes' }, aud) })],
+  ['company-tax', ({ calculate, value }) => {
+    const year = (prefix) => ({ turnover: value(`${prefix}turnover`), assessable: value(`${prefix}assessable`), passive: value(`${prefix}passive`) });
+    // The optional calculation statement appends its rows (company-tax-statement.mjs).
+    return { result: calculate.companyTaxPageResult({ ...year(''), taxable: value('taxable'), existed: value('existed') === 'yes', prior: year('prior-'),
+      dividend: value('dividend'), franking: value('franking'), marginal: value('marginal') }, value, aud, calculate.companyTaxResult) };
+  }],
+  ['gst-margin-scheme', ({ calculate, value }) => {
+    const yes = name => value(name) === 'yes';
+    return { result: calculate.gstMarginSchemeResult({ interest: value('interest'), taxable: yes('taxable'), agreed: yes('agreed'),
+      acquired: value('acquired'), associate: yes('associate'), method: value('method'), price: value('price'), basis: value('basis'),
+      cost: value('cost'), part: value('part'), whole: value('whole'),
+      valuationDay: value('valuation-day'), registrationAtTransition: value('registration-at-transition'),
+      valuationProperty: value('valuation-property'),
+      registrationEffectiveDay: value('registration-effective-day'), registrationApplicationDay: value('registration-application-day') }, aud) };
+  }],
+  ['foreign-surcharge', foreignSurchargeHandler],
+  ['business-days', ({ form, calculate, value }) => ({ result: calculate.businessDaysResult({ mode: value('mode'), place: value('place'), start: value('start'), end: value('end'),
+    count: value('count') }, calculate.parseHolidays(form.dataset.holidays)) })],
+  ['fhss', ({ value, showTables, fhssResult }) => { const result = fhssResult(value, aud); showTables(result.tables); return { result }; }],
+  ['work-expenses', ({ value, workExpensesResult }) => ({ result: workExpensesResult(value, aud) })],
+  ['government-super', ({ value, governmentSuperResult }) => ({ result: governmentSuperResult(value, aud) })],
+  ['transfer-balance', ({ value, showTables, transferBalanceResult }) => { const result = transferBalanceResult(value, aud); showTables(result.tables); return { result }; }],
+  ['pension-minimum', ({ value, pensionMinimumResult }) => ({ result: pensionMinimumResult(value, aud) })],
+  ['residency-days', ({ value, residencyDaysResult }) => ({ result: residencyDaysResult(value) })],
+  ['lodgment-required', ({ form, value, lodgmentRequiredResult }) => ({ result: lodgmentRequiredResult(value, (name) => form.elements.namedItem(name).checked) })],
+]);
+
+function runCalculator(kind, ctx) {
+  const simple = SIMPLE_VALUE_AUD.get(kind);
+  if (simple) return { result: simple(ctx.calculate, ctx.value, aud) };
+  const withTables = TABLE_VALUE_AUD.get(kind);
+  if (withTables) {
+    const result = withTables(ctx.calculate, ctx.value, aud);
+    ctx.showTables(result.tables);
+    return { result };
+  }
+  const custom = CUSTOM_HANDLERS.get(kind);
+  if (custom) return custom(ctx);
+  return {
+    result: ctx.individualResult(kind, ctx.value, aud)
+      ?? ctx.fbtForms.fbtBenefitResult(ctx.form, ctx.calculate, { aud, value: ctx.value, money: ctx.money }),
+  };
 }
 
 function loadCalculators(retryForm) {

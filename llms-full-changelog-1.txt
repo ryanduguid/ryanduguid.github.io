@@ -21,9 +21,12 @@ What changed and when, across this site and the tagged tool releases. Dates are 
 ## Site
 
 Date | Change
+27 November 2026 | A new business calculator, the FBT return, composes an employer’s FBT return from its benefits’ taxable values: the type 1 and type 2 gross-up at items 14 to 16, item 23, each employee’s reportable fringe benefits amount, a rebatable employer’s rebate under section 65J, the $30,000 and $17,000 caps of section 57A employers with the $5,000 entertainment cap, items 20 to 22 and a quarter’s FBT instalment, checked against the australian-accounting fbt-return and fbt-instalment commands on 775 cases.
 27 November 2026 | The depreciation register distinguishes assets with the same name, shows the dates recorded against asset group headings and links directly to sections of long tables. The work expenses and rental property calculators now label telephone expenses as dollar amounts.
 27 November 2026 | The Markdown editions of calculators now preserve the instructions shown when JavaScript is off, including the link to the depreciation register data file.
 27 November 2026 | Reference tables now carry names for screen readers. Calculator fields and reference pages have more space between headings, instructions and tables. The depreciation register identifies the industry or asset group on links that share a name. Each indexed page also has a Markdown edition at index.md.
+26 November 2026 | The company tax and franking calculator now also works the company tax return’s calculation statement for 2021-22 to 2026-27: prior-year losses with the stated outcome of their loss test, net exempt income, the tax offsets at labels C to F, credits and PAYG instalments, and the amount due or refundable at label S. It works the Division 160 loss carry back tax offset only for the claim years the law gives one: 2021-22 and 2022-23 under the former Division 160, and 2026-27 under the Division 160 that Act No. 71 of 2026 substituted.
+26 November 2026 | A new business calculator, blackhole expenditure, deducts business capital expenditure under section 40-880 for 2020-21 to 2027-28: each item to the extent of its taxable purpose, a fifth a year over 5 income years, or at once as a start-up cost of a proposed business, and nothing where an exclusion applies.
 26 November 2026 | A new business calculator, leave provisions, measures annual and long service leave under AASB 119 for 2020-21 to 2026-27, line by line: short-term lines undiscounted, other long-term lines projected by salary growth, weighted by the probability of payment and discounted, and the total split current and non-current under AASB 101 para 69.
 26 November 2026 | A new business calculator, instant asset write-off, says whether a small business entity using simplified depreciation, or a medium sized business to 30 June 2021, writes one asset off in full for 2020-21 to 2026-27: the cost limit from the dates acquired and first used ($20,000 from 1 July 2026), and the deduction at the taxable use.
 26 November 2026 | The super lump sum tax calculator now also works the amount withheld from a super income stream payment under Schedule 13, for payments from 1 July 2024: weekly, fortnightly, monthly or quarterly, with the 15% or 10% tax offset and the offset adjustment, or 47% without a tax file number.
@@ -291,8 +294,11 @@ Published 30 August 2026. Last reviewed 24 November 2026.
 ## Links
 
 - Follow this changelog as an Atom feed: https://duguid.com.au/feed.xml
+- FBT return: https://duguid.com.au/tools/business-calculators/fbt-return/
 - depreciation register: https://duguid.com.au/tools/depreciation-rates/
 - depreciation register data file: https://duguid.com.au/tools/depreciation-rates/effective-life.json
+- company tax and franking calculator: https://duguid.com.au/tools/business-calculators/company-tax/
+- blackhole expenditure: https://duguid.com.au/tools/business-calculators/blackhole-expenditure/
 - leave provisions: https://duguid.com.au/tools/business-calculators/leave-provisions/
 - instant asset write-off: https://duguid.com.au/tools/business-calculators/instant-asset-write-off/
 - super lump sum tax calculator: https://duguid.com.au/tools/business-calculators/super-benefit-tax/
@@ -371,17 +377,3 @@ Published 30 August 2026. Last reviewed 24 November 2026.
 - v0.3.2: https://github.com/ryanduguid/australian-accounting-skills/releases/tag/v0.3.2
 - aus-accounting-mcp/v0.3.0: https://github.com/ryanduguid/australian-accounting/releases/tag/aus-accounting-mcp/v0.3.0
 - solomons-sword/v0.2.0: https://github.com/ryanduguid/australian-accounting/releases/tag/solomons-sword/v0.2.0
-- div7a-loan-review/v0.2.0: https://github.com/ryanduguid/australian-accounting/releases/tag/div7a-loan-review/v0.2.0
-- monthly-close-control-plane/v0.2.0: https://github.com/ryanduguid/accounting-review-pipeline/releases/tag/monthly-close-control-plane/v0.2.0
-- review-ready-gate/v0.2.0: https://github.com/ryanduguid/accounting-review-pipeline/releases/tag/review-ready-gate/v0.2.0
-- v0.3.1: https://github.com/ryanduguid/australian-accounting-skills/releases/tag/v0.3.1
-- aus-accounting-mcp/v0.2.12: https://github.com/ryanduguid/australian-accounting/releases/tag/aus-accounting-mcp/v0.2.12
-- payday-super-checker/v0.1.9: https://github.com/ryanduguid/australian-accounting/releases/tag/payday-super-checker/v0.1.9
-- solomons-sword/v0.1.10: https://github.com/ryanduguid/australian-accounting/releases/tag/solomons-sword/v0.1.10
-- the-wip-tally/v0.1.3: https://github.com/ryanduguid/australian-accounting/releases/tag/the-wip-tally/v0.1.3
-- div7a-loan-review/v0.1.6: https://github.com/ryanduguid/australian-accounting/releases/tag/div7a-loan-review/v0.1.6
-- review-ready-gate/v0.1.10: https://github.com/ryanduguid/accounting-review-pipeline/releases/tag/review-ready-gate/v0.1.10
-- xero-trial-balance-export/v0.1.14: https://github.com/ryanduguid/accounting-review-pipeline/releases/tag/xero-trial-balance-export/v0.1.14
-- v0.3.0: https://github.com/ryanduguid/australian-accounting-skills/releases/tag/v0.3.0
-- aus-accounting-mcp/v0.2.11: https://github.com/ryanduguid/australian-accounting/releases/tag/aus-accounting-mcp/v0.2.11
-- ato-benchmark-compare/v0.1.11: https://github.com/ryanduguid/australian-accounting/releases/tag/ato-benchmark-compare/v0.1.11

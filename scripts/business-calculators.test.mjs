@@ -15,6 +15,8 @@ import { gst, businessUse, margin, breakEven, hourlyRate, variance, financeSched
 import { EV_EXEMPT_NOTE, fbtBenefitResult, fbtEvResult } from '../assets/fbt-benefit-forms.mjs';
 import { FUEL_EFFICIENT_THRESHOLDS } from '../assets/fbt-ev-exemption.mjs';
 import { COMPANY_TAX_LAW } from '../assets/company-tax.mjs';
+import { fbtMoney } from '../assets/fbt-return.mjs';
+import { FBT_RETURN_ROWS } from '../assets/fbt-return-page.mjs';
 import { FOREIGN_SURCHARGES } from '../assets/foreign-surcharge.mjs';
 import { BUSINESS_DAY_PLACES, BUSINESS_DAYS_COVERAGE, STATE_ONLY_HOLIDAYS } from '../assets/business-days.mjs';
 
@@ -607,7 +609,7 @@ const INPUTS = {
   firstHomeDuty: (value, place, home) => `${PLACES[place]}, ${dollars(value)}, first home buyer, ${home} home`,
   fbtCar: (car, year) => `${car.method === 'operating' ? `Operating cost ${dollars(car.costs)} at ${car.businessUse}% business use; `
     : 'Statutory formula; '}cost price ${dollars(car.cost)}${car.accessories === '0' ? '' : ` plus ${dollars(car.accessories)} accessories`}`
-    + `${car.reduced ? ', held 4 years' : ''}, ${car.days} of ${year.days} days, contributions ${dollars(car.contribution)}, gross-up ${year.grossUp}`,
+    + `${car.reduced ? ', held 4 years' : ''}, ${car.days} of ${year.days} days, contributions ${dollars(car.contribution)}, Type ${year.type} gross-up`,
   pcgRisk: (a) => `${a.gateway1 && a.gateway2 ? 'Gateways passed' : `Gateway ${a.gateway1 ? 2 : 1} failed`}; entitlement `
     + `${dollars(a.entitlement)}, returned ${dollars(a.returned)}, tax ${dollars(a.tax)}`
     + `${a.factor3 ? `, remuneration ${dollars(a.remuneration)} against ${dollars(a.benchmark)}` : ''}`,
@@ -770,9 +772,21 @@ Object.assign(INPUTS, { rentalProperty: (x) => calculations.rentalInputsText(x,
 Object.assign(ENGINE_LABELS, { rentalProperty: { grossRent: (v) => `gross rent ${dollars(v)}`,
   totalDeductions: (v) => `total deductions ${dollars(v)}`, netRent: (v) => `net rent ${dollars(v)}` } });
 
+// The FBT return page's rows: the return's totals for its call.
+Object.assign(INPUTS, { fbtReturnTotals: (x) => calculations.fbtInputsText(x,
+  (value) => value.toLocaleString('en-AU', { style: 'currency', currency: 'AUD' })) });
+Object.assign(ENGINE_LABELS, { fbtReturnTotals: { taxableAmount: 'fringe benefits taxable amount', payable: 'tax payable',
+  due: 'payment due', credit: 'credit due' } });
+
 // The R&D tax offset page's rows (its tests are with the page's other tests below).
 Object.assign(INPUTS, { rdTaxOffset: (x) => calculations.rdInputsText(x,
   (value) => value.toLocaleString('en-AU', { style: 'currency', currency: 'AUD' })) });
+// The blackhole expenditure page's rows (its tests are with the page's other tests below).
+Object.assign(INPUTS, { businessCapitalExpenditure: (x) => calculations.blackholeInputsText(x,
+  (value) => value.toLocaleString('en-AU', { style: 'currency', currency: 'AUD' })) });
+Object.assign(ENGINE_LABELS, { businessCapitalExpenditure: { totalDeduction: 'deduction', deductibleExpenditure: 'deductible expenditure',
+  remaining: 'left for later years' } });
+
 Object.assign(ENGINE_LABELS, { rdTaxOffset: { taxOffset: 'R&D tax offset', refundableOffset: 'refundable',
   nonRefundableOffset: 'non-refundable', clawbackIncome: 'included in assessable income' } });
 
@@ -996,12 +1010,12 @@ test('first home buyer duty matches the revenue offices’ figures either side o
   assert.throws(() => duty('500000.50', 'AU-NSW'), { message: 'Enter a whole number between 1 and 1000000000.' });
 });
 
-// The FBT car form passes the checked option's gross-up and the form's days and FBT rate; the
-// FBT car test below binds those to this row of the table.
+// The FBT car form passes the checked option's gross-up type and the form's days and FBT rate;
+// the FBT car test below binds those, and each option's published rate, to this row of the table.
 const fbtRow = readFileSync(new URL('../rates/fbt-rate/fbt-rates.csv', import.meta.url), 'utf8')
   .trim().split(/\r?\n/).map((line) => line.split(',')).find(([ending]) => ending === '2027-03-31');
 const fbtDays = String((Date.parse(fbtRow[0]) - Date.parse(`${Number(fbtRow[0].slice(0, 4)) - 1}${fbtRow[0].slice(4)}`)) / 86400000);
-const fbtYear = { 1: { days: fbtDays, grossUp: fbtRow[2], fbtRate: fbtRow[1] }, 2: { days: fbtDays, grossUp: fbtRow[3], fbtRate: fbtRow[1] } };
+const fbtYear = { 1: { days: fbtDays, type: '1', fbtRate: fbtRow[1] }, 2: { days: fbtDays, type: '2', fbtRate: fbtRow[1] } };
 // ATO, 'Fringe benefits tax – a guide for employers', chapter 7 (current document 22 November 2024),
 // read 15 November 2026: https://www.ato.gov.au/law/view/document?docid=SAV/FBTGEMP/00008
 // Example 28: '$60,000 × 0.2 = $12,000', '2,184,000 ÷ 365 = $5,983', '$5,983 - $1,000 = $4,983'.
@@ -1020,14 +1034,31 @@ test('FBT car values agree with the ATO guide’s worked examples', () => {
   assert.equal(example23.baseValue, 39000 - 13000 + 4000);
 });
 
-// Worked by hand: $4,983.56 × 2.0802 = $10,366.801512, so $10,366.80, and 47% of that is $4,872.396,
-// so $4,872.40. An operating cost of 1 cent at 50% business use is exactly half a cent, so 1 cent.
-test('FBT car values, gross-up and FBT round half up from the figure before them', () => {
+// Worked by hand from FBTAA s 5B(1B): $4,983.56 × 0.57 ÷ 0.27401 = $10,366.8803..., so $10,366.88,
+// and 47% of the exact amount is $4,872.4337..., so $4,872.43 (2.0802 would give $10,366.80 and
+// $4,872.40). An operating cost of 1 cent at 50% business use is exactly half a cent, so 1 cent.
+test('FBT car values round half up; the gross-up and FBT follow s 5B(1B) and (1C) exactly', () => {
   const opening = calculations.fbtCar(fbtInputs({ cost: '60000', days: '182', contribution: '1000' }), fbtYear[1]);
-  assert.deepEqual([opening.grossedUp, opening.fbt], [10366.8, 4872.4]);
+  assert.deepEqual([opening.grossedUp, opening.fbt], [10366.88, 4872.43]);
   const half = calculations.fbtCar(fbtInputs({ method: 'operating', cost: '1000', costs: '0.01', businessUse: '50' }), fbtYear[1]);
   assert.deepEqual([half.operating, half.taxableValue], [0.01, 0.01]);
   assert.equal(calculations.fbtCar(fbtInputs({ cost: '0.01', reduced: true }), fbtYear[1]).baseValue, 0.01);
+});
+
+// Cent boundaries, each the same as australian-accounting's fbt command (reviewed in #761) gives
+// on its main at e1f5bee9. The smallest taxable values whose cent the 4-place rates get wrong:
+// $2.93 of Type 1 is 293 × 570 ÷ 274.01 = 609.503 cents, so $6.10 (2.0802 gives 609.499, $6.09),
+// FBT 286.467 cents, $2.86; $12.50 of Type 2 is 1,250 × 100 ÷ 53 = 2,358.491 cents, so $23.58
+// (1.8868 gives exactly 2,358.5, $23.59), FBT 1,108.491 cents, $11.08 ($11.09 from $23.59).
+// $2,895.00 of Type 2 is 546,226.4 cents and FBT 256,726.4 cents, where 1.8868 gives $5,462.29.
+test('FBT car grosses up by the s 5B formulas at cent boundaries, not the 4-place rates', () => {
+  const value = (cents, type) => calculations.fbtCar(fbtInputs({ method: 'operating', cost: '100000', costs: cents,
+    businessUse: '0' }), fbtYear[type]);
+  const pair = (r) => [r.grossedUp, r.fbt];
+  assert.deepEqual(pair(value('2.93', '1')), [6.1, 2.86]);
+  assert.deepEqual(pair(value('12.50', '2')), [23.58, 11.08]);
+  assert.deepEqual(pair(value('2895', '2')), [5462.26, 2567.26]);
+  assert.throws(() => calculations.fbtCar(fbtInputs({}), { ...fbtYear[1], type: '3' }), { message: 'Choose a gross-up type.' });
 });
 
 test('FBT car refuses an unknown method, a missing answer and out-of-range figures', () => {
@@ -1046,7 +1077,7 @@ test('FBT car refuses an unknown method, a missing answer and out-of-range figur
 test('FBT car rates are the rate table row for the FBT year ending 31 March 2027', () => {
   const html = readFileSync(new URL('../_includes/calculators/fbt-car.html', import.meta.url), 'utf8');
   const options = [...html.matchAll(/<input type="radio" name="type" value="(\d)" data-gross-up="([^"]+)"/g)];
-  assert.deepEqual(options.map(([, type, rate]) => [type, rate]), [['1', fbtYear[1].grossUp], ['2', fbtYear[2].grossUp]]);
+  assert.deepEqual(options.map(([, type, rate]) => [type, rate]), [['1', fbtRow[2]], ['2', fbtRow[3]]]);
   assert.ok(html.includes(`data-year-days="${fbtDays}" data-fbt-rate="${fbtRow[1]}"`));
   assert.equal(fbtDays, '365');
 });
@@ -1287,12 +1318,14 @@ Object.assign(FORM_CALLS, { wineEqualisationTax: (f) => [calculations.wetFormInp
 
 Object.assign(FORM_CALLS, { rentalProperty: (f) => [calculations.rentalFormInput((name) => f[name] ?? '')] });
 
+Object.assign(FORM_CALLS, { fbtReturnTotals: (f) => [calculations.fbtFormInput((name) => f[name] ?? '')] });
 Object.assign(FORM_CALLS, { casualOvertime: (f) => [calculations.casualOvertimeFormInput((name) => f[name] ?? '')] });
 Object.assign(FORM_CALLS, { leaveProvisions: (f) => [calculations.leaveFormInput((name) => f[name] ?? '')] });
 Object.assign(FORM_CALLS, { instantAssetWriteOff: (f) => [calculations.iawoFormInput((name) => f[name] ?? '')] });
 
 Object.assign(FORM_CALLS, { rdTaxOffset: (f) => [calculations.rdFormInput((name) => f[name] ?? '')] });
 
+Object.assign(FORM_CALLS, { businessCapitalExpenditure: (f) => [calculations.blackholeFormInput((name) => f[name] ?? '')] });
 Object.assign(FORM_CALLS, { contractorEmployee: (f) => [calculations.contractorFormInput((name) => f[name] ?? '')] });
 
 Object.assign(FORM_CALLS, { gstAdjustment: (f) => {
@@ -7551,6 +7584,322 @@ test('the deferred tax form sends the rows with a name or an amount, in order', 
     [`item-${n}-opening-carrying`]: '', [`item-${n}-opening-base`]: '' });
   const loss = calculations.deferredTaxResult((name) => ({ ...fields, ...nil })[name] ?? '', deferredAud);
   assert.deepEqual(loss.rows.at(-1), ['Average effective tax rate', '0%']);
+});
+
+// The blackhole expenditure page (ITAA 1997 s 40-880, read 26 November 2026) ports the business-capital-expenditure command of
+// australian-accounting; the company tax page's optional statement ports the-exchequer-tally's company-tax-statement command.
+const AA_MAIN = /^ryanduguid\/australian-accounting at e1f5bee /;
+const s6Fixture = (file) => JSON.parse(readFileSync(new URL(`./${file}`, import.meta.url), 'utf8'));
+
+test('blackhole expenditure agrees with the business-capital-expenditure command on every recorded case', () => {
+  const { engine, cases } = s6Fixture('blackhole-expenditure-engine-differential.json');
+  assert.match(engine, AA_MAIN);
+  assert.ok(cases.length >= 360);
+  assert.ok(cases.filter((c) => c.source.startsWith('AA test')).length >= 60);
+  for (const { source, call, refused, period, amounts, rates, items } of cases) {
+    if (refused) {
+      assert.throws(() => calculations.businessCapitalExpenditure(call), { code: refused }, source);
+      continue;
+    }
+    const r = calculations.businessCapitalExpenditure(call);
+    assert.deepEqual({ period: r.period, amounts: r.amounts, rates: r.rates, items: r.items }, { period, amounts, rates, items }, source);
+  }
+});
+
+test('the company tax statement agrees with the company-tax-statement command on every recorded case', () => {
+  const { engine, cases } = s6Fixture('company-tax-statement-engine-differential.json');
+  assert.match(engine, AA_MAIN);
+  assert.ok(cases.length >= 390);
+  assert.ok(cases.filter((c) => c.source.startsWith('AA test')).length >= 90);
+  for (const { source, call, refused, result } of cases) {
+    if (refused) {
+      assert.throws(() => calculations.companyTaxStatement(call), Error, source);
+      continue;
+    }
+    assert.deepEqual(JSON.parse(JSON.stringify(calculations.companyTaxStatement(call))), result, source);
+  }
+});
+
+// Edge calls the recorded cases leave out (malformed facts, each refusal and the less common branches), with each
+// command's answer from its release build.
+test('both engines refuse and answer each edge call as the commands do', () => {
+  const fixture = s6Fixture('s40-880-company-statement-edge-cases.json');
+  assert.match(fixture.engine, /^ryanduguid\/australian-accounting at 7f3c3eb /);
+  const blackhole = fixture['business-capital-expenditure'];
+  const statement = fixture['company-tax-statement'];
+  assert.ok(blackhole.length >= 60 && statement.length >= 70);
+  for (const { source, call, refused, period, amounts, rates, items } of blackhole) {
+    if (refused) {
+      assert.throws(() => calculations.businessCapitalExpenditure(call), { code: refused }, source);
+      continue;
+    }
+    const r = calculations.businessCapitalExpenditure(call);
+    assert.deepEqual({ period: r.period, amounts: r.amounts, rates: r.rates, items: r.items }, { period, amounts, rates, items }, source);
+  }
+  for (const { source, call, refused, result } of statement) {
+    if (refused) {
+      assert.throws(() => calculations.companyTaxStatement(call), { message: refused }, source);
+      continue;
+    }
+    assert.deepEqual(JSON.parse(JSON.stringify(calculations.companyTaxStatement(call))), result, source);
+  }
+});
+
+const blackholeHtml = readFileSync(new URL('../_includes/calculators/blackhole-expenditure.html', import.meta.url), 'utf8');
+const blackholeAud = (value) => value.toLocaleString('en-AU', { style: 'currency', currency: 'AUD' });
+
+test('the blackhole expenditure page opens on its example and cites section 40-880 read on 26 November 2026', () => {
+  const example = blackholeHtml.match(/\{% include calculator-example\.html inputs="([^"]*)" rows="([^"]*)" principal="(\d+)" note="([^"]*)" %\}/);
+  const fields = formDefaults(blackholeHtml);
+  const r = calculations.blackholeResult((name) => fields[name] ?? '', blackholeAud);
+  assert.deepEqual([r.inputs, r.rows.map((row) => row.join('|')).join(';'), String(r.principal), r.note], example.slice(1));
+  assert.match(blackholeHtml, /docid=PAC\/19970038\/40-880">section 40-880 of the <em>Income Tax Assessment Act 1997<\/em><\/a> on the ATO’s legal database, read 26 November 2026/);
+  assert.match(blackholeHtml, /<h2>What the blackhole expenditure calculator does not cover<\/h2>/);
+});
+
+test('the blackhole page writes an excluded item, another entity’s former business and goodwill, and refuses a bad percentage', () => {
+  const fields = formDefaults(blackholeHtml);
+  const page = (more) => calculations.blackholeResult((name) => ({ ...fields, ...more })[name] ?? '', blackholeAud);
+  // s 40-880(8) excludes item 1, leaving item 2's $2,500 start-up cost.
+  const eight = page({ 'item-1-exclusion': '8' });
+  assert.match(eight.inputs, /80% taxable purpose, excluded by section 40-880\(8\);/);
+  assert.deepEqual(eight.rows[1], ['Item 1: deduction for 2025-26 (excluded, nothing to deduct)', '$0.00']);
+  assert.match(eight.note, /^Excluded: item 1 by s 40-880\(8\)/);
+  const other = page({ 'item-1-business': 'former', 'item-1-by': 'another_entity', 'item-1-connection': 'yes',
+    'item-1-exclusion': '5(d)', 'item-1-goodwill': 'yes' });
+  assert.match(other.inputs, /for a former business of another entity, 80% taxable purpose, excluded by section 40-880\(5\)\(d\);/);
+  assert.deepEqual(other.rows[1], ['Item 1: deduction for 2025-26 (a fifth a year from 2023-24 to 2027-28)', '$1,600.00']);
+  assert.throws(() => page({ 'item-1-purpose': 'abc' }), /Enter the taxable purpose as a percentage from 0 to 100/);
+});
+
+test('the blackhole page sends only the facts each item’s answers call for, and its percentages exactly', () => {
+  const fields = formDefaults(blackholeHtml);
+  const form = (more) => calculations.blackholeFormInput((name) => ({ ...fields, ...more })[name] ?? '');
+  assert.deepEqual(form({}).items.map((it) => Object.keys(it).sort()), [
+    ['amount', 'business', 'capital', 'exclusions', 'incurred_in', 'taxable_purpose'],
+    ['amount', 'business', 'capital', 'carried_on_by', 'entity_test', 'exclusions', 'incurred_in', 'start_up_expense', 'taxable_purpose', 'within_reasonable_time']]);
+  assert.equal(form({ 'item-2-amount': '' }).items.length, 1);
+  const wind = form({ 'item-1-business': 'wind_up', 'item-1-connection': 'no', 'item-1-exclusion': '5(f)', 'item-1-goodwill': 'yes' }).items[0];
+  assert.deepEqual([wind.assessable_income_connection, wind.exclusions, wind.goodwill_right, 'carried_on_by' in wind], [false, ['5(f)'], true, false]);
+  for (const [typed, fraction] of [['75', '0.75'], ['100', '1'], ['0', '0'], ['7', '0.07'], ['12.345', '0.12345'], ['100.0', '1']]) {
+    assert.equal(calculations.blackholeFormInput((name) => ({ ...fields, 'item-1-purpose': typed })[name] ?? '').items[0].taxable_purpose, fraction);
+  }
+  assert.throws(() => calculations.blackholeResult((name) => ({ ...fields, 'item-1-amount': '', 'item-2-amount': '' })[name] ?? '', blackholeAud),
+    /at least one item/);
+});
+
+test('blackhole expenditure spreads, deducts at once, excludes and refuses as section 40-880 does', () => {
+  const item = (more) => ({ amount: '1000', incurred_in: '2025-26', capital: true, business: 'current', taxable_purpose: '1', exclusions: [], ...more });
+  const run = (year, ...items) => calculations.businessCapitalExpenditure({ items, year, scope_confirmed: true });
+  const code = (year, ...items) => {
+    try {
+      run(year, ...items);
+    } catch (error) {
+      return error.code;
+    }
+    return 'computed';
+  };
+  assert.deepEqual(run('2025-26', item({ amount: '1000', taxable_purpose: '0.3' })).amounts,
+    { expenditure: '1000.00', deductible_expenditure: '300.00', deduction: '60.00', remaining_expenditure_after_year: '240.00' });
+  assert.equal(run('2027-28', item({ incurred_in: '2022-23' })).amounts.deduction, '0.00');
+  assert.equal(run('2026-27', item({ incurred_in: '2022-23' })).amounts.deduction, '200.00');
+  const startUp = { business: 'proposed', carried_on_by: 'you', within_reasonable_time: true, start_up_expense: 'advice_or_services' };
+  assert.equal(run('2025-26', item({ ...startUp, entity_test: 'covered_by_2b' })).amounts.deduction, '1000.00');
+  assert.equal(run('2026-27', item({ ...startUp, entity_test: 'covered_by_2b' })).amounts.deduction, '0.00');
+  assert.equal(run('2025-26', item({ ...startUp, within_reasonable_time: false, entity_test: 'covered_by_2b' })).amounts.deduction, '0.00');
+  assert.equal(run('2025-26', item({ exclusions: ['5(d)'], goodwill_right: false })).amounts.deduction, '0.00');
+  assert.equal(run('2025-26', item({ amount: '1', taxable_purpose: '0.333333333333333333333333333333333333333333' })).items[0].deductible_expenditure,
+    '0.3333333333333333333333333333333333333333');
+  assert.equal(code('2025-26', item({ exclusions: ['5(f)'], goodwill_right: false })), 'business_capital.cgt_amount');
+  assert.equal(code('2025-26', item({ exclusions: ['5(a)'] })), 'business_capital.depreciating_asset_cost');
+  assert.equal(code('2025-26', item({ incurred_in: '2019-20' })), 'business_capital.incurred_before_july_2020');
+  assert.equal(code('2024-25', item({ incurred_in: '2025-26' })), 'business_capital.incurred_after_year');
+  assert.equal(code('2025-26', item({ capital: false })), 'business_capital.not_capital');
+  assert.equal(code('2025-26', item({ extra: 1 })), 'input.field_unknown');
+  assert.equal(code('2019-20', item({})), 'period.unsupported');
+});
+
+const companyHtml = readFileSync(new URL('../_includes/calculators/company-tax.html', import.meta.url), 'utf8');
+const companyAud = (value) => value.toLocaleString('en-AU', { style: 'currency', currency: 'AUD' });
+
+test('the company tax page’s statement option adds the return’s labels and checks taxable income against label A', () => {
+  const fields = formDefaults(companyHtml);
+  assert.equal(fields.statement, 'no');
+  const input = { turnover: fields.turnover, assessable: fields.assessable, passive: fields.passive, taxable: fields.taxable, existed: true,
+    prior: { turnover: fields['prior-turnover'], assessable: fields['prior-assessable'], passive: fields['prior-passive'] },
+    dividend: fields.dividend, franking: fields.franking, marginal: fields.marginal };
+  const page = (more, taxable = input.taxable) => calculations.companyTaxPageResult({ ...input, taxable },
+    (name) => ({ ...fields, ...more })[name] ?? '', companyAud, calculations.companyTaxResult);
+  assert.deepEqual(page({}), calculations.companyTaxResult(input, companyAud));
+  const on = page({ statement: 'yes', 'statement-k': '20000' });
+  assert.deepEqual(on.rows.slice(-3), [['Tax payable (T5)', '$26,000.00'], ['PAYG instalments (K)', '$20,000.00'], ['Amount due (S)', '$6,000.00']]);
+  assert.match(on.inputs, /; calculation statement for 2026-27$/);
+  const losses = { statement: 'yes', 'statement-loss-1-year': '2024', 'statement-loss-1-amount': '30000', 'statement-loss-1-test': 'same_business',
+    'statement-loss-2-year': '2023', 'statement-loss-2-amount': '9000', 'statement-loss-2-test': 'failed' };
+  assert.throws(() => page(losses), /taxable income of \$74,000\.00 \(label A\)/);
+  assert.deepEqual(page(losses, '74000').rows.slice(-4, -2), [['Taxable income for 2026-27 (label A)', '$74,000.00'], ['Gross tax at 25% (labels T1 and B)', '$18,500.00']]);
+  // The ATO's Division 160 example for 2026-27: a $900,000 loss carried back to 2 years before it, capped by each year's liability.
+  const back = { statement: 'yes', 'statement-deductions': '1004000', 'statement-carry-back': 'yes', 'statement-conditions': 'yes', 'statement-balance': '500000',
+    'statement-back-1-amount': '405000', 'statement-back-1-liability': '120000', 'statement-back-1-exempt': '5000',
+    'statement-back-2-amount': '495000', 'statement-back-2-liability': '210000' };
+  const r = page(back, '0');
+  assert.deepEqual(r.rows.slice(-5), [['Amount refundable (S)', '$223,750.00'], ['Tax loss for the year (s 36-10)', '$900,000.00'],
+    ['Carried back (Division 160)', '$900,000.00'], ['Loss carry back tax offset, in label E', '$223,750.00'], ['Carried forward', '$0.00']]);
+  assert.throws(() => page({ ...back, 'statement-year': '2025' }, '0'), /no loss carry back tax offset for the claim year ending in 2025/);
+  assert.throws(() => page({ ...back, 'statement-conditions': 'no' }, '0'), /condition corporate_tax_entity_throughout is not stated as true/);
+});
+
+test('the company tax page sends a chosen loss deduction and shows the losses net exempt income absorbs', () => {
+  const fields = formDefaults(companyHtml);
+  const input = { turnover: fields.turnover, assessable: fields.assessable, passive: fields.passive, existed: true,
+    prior: { turnover: fields['prior-turnover'], assessable: fields['prior-assessable'], passive: fields['prior-passive'] },
+    dividend: fields.dividend, franking: fields.franking, marginal: fields.marginal };
+  // s 36-17(3): $5,000 of net exempt income absorbs the first $5,000 of the $30,000 loss; $1,000 more is chosen, so
+  // taxable income is $104,000 less $1,000.
+  const more = { statement: 'yes', 'statement-exempt': '5000', 'statement-chosen': ' 1000 ', 'statement-loss-1-year': '2024',
+    'statement-loss-1-amount': '30000', 'statement-loss-1-test': 'same_business' };
+  const value = (name) => ({ ...fields, ...more })[name] ?? '';
+  assert.equal(calculations.statementFormInput(value).loss_deduction_chosen, ' 1000 ');
+  const r = calculations.companyTaxPageResult({ ...input, taxable: '103000' }, value, companyAud, calculations.companyTaxResult);
+  assert.ok(r.rows.some(([label, v]) => label === 'Prior-year losses absorbed by net exempt income (s 36-17)' && v === '$5,000.00'));
+  assert.ok(r.rows.some(([label, v]) => label === 'Taxable income for 2026-27 (label A)' && v === '$103,000.00'));
+});
+
+test('the company tax statement refuses what its command refuses and works only the carry back years the law covers', () => {
+  const company = { financial_year: 2027, aggregated_turnover: '60000000', assessable_income: '100000', passive_income: '0', deductions: '0' };
+  const refused = (more) => assert.throws(() => calculations.companyTaxStatement({ ...company, ...more }), Error, JSON.stringify(more));
+  for (const fy of [2024, 2025, 2026]) refused({ financial_year: fy, deductions: '200000', loss_carry_back: { franking_account_balance: '1' } });
+  refused({ financial_year: 2020 });
+  // 2025-26 has no offset under either version, whatever conditions are stated.
+  const every = Object.fromEntries([...calculations.CARRY_BACK_CONDITIONS.temporary, ...calculations.CARRY_BACK_CONDITIONS.permanent]
+    .map((key) => [key, true]));
+  assert.throws(() => calculations.companyTaxStatement({ ...company, financial_year: 2026, deductions: '200000',
+    loss_carry_back: { franking_account_balance: '100000', conditions: every, carry_backs: [{ loss_year: 2026, earlier_year: 2025, amount: '1000' }],
+      earlier_years: [{ year: 2025, income_tax_liability: '50000', liability_previously_used: '0' }] } }),
+  /no loss carry back tax offset for the claim year ending in 2026/);
+  refused({ consolidated_group: true });
+  refused({ prior_year_losses: [{ loss_year: 2015, amount: '1', test: 'similar_business' }] });
+  refused({ prior_year_losses: [{ loss_year: 2025, amount: '1', test: 'part_year' }] });
+  refused({ non_refundable_non_carry_forward_offsets: '1', franking_tax_offsets: '2' });
+  assert.deepEqual(calculations.CARRY_BACK_CONDITIONS.permanent.length, 7);
+  const r = calculations.companyTaxStatement({ ...company, prior_year_losses: [{ loss_year: 2026, amount: '50000', test: 'continuity_of_ownership' }] });
+  assert.deepEqual([r.calculation_statement.A, r.taxable_income.prior_year_losses[0].remaining], ['50000.00', '0.00']);
+});
+
+// The FBT return and FBT instalment engines against the australian-accounting commands fbt-return and
+// fbt-instalment: every call of their tests and 500 seeded calls, each benefit given as its worksheet's amounts.
+test('FBT return and instalment engines agree with australian-accounting on every recorded case', () => {
+  const [header, ...cases] = readFileSync(new URL('./fbt-return-engine-differential.json', import.meta.url), 'utf8').trim().split('\n')
+    .map((line) => JSON.parse(line));
+  assert.equal(cases.length, header.cases);
+  assert.ok(cases.length >= 700);
+  for (const c of cases) {
+    const call = JSON.stringify(c.call);
+    if (c.expected.refused) {
+      assert.throws(() => calculations.fbtInstalment(c.call), (e) => e.code === c.expected.refused, call);
+    } else if (c.command === 'fbt-instalment') {
+      assert.deepEqual(calculations.fbtInstalment(c.call).labels, c.expected.labels, call);
+    } else {
+      const r = calculations.fbtReturn(c.call);
+      assert.deepEqual(r.labels, c.expected.labels, call);
+      assert.deepEqual(r.item23.map(({ category: _, ...row }) => row), c.expected.item23, call);
+      assert.deepEqual(r.employees, c.expected.employees, call);
+      assert.deepEqual(r.capping, c.expected.capping, call);
+      for (const [key, value] of Object.entries(r.amounts)) assert.equal(value, c.expected.amounts[key], `${call} ${key}`);
+    }
+  }
+});
+
+test('FBT return refuses what the command refuses before any worksheet runs', () => {
+  const car = { employee: 'A', label: '23A', gst_type: 'type_1', excluded: false, gross_taxable_value: '1000.00', taxable_value: '1000.00' };
+  const refused = (input, code) => assert.throws(() => calculations.fbtReturn({ year_ended: 2027, benefits: [car], ...input }),
+    (e) => e.code === code, code);
+  refused({ year_ended: 2025 }, 'period.unsupported');
+  refused({ employer_kind: 'rebatable' }, 'fbt_return.rebatable_days_invalid');
+  refused({ rebatable_days: 10, employer_days: 20 }, 'input.field_unknown');
+  refused({ employer_kind: 'church' }, 'fbt_return.employer_kind_unsupported');
+  refused({ payroll_tax: '1' }, 'input.field_unknown');
+  refused({ benefits: [] }, 'input.missing_field');
+  refused({ benefits: [{ ...car, label: '23P' }] }, 'fbt_return.exclusion_conflict');
+  refused({ benefits: [{ ...car, gst_type: 'type_3' }] }, 'fbt_return.gst_type_missing');
+  refused({ benefits: [{ ...car, entertainment: 'salary_packaged' }] }, 'input.field_unknown');
+  refused({ employer_kind: 'public_hospital', benefits: [{ ...car, excluded: true, entertainment: 'salary_packaged' }] },
+    'fbt_return.entertainment_invalid');
+  refused({ employer_kind: 'public_hospital', benefits: [{ ...car, taxable_value: '0.00', electric_car_exempt: true,
+    reportable_taxable_value: '900.00' }] }, 'fbt_return.nfp_exempt_car_unsupported');
+  refused({ benefits: [{ ...car, employee_contribution: '1.00' }] }, 'fbt_return.amounts_inconsistent');
+  refused({ instalments_reported: '1.001' }, 'input.amount_invalid');
+  // Each benefit's own checks (the command's input.rs and kind.rs codes; the site adds the 3 for amounts it takes ready-made).
+  const nfp = (b) => refused.bind(null, { employer_kind: 'public_hospital', benefits: [{ ...car, ...b }] });
+  refused({ benefits: [null] }, 'input.not_object');
+  refused({ benefits: [{ ...car, extra: 1 }] }, 'input.field_unknown');
+  refused({ benefits: [{ ...car, employee: ' ' }] }, 'input.missing_field');
+  refused({ benefits: [{ ...car, employee: 5 }] }, 'input.missing_field');
+  refused({ benefits: [{ ...car, label: '23Z' }] }, 'fbt_return.benefit_label_unsupported');
+  refused({ benefits: [{ ...car, excluded: 'no' }] }, 'input.flag_invalid');
+  refused({ benefits: [{ ...car, electric_car_exempt: 'yes' }] }, 'input.flag_invalid');
+  refused({ benefits: [{ ...car, label: '23E', taxable_value: '0.00', electric_car_exempt: true, reportable_taxable_value: '1.00' }] },
+    'fbt_return.exempt_car_label');
+  refused({ benefits: [{ ...car, electric_car_exempt: true, reportable_taxable_value: '1.00' }] }, 'fbt_return.exempt_car_taxable');
+  refused({ benefits: [{ ...car, reportable_taxable_value: '1.00' }] }, 'input.field_unknown');
+  refused({ benefits: [{ ...car, gross_taxable_value: 1000 }] }, 'input.amount_invalid');
+  nfp({ label: '23N', excluded: true, entertainment: 'salary_packaged' })('fbt_return.entertainment_invalid');
+  nfp({ label: '23E', entertainment: 'not_salary_packaged' })('fbt_return.entertainment_invalid');
+  nfp({ label: '23E', entertainment: 'packaged' })('fbt_return.entertainment_invalid');
+  // Amounts below nil are written with a minus sign, as the command's Decimal writes them.
+  assert.deepEqual([fbtMoney(-12345n), fbtMoney(5n)], ['-123.45', '0.05']);
+  assert.throws(() => calculations.fbtInstalment({ year_ended: 2027, quarter: 1, ato_instalment: 1000 }), (e) => e.code === 'input.amount_invalid');
+});
+
+test('FBT return page writes a rebatable employer\'s days, entertainment and exempt car, and the instalment\'s other forms', () => {
+  const fields = formDefaults(readFileSync(new URL('../_includes/calculators/fbt-return.html', import.meta.url), 'utf8'));
+  const shown = (v) => `$${v.toFixed(2)}`;
+  const form = { ...fields, kind: 'rebatable', 'rebatable-days': '200', 'employer-days': '365', instalments: ' 1000 ' };
+  for (let n = 1; n <= FBT_RETURN_ROWS; n += 1) form[`b${n}-employee`] = '';
+  Object.assign(form, { 'b1-employee': 'A', 'b1-label': '23E', 'b1-type': 'type_1', 'b1-excluded': 'no', 'b1-gross': '20000', 'b1-contribution': '',
+    'b1-taxable': '20000', 'b1-extra': 'packaged', 'b2-employee': 'B', 'b2-label': '23E', 'b2-type': 'type_2', 'b2-excluded': 'yes', 'b2-gross': '300',
+    'b2-contribution': '0', 'b2-taxable': '300', 'b2-extra': 'not-packaged', 'b3-employee': 'C', 'b3-label': '23A', 'b3-type': 'type_1',
+    'b3-excluded': 'no', 'b3-gross': '0', 'b3-contribution': '0', 'b3-taxable': '0', 'b3-extra': 'ev', 'b3-reportable': '5000' });
+  const value = (name) => form[name] ?? '';
+  const input = calculations.fbtFormInput(value);
+  assert.deepEqual(input, { year_ended: Number(fields.year), employer_kind: 'rebatable', rebatable_days: 200, employer_days: 365,
+    instalments_reported: '1000', benefits: [
+      { employee: 'A', label: '23E', gst_type: 'type_1', excluded: false, gross_taxable_value: '20000', employee_contribution: '0',
+        taxable_value: '20000', entertainment: 'salary_packaged' },
+      { employee: 'B', label: '23E', gst_type: 'type_2', excluded: true, gross_taxable_value: '300', employee_contribution: '0',
+        taxable_value: '300', entertainment: 'not_salary_packaged' },
+      { employee: 'C', label: '23A', gst_type: 'type_1', excluded: false, gross_taxable_value: '0', employee_contribution: '0',
+        taxable_value: '0', electric_car_exempt: true, reportable_taxable_value: '5000' }] });
+  const result = calculations.fbtReturnResult(value, shown);
+  const r = calculations.fbtReturn(input);
+  assert.match(result.inputs, /rebatable on 200 of 365 days, instalments reported \$1000\.00; A 23E type 1 \$20000\.00 salary packaged entertainment; B 23E type 2 \$300\.00 excluded; C 23A type 1 \$0\.00 exempt electric car, \$5000\.00 reportable$/);
+  const over = r.capping.employees.map((e) => [`${e.employee}: grossed-up amount over the $${Number(r.capping.cap).toFixed(2)} cap`, `$${Number(e.over).toFixed(2)}`]);
+  assert.ok(over.length > 0);
+  assert.deepEqual(result.rows.slice(-over.length), over);
+  assert.equal(result.note, r.warnings[0] ?? 'Benefits each employee receives are capped as FBTAA s 5B(1E) or s 65J(2B) applies; excluded meal entertainment and car parking are disregarded');
+  const instalment = (more) => calculations.fbtInstalmentResult((name) => ({ ...fields, ...more })[name] ?? '', shown);
+  const ato = instalment({ vary: 'no', 'ato-instalment': '2500' });
+  assert.deepEqual([ato.rows, ato.principal, ato.note], [[['Label F1, ATO instalment amount', '$2500.00'], ['Label 6A, FBT instalment', '$2500.00']], 1,
+    'Not varied: 6A is the F1 amount (FBTAA s 104)']);
+  assert.match(ato.inputs, /ATO instalment \$2500\.00$/);
+  // Quarter 1 varied: a quarter of the estimate, with no earlier instalments to take off (FBTAA s 111(1)).
+  const first = instalment({ quarter: '1', vary: 'yes', estimate: '8000', previous: '', credits: '' });
+  assert.equal(calculations.fbtInstalmentFormInput((name) => ({ ...fields, quarter: '1', vary: 'yes' })[name] ?? '').previous_instalments, undefined);
+  assert.deepEqual([first.rows[2], first.principal], [['Label 6A, FBT instalment', '$2000.00'], 2]);
+  assert.match(first.note, /^Estimate times 1 quarter of the year/);
+  assert.doesNotMatch(first.inputs, /earlier instalments/);
+  const third = calculations.fbtInstalmentFormInput((name) => ({ ...fields, quarter: '3', vary: 'yes', previous: '', credits: '' })[name] ?? '');
+  assert.deepEqual([third.previous_instalments, third.previous_credits], ['0', '0']);
+});
+
+test('FBT return page reads its forms and writes items 14A to 19, reportable amounts and the instalment', () => {
+  const fields = formDefaults(readFileSync(new URL('../_includes/calculators/fbt-return.html', import.meta.url), 'utf8'));
+  const shown = (v) => `$${v.toFixed(2)}`;
+  const result = calculations.fbtReturnResult((name) => fields[name] ?? '', shown);
+  assert.deepEqual(result.rows[result.principal], ['Item 19, amount of tax payable', '$18735.61']);
+  assert.ok(result.rows.some(([label, value]) => label === 'A: reportable fringe benefits amount' && value === '$18867.00'));
+  const instalment = calculations.fbtInstalmentResult((name) => fields[name] ?? '', shown);
+  assert.deepEqual(instalment.rows[instalment.principal], ['Label 6A, FBT instalment', '$1000.00']);
 });
 
 // The casual and overtime pay page: its example and sources, then the rules it applies. Hand-worked figures; the rules

@@ -19,7 +19,7 @@
 //! period's interest rounded half up and the last payment taking what rounding leaves, the
 //! same Division 7A interest part (the rate on the whole balance) and the same
 //! FBT rounding (each value to the cent before contributions, the gross-up and the FBT from
-//! the figure before them), so it cannot show those are the right conventions.
+//! the exact amount), so it cannot show those are the right conventions.
 //!
 //! A further 120 seeded loans, from their own seed so the 360 above are unchanged, add a
 //! balloon owed at the end of the term and payments in arrears or in advance; the oracle
@@ -351,9 +351,10 @@ struct Car {
 /// FBT, in cents. FBTAA s 9: base value x 20% x days available / days in the year, less
 /// contributions, with two-thirds of the cost price once held 4 years (s 9(2)(a)); s 10(2):
 /// operating costs less their business use share, less contributions; s 10(5): the lower of
-/// the two when the operating cost method is elected. The gross-up and the FBT rate are in
-/// ten-thousandths: 2.0802 is 20,802 and 47% is 4,700.
-fn fbt_oracle(car: Car, year_days: u64, gross_up: u64, rate: u64) -> [Option<u64>; 6] {
+/// the two when the operating cost method is elected. The gross-up is s 5B(1B) for Type 1,
+/// (rate + 10%) / ((1 - rate) x 1.1 x rate), or s 5B(1C) for Type 2, 1 / (1 - rate), exactly;
+/// the FBT rate is in ten-thousandths (47% is 4,700).
+fn fbt_oracle(car: Car, year_days: u64, type_one: bool, rate: u64) -> [Option<u64>; 6] {
     let cost = u128::from(car.cost);
     let thirds = 3 * cost - if car.reduced { cost } else { 0 } + 3 * u128::from(car.accessories);
     // Each day available adds that day's share: thirds x 20 / (300 x days in the year).
@@ -371,8 +372,14 @@ fn fbt_oracle(car: Car, year_days: u64, gross_up: u64, rate: u64) -> [Option<u64
         ))
     });
     let taxable = operating.map_or(statutory, |value| value.min(statutory));
-    let grossed = exact_half_up(taxable * u128::from(gross_up), 10_000);
-    let fbt = exact_half_up(grossed * u128::from(rate), 10_000);
+    let rate = u128::from(rate);
+    let (num, den) = if type_one {
+        ((rate + 1_000) * 10 * 10_000, 11 * rate * (10_000 - rate))
+    } else {
+        (10_000, 10_000 - rate)
+    };
+    let grossed = exact_half_up(taxable * num, den);
+    let fbt = exact_half_up(taxable * num * rate, den * 10_000);
     let cents = |value: u128| Some(u64::try_from(value).unwrap());
     [
         cents(exact_half_up(thirds, 3)),
@@ -1245,7 +1252,7 @@ fn fbt_case(rng: &mut Seeded) -> (Value, Value) {
         contribution: rng.pick(&[0, 0, small, large]),
     };
     // The FBT year ending 31 March 2027 has 365 days; Type 1 or Type 2, at 47%.
-    let gross_up = rng.pick(&[20_802, 18_868]);
+    let type_one = rng.pick(&[true, false]);
     let names = [
         "baseValue",
         "statutory",
@@ -1256,7 +1263,7 @@ fn fbt_case(rng: &mut Seeded) -> (Value, Value) {
     ];
     let expected: serde_json::Map<String, Value> = names
         .iter()
-        .zip(fbt_oracle(car, 365, gross_up, 4_700))
+        .zip(fbt_oracle(car, 365, type_one, 4_700))
         .map(|(name, figure)| {
             (
                 (*name).to_owned(),
@@ -1280,7 +1287,7 @@ fn fbt_case(rng: &mut Seeded) -> (Value, Value) {
             },
             "year": {
                 "days": "365",
-                "grossUp": format!("{}.{:04}", gross_up / 10_000, gross_up % 10_000),
+                "type": if type_one { "1" } else { "2" },
                 "fbtRate": "47",
             },
         }),
@@ -1559,14 +1566,14 @@ fn the_oracle_works_a_known_loan_and_levy_by_hand() {
         contribution: 100_000,
     };
     assert_eq!(
-        fbt_oracle(example, 365, 20_802, 4_700),
+        fbt_oracle(example, 365, true, 4_700),
         [
             Some(6_000_000),
             Some(498_356),
             None,
             Some(498_356),
-            Some(1_036_680),
-            Some(487_240)
+            Some(1_036_688),
+            Some(487_243)
         ]
     );
     // Example 31: $19,580 at 75% business use, less $2,000, is $2,895 below the statutory value.
@@ -1576,7 +1583,7 @@ fn the_oracle_works_a_known_loan_and_levy_by_hand() {
         contribution: 200_000,
         ..example
     };
-    assert_eq!(fbt_oracle(operating, 365, 20_802, 4_700)[3], Some(289_500));
+    assert_eq!(fbt_oracle(operating, 365, true, 4_700)[3], Some(289_500));
     // Example 23: a third off $39,000 and none off $4,000 of later accessories is $30,000.
     let reduced = Car {
         cost: 3_900_000,
@@ -1584,7 +1591,7 @@ fn the_oracle_works_a_known_loan_and_levy_by_hand() {
         reduced: true,
         ..example
     };
-    assert_eq!(fbt_oracle(reduced, 365, 18_868, 4_700)[0], Some(3_000_000));
+    assert_eq!(fbt_oracle(reduced, 365, false, 4_700)[0], Some(3_000_000));
     // 2.7% of $1,000.00 is $27.00; 2.7% of $0.50 is exactly 1.35 cents, so 1 cent.
     assert_eq!(levy_oracle(4 * 100_000), 2_700);
     assert_eq!(levy_oracle(4 * 50), 1);
@@ -10559,6 +10566,212 @@ fn the_deferred_tax_engine_agrees_with_the_oracle_on_every_seeded_case() {
     }
 }
 
+/// Runs the FBT return engine, as `HARNESS` runs the others, and returns its return labels and each employee's
+/// reportable fringe benefits amount.
+const FR_HARNESS: &str = r"
+import { fbtReturn } from './assets/fbt-return.mjs';
+let input = '';
+for await (const chunk of process.stdin) input += chunk;
+process.stdout.write(JSON.stringify(JSON.parse(input).map((call) => {
+  const r = fbtReturn(call);
+  return { labels: r.labels, reportable: r.employees.map((e) => [e.employee, e.reportable]) };
+})));
+";
+
+const FR_CASES: usize = 240;
+/// Item 23 labels the oracle draws from; car parking (23N) and meal entertainment (23P) are always excluded.
+const FR_LABELS: [&str; 11] = [
+    "23A", "23B", "23C", "23E", "23F", "23G", "23J", "23K", "23M", "23N", "23P",
+];
+
+/// `n / d` rounded half away from nil.
+fn fr_half_up(n: i128, d: i128) -> i128 {
+    let q = (2 * n.abs() + d) / (2 * d);
+    if n < 0 { -q } else { q }
+}
+
+/// Cents as the engine's amount text.
+fn fr_cents(c: i128) -> String {
+    format!("{}.{:02}", c / 100, c % 100)
+}
+
+/// The gross-up rates of FBTAA s 5B(1B) and (1C) worked from the FBT rate t = 47% and GST rate g = 10% (both
+/// over 100): type 1 is (t + g) / ((1 - t) x (1 + g) x t), type 2 is 1 / (1 - t), each as an exact
+/// numerator and denominator.
+fn fr_rates() -> [(i128, i128); 2] {
+    let (t, g) = (47, 10);
+    let one = ((t + g) * 100 * 100, (100 - t) * (100 + g) * t);
+    let two = (100, 100 - t);
+    [one, two]
+}
+
+/// One seeded return that no refusal stops: a taxable, rebatable, public benevolent institution or public hospital
+/// employer with up to 5 benefits for up to 3 employees. Items 14A and 14B gross up each type's total to the
+/// dollar (s 5B(1B), (1C)), item 16 takes 47% of item 15 to the cent; an s 57A employer's item 14C is the total of
+/// each employee's grossed-up amount over $30,000 or $17,000 to the dollar (s 5B(1E)), with car parking and
+/// meal entertainment disregarded (s 5B(1L)); a rebatable employer's item 18 is 47% of item 16 less item 17 (47% of
+/// that same total over $30,000) for its rebatable days (s 65J). An employee's reportable amount is the
+/// individual fringe benefits amount of benefits not excluded, over $2,000, times 1 / (1 - 0.47) in whole
+/// dollars (s 135P).
+fn fr_case(rng: &mut Seeded) -> (Value, Value) {
+    let [one, two] = fr_rates();
+    let year: i128 = if rng.below(2) == 0 { 2026 } else { 2027 };
+    let kind = rng.pick(&[
+        "taxable",
+        "rebatable",
+        "public_benevolent_institution",
+        "public_hospital",
+    ]);
+    let staff = 1 + rng.below(3);
+    let count = 1 + rng.below(5);
+    let mut call = json!({ "year_ended": year, "employer_kind": kind });
+    let (mut type_one, mut type_two) = (0_i128, 0_i128);
+    // Per employee: type 1 and type 2 taxable values the caps count, and the reported benefits' total.
+    let mut people = vec![[0_i128; 3]; usize::try_from(staff).unwrap()];
+    let mut named = vec![false; people.len()];
+    let mut benefits = Vec::new();
+    for _ in 0..count {
+        let who = usize::try_from(rng.below(staff)).unwrap();
+        named[who] = true;
+        let label = rng.pick(&FR_LABELS);
+        let always = label == "23N" || label == "23P";
+        let excluded = always || rng.below(4) == 0;
+        let first = rng.below(2) == 0;
+        let gross = i128::from(rng.cents(6_000_000));
+        let contribution = if rng.below(3) == 0 {
+            i128::from(rng.below(u64::try_from(gross).unwrap() + 1))
+        } else {
+            0
+        };
+        let taxable = gross
+            - contribution
+            - if rng.below(4) == 0 {
+                (gross - contribution) / 3
+            } else {
+                0
+            };
+        if first {
+            type_one += taxable
+        } else {
+            type_two += taxable
+        }
+        if !always {
+            people[who][usize::from(!first)] += taxable;
+        }
+        if !excluded {
+            people[who][2] += taxable;
+        }
+        benefits.push(json!({ "employee": format!("E{}", who + 1), "label": label,
+            "gst_type": if first { "type_1" } else { "type_2" }, "excluded": excluded,
+            "gross_taxable_value": fr_cents(gross), "employee_contribution": fr_cents(contribution),
+            "taxable_value": fr_cents(taxable) }));
+    }
+    call["benefits"] = Value::Array(benefits);
+    let (mut rebatable, mut employer) = (0, 1);
+    if kind == "rebatable" {
+        let days = if year % 4 == 0 { 366 } else { 365 };
+        employer = 1 + i128::from(rng.below(days));
+        rebatable = i128::from(rng.below(u64::try_from(employer).unwrap() + 1));
+        call["rebatable_days"] = json!(rebatable);
+        call["employer_days"] = json!(employer);
+    }
+    let cap: i128 = match kind {
+        "public_hospital" => 1_700_000,
+        "taxable" => 0,
+        _ => 3_000_000,
+    };
+    let over: i128 = people
+        .iter()
+        .map(|p| (fr_half_up(p[0] * one.0, one.1) + fr_half_up(p[1] * two.0, two.1) - cap).max(0))
+        .sum();
+    let mut labels = serde_json::Map::new();
+    let mut put = |key: &str, cents: i128| {
+        labels.insert(key.into(), json!(fr_cents(cents)));
+    };
+    let payable = if kind == "taxable" || kind == "rebatable" {
+        let a = fr_half_up(type_one * one.0, one.1 * 100) * 100;
+        let b = fr_half_up(type_two * two.0, two.1 * 100) * 100;
+        let tax = fr_half_up((a + b) * 47, 100);
+        put("14A", a);
+        put("14B", b);
+        put("15", a + b);
+        put("16", tax);
+        if kind == "rebatable" {
+            let lost = fr_half_up(over * 47, 100);
+            let rebate = fr_half_up((tax - lost) * 47 * rebatable, 100 * employer).max(0);
+            put("17", lost);
+            put("18", rebate);
+            tax - rebate
+        } else {
+            tax
+        }
+    } else {
+        let c = fr_half_up(over, 100) * 100;
+        put("14C", c);
+        put("15", c);
+        let tax = fr_half_up(c * 47, 100);
+        put("16", tax);
+        tax
+    };
+    put("19", payable);
+    if rng.below(2) == 0 {
+        let paid = i128::from(rng.cents(3_000_000));
+        call["instalments_reported"] = json!(fr_cents(paid));
+        put("20", paid);
+        if payable > paid {
+            put("21", payable - paid);
+        } else if payable < paid {
+            put("22", paid - payable);
+        }
+    }
+    let reportable: Vec<Value> = people
+        .iter()
+        .enumerate()
+        .filter(|(i, _)| named[*i])
+        .map(|(i, p)| {
+            let amount = if p[2] > 200_000 { p[2] / 53 * 100 } else { 0 };
+            json!([format!("E{}", i + 1), fr_cents(amount)])
+        })
+        .collect();
+    (call, json!({ "labels": labels, "reportable": reportable }))
+}
+
+#[test]
+fn the_fbt_return_oracle_works_the_gross_up_by_hand() {
+    let [one, two] = fr_rates();
+    // The ATO's type 1 and type 2 gross-up rates for 2026 and 2027, 2.0802 and 1.8868, to 4 places.
+    assert_eq!(fr_half_up(one.0 * 10_000, one.1), 20_802);
+    assert_eq!(fr_half_up(two.0 * 10_000, two.1), 18_868);
+}
+
+#[test]
+fn the_fbt_return_engine_agrees_with_the_oracle_on_every_seeded_case() {
+    if !common::rendered() {
+        return;
+    }
+    let mut rng = Seeded(0x2026_1127_0000_0F17);
+    let (cases, expected): (Vec<_>, Vec<_>) = (0..FR_CASES).map(|_| fr_case(&mut rng)).unzip();
+    for label in ["14C", "17", "18", "21", "22"] {
+        assert!(
+            expected
+                .iter()
+                .any(|want| want["labels"].get(label).is_some_and(|v| v != "0.00")),
+            "{label}"
+        );
+    }
+    assert!(expected.iter().any(|want| {
+        want["reportable"]
+            .as_array()
+            .unwrap()
+            .iter()
+            .any(|e| e[1] != "0.00")
+    }));
+    let actual = run_node(FR_HARNESS, &cases);
+    assert_eq!(actual.len(), FR_CASES);
+    for ((case, want), got) in cases.iter().zip(&expected).zip(&actual) {
+        assert_eq!(got, want, "{case}");
+    }
+}
 /// Runs the casual and overtime pay engine, as `HARNESS` runs the others, and returns its figures as text.
 const CO_HARNESS: &str = r"
 import { casualOvertime } from './assets/business-calculators.mjs';

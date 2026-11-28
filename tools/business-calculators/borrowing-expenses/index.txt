@@ -76,7 +76,7 @@ A loan first drawn before 1 July 2017 | 2024-25; loan 1: $1,600.00 of borrowing 
 A refinancing that does not start on the day the earlier loan was repaid | 2026-27; loan 1: $1,500.00 of borrowing expenses from 1 September 2024, contract to 31 August 2028, repaid 31 December 2025, 100% income use; loan 2: $800.00 of borrowing expenses from 1 January 2026, refinancing loan 1, 100% income use | Refused: loan 2: refinances must be the number of an earlier loan in loans, repaid on this loan's loan_start and refinanced by no other loan
 An income year after 2027-28 | 2028-29; loan 1: $1,600.00 of borrowing expenses from 3 July 2020, contract to 2 July 2045, 100% income use | Refused: choose an income year from 2017-18 to 2027-28
 
-One of the sixty-nine business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the seventy-one business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 ## Related
 
@@ -90,7 +90,7 @@ Planning estimates in AUD. Confirm tax treatment, liability amounts and dates se
 
 - Section 26-102: https://www.ato.gov.au/individuals-and-families/investments-and-assets/property-and-land/land-vacant-land-and-subdividing/deductions-for-vacant-land
 - Borrowing expenses: https://www.ato.gov.au/individuals-and-families/investments-and-assets/property-and-land/residential-rental-properties/rental-expenses/borrowing-expenses
-- sixty-nine business calculators: https://duguid.com.au/tools/business-calculators/
+- seventy-one business calculators: https://duguid.com.au/tools/business-calculators/
 - Rental property calculator: https://duguid.com.au/tools/business-calculators/rental-property/
 - Loan repayment schedule calculator: https://duguid.com.au/tools/business-calculators/loan/
 - Deductions questions: https://duguid.com.au/tools/accounting-questions/deductions/

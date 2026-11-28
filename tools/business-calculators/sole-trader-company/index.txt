@@ -49,7 +49,7 @@ Salary at the 2026-27 super guarantee base, with Division 293 tax | 2026-27, pro
 A salary whose super guarantee the profit cannot pay is refused | 2026-27, profit $100,000.00, taken out $95,000.00, salary $95,000.00, 25% company, with the offset | Refused: enter a salary of no more than $89,285.71: the profit also pays its super guarantee
 Taking out more than the salary and the profit after company tax is refused | 2025-26, profit $80,000.00, taken out $80,000.00, salary $0.00, 30% company, with the offset | Refused: enter an amount taken out of no more than $56,000.00: the salary and the profit left after company tax
 
-One of the sixty-nine business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the seventy-one business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 ## Related
 
@@ -64,6 +64,6 @@ Planning estimates in AUD. Confirm tax treatment, liability amounts and dates se
 - company tax and franking calculator: https://duguid.com.au/tools/business-calculators/company-tax/
 - PSI rules checker: https://duguid.com.au/tools/business-calculators/psi-determination/
 - Division 7A calculator: https://duguid.com.au/tools/business-calculators/div7a/
-- sixty-nine business calculators: https://duguid.com.au/tools/business-calculators/
+- seventy-one business calculators: https://duguid.com.au/tools/business-calculators/
 - Sole trader tax set-aside calculator: https://duguid.com.au/tools/individual-tax/sole-trader/
 - Salary against dividends calculator: https://duguid.com.au/tools/business-calculators/salary-dividend/

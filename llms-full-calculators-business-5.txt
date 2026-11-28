@@ -102,7 +102,7 @@ A death benefit to a death benefits dependant is tax free (section 302-60) | 202
 Other lump sums in the same year share the low rate cap, which the page does not take | 2021-22; member; paid 1 October 2021; lump sum $1,500.00 from an interest of $1,500.00 with $0.00 tax free; untaxed element $500.00; born 1 January 1963; no service before 1 July 1983; low rate cap used $224,999.99; other lump sums this year; untaxed plan cap used $0.00 | Refused: other lump sums received in the same income year at or above preservation age and under 60 share the year’s low rate cap left, the taxed element first whatever the order of payment (ITAA 1997 ss 301-20(3) and 301-105(5) and (6)), which this calculator does not take; with none of the cap left they do not change the result
 2027-28’s untaxed plan cap is not yet published | 2027-28; member; paid 1 October 2027; lump sum $300,000.00 from an interest of $300,000.00 with $30,000.00 tax free; untaxed element $80,000.00; born 1 May 1964; no service before 1 July 1983; untaxed plan cap used $0.00 | Refused: choose an income year from 2020-21 to 2026-27; the untaxed plan cap for 2027-28 is not yet published
 
-One of the sixty-nine business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the seventy-one business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 ## Related
 
@@ -116,7 +116,7 @@ Planning estimates in AUD. Confirm tax treatment, liability amounts and dates se
 
 - australian-accounting: https://github.com/ryanduguid/australian-accounting
 - redundancy and ETP withholding calculator: https://duguid.com.au/tools/business-calculators/termination-payment/
-- sixty-nine business calculators: https://duguid.com.au/tools/business-calculators/
+- seventy-one business calculators: https://duguid.com.au/tools/business-calculators/
 - Super projection calculator: https://duguid.com.au/tools/individual-tax/super-projection/
 - Division 296 tax calculator: https://duguid.com.au/tools/business-calculators/division-296/
 
@@ -173,7 +173,7 @@ Born a day later, still under preservation age | Redundancy payment $0.00 after 
 Withholding of exactly $8.50 rounds up to the next dollar | Redundancy payment $0.00 after 0 years, other code R $0.00, code O $50.00, other payments $0.00, born 30 June 1960 | Withheld from code O $9.00, total withheld $9.00
 Part years of service are refused | Redundancy payment $48,000.00 after 5.5 years, other code R $0.00, code O $0.00, other payments $0.00, born 1 August 1996 | Refused: enter a whole number between 0 and 150
 
-One of the sixty-nine business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the seventy-one business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 ## Related
 
@@ -186,7 +186,7 @@ Planning estimates in AUD. Confirm tax treatment, liability amounts and dates se
 ## Links
 
 - Schedule 11: https://www.ato.gov.au/tax-rates-and-codes/payg-withholding-schedule-11-tax-table-for-employment-termination-payments
-- sixty-nine business calculators: https://duguid.com.au/tools/business-calculators/
+- seventy-one business calculators: https://duguid.com.au/tools/business-calculators/
 - Unused leave on termination: https://duguid.com.au/tools/business-calculators/unused-leave/
 - Bonus withholding calculator: https://duguid.com.au/tools/individual-tax/bonus-withholding/
 - Payroll and super questions: https://duguid.com.au/tools/accounting-questions/payroll-super/
@@ -282,7 +282,7 @@ The ACT’s foreign ownership surcharge, worked by hand | Australian Capital Ter
 Western Australia has no trust rates here | Western Australia, trust rates, $1,500,000.00 | Refused: this calculator has no trust rates for Western Australia
 Cents are refused | New South Wales, $1,100,000.50 | Refused: enter a whole number between 0 and 1000000000
 
-One of the sixty-nine business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the seventy-one business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 ## Related
 
@@ -308,7 +308,7 @@ Planning estimates in AUD. Confirm tax treatment, liability amounts and dates se
 - which land the foreign investor land tax surcharge applies to: https://www.sro.tas.gov.au/land-tax/foreign-investor-land-tax-surcharge/rate-of-surcharge
 - Australian Capital Territory land tax exemptions: https://www.revenue.act.gov.au/rates-and-property-charges/land-tax/land-tax-exemptions
 - when the foreign ownership surcharge applies: https://www.revenue.act.gov.au/rates-and-property-charges/land-tax/foreign-ownership-surcharge-for-land-tax
-- sixty-nine business calculators: https://duguid.com.au/tools/business-calculators/
+- seventy-one business calculators: https://duguid.com.au/tools/business-calculators/
 - Transfer duty calculator: https://duguid.com.au/tools/business-calculators/transfer-duty/
 - Rental property calculator: https://duguid.com.au/tools/business-calculators/rental-property/
 
@@ -406,7 +406,7 @@ No first home buyer concession in Tasmania | Tasmania, $500,000.00, first home b
 The ACT Home Buyer Concession Scheme has no value limit | Australian Capital Territory, $1,500,000.00, first home buyer, established home | Duty $0.00, general duty $68,100.00
 Cents are refused | New South Wales, $1,350,000.50 | Refused: enter a whole number between 1 and 1000000000
 
-One of the sixty-nine business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the seventy-one business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 ## Common questions
 
@@ -439,7 +439,7 @@ Planning estimates in AUD. Confirm tax treatment, liability amounts and dates se
 - HomeGrown Territory Grant: https://nt.gov.au/property/home-owner-assistance/buy-build-new-home
 - First Home Owner Grant: https://www.revenue.act.gov.au/home-buyer-assistance/first-home-owner-grant
 - foreign purchaser surcharge calculator: https://duguid.com.au/tools/business-calculators/foreign-surcharge/
-- sixty-nine business calculators: https://duguid.com.au/tools/business-calculators/
+- seventy-one business calculators: https://duguid.com.au/tools/business-calculators/
 
 ---
 
@@ -550,7 +550,7 @@ A Victorian home built for $750,000 on $900,000 of land and building takes the c
 A New South Wales home built for less than the grant is refused | New South Wales, contract 1 August 2026, new home built under a contract, total value $400,000.00, building contract price $9,999.00, every eligibility fact stated | Refused: not computed: a value below the $10,000 grant; the New South Wales rule for that case was not confirmed
 The ACT pays nothing on a home built for less than any grant | Australian Capital Territory, contract 1 August 2026, new home built under a contract, total value $400,000.00, building contract price $5,000.00, every eligibility fact stated | Grant $0.00, the Australian Capital Territory has paid none since 1 July 2019
 
-One of the sixty-nine business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the seventy-one business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 ## Common questions
 
@@ -572,7 +572,7 @@ Planning estimates in AUD. Confirm tax treatment, liability amounts and dates se
 
 ## Links
 
-- sixty-nine business calculators: https://duguid.com.au/tools/business-calculators/
+- seventy-one business calculators: https://duguid.com.au/tools/business-calculators/
 - Transfer duty calculator: https://duguid.com.au/tools/business-calculators/transfer-duty/
 - First home super saver calculator: https://duguid.com.au/tools/individual-tax/fhss/
 - Transfer duty rates by state: https://duguid.com.au/rates/transfer-duty/
@@ -644,7 +644,7 @@ The Northern Territory, worked from the Act: the deduction tapers to $2,250,000 
 Australian wages below the state’s wages are refused | New South Wales, wages $2,000,000.00, Australian wages $1,000,000.00 | Refused: enter total Australian wages of at least the wages in the state or territory
 Negative wages are refused | New South Wales, wages -$1.00, Australian wages -$1.00 | Refused: enter an amount between 0 and 100000000000
 
-One of the sixty-nine business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the seventy-one business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 ## Related
 
@@ -657,7 +657,7 @@ Planning estimates in AUD. Confirm tax treatment, liability amounts and dates se
 ## Links
 
 - data file: https://duguid.com.au/tools/business-calculators/payroll-tax/payroll-tax-rates.csv
-- sixty-nine business calculators: https://duguid.com.au/tools/business-calculators/
+- seventy-one business calculators: https://duguid.com.au/tools/business-calculators/
 - Staff cost calculator: https://duguid.com.au/tools/business-calculators/staff/
 - Workers compensation premium calculator: https://duguid.com.au/tools/business-calculators/workers-compensation/
 - Payroll and super questions: https://duguid.com.au/tools/accounting-questions/payroll-super/

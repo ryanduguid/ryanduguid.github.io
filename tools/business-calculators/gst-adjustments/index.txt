@@ -74,10 +74,10 @@ GSTR 2000/2’s ABC: $660 at 40% taxable, decreasing $24 | 2025-26 bad debt; sup
 GSTR 2000/2’s Isabella: recipient, $1,100 at 60% creditable, increasing $60 | 2025-26 bad debt; recipient, written off, $1,100.00, a creditable acquisition, not cash basis, special rule none, attributed, creditable purpose 60%, not reduced credit, not annually apportioned | increasing adjustment, $60.00
 A margin scheme supply is refused: Subdivision 136-B | 2025-26 bad debt; supplier, written off, $550.00, a taxable supply, not cash basis, special rule taxable at less than one eleventh, attributed | Refused: the supply or acquisition was taxable or creditable at less than 1/11 of the price, such as under the margin scheme: Subdivision 136-B works the adjustment (ss 136-30 to 136-45)
 
-One of the sixty-nine business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the seventy-one business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
 
 ## Links
 
-- sixty-nine business calculators: https://duguid.com.au/tools/business-calculators/
+- seventy-one business calculators: https://duguid.com.au/tools/business-calculators/

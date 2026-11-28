@@ -706,8 +706,8 @@ test('FBT car works the operating cost method at the Type 2 gross-up offline', a
   expect(await form.locator('output').evaluate((element) => element.textContent)).toBe(
     'Inputs: operating cost method, cost price $50,000.00, later non-business accessories $0.00, first held on or after 1 April 2022, '
     + '365 days of 365 available for private use, operating costs $19,580.00 at 75% business use, employee contributions $2,000.00, '
-    + 'Type 2 gross-up 1.8868. Base value: $50,000.00. Statutory formula taxable value: $8,000.00. Operating cost taxable value: $2,895.00. '
-    + 'Taxable value: $2,895.00. Grossed-up taxable value: $5,462.29. FBT at 47%: $2,567.28.');
+    + 'Type 2 gross-up. Base value: $50,000.00. Statutory formula taxable value: $8,000.00. Operating cost taxable value: $2,895.00. '
+    + 'Taxable value: $2,895.00. Grossed-up taxable value: $5,462.26. FBT at 47%: $2,567.26.');
   // A percentage limit reads as a figure, not as dollars.
   await form.getByLabel('Business use percentage, operating cost method only').fill('101');
   await form.getByRole('button', { name: 'Calculate', exact: true }).click();
@@ -774,7 +774,7 @@ test('FBT car exempts an eligible electric car and keeps its value reportable of
   await form.getByRole('button', { name: 'Calculate', exact: true }).click();
   expect(await form.locator('output').evaluate((element) => element.textContent)).toBe(
     'Inputs: statutory formula, cost price $60,000.00, later non-business accessories $0.00, first held on or after 1 April 2022, '
-    + '182 days of 365 available for private use, employee contributions $1,000.00, Type 1 gross-up 2.0802, battery electric car for a '
+    + '182 days of 365 available for private use, employee contributions $1,000.00, Type 1 gross-up, battery electric car for a '
     + 'current employee, first held and used 1 July 2026, first sold at retail 1 July 2026 at a luxury car tax value of $60,000.00 against '
     + 'the 2026-27 fuel-efficient threshold of $91,661.00, no luxury car tax on another sale or an import before the benefit. '
     + 'Provided to a current employee, s 8A(1)(a): met. A battery electric or hydrogen fuel cell electric car, s 8A(1)(b): met. '
@@ -791,7 +791,7 @@ test('FBT car exempts an eligible electric car and keeps its value reportable of
   await form.getByLabel('Plug-in hybrid electric').check();
   await form.getByRole('button', { name: 'Calculate', exact: true }).click();
   await expect(form.locator('output')).toContainText('Electric cars exemption, section 8A: does not apply.');
-  await expect(form.locator('output')).toContainText('FBT at 47%: $4,872.40.');
+  await expect(form.locator('output')).toContainText('FBT at 47%: $4,872.43.');
   // A first retail sale after the FBT year comes after every benefit in it, whatever its luxury car tax value (s 8A(1)(c)).
   await form.getByLabel('Battery electric').check();
   await form.getByLabel('Electric cars only: first retail sale').fill('2027-04-01');
@@ -1447,6 +1447,28 @@ test('Trust streaming page works its example, a third beneficiary and refuses en
   await expect(form.locator('output')).toContainText('cannot exceed the trust’s income');
 });
 
+// The return opens on a taxable employer's 4 benefits; a rebatable employer gets the s 65J rebate, contributions above the
+// gross taxable value are refused, and the quarter's varied instalment is 3 quarters of the estimate less earlier instalments.
+test('FBT return page works its example, the rebate, refuses inconsistent amounts and varies an instalment offline', async ({ page, context }) => {
+  await page.goto('/tools/business-calculators/fbt-return/');
+  const form = page.locator('#fbt-return form');
+  await waitForCalculator(form);
+  await context.setOffline(true);
+  await form.getByRole('button', { name: 'Calculate', exact: true }).click();
+  await expect(form.locator('output .result-row--principal')).toHaveText('Item 19, amount of tax payable: $18,735.61.');
+  await form.locator('[name="kind"]').selectOption('rebatable');
+  await form.getByRole('button', { name: 'Calculate', exact: true }).click();
+  await expect(form.locator('output .result-row--principal')).toHaveText('Item 19, amount of tax payable: $9,929.87.');
+  await expect(form.locator('output')).toContainText('$8,805.74');
+  await form.locator('[name="b1-contribution"]').fill('20000');
+  await form.getByRole('button', { name: 'Calculate', exact: true }).click();
+  await expect(form.locator('output')).toContainText('exceed the gross taxable value');
+  const instalment = page.locator('#fbt-instalment form');
+  await waitForCalculator(instalment);
+  await instalment.getByRole('button', { name: 'Calculate', exact: true }).click();
+  await expect(instalment.locator('output .result-row--principal')).toHaveText('Label 6A, FBT instalment: $1,000.00.');
+});
+
 // Veronica's fortnightly pension: $2 withheld with a tax file number and the threshold, $517 (47%) without one.
 test('super lump sum page works Schedule 13 income stream withholding offline', async ({ page, context }) => {
   await page.goto('/tools/business-calculators/super-benefit-tax/');
@@ -2037,7 +2059,7 @@ const CALCULATORS = ['gst', 'business-use', 'margin', 'break-even', 'hourly', 'f
   'div7a-schedule', 'division-296', 'payroll-tax', 'psi-determination', 'cgt-concessions',
   'franking-account', 'company-tax', 'salary-dividend', 'foreign-surcharge', 'business-days', 'sgc-payday', 'cgt', 'long-service-leave', 'unused-leave', 'borrowing-expenses',
   'workers-compensation', 'fuel-tax-credits', 'luxury-car-tax', 'super-benefit-tax', 'lease', 'gst-margin-scheme', 'wine-equalisation-tax', 'asic-fees', 'depreciation-pools', 'ato-penalties-interest', 'rental-property', 'rd-tax-offset', 'casual-overtime', 'contractor-employee',
-  'gst-adjustments', 'deferred-tax', 'sole-trader-company', 'payday-cashflow', 'tax-invoice', 'trust-streaming', 'instant-asset-write-off', 'leave-provisions', 'smsf-tax', 'trading-stock', 'prepayments', 'alcohol-excise'];
+  'gst-adjustments', 'deferred-tax', 'sole-trader-company', 'payday-cashflow', 'tax-invoice', 'trust-streaming', 'instant-asset-write-off', 'leave-provisions', 'smsf-tax', 'trading-stock', 'prepayments', 'alcohol-excise', 'fbt-return'];
 
 test.describe('before any script runs', () => {
   test.use({ javaScriptEnabled: false });

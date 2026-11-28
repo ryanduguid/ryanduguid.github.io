@@ -93,10 +93,10 @@ Present entitlements above the trust’s income: refused | other trust income $1
 No net income: refused, Division 6 assesses nobody | other trust income $100.00, other net income -$100.00; beneficiaries: Lee (an individual) entitled to $100.00 | Refused: the trust has no net income, so Division 6 assesses nobody on it
 Franking credits above 30/70 of the distributions: refused | other trust income $0.00, other net income $0.00; franked distributions $70.00 with franking credits $30.02; beneficiaries: Lee (an individual) entitled to $70.00 | Refused: franking credits cannot exceed 30/70 of the franked distributions
 
-One of the sixty-nine business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the seventy-one business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
 
 ## Links
 
-- sixty-nine business calculators: https://duguid.com.au/tools/business-calculators/
+- seventy-one business calculators: https://duguid.com.au/tools/business-calculators/

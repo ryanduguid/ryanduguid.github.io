@@ -120,7 +120,7 @@ void withheld;
 void reachedText;
 const car = { method: 'statutory', cost: '60000', accessories: '0', reduced: false, days: '182', costs: '0',
   businessUse: '0', contribution: '1000' } as const;
-const fbtYear = { days: '365', grossUp: '2.0802', fbtRate: '47' };
+const fbtYear = { days: '365', type: '1', fbtRate: '47' };
 const fbt: number = calculate.fbtCar(car, fbtYear).fbt;
 // @ts-expect-error The 4-year answer is a boolean, as the form passes it.
 calculate.fbtCar({ ...car, reduced: 'yes' }, fbtYear);
@@ -343,6 +343,18 @@ calculate.soleTraderCompany({ ...structures, offset: 'yes' });
 // @ts-expect-error Money is a decimal string.
 calculate.soleTraderCompany({ ...structures, takenOut: 100000 });
 void structuresDifference;
+const fbtCall = { year_ended: 2027, benefits: [{ employee: 'A', label: '23A', gst_type: 'type_1', excluded: false,
+  gross_taxable_value: '9000.00', taxable_value: '9000.00' }] };
+const fbtWarnings: string[] = calculate.fbtReturn(fbtCall).warnings;
+// @ts-expect-error The FBT year is the number the return read, not text.
+const fbtYearText: string = calculate.fbtReturn(fbtCall).year;
+const fbtVaried: boolean = calculate.fbtInstalment({ year_ended: 2027, quarter: 1, ato_instalment: '1000.00' }).varied;
+// @ts-expect-error The quarter is a number from 1 to 4.
+const fbtQuarter: string = calculate.fbtInstalment({ year_ended: 2027, quarter: 1, ato_instalment: '1000.00' }).quarter;
+void fbtWarnings;
+void fbtYearText;
+void fbtVaried;
+void fbtQuarter;
 const leaseTerms = { payment: '1000', payments: '60', frequency: 'monthly', timing: 'arrears', rate: '7.5', start: '2026-07-01', residual: '0',
   prepaid: '0', incentives: '0', direct: '500', restoration: '0', ownership: 'no', life: '' } as const;
 const leaseLiability: number = calculate.lease(leaseTerms).liability;
@@ -481,11 +493,15 @@ const rdInput = { notional_deductions: '100000.00', rsp_crc_expenditure: '0', ag
   base_rate_entity: true, total_expenses: '0', recoupment_clawback: '0', feedstock_revenue: '0', feedstock_expenditure: '0',
   present_year_base_rate_entity: true, year: '2025-26', scope_confirmed: true };
 const rdOffset: number = calculate.rdTaxOffset(rdInput).taxOffset;
+const blackhole: string = calculate.businessCapitalExpenditure({ items: [], year: '2025-26', scope_confirmed: true }).amounts.deduction;
+const statementS: string = calculate.companyTaxStatement({ financial_year: 2027 }).calculation_statement.S;
 // @ts-expect-error An answer is a boolean, not 'yes'.
 calculate.rdTaxOffset({ ...rdInput, base_rate_entity: 'yes' });
 // @ts-expect-error The command's amounts are decimal text, not numbers.
 const rdAmounts: Record<string, number> = calculate.rdTaxOffset(rdInput).amounts;
 void rdOffset;
+void blackhole;
+void statementS;
 void rdAmounts;
 const ceInput = { year: '2026-27', hours: '38', salary: '100000', annualLeave: '4', otherLeave: '0', loading: '0', loadingQualifying: true,
   payrollRate: '0', payrollSuper: true, wcRate: '0', wcSuper: false, rate: '70', nonLabour: '0', expenses: '0', ownSuper: '0',
@@ -586,6 +602,9 @@ void businessSet['payroll-tax'].execute({ place: 'AU-NSW', wages: '1500000' });
 void businessSet['salary-dividend'].execute({ incomeYear: '2026-27', companyProfit: '200000', baseRateEntity: true, salary: '100000' });
 void businessSet['sole-trader-company'].execute({ incomeYear: '2026-27', businessProfit: '150000', amountTakenOut: '100000',
   salary: '60000', baseRateEntity: true, smallBusinessOffset: true });
+void businessSet['fbt-return'].execute({ yearEnded: '2027', benefits: [{ employee: 'A', label: '23A', gstType: 'type_1', excluded: false,
+  grossTaxableValue: '9000.00', taxableValue: '9000.00' }] });
+void businessSet['fbt-instalment'].execute({ yearEnded: '2027', quarter: 1, atoInstalment: '1000.00' });
 void businessSet['sgc-payday'].execute({ regime: 'payday', payday: '2026-07-30', qualifyingEarnings: '1000', receivedOnTime: '120' });
 void businessSet.staff.execute({ wages: '51.30', superAmount: '0', otherCosts: '0' });
 void businessSet.cgt.execute({ entity: 'individual', assetKind: 'investment', purchaseContractDate: '1997-07-01',

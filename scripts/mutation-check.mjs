@@ -75,10 +75,14 @@ const cgt = { ...business, file: 'assets/cgt.mjs' };
 const lsl = { ...business, file: 'assets/long-service-leave.mjs' };
 const salaryDividend = { ...business, file: 'assets/salary-dividend.mjs' };
 const soleTraderCompanyEngine = { ...business, file: 'assets/sole-trader-company.mjs' };
+const fbtReturnEngine = { ...business, file: 'assets/fbt-return.mjs' };
+const fbtInstalmentEngine = { ...business, file: 'assets/fbt-instalment.mjs' };
 const leaseEngine = { ...business, file: 'assets/lease.mjs' };
 const ftc = { ...business, file: 'assets/fuel-tax-credits.mjs' };
 const pools = { ...business, file: 'assets/depreciation-pools.mjs' };
 const rdOffset = { ...business, file: 'assets/rd-tax-offset.mjs' };
+const blackhole = { ...business, file: 'assets/blackhole-expenditure.mjs' };
+const statement = { ...business, file: 'assets/company-tax-statement.mjs' };
 const casualOt = { ...business, file: 'assets/casual-overtime.mjs' };
 const contractor = { ...business, file: 'assets/contractor-employee.mjs' };
 const invoice = { ...business, file: 'assets/tax-invoice.mjs' };
@@ -177,7 +181,9 @@ const MUTATIONS = [
   { ...business, name: 'FBT car operating cost stands when the statutory value is lower', find: 'Math.min(statutory, operating ?? statutory)', replace: '(operating ?? statutory)' },
   { ...business, name: 'FBT car contributions take the value below nil', find: 'Math.max(0, Number(ratioCents(numerator, denominator)) - payment)', replace: 'Number(ratioCents(numerator, denominator)) - payment' },
   { ...business, name: 'FBT car business use counts as private use', find: '(10000n - BigInt(', replace: '(0n + BigInt(' },
-  { ...business, name: 'FBT is worked on the taxable value, not the grossed-up value', find: 'ratioCents(grossedUp * BigInt', replace: 'ratioCents(BigInt(taxable) * BigInt' },
+  { ...business, name: 'FBT is worked on the taxable value, not the grossed-up value', find: 'ratioCents(exact * b, den * 10000n)', replace: 'ratioCents(BigInt(taxable) * b, 10000n)' },
+  { ...business, name: 'FBT car grosses Type 2 up at the 4-place rate 1.8868', find: ': [10000n, 10000n - b]', replace: ': [18868n, 10000n]' },
+  { ...business, name: 'FBT car grosses Type 1 up at the 4-place rate 2.0802', find: '[100000n * (b + 1000n), 11n * b * (10000n - b)]', replace: '[20802n, 10000n]' },
   { ...business, name: 'FBT car accepts nil operating costs', find: 'cents(car.costs) === 0', replace: 'cents(car.costs) < 0' },
   { ...business, name: 'FBT car accepts more days than the year has', find: 'max: yearDays, integer: true', replace: 'max: yearDays + 1, integer: true' },
   { ...fbt, name: 'FBT loan ignores the interest accrued', find: 'notional - least(accrued, notional)', replace: 'notional' },
@@ -899,6 +905,22 @@ const MUTATIONS = [
   { ...soleTraderCompanyEngine, name: 'sole trader against company lets the dividend exceed the profit after tax', find: 'if (takenOut - salary > afterTax) {', replace: 'if (takenOut - salary > taxable) {' },
   { ...soleTraderCompanyEngine, name: 'sole trader against company always applies the small business offset', find: 'offset: s.offset, studyLoan', replace: 'offset: true, studyLoan' },
   { ...soleTraderCompanyEngine, name: 'sole trader against company leaves out the super tax', find: 'const total = companyTaxed + salaryTax + topUp + superTax;', replace: 'const total = companyTaxed + salaryTax + topUp;' },
+  { ...fbtReturnEngine, name: 'FBT type 1 gross-up rate off by one in its divisor', find: 'const ONE = [57000n, 27401n];', replace: 'const ONE = [57000n, 27400n];' },
+  { ...fbtReturnEngine, name: 'FBT type 2 gross-up taken at 1 / 0.52', find: 'const TWO = [100n, 53n];', replace: 'const TWO = [100n, 52n];' },
+  { ...fbtReturnEngine, name: 'FBT payable at 45%', find: 'const item16 = round((item14a + item14b) * 47n, 100n);', replace: 'const item16 = round((item14a + item14b) * 45n, 100n);' },
+  { ...fbtReturnEngine, name: 'FBT item 14A not rounded to the dollar', find: 'const item14a = grossDollars(typeOneValue, ONE);', replace: 'const item14a = grossCents(typeOneValue, ONE);' },
+  { ...fbtReturnEngine, name: 'FBT rebate at 50%', find: 'round((item16 - item17) * 47n * rebatable, 100n * employer)', replace: 'round((item16 - item17) * 50n * rebatable, 100n * employer)' },
+  { ...fbtReturnEngine, name: 'FBT rebate not apportioned by rebatable days', find: 'round((item16 - item17) * 47n * rebatable, 100n * employer)', replace: 'round((item16 - item17) * 47n, 100n)' },
+  { ...fbtReturnEngine, name: 'FBT item 17 leaves out the amount over the cap', find: 'const item17 = round(caps.total * 47n, 100n);', replace: 'const item17 = 0n;' },
+  { ...fbtReturnEngine, name: 'FBT s 57A item 14C not rounded to the dollar', find: 'const item14c = round(caps.total, 100n) * 100n;', replace: 'const item14c = caps.total;' },
+  { ...fbtReturnEngine, name: 'FBT $5,000 entertainment cap ignored', find: 'if (over > 0n) over = max0(over - (packaged < ENTERTAINMENT_CAP ? packaged : ENTERTAINMENT_CAP));', replace: '' },
+  { ...fbtReturnEngine, name: 'FBT cap counts car parking and meal entertainment', find: 'const disregarded = (b) => b.excluded && (b.label === \'23N\' || b.label === \'23P\' || b.entertainment === \'not_salary_packaged\');', replace: 'const disregarded = (b) => false;' },
+  { ...fbtReturnEngine, name: 'FBT reportable amount from $1,000', find: 'const THRESHOLD = 200000n;', replace: 'const THRESHOLD = 100000n;' },
+  { ...fbtReturnEngine, name: 'FBT reportable amount counts excluded benefits', find: 'const individual = sum(own.filter((b) => !b.excluded).map((b) => b.reportable));', replace: 'const individual = sum(own.map((b) => b.reportable));' },
+  { ...fbtReturnEngine, name: 'FBT item 22 credit not given', find: 'if (item19 < instalments) labels[22] = fbtMoney(instalments - item19);', replace: '' },
+  { ...fbtInstalmentEngine, name: 'FBT instalment share truncated', find: 'const share = (2n * estimate * FRACTIONS[quarter - 1] + 4n) / 8n;', replace: 'const share = (2n * estimate * FRACTIONS[quarter - 1]) / 8n;' },
+  { ...fbtInstalmentEngine, name: 'FBT instalment earlier credits not netted', find: 'const formula = share - (paid - credits);', replace: 'const formula = share - paid;' },
+  { ...fbtInstalmentEngine, name: 'FBT instalment excess not credited at 6B', find: 'const credit = formula < 0n ? -formula : 0n;', replace: 'const credit = 0n;' },
 
   { ...surcharges, name: 'the FIRB lower fee applies at $75,000', find: 'value < 75000 ?', replace: 'value <= 75000 ?' },
   { ...surcharges, name: 'an exact million pays the next FIRB step', find: 'Math.floor((value - 1) / f.constant)', replace: 'Math.floor(value / f.constant)' },
@@ -1226,6 +1248,25 @@ const MUTATIONS = [
   { ...rdOffset, name: 'R&D deduction amount not subtracted', find: 'const income = offset - adjusted[6] - deduction;', replace: 'const income = offset - adjusted[6];' },
   { ...rdOffset, name: 'R&D clawback income over the offset year rate', find: 'ratioCents((income < 0n ? -income : income), presentRate * 1000n)', replace: 'ratioCents((income < 0n ? -income : income), e.rate * 1000n)' },
   { ...rdOffset, name: 'R&D clawback below the threshold allowed', find: 'if (clawback !== 0n && e.notional - clawback < THRESHOLD) {', replace: 'if (false) {' },
+  { ...blackhole, name: 'Blackhole spread over 4 years', find: 'const FIVE = d(\'5\');', replace: 'const FIVE = d(\'4\');' },
+  { ...blackhole, name: 'Blackhole taxable purpose ignored', find: 'const deductible = excluded ? ZERO : mul(it.amount, it.share);', replace: 'const deductible = excluded ? ZERO : it.amount;' },
+  { ...blackhole, name: 'Blackhole fifth year dropped', find: 'if (later >= 0) deduction = fifth;', replace: 'if (later > 0) deduction = fifth;' },
+  { ...blackhole, name: 'Blackhole start-up cost deducted in later years too', find: 'deduction = it.incurred === year ? deductible : ZERO;', replace: 'deduction = deductible;' },
+  { ...blackhole, name: 'Blackhole s 40-880(4)(b) ignored', find: 'item.excludedBy.push(NOT_CONNECTED);', replace: 'void NOT_CONNECTED;' },
+  { ...blackhole, name: 'Blackhole s 40-880(7) ignored', find: 'if (!f.flag(\'within_reasonable_time\', \'s 40-880(7) limits expenditure on a proposed business\')) item.excludedBy.push(NOT_REASONABLE_TIME);', replace: 'f.flag(\'within_reasonable_time\', \'s 40-880(7) limits expenditure on a proposed business\');' },
+  { ...blackhole, name: 'Blackhole goodwill lifts no exclusion', find: 'if (labels.includes(label) && !(goodwill && (label === \'5(d)\' || label === \'5(f)\'))) item.excludedBy.push(citation);', replace: 'if (labels.includes(label)) item.excludedBy.push(citation);' },
+  { ...blackhole, name: 'Blackhole 2019-20 expenditure allowed', find: 'const FIRST_INCURRED = 2020;', replace: 'const FIRST_INCURRED = 2019;' },
+  { ...statement, name: 'Statement losses not limited by the excess', find: 'const cap = least(floor(available - fromNei), floor(excess));', replace: 'const cap = floor(available - fromNei);' },
+  { ...statement, name: 'Statement net exempt income absorbs no losses', find: 'const neiLeft = excess === 0n ? 0n : floor(nei - floor(-excess));', replace: 'const neiLeft = 0n;' },
+  { ...statement, name: 'Statement failed loss test deducted', find: 'else if (test === \'failed\') found = [false, \'s 165-10 ITAA 1997: not deductible\'];', replace: 'else if (test === \'failed\') found = [true, \'s 165-10 ITAA 1997: not deductible\'];' },
+  { ...statement, name: 'Statement losses deducted newest first', find: '.sort((a, b) => a.year - b.year);', replace: '.sort((a, b) => b.year - a.year);' },
+  { ...statement, name: 'Statement excess refundable offsets not refunded', find: 'const i = floor(e - t3);', replace: 'const i = 0n;' },
+  { ...statement, name: 'Statement PAYG instalments not credited', find: 'const s = t5 + g - h - i - k;', replace: 'const s = t5 + g - h - i;' },
+  { ...statement, name: 'Statement carry back not capped at the franking balance', find: 'const offset = least(total, balance);', replace: 'const offset = total;' },
+  { ...statement, name: 'Statement carry back not capped at the unused liability', find: 'const component = least(sum, cap);', replace: 'const component = sum;' },
+  { ...statement, name: 'Statement carry back for 2025-26', find: 'else if (fy === 2027) permanent = true;', replace: 'else if (fy >= 2026) permanent = true;' },
+  { ...statement, name: 'Statement carry back ignores net exempt income', find: 'const reduced = floor(p.amount - nei);', replace: 'const reduced = p.amount;' },
+  { ...statement, name: 'Statement 2020-21 at 25%', find: 'const rateText = bre ? (fy <= 2020 ? \'0.275\' : fy === 2021 ? \'0.260\' : \'0.250\') : \'0.300\';', replace: 'const rateText = bre ? (fy <= 2020 ? \'0.275\' : \'0.250\') : \'0.300\';' },
   { ...contractor, name: 'Contractor labour of exactly half counted as principally', find: 'const principally = 2 * labour > fee;', replace: 'const principally = 2 * labour >= fee;' },
   { ...contractor, name: 'Contractor right to delegate ignored', find: 'personal: !e.delegate,', replace: 'personal: true,' },
   { ...contractor, name: 'Contractor result contract ignored', find: 'notResult: !e.result,', replace: 'notResult: true,' },
@@ -1512,6 +1553,7 @@ const SHARED = [
   'rates/maximum-contribution-base', 'rates/car-limit', 'tools/payday-super', 'llms.txt',
   '.well-known/llms.txt', '_layouts/calculator.html', 'scripts/fbt-engine-differential.json',
   'scripts/fbt-property-expense-engine-differential.json',
+  'scripts/fbt-return-engine-differential.json',
   'scripts/lump-sum-arrears-engine-differential.json',
   'scripts/income-tests-engine-differential.json',
   'scripts/income-tax-offsets-engine-differential.json',
@@ -1532,6 +1574,9 @@ const SHARED = [
   'scripts/luxury-car-tax-engine-differential.json',
   'scripts/depreciation-pools-engine-differential.json',
   'scripts/rd-tax-offset-engine-differential.json',
+  'scripts/blackhole-expenditure-engine-differential.json',
+  'scripts/company-tax-statement-engine-differential.json',
+  'scripts/s40-880-company-statement-edge-cases.json',
   'scripts/instant-asset-write-off-engine-differential.json',
   'scripts/leave-provisions-engine-differential.json',
   'scripts/gst-adjustments-engine-differential.json',
