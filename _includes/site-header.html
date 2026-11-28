@@ -3,6 +3,16 @@
     <div class="site-shell site-header__inner">
       <a class="site-identity" href="/" aria-label="Ryan Duguid home"{% if page.url == "/" %} aria-current="page"{% endif %}>Ryan Duguid</a>
       <nav class="site-nav" aria-label="Primary">
+        <div class="theme-mode" role="radiogroup" aria-label="Colour theme" hidden>
+          <label class="theme-mode__option">
+            <input type="radio" name="theme-mode" value="light" />
+            Light
+          </label>
+          <label class="theme-mode__option">
+            <input type="radio" name="theme-mode" value="dark" checked />
+            Dark
+          </label>
+        </div>
         <a href="/tools/"{% if page.url == "/tools/" %} aria-current="page"{% elsif page.url contains "/tools/accounting-questions/" %}{% elsif page.url contains "/tools/" %} aria-current="location"{% elsif page.url contains "/works-with/" %} aria-current="location"{% elsif page.url contains "/evaluate/" %} aria-current="location"{% endif %}>Tools</a>
         <a href="/tools/accounting-questions/"{% if page.url == "/tools/accounting-questions/" %} aria-current="page"{% elsif page.url contains "/tools/accounting-questions/" %} aria-current="location"{% endif %}>Questions</a>
         <a href="/rates/"{% if page.url == "/rates/" %} aria-current="page"{% elsif page.url contains "/rates/" %} aria-current="location"{% endif %}>Rates</a>

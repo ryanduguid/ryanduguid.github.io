@@ -1,18 +1,18 @@
 # duguid.com.au design system
 
 **Status:** current refinement
-**Date:** 31 August 2026, revised 4 November 2026
+**Date:** 31 August 2026, revised 27 November 2026
 **Source baseline:** `adb31c63f17e608545197a703d3823c2cb3ca7f3`
 
 ## Design read
 
-The canonical routes, the dark-only token palette and the rate main text are frozen; this refinement changes only the surfaces around them. The readers are accounting managers, technical adopters and reviewers of an Australian computational accounting index. It needs the authority of a public register, the legibility of a statute note and the inspectability of a developer tool. It must not read as a tax-agent practice, a SaaS funnel or an AI product launch.
+The canonical routes, the default pure-black OLED palette and the rate main text are frozen; this refinement changes only the surfaces around them and adds an opt-in Light Mode. The readers are accounting managers, technical adopters and reviewers of an Australian computational accounting index. It needs the authority of a public register, the legibility of a statute note and the inspectability of a developer tool. It must not read as a tax-agent practice, a SaaS funnel or an AI product launch.
 
 - `DESIGN_VARIANCE`: 6. Asymmetric document layouts and large changes of scale, with strict mobile collapse.
 - `MOTION_INTENSITY`: 2. Sticky positioning and brief colour, underline and control feedback only.
 - `VISUAL_DENSITY`: 5. Spacious route viewports followed by compact evidence, rate and catalogue surfaces.
 - Redesign mode: preserve the established visual language and refine only the surfaces that need clearer hierarchy or evidence.
-- Theme: OLED dark only.
+- Theme: pure-black OLED default, with an opt-in Light Mode toggle (`duguid-theme`). No `prefers-color-scheme` query overrides the default.
 
 ## Design history
 
@@ -81,8 +81,14 @@ where something needs action. Its rules:
 - Every page title is the page's own name, with no site suffix.
 - The About lead states 'Provisional CA ANZ Member', 'Xero Certified
   Specialist, Level 3' and the LinkedIn profile within the first screen at 1440 by 900.
-- The cash chart's closing-cash line is platinum (`#E5E4E2`), 16.53:1 against
-  black; the green line it replaces measured 2.07:1.
+- The homepage cash chart (`assets/cash-chart.mjs`, 27 November 2026) is an
+  interactive, theme-aware inline SVG daily closing cash step chart reconciled
+  across all 5 receipt delays (`0, 15, 30, 45, 60` days) from
+  `assets/examples/lumbridge/sensitivity.json` and `lumbridge.xlsx`. It consumes
+  the semantic tokens on both the pure-black OLED default and Light Mode without
+  an external image preload. `/examples/profit-vs-cash-flow/` keeps the native
+  Excel 16.0 13-week export PNG/WebP (`cash-preview.png`) in platinum (`#E5E4E2`,
+  16.53:1 against black; the green line it replaced measured 2.07:1).
 - Red `#E7162F` is no longer reserved for diagrams. Ryan decided on
   4 November 2026 that the site may use it, limited to link and rule
   strokes: `--colour-stroke` draws link underlines and the accent rules
@@ -93,7 +99,7 @@ where something needs action. Its rules:
   crimson and link text stays ivory at 20.81:1.
 - Dark gold and lavender stay out of the site.
 
-The brand exceptions stand: a true-black, dark-only canvas; Besley as the
+The brand exceptions stand: a true-black default canvas with an opt-in Light Mode toggle; Besley as the
 display face; crimson and deep purple accents; square register surfaces; 2px
 control radius; and no generated or stock imagery, shadows, pills, blur or
 entry animation.
@@ -172,8 +178,7 @@ The page behaves like a public workpaper register.
 
 All colour values live in `assets/tokens.css`. Component CSS consumes semantic tokens only.
 
-The palette is deliberately dark-only. Native controls use `color-scheme: dark`
-and no system preference creates a second branded state.
+Pure-black OLED (`#000000`) is the default on load and when JavaScript is disabled. Native controls use `color-scheme: dark` by default and `color-scheme: light` when Light Mode is chosen via the header switch (`data-theme="light"`). No `prefers-color-scheme` query overrides the default.
 
 | Token role | Value | Use | Contrast on canvas |
 | --- | --- | --- | ---: |
@@ -185,17 +190,38 @@ and no system preference creates a second branded state.
 | Ink soft | `#9A9A9A` | Supporting copy and metadata | 7.46:1 |
 | Rule | `#262626` | Hairlines and table rows | n/a |
 | Rule strong | `#606060` | Structural boundaries and field borders | 3.34:1 |
-| Stamp | `#990024` | Fills and link hover fills | 2.38:1 (8.74:1 ivory on stamp) |
-| Stamp strong | `#66023C` | Button hover fills and secondary emphasis with ivory text | 12.70:1 (ivory on stamp) |
+| Stamp | `#990024` | Fills and link hover fills | 2.38:1 (8.75:1 on-stamp on stamp) |
+| Stamp strong | `#66023C` | Button hover fills and secondary emphasis with ivory text | 12.70:1 (on-stamp on stamp strong) |
 | Stroke | `#E7162F` (red) | Link underlines, accent rules and selection marks only, from 4 November 2026 | 4.55:1 |
 | Stamp wash | `#161616` | Applied formula and interactive emphasis | n/a |
-| Pass | `#0F4B32` (Rhodesian green) | Passed-result labels with ivory text | 2.07:1 |
-| Machine ink | `#E5E4E2` (platinum) | Machine view text and the cash chart line | 16.53:1 |
+| Pass | `#0F4B32` (Rhodesian green) | Passed-result labels with ivory text | 2.07:1 (10.04:1 on-stamp on pass) |
 | Alert | `#FF9C91` | Refusal and warning semantics only | 10.42:1 |
+| On stamp | `#FFFFF0` (ivory) | Text on filled brand, hover and pass surfaces | n/a |
+| Machine ink | `#E5E4E2` (platinum) | Machine view text and the cash chart line | 16.53:1 |
 | Masthead | `#FFFFF0` (ivory) | Homepage identity statement only | n/a |
 | Code | `#000000` | Code and install background, bounded by its rule | n/a |
 | Code ink | `#FFFFF0` (ivory) | Code text | n/a |
 | Code comment | `#9A9A9A` | Secondary annotation inside code blocks | n/a |
+
+### Opt-in Light Mode tokens (`:root[data-theme="light"]`, 27 November 2026)
+
+| Token role | Value | Use | Contrast on canvas |
+| --- | --- | --- | ---: |
+| Canvas / Paper | `#FFFFFF` | Page ground and grouped surfaces | n/a |
+| Paper raised / Code | `#F5F5F5` | Fields, proof panel and code blocks | n/a |
+| Ink / Masthead / Code ink | `#000000` | Main reading text and code | 21.00:1 |
+| Ink mid / Machine ink | `#262626` | Lead paragraphs and Machine view text | 15.13:1 |
+| Ink soft / Code comment | `#595959` | Supporting copy, metadata and code comments | 7.00:1 |
+| Rule | `#DADADA` | Hairlines and table rows | n/a |
+| Rule strong | `#767676` | Structural boundaries and field borders | 4.54:1 |
+| Stamp / Alert | `#990024` | Fills, link hover fills and refusal/warning semantics | 8.82:1 |
+| Stamp strong | `#66023C` | Button hover fills with ivory text | 12.70:1 (on-stamp on stamp strong) |
+| Stroke | `#E7162F` (red) | Link underlines, accent rules and selection marks | 4.61:1 |
+| Stamp wash | `#E5E4E2` | Selected toggles, tabs and target rows | n/a |
+| Pass | `#0F4B32` (Rhodesian green) | Passed-result labels with ivory text | 10.04:1 (on-stamp on pass) |
+| On stamp | `#FFFFF0` (ivory) | Text on filled brand, hover and pass surfaces | n/a |
+
+In Light Mode, `.about-portrait` retains a dark `#000000` plate with light glyph tokens so the ASCII headshot stays positive rather than inverting into a negative. On `.page-home` in Light Mode, `--colour-ink-mid` is `#161616` and `--colour-ink-soft` is `#262626`; `prefers-contrast: more` forces `#000000` inks and borders.
 
 True black is intentional: large canvas areas let OLED pixels switch off. This
 overrides the earlier pure-black prohibition. From 13 September 2026 the
@@ -203,7 +229,7 @@ surfaces are true black rather than green-tinted near-black and the greys
 carry no hue. Crimson and deep purple are the requested accents beside the
 alert. From 1 October 2026 the main ink is ivory (`#FFFFF0`) rather than
 near-white, which raises its contrast on canvas from 18.76:1 to 20.81:1. Rules, not fills, separate the header, footer, bands and code blocks.
-No gradient, glow, texture or alternate theme is permitted.
+No gradient, glow or texture is permitted; Light Mode is an opt-in screen theme.
 The Machine view canvas is also true black so its text sits on switched-off
 OLED pixels; its ink is platinum (`#E5E4E2`).
 On the homepage, mid ink is platinum (`#E5E4E2`), soft ink and the inactive view-switch
@@ -318,7 +344,7 @@ Motion communicates feedback and location only.
 
 ### Header
 
-At the default desktop text size, the header is sticky, one line and at most 72px tall. It reflows when enlarged text or a narrow viewport needs more room. Up to 40rem it is not sticky, so its 2 or 3 rows scroll away with the page. Ryan Duguid appears as a text identity at left. The primary navigation is Tools, Questions, Rates, Evidence and About, exactly. The Human and Machine view switch sits at the right end of the header at every width; it is a square control with a thin strong rule, and its selected option sits on the stamp wash. The header uses paper transparency only if contrast remains solid; no blur or glass treatment is allowed.
+At the default desktop text size, the header is sticky, one line and at most 72px tall. It reflows when enlarged text or a narrow viewport needs more room. Up to 40rem it is not sticky, so its 2 or 3 rows scroll away with the page. Ryan Duguid appears as a text identity at left. The primary navigation begins with the `Light / Dark` colour theme switch immediately to the left of Tools, Questions, Rates, Evidence and About. The Human and Machine view switch sits at the right end of the header at every width; both switches share the same square control shape, thin strong rule, fixed 12px type, 44px option height and stamp-wash selection fill. The header uses paper transparency only if contrast remains solid; no blur or glass treatment is allowed.
 
 ### Footer
 
@@ -380,8 +406,17 @@ use scroll snapping.
 The hero states 'Tools for Australian accountants' with one
 supporting line, one action ('Explore the cash flow example'), the byline and
 the review date. The cash case follows: 'Compare profit with cash flow' with the
-Lumbridge workbook chart, which sits beside it on wide screens and below it on
-mobile. About states that the site is a personal open source index, not a
+interactive inline SVG daily cash chart (5 reconciled delay scenarios from `0` to
+`60` days), which sits beside it on wide screens (`0.92fr` / `1.08fr`, aligned
+from row 2 beside the summary) and below it on mobile. The `"Choose a route"` columns give the route
+links wider room (`0.55fr` / `0.85fr` / `1.15fr`), the `"Contributions to other
+projects"` band shares that ruled register grammar, `"Try each tool with fictional
+data first"` opens with a top datum rule matching `Latest tool releases`, and
+release rows align titles and dates in a 2-column grid (collapsing below `30rem`).
+Site-wide polish on 27 November 2026 also themes browser form controls (`caret-color`,
+`accent-color`), animates link hover fills alongside link colour and applies
+`tabular-nums` to date stamps and fact lists.
+About states that the site is a personal open source index, not a
 practice, and does not accept professional engagements; the hero does not
 repeat it.
 

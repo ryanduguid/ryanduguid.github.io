@@ -36,13 +36,12 @@
   <link rel="icon" type="image/png" sizes="96x96" href="/assets/favicon-96.png" />
   <link rel="apple-touch-icon" href="/assets/favicon-180.png" />
   <link rel="preload" href="/assets/fonts/Besley-SemiBold.woff2" as="font" type="font/woff2" crossorigin />
-  <link rel="preload" as="image" href="/assets/examples/lumbridge/cash-preview-narrow.webp" media="(max-width: 40rem), (min-width: 56.0625rem) and (max-width: 75rem)" fetchpriority="high" />
-  <link rel="preload" as="image" href="/assets/examples/lumbridge/cash-preview.webp" media="(40rem < width < 56.0625rem), (width > 75rem)" fetchpriority="high" />
   <link rel="preload" href="/assets/fonts/PublicSans-Regular.woff2" as="font" type="font/woff2" crossorigin />
   <link rel="preload" href="/assets/fonts/SplineSansMono-Regular.woff2" as="font" type="font/woff2" crossorigin />
   <link rel="preload" href="/assets/fonts/PublicSans-SemiBold.woff2" as="font" type="font/woff2" crossorigin />
   <link rel="stylesheet" href="/assets/tokens.css?v={{ site.asset_version }}" />
   <link rel="stylesheet" href="/assets/site.css?v={{ site.asset_version }}" />
+  <link rel="modulepreload" href="/assets/cash-chart.mjs" />
 </head>
 <body class="page-home">
   <a class="skip-link" href="#main">Skip to content</a>
@@ -56,16 +55,70 @@
           <a class="button" href="/examples/profit-vs-cash-flow/">Explore the cash flow example</a>
         </nav>
         <p class="home-hero__note">Built by Ryan Duguid, a senior accountant in Newcastle, NSW.</p>
-        <p class="page-meta">Last reviewed 23 November 2026.</p>
+        <p class="page-meta">Last reviewed 28 November 2026.</p>
       </div>
       <section class="home-case" aria-labelledby="cash-case-title">
         <div>
           <h2 id="cash-case-title">Compare profit with cash flow</h2>
-          <p>Lumbridge Services is a fictional Newcastle maintenance business. Delay one customer receipt by 45 days and inspect the cash gap in its Excel forecast. The quarter’s profit stays the same.</p>
+          <p>Lumbridge Services is a fictional Newcastle maintenance business. Delay one customer receipt by up to 60 days and inspect the cash gap in its forecast. The quarter’s profit before tax stays the same.</p>
         </div>
         <figure class="case-preview">
-          <a href="/assets/examples/lumbridge/cash-preview.png"><picture><source media="(max-width: 40rem), (min-width: 56.0625rem) and (max-width: 75rem)" srcset="/assets/examples/lumbridge/cash-preview-narrow.webp" width="856" height="711" /><img src="/assets/examples/lumbridge/cash-preview.webp" width="1282" height="639" fetchpriority="high" decoding="async" alt="Excel chart of weekly closing cash after a 45-day receipt delay, showing the cash gap against the assumed buffer" /></picture><span class="visually-hidden">View full-size chart</span></a>
-          <figcaption>13-week forecast with one receipt paid 45 days late. Weekly closing cash falls to ($25,160) against a $15,000 buffer, then recovers to $67,320 by December, the same as without the delay. Exported from the supplied workbook in Excel 16.0 on 4 November 2026. <a href="/assets/examples/lumbridge/preview-record.txt">Capture record</a>.</figcaption>
+          <div class="cash-chart" data-cash-chart data-state="alert">
+            <dl class="cash-chart__kpis">
+              <div class="cash-chart__kpi">
+                <dt>Quarterly profit before tax</dt>
+                <dd class="cash-chart__kpi-value">$35,957.55</dd>
+                <dd class="cash-chart__kpi-note">Unchanged across delays</dd>
+              </div>
+              <div class="cash-chart__kpi">
+                <dt>Lowest daily cash</dt>
+                <dd class="cash-chart__kpi-value cash-chart__kpi-value--cash" data-cash-min-value>($25,160)</dd>
+                <dd class="cash-chart__kpi-note" data-cash-min-note>6 Nov · 16 days below $0</dd>
+              </div>
+            </dl>
+            <svg class="cash-chart__svg" viewBox="0 0 456 266" width="456" height="266" aria-hidden="true">
+              <line class="cash-chart__grid" x1="12" y1="62" x2="382" y2="62" />
+              <line class="cash-chart__grid" x1="12" y1="122" x2="382" y2="122" />
+              <line class="cash-chart__zero" x1="12" y1="182" x2="382" y2="182" />
+              <line class="cash-chart__grid" x1="12" y1="242" x2="382" y2="242" />
+              <line class="cash-chart__buffer" x1="12" y1="159.5" x2="382" y2="159.5" />
+              <path class="cash-chart__deficit" data-cash-deficit d="M 121.8 182 V 199.9 H 158.4 V 219.7 H 186.8 V 182 Z" />
+              <line class="cash-chart__receipt-line" data-cash-receipt-line x1="247.8" y1="31" x2="247.8" y2="107.5" />
+              <path class="cash-chart__line" data-cash-line d="M 12 137 H 36.4 V 156.8 H 68.9 V 158.6 H 89.3 V 169.2 H 93.3 V 143.7 H 121.8 V 199.9 H 158.4 V 219.7 H 186.8 V 155.5 H 215.3 V 140.7 H 243.8 V 173.5 H 247.8 V 107.5 H 284.4 V 127.3 H 312.9 V 61.3 H 316.9 V 63.1 H 329.1 V 73.7 H 341.3 V 48.2 H 353.5 V 81 H 382" />
+              <path class="cash-chart__neg-line" data-cash-neg-line d="M 121.8 199.9 H 158.4 V 219.7 H 186.8" />
+              <circle class="cash-chart__dot" data-cash-receipt-dot cx="247.8" cy="107.5" r="3.5" />
+              <circle class="cash-chart__dot" cx="382" cy="81" r="3.5" />
+              <circle class="cash-chart__dot--low" data-cash-low-dot cx="158.4" cy="219.7" r="4" />
+              <text class="cash-chart__receipt-label" data-cash-receipt-label x="247.8" y="19" text-anchor="middle">OPEN-V receipt · 28 Nov</text>
+              <text class="cash-chart__label cash-chart__label--low" data-cash-low-label x="172.6" y="236" text-anchor="middle">($25,160)</text>
+              <text class="cash-chart__label cash-chart__label--strong" x="390" y="77">Closing</text>
+              <text class="cash-chart__label cash-chart__label--strong" x="390" y="91">$67,320</text>
+              <text class="cash-chart__label" x="390" y="155">Buffer</text>
+              <text class="cash-chart__label" x="390" y="169">$15,000</text>
+              <text class="cash-chart__axis" x="12" y="57" text-anchor="start">$80k</text>
+              <text class="cash-chart__axis" x="12" y="117" text-anchor="start">$40k</text>
+              <text class="cash-chart__axis" x="12" y="177" text-anchor="start">$0</text>
+              <text class="cash-chart__axis" x="12" y="237" text-anchor="start">($40k)</text>
+              <text class="cash-chart__axis" x="12" y="258" text-anchor="start">1 Oct</text>
+              <text class="cash-chart__axis" x="138" y="258" text-anchor="middle">1 Nov</text>
+              <text class="cash-chart__axis" x="260" y="258" text-anchor="middle">1 Dec</text>
+              <text class="cash-chart__axis" x="382" y="258" text-anchor="end">31 Dec</text>
+            </svg>
+            <div class="cash-chart__bar">
+              <span class="cash-chart__bar-label" id="cash-delay-label">Receipt delay (days)</span>
+              <span class="cash-chart__static-delay" data-cash-static-delay>45 days (28 Nov receipt)</span>
+              <span class="visually-hidden" data-cash-receipt-sr hidden>OPEN-V receipt: 28 Nov.</span>
+              <div class="cash-chart__controls" role="radiogroup" aria-labelledby="cash-delay-label" data-cash-controls hidden>
+                <label class="cash-chart__option"><input type="radio" name="cash-delay" value="0" /><span>0</span><span class="visually-hidden"> days</span></label>
+                <label class="cash-chart__option"><input type="radio" name="cash-delay" value="15" /><span>15</span><span class="visually-hidden"> days</span></label>
+                <label class="cash-chart__option"><input type="radio" name="cash-delay" value="30" /><span>30</span><span class="visually-hidden"> days</span></label>
+                <label class="cash-chart__option"><input type="radio" name="cash-delay" value="45" checked /><span>45</span><span class="visually-hidden"> days</span></label>
+                <label class="cash-chart__option"><input type="radio" name="cash-delay" value="60" /><span>60</span><span class="visually-hidden"> days</span></label>
+              </div>
+            </div>
+            <p class="visually-hidden" aria-live="polite" data-cash-status></p>
+          </div>
+          <figcaption>Daily closing cash, Oct to Dec 2026 (AUD; intraday not measured), fictional Lumbridge Services. Dashed $15,000 buffer; red below $0. Delaying one $44,000 receipt leaves the $35,957.55 profit before tax and $67,320 close unchanged. <a href="/assets/examples/lumbridge/sensitivity.json">Source data</a>.</figcaption>
         </figure>
       </section>
     </section>
@@ -161,7 +214,7 @@
         "description": "Ryan Duguid’s 90 free Australian tax and business calculators, 12 maintained rate tables, 7,430 depreciation effective lives, Ozzit and open source tools.",
         "inLanguage": "en-AU",
         "datePublished": "2026-08-22",
-        "dateModified": "2026-11-23",
+        "dateModified": "2026-11-28",
         "license": "https://duguid.com.au/privacy/#licences",
         "isPartOf": { "@id": "https://duguid.com.au/#website" },
         "about": { "@id": "https://duguid.com.au/about/#person" },
@@ -321,6 +374,6 @@
   }
   </script>
   <script type="module" src="/assets/legacy-routes.mjs"></script>
-  <script type="module" src="/assets/chart-dialog.mjs"></script>
+  <script type="module" src="/assets/cash-chart.mjs"></script>
 </body>
 </html>

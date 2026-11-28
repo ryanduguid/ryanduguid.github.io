@@ -417,7 +417,7 @@ jobs:
           scripts/rate-tables.test.mjs scripts/depreciation-rates.test.mjs \
           scripts/super-lump-sum-options.test.mjs \
           scripts/individual-results-branches.test.mjs scripts/fhss-work-pcg-branches.test.mjs \
-          scripts/page-dom.test.mjs scripts/webmcp-branches.test.mjs \
+          scripts/page-dom.test.mjs scripts/cash-chart.test.mjs scripts/webmcp-branches.test.mjs \
           scripts/borrowing-fuel-fbt-levy-branches.test.mjs scripts/engine-notes-refusals.test.mjs \
           scripts/engine-refusal-paths.test.mjs scripts/engine-edge-cases.test.mjs \
           scripts/ato-penalties-branches.test.mjs scripts/fuel-tax-credits-branches.test.mjs \

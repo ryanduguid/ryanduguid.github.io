@@ -941,10 +941,10 @@ pub const SOCIAL_CARD_CONTEXTS: [SocialCard; 9] = [
     },
     section_card(
         ("calculators", "Business calculators"),
-        &["54 Australian business", "and tax calculators."],
+        &["Australian business", "and tax calculators."],
         (
             "duguid.com.au/tools/business-calculators/",
-            "social-card-calculators-20261123.png",
+            "social-card-calculators-20261128.png",
         ),
     ),
     section_card(

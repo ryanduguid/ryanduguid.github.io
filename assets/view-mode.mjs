@@ -3,22 +3,37 @@
 
 (() => {
   const key = 'duguid-view-mode';
+  const themeKey = 'duguid-theme';
   const root = document.documentElement;
+  const themeMeta = document.querySelector('meta[name="theme-color"]');
+  const schemeMeta = document.querySelector('meta[name="color-scheme"]');
   let mode = 'human';
+  let theme = 'dark';
   try {
     if (localStorage.getItem(key) === 'machine') mode = 'machine';
-  } catch { /* Use Human when storage is unavailable. */ }
+    if (localStorage.getItem(themeKey) === 'light') theme = 'light';
+  } catch { /* Use defaults when storage is unavailable. */ }
   root.dataset.viewMode = mode;
+
+  function applyTheme(next) {
+    theme = next === 'light' ? 'light' : 'dark';
+    root.dataset.theme = theme;
+    if (themeMeta) themeMeta.setAttribute('content', theme === 'light' ? '#ffffff' : '#000000');
+    if (schemeMeta) schemeMeta.setAttribute('content', theme);
+  }
+  applyTheme(theme);
 
   document.addEventListener('DOMContentLoaded', () => {
     const header = document.querySelector('.site-header');
+    const hasResizeObserver = typeof ResizeObserver === 'function';
     // Anchor destinations must clear the header after text or viewport resizing.
     const measureHeader = () => {
       root.style.setProperty('--measured-header-height', `${header.getBoundingClientRect().height}px`);
     };
-    if (typeof ResizeObserver === 'function') new ResizeObserver(measureHeader).observe(header);
+    if (hasResizeObserver) new ResizeObserver(measureHeader).observe(header);
     else window.addEventListener('resize', measureHeader);
     const toggle = document.querySelector('.view-mode');
+    const themeToggle = document.querySelector('.theme-mode');
     const view = document.querySelector('#machine-view');
     const text = view.querySelector('.machine-view__text');
     const error = view.querySelector('.machine-view__error');
@@ -55,7 +70,13 @@
       }
     }
 
-    function setMode(next) {
+    function setTheme(next) {
+      applyTheme(next);
+      if (!themeToggle) return;
+      for (const radio of themeToggle.querySelectorAll('input')) radio.checked = radio.value === theme;
+    }
+
+    function setMode(next, syncHeader = !hasResizeObserver) {
       mode = next === 'machine' ? 'machine' : 'human';
       root.dataset.viewMode = mode;
       view.hidden = mode !== 'machine';
@@ -65,18 +86,27 @@
       for (const radio of toggle.querySelectorAll('input')) radio.checked = radio.value === mode;
       // loadText reports its own failures in the error element.
       if (mode === 'machine') void loadText();
-      measureHeader();
+      if (syncHeader) measureHeader();
     }
 
     toggle.addEventListener('change', event => {
-      setMode(event.target.value);
+      setMode(event.target.value, true);
       // Only a user switch moves focus; the load and storage paths must not steal it.
       if (mode === 'machine') view.focus();
       try { localStorage.setItem(key, mode); } catch { /* Keep the current view usable. */ }
     });
+    if (themeToggle) {
+      themeToggle.addEventListener('change', event => {
+        setTheme(event.target.value);
+        try { localStorage.setItem(themeKey, theme); } catch { /* Keep the current theme usable. */ }
+      });
+    }
     window.addEventListener('storage', event => {
       if (event.key === key || event.key === null) setMode(event.newValue);
+      if (event.key === themeKey || event.key === null) setTheme(event.newValue);
     });
+    setTheme(theme);
+    if (themeToggle) themeToggle.hidden = false;
     setMode(mode);
     toggle.parentElement.hidden = false;
 
