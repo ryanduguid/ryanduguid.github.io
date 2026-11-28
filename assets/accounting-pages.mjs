@@ -606,15 +606,6 @@ function initialiseCalculators([calculate, fieldErrors, fbtForms, { individualRe
           case 'rd-tax-offset':
             result = calculate.rdTaxOffsetResult(value, aud);
             break;
-          case 'blackhole-expenditure':
-            result = calculate.blackholeResult(value, aud);
-            break;
-          case 'fbt-return':
-            result = calculate.fbtReturnResult(value, aud);
-            break;
-          case 'fbt-instalment':
-            result = calculate.fbtInstalmentResult(value, aud);
-            break;
           case 'contractor-employee':
             result = calculate.contractorEmployeeResult(value, aud);
             break;
@@ -777,7 +768,7 @@ function initialiseCalculators([calculate, fieldErrors, fbtForms, { individualRe
           case 'lodgment-required':
             result = lodgmentRequiredResult(value, (name) => form.elements.namedItem(name).checked);
             break;
-          default: result = individualResult(form.dataset.calculator, value, aud) ?? fbtForms.fbtBenefitResult(form, calculate, { aud, value, money });
+          default: result = extraBusinessResult(form.dataset.calculator, calculate, value, aud) ?? individualResult(form.dataset.calculator, value, aud) ?? fbtForms.fbtBenefitResult(form, calculate, { aud, value, money });
         }
         renderResult(output, result);
         form.dataset.calculated = 'true';
@@ -828,3 +819,12 @@ function loadCalculators(retryForm) {
     });
 }
 if (forms.length) loadCalculators();
+
+function extraBusinessResult(kind, calculate, value, aud) {
+  switch (kind) {
+    case 'blackhole-expenditure': return calculate.blackholeResult(value, aud);
+    case 'fbt-return': return calculate.fbtReturnResult(value, aud);
+    case 'fbt-instalment': return calculate.fbtInstalmentResult(value, aud);
+    default: return null;
+  }
+}
