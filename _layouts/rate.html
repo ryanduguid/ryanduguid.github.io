@@ -44,7 +44,7 @@
 {% include site-header.html %}
   <main id="main" class="site-main">
     <article class="article">
-      <header class="article-header site-shell">
+      <div class="article-header site-shell">
         <nav class="article-crumb" aria-label="Breadcrumb">
           <ol>
             <li><a href="/">Home</a></li>
@@ -60,7 +60,7 @@
         {% if page.lead_note %}<p class="lead-note">{{ page.lead_note }}</p>{% endif %}
         <p class="page-meta">Published <time datetime="{{ page.date_published | date: "%Y-%m-%d" }}">{{ page.date_published | date: "%-d %B %Y" }}</time>. Last reviewed <time datetime="{{ page.last_reviewed | date: "%Y-%m-%d" }}">{{ page.last_reviewed | date: "%-d %B %Y" }}</time>.{% for check in page.source_checked %} Source checked <time datetime="{{ check.date | date: "%Y-%m-%d" }}">{{ check.date | date: "%-d %B %Y" }}</time>{% if check.scope %} for {{ check.scope }}{% endif %}.{% endfor %}{% if page.dates_note %} {{ page.dates_note }}{% endif %}</p>
         <p class="byline">{{ page.byline }}</p>
-      </header>
+      </div>
 {{ content }}    </article>
   </main>
 {% include site-footer.html %}
