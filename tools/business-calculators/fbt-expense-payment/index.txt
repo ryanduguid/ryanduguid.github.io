@@ -49,7 +49,7 @@ A payment above the expenditure is refused | external, expenditure $100.00, paid
 A deduction above the part the employee bore is refused | external, expenditure $100.00, paid $60.00, contribution $10.00, income use 0%, deduction $50.01, price $0.00, notional value $0.00, in-house reduction left $0.00 | Refused: the deduction for the recipient’s portion cannot be more than that portion, the expenditure less the payment net of the contribution
 The otherwise deductible rule for an in-house expense payment is refused, not applied | in-house-other, expenditure $100.00, paid $100.00, contribution $0.00, income use 50%, deduction $0.00, price $0.00, notional value $100.00, in-house reduction left $0.00 | Refused: this calculator does not apply the otherwise deductible rule to an in-house expense payment (subparagraph 24(1)(b)(i)): enter 0% income use and no deduction
 
-One of the sixty-nine business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the seventy-one business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 ## Related
 
@@ -62,7 +62,7 @@ Planning estimates in AUD. Confirm tax treatment, liability amounts and dates se
 ## Links
 
 - ATO’s guide for employers: https://www.ato.gov.au/law/view/document?docid=SAV/FBTGEMP/00010
-- sixty-nine business calculators: https://duguid.com.au/tools/business-calculators/
+- seventy-one business calculators: https://duguid.com.au/tools/business-calculators/
 - FBT rate and gross-up rates: https://duguid.com.au/rates/fbt-rate/
 - FBT property calculator: https://duguid.com.au/tools/business-calculators/fbt-property/
 - FBT loan calculator: https://duguid.com.au/tools/business-calculators/fbt-loan/

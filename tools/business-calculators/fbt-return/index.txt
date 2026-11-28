@@ -175,10 +175,10 @@ The ATO’s NFP worked example 2: a public benevolent institution pays FBT only 
 The ATO’s NFP worked example 3: a public hospital and the $17,000 cap | FBT year ended 31 March 2026, a public hospital, instalments reported $16,000.00; Louise 23A type 1 $2,000.00; Louise 23L type 2 $5,000.00 salary packaged entertainment; Wendy 23A type 1 $25,000.00; Wendy 23E type 2 $15,000.00 excluded | fringe benefits taxable amount $35,005.00, tax payable $16,452.35, payment due $452.35
 Instalments above the year’s FBT: a credit at item 22 | FBT year ended 31 March 2026, a taxable employer, instalments reported $59,736.75; A 23D type 1 $40,779.82; C 23E type 2 $19,244.81 | fringe benefits taxable amount $121,142.00, tax payable $56,936.74, credit due $2,800.01
 
-One of the sixty-five business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the seventy-one business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
 
 ## Links
 
-- sixty-five business calculators: https://duguid.com.au/tools/business-calculators/
+- seventy-one business calculators: https://duguid.com.au/tools/business-calculators/

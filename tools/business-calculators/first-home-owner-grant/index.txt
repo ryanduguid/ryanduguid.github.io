@@ -105,7 +105,7 @@ A Victorian home built for $750,000 on $900,000 of land and building takes the c
 A New South Wales home built for less than the grant is refused | New South Wales, contract 1 August 2026, new home built under a contract, total value $400,000.00, building contract price $9,999.00, every eligibility fact stated | Refused: not computed: a value below the $10,000 grant; the New South Wales rule for that case was not confirmed
 The ACT pays nothing on a home built for less than any grant | Australian Capital Territory, contract 1 August 2026, new home built under a contract, total value $400,000.00, building contract price $5,000.00, every eligibility fact stated | Grant $0.00, the Australian Capital Territory has paid none since 1 July 2019
 
-One of the sixty-nine business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the seventy-one business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 ## Common questions
 
@@ -127,7 +127,7 @@ Planning estimates in AUD. Confirm tax treatment, liability amounts and dates se
 
 ## Links
 
-- sixty-nine business calculators: https://duguid.com.au/tools/business-calculators/
+- seventy-one business calculators: https://duguid.com.au/tools/business-calculators/
 - Transfer duty calculator: https://duguid.com.au/tools/business-calculators/transfer-duty/
 - First home super saver calculator: https://duguid.com.au/tools/individual-tax/fhss/
 - Transfer duty rates by state: https://duguid.com.au/rates/transfer-duty/

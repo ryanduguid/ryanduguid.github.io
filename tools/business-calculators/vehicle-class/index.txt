@@ -65,7 +65,7 @@ A payload that disagrees with the mass and kerb weight is refused | Passenger bo
 A modified vehicle without the manufacturer’s figures is refused | Passenger body, 5 seats, gross vehicle mass 3,000 kg, kerb weight 2,135 kg, modified, manufacturer’s figures unknown, 2026-27, price $75,000.00 | Refused: a modified vehicle is classified on its manufacturer’s figures from the compliance plate; without them this page cannot classify it
 Another body under 1 tonne is refused | Another body, 5 seats, gross vehicle mass 3,000 kg, kerb weight 2,135 kg, 2026-27, price $75,000.00 | Refused: whether this body was designed principally to carry passengers turns on its appearance, marketing and specifications (TD 94/19), which this page does not weigh
 
-One of the sixty-nine business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the seventy-one business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 ## Related
 
@@ -78,6 +78,6 @@ Planning estimates in AUD. Confirm tax treatment, liability amounts and dates se
 ## Links
 
 - FBT car calculator: https://duguid.com.au/tools/business-calculators/fbt-car/
-- sixty-nine business calculators: https://duguid.com.au/tools/business-calculators/
+- seventy-one business calculators: https://duguid.com.au/tools/business-calculators/
 - Car limit for depreciation: https://duguid.com.au/rates/car-limit/
 - Luxury car tax calculator: https://duguid.com.au/tools/business-calculators/luxury-car-tax/
